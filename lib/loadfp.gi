@@ -1,258 +1,205 @@
 ############################################################################
 ##
-##  loadfp.gi                    IRREDSOL                 Burkhard H\"ofling
+##  loadfp.gi                    IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
 
 
-############################################################################
-##
-#V  ABS_IRRED_FP_INDEX
-#V  ABS_IRRED_FP
-##
-##  fingerprint database file index and data list
-##  
-BindGlobal ("ABS_IRRED_FP_INDEX", []);
-BindGlobal ("ABS_IRRED_FP", []);
-BindGlobal ("ABS_IRRED_FP_ELMS", []);
+IRREDSOL_DATA.FP := [];
+IRREDSOL_DATA.FP_INDEX := [];
+IRREDSOL_DATA.FP_LOADED := [];
 
 
-############################################################################
-##
-#F  PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
-##
-##  returns the path of the fingerprint database index file, or
-##  fail if the file does not exist or is unreadable
-##  
-InstallGlobalFunction (PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
-	function (n, q)
-	
-		local pathname, filename, dirs, dir, inds, desc, gddesc, i;
-		
-		if n = 1 then
-			Error ("n must be at least 2");
-		fi;
-	
-		filename := Concatenation ("gl_", String (n), "_",String (q),".idx");
-			
-		dirs := DirectoriesPackageLibrary ("irredsol", "fps");
-		for dir in dirs do
-			pathname := Filename (dir, filename);
-			if IsReadableFile (pathname) then
-				return pathname;
-			fi;
-		od;
-		return fail;
-	end);
-	
-	
 ############################################################################
 ##
 #F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
-##
-##  returns true if the fingerprint data index is available
 ##  
 InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
 	function (n, q)
 	
-		if not IsPosInt (n) or not IsPosInt (q) or not IsPrimePowerInt (q)  then
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q)  then
 			Error ("n and q must be positive integers and q must be a prime power");
 		fi;
-		if n = 1 then 
-			return q < 65536;
-		else
-			return PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q) <> fail;
-		fi;
+		
+		return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q);
+		
 	end);
 	
 	
 ############################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
-##
-##  loads the fingerprint database index file
+#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
 	function (n, q)
 	
 		local pathname;
 		
-		if not IsPosInt (n) or not IsPosInt (q) or not IsPrimePowerInt (q)  then
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q)  then
 			Error ("n and q must be positive integers and q must be a prime power");
 		fi;
 		
 		if n = 1 then
-			if q > 65535 then
-				Error ("field size must not exceed 65535");
-			fi;
-			return;
+			return q <= 65535;
 		fi;
 		
-		if not IsBound (ABS_IRRED_FP_INDEX[n]) then
-			ABS_IRRED_FP_INDEX[n] := [];
+		if not IsBound (IRREDSOL_DATA.FP_INDEX[n]) then
+			IRREDSOL_DATA.FP_INDEX[n] := [];
 		fi;
 		
-		if not IsBound (ABS_IRRED_FP_INDEX[n][q]) then
-			pathname := PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n,q);
-			if pathname = fail then
-				Error("cannot access data file for irreducible groups of degree ", n, " over GF(",q,"). ",
-					"Maybe the parameters are out of range?");
+		if not IsBound (IRREDSOL_DATA.FP_INDEX[n][q]) then
+			pathname := Concatenation ("fp/gl_", String (n), "_",String (q),".idx");
+
+			Info (InfoIrredsol, 1, "Reading data file ", pathname);
+
+			if not ReadPackage ("irredsol", pathname) then
+				return false;
 			fi;
 			
-			Read (pathname);
 			
-			if not IsBound (ABS_IRRED_FP_INDEX[n][q]) then
+			if not IsBound (IRREDSOL_DATA.FP_INDEX[n][q]) then
 				Error ("Panic: reading data file didn't define required data");
 			fi;
-			MakeImmutable (ABS_IRRED_FP_INDEX[n][q]);
+			MakeImmutable (IRREDSOL_DATA.FP_INDEX[n][q]);
 			
 		fi;
-		return;
-	end);
-	
-
-############################################################################
-##
-#F  PathAbsolutelyIrreducibleSolvableGroupFingerprint(<n>, <q>, <k>)
-##
-##  returns the path to the k-th fingerprint data file for GL(n,q), 
-##  if it exists and is readable, or fail otherwise.
-##  
-InstallGlobalFunction (PathAbsolutelyIrreducibleSolvableGroupFingerprint,
-	function (n, q, k)
-	
-		local pathname, filename, dirs, dir, inds, desc, gddesc, i;
-		
-		if n = 1 then
-			Error ("n must be at least 2");
-		fi;
-	
-		filename := Concatenation ("gl_", String (n), "_",String (q),"_", String(k),".fpc");
-			
-		dirs := DirectoriesPackageLibrary ("irredsol", "fps");
-		for dir in dirs do
-			pathname := Filename (dir, filename);
-			if IsReadableFile (pathname) then
-				return pathname;
-			fi;
-		od;
-		return fail;
-	end);
-	
-
-############################################################################
-##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint(<n>, <q>, <o>)
-##
-##  returns true if the fingerprint data file for subgroups of order o of
-##  GL(n,q) exists and is readable
-##  
-InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint,
-	function (n, q, order)
-	
-		local pos, index;
-		if not IsPosInt (n) or not IsPosInt (q) or not IsPrimePowerInt (q) 
-			or not IsPosInt (order) then
-			Error ("n, q, and order must be positive integers and q must be a prime power");
-		fi;
-		if n = 1 then 
-			return q < 65536;
-		elif IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q) then
-			LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q);
-			pos := PositionSet (ABS_IRRED_FP_INDEX[n][q][1], order);
-			if pos = fail then
-				return true; # group is unique, up to conjugacy, no information stored
-			fi;
-			index := ABS_IRRED_FP_INDEX[n][q][2][pos]; # number of fp file
-			return PathAbsolutelyIrreducibleSolvableGroupFingerprint (n, q, index) <> fail;
-		else
-			return false;
-		fi;
+		return true;
 	end);
 	
 
 ###########################################################################
 ##
-#F  AbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <o>)
-##
-##  returns the fingerprint data for subgroups of order o of GL(n,q) 
-##  The fiongerprint data is a record with entries elms
-##  and fps. Elms is a set of lists of four integers
-##  fps is a list. Each entry corresponds to one fingerprint
-##  For each fingerprint, there is a list with three entries,
-##  the first being the group order (i.e., <o>), the second is a set of 
-##  integers from [1..Length (elms)], indicating
-##  which of the entries in elms is in the particular fingerprint
-##  The third is a list indicating the indices of the gropus
-##  having that fingerprint.
+#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction (AbsolutelyIrreducibleSolvableGroupFingerprintData,
-	function (n, q, order)
+InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+	function (n, q)
 	
-		local pathname, pos, index, i;
-		
-		if not IsPosInt (n) or not IsPosInt (q) or not IsPrimePowerInt (q)  then
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q)  then
 			Error ("n and q must be positive integers and q must be a prime power");
+		fi;
+		
+		if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q) then
+			Error ("Panic: missing fingerprint index file for GL(",n,", ", q, ")");
+		fi;
+	end);
+	
+	
+############################################################################
+##
+#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+##  
+InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData,
+
+	function (n, q, index)
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) 
+			or not IsPosInt (index) then
+				Error ("n, q, and index must be positive integers",
+					", and q must be a prime power");
+		fi;
+		
+		return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData (n, q, index);
+	end);
+	
+	
+###########################################################################
+##
+#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+##
+InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
+	function (n, q, index)
+	
+		local pathname, i;
+		
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) or not IsPosInt (index) then
+			Error ("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
 		fi;
 
 		if n = 1 then
-			return fail; # group is unique, up to conjugacy - no informations stored
+			return; # group is unique, up to conjugacy - no information stored
 		fi;
-
-		LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q);
-
-		pos := PositionSet (ABS_IRRED_FP_INDEX[n][q][1], order);
-		if pos = fail then
-			return fail; # group is unique, up to conjugacy, no information stored
-		fi;
-		index := ABS_IRRED_FP_INDEX[n][q][2][pos]; # number of fp file
-
-		if not IsBound (ABS_IRRED_FP[n]) then
-			ABS_IRRED_FP[n] := [];
+		
+		if not IsBound (IRREDSOL_DATA.FP[n]) then
+			IRREDSOL_DATA.FP[n] := [];
 		fi;
 			
-		if not IsBound (ABS_IRRED_FP[n][q]) then
-			ABS_IRRED_FP[n][q] := [];
+		if not IsBound (IRREDSOL_DATA.FP[n][q]) then
+			IRREDSOL_DATA.FP[n][q] := [];
 		fi;
 		
-		if not IsBound (ABS_IRRED_FP_ELMS[n]) then
-			ABS_IRRED_FP_ELMS[n] := [];
+		if not IsBound (IRREDSOL_DATA.FP_LOADED[n]) then
+			IRREDSOL_DATA.FP_LOADED[n] := [];
 		fi;
 		
-		if not IsBound (ABS_IRRED_FP_ELMS[n][q]) then
-			ABS_IRRED_FP_ELMS[n][q] := [];
+		if not IsBound (IRREDSOL_DATA.FP_LOADED[n][q]) then
+			IRREDSOL_DATA.FP_LOADED[n][q] := [];
 		fi;
-		if not IsBound (ABS_IRRED_FP[n][q][pos]) then
 		
-			pathname := PathAbsolutelyIrreducibleSolvableGroupFingerprint (n, q, index);
-			if pathname = fail then
-				Error("cannot access data file for irreducible groups of degree ", n, " over GF(",q,"). ",
-					"Maybe the parameters are out of range?");
-			fi;
+		if not IsBound (IRREDSOL_DATA.FP_LOADED[n][q][index]) then
 			
+			Unbind(IRREDSOL_DATA.FP_LOADED[n][q][index]); # if anything fails during loading
+				# we won't have inconsistencies
+	
+			pathname := Concatenation ("fp/gl_", String (n), "_",String (q),"_", String(index),".fp");
+
 			Info (InfoIrredsol, 1, "reading file ", pathname);
-			Read (pathname);
-			
-			if not IsBound (ABS_IRRED_FP[n][q][pos]) or not IsBound (ABS_IRRED_FP_ELMS[n][q][pos])then
-				Error ("Panic: reading data file didn't define required data");
+			if not ReadPackage ("irredsol", pathname) then
+				return false;
 			fi;
-			for i in [1..Length (ABS_IRRED_FP_INDEX[n][q][2])] do
-				if ABS_IRRED_FP_INDEX[n][q][2][i] = index then
-					MakeImmutable (ABS_IRRED_FP[n][q][i]);
+			
+			for i in [1..Length (IRREDSOL_DATA.FP_INDEX[n][q][2])] do
+				if IRREDSOL_DATA.FP_INDEX[n][q][2][i] = index then
+					MakeImmutable (IRREDSOL_DATA.FP[n][q][i]);
 				fi;
 			od;
+			IRREDSOL_DATA.FP_LOADED[n][q][index] := true;
 			
 		fi;
-		return rec (elms := ABS_IRRED_FP_ELMS[n][q][pos],
-					fps := ABS_IRRED_FP[n][q][pos]);
+		return true;
 	end);
 	
 		
+###########################################################################
+##
+#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+##  
+InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
+	function (n, q, index)
+	
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) or not IsPosInt (index) then
+			Error ("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
+		fi;
+		if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData (n, q, index) then
+			Error ("Panic: ", index, "-th fingerprint file for GL(",n,", ", q, ") is missing");
+		fi;
+	end);
+
+###########################################################################
+##
+#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprints(<n>, <q>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprints,
+	function (n, q)
+	
+		local i;
+		
+		if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) then
+			Error ("n and q must be positive integers, and q must be a prime power");
+		fi;
+	
+		LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q);
+		for i in Set (IRREDSOL_DATA.FP_INDEX[n][q][2]) do
+			LoadAbsolutelyIrreducibleSolvableGroupFingerprintData (n, q, i);
+		od;
+	end);
+	
+
 ###########################################################################
 ##
 #F  UnloadAbsolutelyIrreducibleSolvableGroupFingerprints(<arg>)
@@ -285,24 +232,20 @@ InstallGlobalFunction (UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
 		end;
 					
 		if Length (arg) = 0 then
-			MakeReadWriteGlobal ("ABS_IRRED_FP");
-			UnbindGlobal ("ABS_IRRED_FP");
-			BindGlobal ("ABS_IRRED_FP", []);
-			MakeReadWriteGlobal ("ABS_IRRED_FP_ELMS");
-			UnbindGlobal ("ABS_IRRED_FP_ELMS");
-			BindGlobal ("ABS_IRRED_FP_ELMS", []);
-			MakeReadWriteGlobal ("ABS_IRRED_FP_INDEX");
-			UnbindGlobal ("ABS_IRRED_FP_INDEX");
-			BindGlobal ("ABS_IRRED_FP_INDEX", []);
+			IRREDSOL_DATA.FP := [];
+			IRREDSOL_DATA.FP_INDEX := [];
+			IRREDSOL_DATA.FP_LOADED := [];
 		elif IsPosInt (arg[1]) and Length (arg) = 1 then
 			if arg[1] > 1 then
-				UnbindIfBound (ABS_IRRED_FP, arg[1]);
-				UnbindIfBound (ABS_IRRED_FP_INDEX, arg[1]);
+				UnbindIfBound (IRREDSOL_DATA.FP, arg[1]);
+				UnbindIfBound (IRREDSOL_DATA.FP_INDEX, arg[1]);
+				UnbindIfBound (IRREDSOL_DATA.FP_LOADED, arg[1]);
 			fi;
-		elif Length (arg) = 2 and IsPosInt (arg[1]) and IsPrimePowerInt (arg[2]) and arg[2] <> 1 then
+		elif Length (arg) = 2 and IsPosInt (arg[1]) and IsPPowerInt (arg[2]) and arg[2] <> 1 then
 			if arg[1] > 1 then
-				UnbindIfBound (ABS_IRRED_FP, arg[1], arg[2]);
-				UnbindIfBound (ABS_IRRED_FP_INDEX, arg[1], arg[2]);
+				UnbindIfBound (IRREDSOL_DATA.FP, arg[1], arg[2]);
+				UnbindIfBound (IRREDSOL_DATA.FP_INDEX, arg[1], arg[2]);
+				UnbindIfBound (IRREDSOL_DATA.FP_LOADED, arg[1], arg[2]);
 			fi;
 		else
 			Error ("Usage: `UnloadAbsolutelyIrreducibleSolvableGroupFingerprints ( [n [, q]] )'");
@@ -322,11 +265,11 @@ InstallGlobalFunction (LoadedAbsolutelyIrreducibleSolvableGroupFingerprints,
 		local n, p, data, fields;
 		
 		data := [];
-		for n in [1..Length (ABS_IRRED_FP)] do
-			if IsBound (ABS_IRRED_FP[n]) then
+		for n in [1..Length (IRREDSOL_DATA.FP)] do
+			if IsBound (IRREDSOL_DATA.FP[n]) then
 				fields := [];
-				for p in [1..Length (ABS_IRRED_FP[n])] do
-					if IsBound (ABS_IRRED_FP[n][p]) then
+				for p in [1..Length (IRREDSOL_DATA.FP[n])] do
+					if IsBound (IRREDSOL_DATA.FP[n][p]) then
 						Add (fields, p);
 					fi;
 				od;
