@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  advanced.tex         IRREDSOL documentation           Burkhard H\"ofling
+%%
+%%  @(#)$Id$
+%%
+%%  Copyright (C) 2003 by Burkhard H\"ofling, 
+%%  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
+%%  Technische Universit\"at Braunschweig, Germany
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Advanced information}
+
+This chapter gives some additional information about the {\IRREDSOL} library.
+It describes details about the library design (see "Design of the group library")
+and some advanced functions for managing data in the GAP workspace, which may be
+useful if you run out of memory. See "Loading and unloading group data manually"
+and "Loading and unloading recognition data manually".
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Design of the group library}
+
+To avoid redundancy, the package {\IRREDSOL} does not store 
+lists of irreducible subgroups of $GL(<n>, <q>)$ but
+only has lists ${\cal
+A}_{n,q}$ of subgroups of $GL(<n>, <q>)$ such that
+
+\beginlist
+\item{--} each group in ${\cal A}_{n,q}$ is absolutely irreducible and
+solvable
+
+\item{--} ${\cal A}_{n,q}$ contains a conjugate of each absolutely
+irreducible solvable subgroup of
+
+\item{--} no two subgroups of ${\cal A}_{n,q}$ are conjugate
+
+\item{--} no conjugate of $G$ is a subgroup of $GL(n, q_0)$, where
+$GF(q_0)$ is a proper subfield of $GF(q)$.
+
+\endlist Here, ``conjugate'' means ``conjugate in $GL(n,q)$''. We will
+briefly say that ${\cal A}_{n,q}$ contains, up to conjugacy, all absolutely
+irreducible solvable subgroups of $GL(n,q)$ which cannot be written over a
+proper subfield.
+
+These lists are sufficient to reconstruct lists of irreducible soluble
+subgroups of $GL(n, q)$, since  any such subgroup can be obtained from an
+absolutely irreducible subgroup of $GL(n/d, q^d)$, where $d$ divides $n$,
+by regarding the underlying $\F_{q^d}$-vector space as an $\F_q$-vector
+space. Note that two subgroups of $GL(n, q)$ constructed in that way are
+conjugate if, and only if, the images of the corresponding subgroups of
+under Galois automorphisms of $\F_{q^d}/\F_q$ are conjugate in $GL(n/d, q^d)$.
+This information also forms part of the {\IRREDSOL} library.
+
+Note that by the Deuring-Noether theorem, two subgroups of $GL(n, q)$ are
+conjugate in $GL(n, q)$ if, and only if, they are conjugate in $GL(n, q^d)$
+for some $d > 1$. This ensures that lists of irreducible subgroups obtained
+from the ${\cal A}_{n,q}$ do not contain conjugate subgroups. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Loading and unloading group data manually}
+
+The functions in this section are not required for normal use of the data library.
+They are only relevant if timing or conservation of memory is an issue.
+\index{workspace!running out of}
+
+\>LoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>) F
+
+This function loads the data for $GL(<n>, <q>)$ into memory and does some pre-processing. If the data
+is already loaded, the function does nothing. This function is called automatically when you access the
+{\IRREDSOL} library, so most users  will not need this function.
+
+\>`LoadedAbsolutelyIrreducibleSolvableGroupData()'%
+{LoadedAbsolutelyIrreducibleSolvableGroupData}%
+@{`LoadedAbsolutelyIrreducibleSolvable\\GroupData'} F
+
+This function returns a list. Each entry consists of an integer <n> and a set <l>. The set
+<l> contains all prime powers <q> such that the group data for $GL(<n>, <q>)$ is currently in memory.
+
+\>`UnloadAbsolutelydIrreducibleSolvableGroupData([n [,q]])'%
+{UnloadAbsolutelydIrreducibleSolvableGroupData}%
+@{`UnloadAbsolutelydIrreducibleSolvable\\GroupData'} F
+
+This function can be used to delete data for irreducible groups from the GAP workspace. If no argument
+is given, all data will be deleted. If only <n> is given, all data for degree <n> (and any <q>) will
+be deleted. If <n> and <q> are given, only the data for $GL(n, q)$ will be deleted from the GAP
+workspace. Use this function if you run out of GAP workspace. The
+data is automatically re-loaded when required.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Loading and unloading recognition data manually}
+
+The functions in this section are not required for normal use of the data library.
+They are only relevant if timing or conservation of memory is an issue.
+\index{workspace!running out of}
+
+\>`LoadedAbsolutelyIrreducibleSolvableGroupFingerprints()'%
+{LoadedAbsolutelyIrreducibleSolvableGroupFingerprints}%
+@{`LoadedAbsolutelyIrreducibleSolvableGroup\\Fingerprints'} F
+
+This function returns a list. Each entry consists of an integer <n> and a set <l>. The set
+<l> contains all prime powers <q> such that the recognition data for $GL(<n>, <q>)$ is currently in
+memory.
+
+\>`UnloadAbsolutelyIrreducibleSolvableGroupFingerprints([n [,q]])'%
+{UnloadAbsolutelyIrreducibleSolvableGroupFingerprints}%
+@{`UnloadAbsolutelyIrreducibleSolvableGroup\\Fingerprints'} F
+
+This function can be used to delete recognition for irreducible groups from the GAP workspace. If no
+argument is given, all data will be deleted. If only <n> is given, all data for degree <n> (and any
+<q>) will be deleted. If <n> and <q> are given, only the data for $GL(n, q)$ will be deleted from the
+GAP workspace. Use this function if you run out of GAP workspace. The
+data is automatically re-loaded when required.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E  
+%%

@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  overview.tex         IRREDSOL documentation           Burkhard H\"ofling
+%%
+%%  @(#)$Id$
+%%
+%%  Copyright (C) 2003 by Burkhard H\"ofling, 
+%%  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
+%%  Technische Universit\"at Braunschweig, Germany
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Overview}
+
+
+Let $n$ be a positive integer and $q$ a prime power satisfying  $q^n \leq
+2^{16}-1$. The package {\IRREDSOL} constitutes a library of irreducible
+solvable subgroups of $GL(n, q)$, such that each irreducible solvable
+subgroup of
+$GL(n, q)$ is conjugate to precisely one group in the library. 
+
+This data base is
+intended to replace and extend  the data base of irreducible matrix groups
+over prime fields created by Mark Short \cite{Sho} which is also part of
+{\GAP}. There are functions available to translate from Mark Short's
+numbering of groups to the numbering used in {\IRREDSOL} and back; see
+"Compatibility with other data libraries".
+
+It is possible to construct groups in this list one at a time (see "low
+level access functions"), by supplying four integer parameters identifying
+the group in question. In addition, there are functions which facilitate 
+searching the library for groups with given properties (see "Finding
+matrix groups with given properties").
+
+Given an irreducible solvable matrix group <G>, it is possible
+to find the group in the library to which <G> is conjugate, see
+"identification of irreducible groups" and "identification of absolutely
+irreducible groups".
+
+Finally, the {\IRREDSOL} package provides additional functionality
+for matrix groups, such as the computation of imprimitivity systems.
+
+The methods used to construct the data base are slight modifications of
+those described by Bettina Eick and the author in \cite{EH}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E  
+%%

@@ -1,0 +1,77 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  manual.tex            IRREDSOL documentation           Burkhard H\"ofling
+%%
+%%  @(#)$Id$
+%%
+%%  Copyright (C) 2003 by Burkhard H\"ofling, 
+%%  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
+%%  Technische Universit\"at Braunschweig, Germany
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input ../../../doc/gapmacro.tex
+\Package{IRREDSOL}
+\def\\{\discretionary{\char92}{}{}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\BeginningOfBook{irredsol}
+  \UseReferences{../../../doc/ref}
+  \TitlePage{
+    \vfill
+    \centerline{\titlefont IRREDSOL}
+    \bigskip
+    \bigskip
+    \bigskip
+    \centerline{\subtitlefont Version 0.9}
+    \bigskip
+    \bigskip
+    \bigskip
+    \centerline{\subtitlefont A library of }
+    \medskip
+    \centerline{\subtitlefont irreducible solvable matrix groups}
+    \medskip
+    \centerline{\subtitlefont over finite fieldss}
+    \bigskip
+    \bigskip
+    \bigskip
+    \bigskip
+    \centerline{\subtitlefont Burkhard H{\accent 127 o}f{}ling}
+    \bigskip
+    \centerline{\bsf Institut f{\accent 127 u}r Geometrie, Algebra und Diskrete
+       Mathematik}
+    \centerline{\bsf Technische Universit{\accent 127 a}t}
+	   \centerline{\bsf Braunschweig, Germany}
+    \centerline{\bsf \Mailto{b.hoefling@tu-bs.de}}
+    \vfill
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \TableOfContents
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \FrontMatter
+  
+\immediate\write\citeout{\bs bibdata{manual}} 
+%    \Input{copyright}
+%    \Input{preface}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \Chapters
+  
+ \Input{overview}
+ \Input{access}
+ \Input{recognition}
+ \Input{matgroups}
+ \Input{advanced}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \Appendices     % don't uncomment - this is needed for the online manual
+  
+    \Bibliography
+    \Index
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\EndOfBook
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E
+%%

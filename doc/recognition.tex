@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  recognition.tex        IRREDSOL documentation          Burkhard H\"ofling
+%%
+%%  @(#)$Id$
+%%
+%%  Copyright (C) 2003 by Burkhard H\"ofling, 
+%%  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
+%%  Technische Universit\"at Braunschweig, Germany
+%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Recognition of matrix groups}
+
+This chapter describes some functions which, given an irreducible matrix 
+group, identify a group in the {\IRREDSOL} library which is conjugate
+to that group. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Identification of irreducible groups}
+
+\>IdIrreducibleSolvableMatrixGroupAvailable(<G>) F
+
+This function returns true if `IdIrreducibleSolvableMatrixGroup' (see
+"IdIrreducibleSolvableMatrixGroup" will work for the group <G>.
+
+
+\>IdIrreducibleSolvableMatrixGroup(<G>) A
+
+If the matrix group <G> is solvable and irreducible over $F
+= `FieldOfMatrixGroup'(<G>)$, (see "ref:FieldOfMatrixGroup"), and a conjugate in
+$GL(<n>, <F>)$ of $<G>$ belongs to the database of  irreducible solvable groups in
+{\IRREDSOL}, this function returns a list `[<n>, <q>, <d>, <k>]' such that <G> is
+conjugate to  `IrreducibleSolvableMatrixGroup'(<n>, <q>, <d>, <k>) (see
+"IrreducibleSolvableMatrixGroup").
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Identification of absolutely irreducible groups}
+
+\>`IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable(<G>)'%
+{IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable}%
+@{`IdAbsolutelyIrreducibleSolvable\\MatrixGroupAvailable'} F
+
+This function returns true if `IdAbsolutelyIrreducibleSolvableMatrixGroup' (see
+"IdAbsolutelyIrreducibleSolvableMatrixGroup" will work for the group <G>.
+
+
+\>IdAbsolutelyIrreducibleSolvableMatrixGroup(<G>) A
+
+If the matrix group <G> is solvable and absolutely irreducible, and if 
+ a conjugate in
+$GL(<n>, <F>)$ of $<G>$ belongs to the database of  irreducible solvable groups in
+{\IRREDSOL}, this function returns a list `[<n>, <q>, <k>]' such that <G> is
+conjugate to  `AbsolutelyIrreducibleSolvableMatrixGroup'(<n>, <q>, <k>) (see
+"AbsolutelyIrreducibleSolvableMatrixGroup").
+
+
+\>`RecognitionAbsolutelyIrreducibleSolvableMatrixGroup(%
+   <G>, <wantmat>, <wantgroup>)'%
+{RecognitionAbsolutelyIrreducibleSolvableMatrixGroup}%
+@{`RecognitionAbsolutelyIrreducibleSolvable\\MatrixGroup'} F
+\>`RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC(%
+   <G>, <wantmat>,<wantgroup>)'%
+{RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC}%
+@{`RecognitionAbsolutelyIrreducibleSolvable\\MatrixGroupNC'} F
+
+Let G be an absolutely irreducible solvable matrix group over a finite field. 
+Theses functions identify a conjugate H of G group in the library. 
+They return a record which has the following entries:
+\beginitems
+`id' &  contains the id of H (and thus of
+G); cf. `IdAbsolutelyIrreducibleSolvableMatrixGroup'
+("IdAbsolutelyIrreducibleSolvableMatrixGroup"
+
+`mat' (optional) &
+a
+matrix <x> such that $G^x = H$
+
+`group' (optional) & the group H 
+
+\enditems
+The entries `mat' and `group' are only present if the booleans <wantmat> and/or
+<wantgroup> are true, respectively. Note that in most cases, the function may 
+be much slower if wantmat is set to true.  
+
+The `NC' version does not check its arguments. It returns `fail' if
+the group <G> is beyond the scope of the IRREDSOL library; see
+`IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable'
+("IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable"), while the
+ordinary version raises an error in this case.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Compatibility with other data libraries}
+
+A library of irreducible solvable subgroups of $GL(n, p)$, where $p$ is a 
+prime and $p^n leq 255$ already exists in GAP. The following functions
+allow to translate between these libraries. 
+
+
+\>IdIrreducibleSolvableMatrixGroupIndexMS(<n>, <p>, <k>) F
+
+This function returns the id (see "IdIrreducibleSolvableMatrixGroup") of <G>, 
+where <G> is `IrreducibleSolvableGroupMS'(<n>, <p>, <k>) (see "ref:IrreducibleSolvableGroupMS").
+
+
+\>IndexMSIdIrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>) F
+
+This function returns a triple [<n>, <p>, <l>] such that
+`IrreducibleSolvableGroupMS'(<n>, <p>, <l>)' (see "ref:IrreducibleSolvableGroupMS") is conjugate to
+`IrreducibleSolvableMatrixGroup'(<n>, <q>, <d>, <k>) (see "IrreducibleSolvableMatrixGroup").
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E
+%%

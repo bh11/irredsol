@@ -1,0 +1,237 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  access.tex            IRREDSOL documentation           Burkhard H\"ofling
+%%
+%%  @(#)$Id$
+%%
+%%  Copyright (C) 2003 by Burkhard H\"ofling, 
+%%  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
+%%  Technische Universit\"at Braunschweig, Germany
+%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Chapter{Accessing the data library}
+
+This chapter describes various ways of accessing groups in the data library.
+It is possible to access individual groups in the lists provided  (see
+Section  "Low level access functions"), or to search for groups with certain
+properties (see Section "Finding matrix groups with given properties"). 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Low level access functions}
+
+The access functions described in this section allow
+to check for the availability of data, the number of groups in each list
+${\cal A}_{n,q}$, individual groups in such a 
+list, and the corresponding irreducible but not absolutely irreducible 
+groups  (see Chapter "Overview").
+
+\>`IsAvailableIrreducibleSolvableGroupData(<n>, <q>)'%
+{IsAvailableIrreducibleSolvableGroupData}%
+@{`IsAvailableIrreducibleSolvable\\GroupData'} F
+
+This function tests whether the irreducible solvable subgroup of $GL(n,q)$ which
+cannot be written over a proper subfield of $\F_q$ are part of the {\IRREDSOL} library.
+
+
+\>IndicesIrreducibleSolvableMatrixGroups(<n>, <q>, <d>) F
+
+Let <n>, <d> be positive integers and <q> a prime power. This
+function returns a set of integers parametrising the groups in the {\IRREDSOL} library
+which are subgroups of $GL(n,q)$ that cannot be written over a proper subfield of $\F_q$
+and have splitting field $\F_{q^d}$. This set is empty unless <d> divides <n>. An error is raised if the relevant
+data is not available (see "IsAvailableIrreducibleSolvableGroupData" for information 
+how to check this first).
+
+
+\>IrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>) F
+
+Let <n> be a  positive integer and <q> a prime power. This
+function returns the <k>-th irreducible solvable subgroup of $GL(n,q)$ which
+cannot be written over a proper subfield of $\F_q$. 
+An error is raised if the relevant
+data is not available (see "IsAvailableIrreducibleSolvableGroupData" for information 
+how to check this first), or if <k> is not in  
+`IndicesIrreducibleSolvableMatrixGroups'(<n>, <q>, <d>) 
+(see "IndicesIrreducibleSolvableMatrixGroups").
+
+
+\>`IsAvailableAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)'%
+{IsAvailableAbsolutelyIrreducibleSolvableGroupData}%
+@{`IsAvailableAbsolutelyIrreducibleSolvable\\GroupData'} F
+
+This function tests whether the
+absolutely irreducible solvable subgroup of $GL(n,q)$ which
+cannot be written over a proper subfield of $\F_q$ are in the {\IRREDSOL} library.
+
+
+\>`IndicesAbsolutelyIrreducibleSolvableMatrixGroups(<n>, <q>)'%
+{IndicesAbsolutelyIrreducibleSolvableMatrixGroups}%
+@{`IndicesAbsolutelyIrreducibleSolvable\\MatrixGroups'} F
+
+Let <n> be a  positive integer and <q> a prime power. This
+function returns a set of integers parametrising the absolutely irreducible groups in the
+{\IRREDSOL} library which are subgroups of $GL(n,q)$ that cannot be written over a proper
+subfield of
+$\F_q$.
+
+
+\>AbsolutelyIrreducibleSolvableMatrixGroup(<n>, <q>, <k>) F
+
+Let <n> be a  positive integer and <q> a prime power. This
+function returns the <k>-th absolutely irreducible solvable subgroup of $GL(n,q)$ which
+cannot be written over a proper subfield of $\F_q$. An error is raised if the relevant
+data is not available (see "IsAvailableAbsolutelyIrreducibleSolvableGroupData" for information 
+how to check this first), or if <k> does not lie in
+`IndicesAbsolutelyIrreducibleSolvableMatrixGroups'(<n>, <q>)
+(see "IndicesAbsolutelyIrreducibleSolvableMatrixGroups").
+
+
+\>`IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups(<n>, <q>)'%
+{IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups}%
+@{`IndicesMaximalAbsolutelyIrreducible\\Solvable\\MatrixGroups'} F
+
+Let <n> be a  positive integer and <q> a prime power. This
+function returns a set of integers parametrising the absolutely irreducible groups in the
+{\IRREDSOL} library which are subgroups of $GL(n,q)$ that cannot be written over a proper
+subfield of
+$\F_q $and which is maximal with
+respect to being solvable. An error is raised if the relevant
+data is not available (see "IsAvailableAbsolutelyIrreducibleSolvableGroupData" for information 
+how to check this first).
+
+\beginexample
+gap> Reread("/Macintosh HD/Applications (Mac OS 9)/gap/4.0/pkg/irredsol/lib/loading.gi");
+gap> inds := IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups (2,3);
+[ 2 ] # there is only one maximal solvable subgroup of GL(2,3)
+gap> max := AbsolutelyIrreducibleSolvableMatrixGroup (2,3,2); # construct it
+Group([ [ [ Z(3), 0*Z(3) ], [ 0*Z(3), Z(3)^0 ] ], [ [ Z(3)^0, Z(3) ], [ 0*Z(3), Z(3)^0 ] ], 
+  [ [ Z(3), Z(3)^0 ], [ Z(3)^0, Z(3)^0 ] ], [ [ 0*Z(3), Z(3)^0 ], [ Z(3), 0*Z(3) ] ], 
+  [ [ Z(3), 0*Z(3) ], [ 0*Z(3), Z(3) ] ] ])
+gap> max = GL(2,3); # it is the whole GL
+true
+\endexample
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Finding matrix groups with given properties}
+
+This section describes three functions
+(`AllIrreducibleSolvableMatrixGroups',
+`OneIrreducibleSolvableMatrixGroup',
+`IteratorIrreducibleSolvableMatrixGroups') which allow you to find matrix
+groups with special properties. These functions are usually more efficient
+than to construct each group in the library using the functions in Section
+"Low level access functions".
+
+\>AllIrreducibleSolvableMatrixGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
+
+This function returns a list of all irreducible solvable matrix
+groups <G> in the {\IRREDSOL} library for which the return value of $<func_i>(G)$ lies in
+<arg_i>.  The arguments <func_1>, <func_2>, \dots,
+must be {\GAP} functions which takes matrix group as its only argument and returns a
+value, and <arg_1>, <arg_2>,
+\dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list
+`[<arg_i>]'. One of the functions must be `DegreeOfMatrixGroup' (or one of its
+equivalents, see below), and one function must be  `FieldOfMatrixGroup' (or `Field'). All
+groups <G> in the data library have the property that they cannot be written over a
+subfield of $`FieldOfMatrixGroup'(<G>)$; see Chapter~"Overview" for details. 
+
+Note that there is also a function `IteratorIrreducibleSolvableMatrixGroups' (see
+"IteratorIrreducibleSolvableMatrixGroups") which allows to run through the list produced by
+`AllIrreducibleSolvableMatrixGroups' without having to store all of the groups
+simultaneously.
+
+The following functions <func_i> are handled particularly efficiently. For the
+definitions of most of these functions, see Chapter~"Additional functionality for matrix
+groups".
+
+\beginlist
+
+\item{--} `DegreeOfMatrixGroup' (or `Degree', `Dimension', `DimensionOfMatrixGroup'), 
+\item{--} `CharacteristicOfField' (or `Characteristic')
+\item{--} `FieldOfMatrixGroup' (or `Field')
+\item{--} `Order' (or `Size')
+\item{--} `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' 
+\item{--} `IsAbsolutelyIrreducibleMatrixGroup' (or `IsAbsolutelyIrreducible')
+\item{--} `MinimalBlockDimensionOfMatrixGroup' (or `MinimalBlockDimension')
+\item{--} `IsPrimitiveMatrixGroup' (or `IsPrimitive', `IsLinearlyPrimitive')
+
+\endlist
+Except for groups which are irreducible but not absolutely irreducible and functions
+`MinimalBlockDimensionOfMatrixGroup' and `IsPrimitiveMatrixGroup' (or their
+equivalents), the return values of the above functions can be read off the
+{\IRREDSOL} library without actually constructing the relevant matrix group.
+But even in this last case, some groups can be ruled out before constructing
+them.
+
+\beginexample
+# get just those groups which cannot be written over GF(3)
+gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 1, Field, GF(9));;
+gap> List (l, Order);
+[ 4, 8 ]
+# get all irreducible subgroups
+gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 1, Field, Subfields (GF(9)));;
+gap> List (l, Order);
+[ 1, 2, 4, 8 ]
+# get only maximal absolutely irreducible ones
+gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 4, Field, GF(3),
+>             IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup, true);
+gap> SortedList (List (l, Order));
+[ 320, 640, 2304, 4608 ]
+gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 4, Field, GF(3),
+> IsAbsolutelyIrreducibleMatrixGroup, true);;
+gap> Collected (List (l, Order));
+[ [ 20, 1 ], [ 32, 7 ], [ 40, 2 ], [ 64, 10 ], [ 80, 2 ], [ 96, 6 ], 
+  [ 128, 9 ], [ 160, 3 ], [ 192, 9 ], [ 256, 6 ], [ 288, 1 ], [ 320, 2 ], 
+  [ 384, 4 ], [ 512, 1 ], [ 576, 3 ], [ 640, 1 ], [ 768, 1 ], [ 1152, 4 ], 
+  [ 2304, 3 ], [ 4608, 1 ] ]
+\endexample
+
+\>OneIrreducibleSolvableMatrixGroup(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
+
+This function returns a matrix group <G> from the {\IRREDSOL} library such that
+$<func_i>(G)$ lies in <arg_i>, or `fail' if no such group exists. The arguments <func_1>,
+<func_2>, \dots, must be {\GAP} functions taking one argument and returning a value, and
+<arg_1>, <arg_2>, \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by
+the list `[<arg_i>]'. One of the functions must be `DegreeOfMatrixGroup' (or one of its
+equivalents, see below), and one function must be  `FieldOfMatrixGroup' (or `Field'). All
+groups <G> in the data library have the property that they cannot be written over a
+subfield of $`FieldOfMatrixGroup'(<G>)$; see Chapter~"Overview" for details. 
+
+For a list of functions which are handled particularly efficiently, see
+`AllIrreducibleSolvableMatrixGroups' ("AllIrreducibleSolvableMatrixGroups").
+
+\>IteratorIrreducibleSolvableMatrixGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
+
+This function returns an iterator which runs through the list of all matrix groups <G>
+in the  {\IRREDSOL} library such that
+$<func_i>(G)$ lies in <arg_i>. The arguments <func_1>, <func_2>, \dots,
+must be {\GAP} functions taking one argument and returning a value, and <arg_1>, <arg_2>, \dots, 
+must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list `[<arg_i>]'.
+One of the functions must be `DegreeOfMatrixGroup' (or one of its equivalents, see below), and one
+function must be  `FieldOfMatrixGroup' (or `Field'). 
+
+For a list of functions which are handled particularly efficiently, see
+`AllIrreducibleSolvableMatrixGroups' ("AllIrreducibleSolvableMatrixGroups").
+
+Using 
+
+`IteratorIrreducibleSolvableMatrixGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots)) 
+
+is functionally equivalent to 
+
+`Iterator'(`AllIrreducibleSolvableMatrixGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots))
+
+(see "ref:Iterators" for details) but does not compute all relevant matrix groups at the same time. 
+This may save some memory. 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%E
+%%
