@@ -1,12 +1,12 @@
 ############################################################################
 ##
-##  util.gd                      IRREDSOL                 Burkhard H\"ofling
+##  util.gd                      IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
 
 
@@ -80,59 +80,21 @@ DeclareGlobalFunction ("ExponentsCanonicalPcgsByNumber");
 
 ############################################################################
 ##
-#V  GENS_EXT_AFF
-##
-##  This variable caches the return values of GeneratorsOfExtendedAffineGroup
-##  (see below)
-##  
-DeclareGlobalVariable ("GENS_EXT_AFF");
-
-
-############################################################################
-##
-#F  GeneratorsOfExtendedAffineGroup(q, n)
-##
-##  Let q be a prime power and n an integer. This function returns a 
-##  record with entries genmul and gengal.
-##
-##  Both are n x n matrices over GF(q). genmul is the action of
-##  a generator of the multiplicative group of GF(q^n), regarded as a vector 
-##  space over GF(q). gengal is a matrix describing the action of a generator
-##  of the Galois group of GF(q^n)/GF(q) on that vector space.
-##  
-DeclareGlobalFunction ("GeneratorsOfExtendedAffineGroup");
-
-
-############################################################################
-##
-#F  AsMatrixListOverSubield(list, n, q)
-##
-##  list must be a list of square matrices of the same size d over GF(q^n),
-##  where q is a prime power and n a positive integer.
-##
-##  This function rewrites each matrix in list as a matrix acting on
-##  GF(q^n)^d, regarded as a GF(q)-vector space.
-##  
-DeclareGlobalFunction ("AsMatrixListOverSubield");
-
-
-############################################################################
-##
-#O  IsSubfield(<E>, <F>)
-##
-##  checks whether F is a subfield of E
-##  
-DeclareOperation ("IsSubfield", [IsField, IsField]);
-
-
-############################################################################
-##
 #F  IsMatGroupOverFieldFam(famG, famF)
 ##
 ##  tests whether famG is the collections family of matrices over the field
 ##  whose family is famF
 ##  
 DeclareGlobalFunction ("IsMatGroupOverFieldFam");
+
+
+############################################################################
+##
+#F  IsPPowerInt(q)
+##
+##  tests whether q is a prime power, caching new prime powers
+##  
+DeclareGlobalFunction ("IsPPowerInt");
 
 
 ############################################################################
