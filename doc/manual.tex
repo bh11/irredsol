@@ -1,20 +1,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%  manual.tex            IRREDSOL documentation           Burkhard H\"ofling
+%%  manual.tex            IRREDSOL documentation           Burkhard Hoefling
 %%
 %%  @(#)$Id$
 %%
-%%  Copyright (C) 2003 by Burkhard H\"ofling, 
-%%  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-%%  Technische Universit\"at Braunschweig, Germany
+%%  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+%%  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+%%  Technische Universitaet Braunschweig, Germany
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input ../../../doc/gapmacro.tex
+\newif\ifsymlinks
+\symlinkstrue
+\ifsymlinks
+   \input gapmacro.tex
+\else
+   \input ../../../doc/gapmacro.tex
+\fi
 \Package{IRREDSOL}
+\Package{CRISP}
 \def\\{\discretionary{\char92}{}{}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \BeginningOfBook{irredsol}
-  \UseReferences{../../../doc/ref}
+  \ifsymlinks
+     \UseReferences{crisp/doc}
+     \UseReferences{doc/ref}
+  \else
+     \UseReferences{../../../doc/ref}
+     \UseReferences{../../crisp/doc}
+  \fi
   \TitlePage{
     \vfill
     \centerline{\titlefont IRREDSOL}
@@ -29,7 +42,7 @@
     \medskip
     \centerline{\subtitlefont irreducible solvable matrix groups}
     \medskip
-    \centerline{\subtitlefont over finite fieldss}
+    \centerline{\subtitlefont over finite fields}
     \bigskip
     \bigskip
     \bigskip
@@ -61,7 +74,6 @@
  \Input{recognition}
  \Input{primitive}
  \Input{matgroups}
- \Input{advanced}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \Appendices     % don't uncomment - this is needed for the online manual
