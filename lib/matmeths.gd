@@ -1,43 +1,46 @@
 ############################################################################
 ##
-##  matmeths.gd                  IRREDSOL                 Burkhard H\"ofling
+##  matmeths.gd                  IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
 
 
 ############################################################################
 ##
 #P  IsIrreducibleMatrixGroup(<G>)
-#P  IsIrreducibleMatrixGroup(<G>, <F>)
+#O  IsIrreducibleMatrixGroup(<G>, <F>)
 #O  IsIrreducible(<G>, <F>)
 ##
 ##  see IRREDSOL documentation
-##  
+##
+##  IsIrreducible(<G>) is declared in the GAP library
+##
 DeclareProperty ("IsIrreducibleMatrixGroup", IsMatrixGroup);
 KeyDependentOperation ("IsIrreducibleMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
 DeclareOperation ("IsIrreducible", [IsMatrixGroup, IsField]);
 
 ############################################################################
 ##
-#P  IsAbsolutelyIrreducible(<G>)
-#P  IsAbsolutelyIrreducibleMatrixGroup(<G>, <F>)
+#O  IsAbsolutelyIrreducible(<G>)
+#P  IsAbsolutelyIrreducibleMatrixGroup(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareProperty ("IsAbsolutelyIrreducible", IsMatrixGroup);
+DeclareOperation ("IsAbsolutelyIrreducible", [IsMatrixGroup]);
 DeclareProperty ("IsAbsolutelyIrreducibleMatrixGroup", IsMatrixGroup);
+
 
 ############################################################################
 ##
 #P  IsPrimitiveMatrixGroup(<G>)
-#P  IsPrimitiveMatrixGroup(<G>, <F>)
-#P  IsPrimitiveM(<G>)
-#O  IsPrimitiveM(<G>, <F>)
+#O  IsPrimitiveMatrixGroup(<G>, <F>)
+#P  IsPrimitive(<G>)
+#O  IsPrimitive(<G>, <F>)
 ##
 ##  see IRREDSOL documentation
 ##  
@@ -55,6 +58,8 @@ DeclareOperation ("IsPrimitive", [IsMatrixGroup, IsField]);
 ##
 ##  see IRREDSOL documentation
 ##  
+##  MinimalBlockDImension(<G>) is an attribute declared in the GAP library
+##
 DeclareAttribute ("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup);
 KeyDependentOperation ("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
 DeclareOperation ("MinimalBlockDimension", [IsMatrixGroup, IsField]);
@@ -66,6 +71,8 @@ DeclareOperation ("MinimalBlockDimension", [IsMatrixGroup, IsField]);
 ##
 ##  see IRREDSOL documentation
 ##  
+##  Characteristic(<G>) is defined in the GAP library
+##
 DeclareAttribute ("CharacteristicOfField", IsMatrixGroup);
 
 
@@ -101,21 +108,20 @@ DeclareGlobalFunction ("SmallBlockDimensionOfRepresentation");
 
 ############################################################################
 ##
-#F  ImprimitivitySystemsForRepresentation(G, rep, F)
+#F  ImprimitivitySystemsForRepresentation(G, rep, F, limit)
 ##  
 ##  G is a group, F a finite field, rep: G -> GL(n, F)
-##  The function computes a list of all imprimitivity systems of Im rep as a 
-##  subgroup of GL(n, F). 
+##  
+##  If G has no block system with block dimension <= limit, the function 
+##  computes a list of all imprimitivity systems of Im rep as a 
+##  subgroup of GL(n, F). Otherwise, the function computes systems of imprimitivity,
+##  one of which will have block dimension <= limit.
 ##
 ##  Each imprimitivity system is represented by a record with the following entries:
-##  bases: a list of lists of vectors, each list of vectors being a basis of a block in the imprimitivity system
+##  bases: a list of lists of vectors, each list of vectors being a basis of a block 
+##         in the imprimitivity system
 ##  stab1: the stabilizer in G of the first block (i. e., the block with basis bases[1])
-##  min:   true if the block system is a minimal block system
-##
-## 	Note that ImprimitivitySystemsForRepresentation is not particularly efficient for groups with
-##	many imprimitivity systems, because conjugate subgroups may occur in recursive calls to
-##  this function. This happens if such a subgroup belongs to several conjugacy class representatives
-## 	of maximal subgrous
+##  min:   true if the block system is a minimal block system amongst the systems returned
 ##
 DeclareGlobalFunction ("ImprimitivitySystemsForRepresentation");
 
@@ -123,25 +129,12 @@ DeclareGlobalFunction ("ImprimitivitySystemsForRepresentation");
 ############################################################################
 ##
 #A  ImprimitivitySystems(<G>)
-#A  ImprimitivitySystems(<G>, <F>)
+#O  ImprimitivitySystems(<G>, <F>)
 ##
 ##  see IRREDSOL documentation
 ##  
 DeclareAttribute ("ImprimitivitySystems", IsMatrixGroup);
 KeyDependentOperation ("ImprimitivitySystems", IsMatrixGroup, IsField, ReturnTrue);
-
-############################################################################
-##
-#F  IsRewritableOverSubfieldNC(module, q)
-##  
-##  tests whether the irreducible MeatAxe module module can be written over GF(q)
-##  This uses ani dea from
-##  S. P. Glasby, R. B. Howlett, Writing representations over mnimal fields,
-##  Comm. Alg. 25 (1997), 1703..1711
-##
-##  Note that this does not require module to be absolutely irreducible
-##
-DeclareGlobalFunction ("IsRewritableOverSubfieldNC");
 
 
 ############################################################################
@@ -151,6 +144,15 @@ DeclareGlobalFunction ("IsRewritableOverSubfieldNC");
 ##  see IRREDSOL documentation
 ##  
 DeclareAttribute ("TraceField", IsMatrixGroup);
+
+
+############################################################################
+##
+#A  SplittingField(<G>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareAttribute ("SplittingField", IsMatrixGroup);
 
 
 ############################################################################
