@@ -1,12 +1,12 @@
 ############################################################################
 ##
-##  primitive.gi                 IRREDSOL                 Burkhard H\"ofling
+##  primitive.gi                 IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
 
 
@@ -37,7 +37,7 @@ InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroup,
 ##  
 InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroupNC,
 	function (G)
-		local p, iso, pcgs, ros, f, coll, exp, mat, i, j, H;
+		local p, iso, pcgs, ros, f, coll, exp, mat, i, j, H, soc_cmpl;
 		
 		p := Size (FieldOfMatrixGroup (G));
 
@@ -53,19 +53,21 @@ InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroupNC,
 			Concatenation (ros, 
 				ListWithIdenticalEntries (DegreeOfMatrixGroup (G), p)));
 				
+		# relations for complement - same as for those for G		
 		exp := [];	
 		exp{[1,3..2*Length(pcgs)-1]} := [1..Length(pcgs)];
 		for i in [1..Length (pcgs)] do
 			exp{[2,4..2*Length(pcgs)]} := ExponentsOfPcElement (pcgs, pcgs[i]^ros[i]);
-			Print ("power relation ", i,": ", exp, "\n");
+			# Print ("power relation ", i,": ", exp, "\n");
 			SetPower (coll, i, ObjByExtRep (FamilyObj (f.1), exp));
 			for j in [i+1..Length (pcgs)] do
 				exp{[2,4..2*Length(pcgs)]} := ExponentsOfPcElement (pcgs, pcgs[j]^pcgs[i]);
-				Print ("conj. relation ", j, "^", i,": ", exp, "\n");
+				# Print ("conj. relation ", j, "^", i,": ", exp, "\n");
 			SetConjugate (coll, j, i, ObjByExtRep (FamilyObj (f.1), exp));
 			od;
 		od;
 		
+		# relations for socle
 		for j in [1..DegreeOfMatrixGroup (G)] do
 			SetPower (coll, j+Length (pcgs), One(f));
 		od;
@@ -78,39 +80,40 @@ InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroupNC,
 			mat := ImageElm (RepresentationIsomorphism(G), pcgs[i]);
 			for j in [1..DegreeOfMatrixGroup (G)] do
 				exp{[2,4..2*DegreeOfMatrixGroup(G)]} := List (mat[j], IntFFE);
-				Print ("conj. relation ", j+ Length (pcgs), "^", i,": ", exp, "\n");
+				# Print ("conj. relation ", j+ Length (pcgs), "^", i,": ", exp, "\n");
 				SetConjugate (coll, j + Length (pcgs), i, ObjByExtRep (FamilyObj (f.1), exp));
 			od;
 		od;
 		
-		H := GroupByRws (coll);
+		H := GroupByRwsNC (coll);
 		SetSocle (H, GroupOfPcgs (InducedPcgsByPcSequenceNC (FamilyPcgs (H),
 			FamilyPcgs(H){[Length (pcgs) + 1..Length (FamilyPcgs (H))]})));
 		SetFittingSubgroup (H, Socle (H));
 
-#       the following would require the CRISP package, so we leave it out
-
-#		if IsBound (SocleComplement) then
-#			SetSocleComplement (H, GroupOfPcgs (InducedPcgsByPcSequenceNC (FamilyPcgs (H),
-#				FamilyPcgs(H){[1..Length (pcgs)]})));
-#		fi;
-#		if IsBound (IsPrimitiveSolvable) then
-#			SetIsPrimitiveSolvable (H, true);
-#		fi;
+		# the following sets attributes/properties
+		# defined in the CRISP packages if that package is loaded
+		
+		if IsBoundGlobal ("SetSocleComplement") then
+			ValueGlobal ("SetSocleComplement") (H, GroupOfPcgs (InducedPcgsByPcSequenceNC (FamilyPcgs (H),
+				FamilyPcgs(H){[1..Length (pcgs)]})));
+		fi;
+		if IsBoundGlobal ("SetIsPrimitiveSolvable") then
+			ValueGlobal ("SetIsPrimitiveSolvable") (H, true);
+		fi;
 		return H;
 	end);
 	
 
 ############################################################################
 ##
-#F  IrreducibleMatrixGroupPrimitivePcGroup(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction (IrreducibleMatrixGroupPrimitivePcGroup,
+InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroup,
 	function (G)
 	
-		local F, p;
+		local F, p, matgrp;
 		
 		if not IsSolvableGroup (G) then
 			Error ("G must be solvable");
@@ -127,18 +130,24 @@ InstallGlobalFunction (IrreducibleMatrixGroupPrimitivePcGroup,
 		if ForAny (GeneratorsOfGroup (F), x -> x^p <> One(G)) then
 			Error ("G must be primitive");
 		fi;
+
+		matgrp := IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G);
 		
-		return IrreducibleMatrixGroupPrimitivePcGroupNC (G);
+		if not IsIrreducibleMatrixGroup (matgrp, GF(p)) then
+			Error ("G must be primitive");
+		fi;
+		
+		return matgrp;
 	end);
 	
 			
 ############################################################################
 ##
-#F  IrreducibleMatrixGroupPrimitivePcGroupNC(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction (IrreducibleMatrixGroupPrimitivePcGroupNC,
+InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroupNC,
 	function (G)
 	
 		local N, p, pcgs, one, mat, mats, g, h, i, H;
@@ -166,121 +175,117 @@ InstallGlobalFunction (IrreducibleMatrixGroupPrimitivePcGroupNC,
 
 ############################################################################
 ##
-#R  IsIteratorPrimitivePcGroupsRep
+#F  DoIteratorPrimitiveSolvableGroups(<convert_func>, <arg_list>)
 ##
-##  representation for an iterator running throug a list of primitive
-##  solvable pc groups
+##  generic constructor function for an iterator of all primitive solvable groups
+##  which can construct permutation groups or pc groups (or other types of groups),
+##  depending on convert_func
 ##  
-DeclareRepresentation ("IsIteratorPrimitivePcGroupsRep",
-	IsIterator and IsComponentObjectRep,
-	["degs", "deginds", "orders", "iteratormatgrp"]);
+InstallGlobalFunction (DoIteratorPrimitiveSolvableGroups, 
+	function (convert_func, arg_list)
 
+		local r, iter;
+		
+		r := CheckAndExtractArguments ([
+			[[Degree, NrMovedPoints, LargestMovedPoint], IsPosInt],
+			[[Order, Size], IsPosInt]],
+			arg_list, 
+			"IteratorPrimitivePcGroups");
+		if ForAny (r.specialvalues, v -> IsEmpty (v)) then
+			return Iterator ([]);
+		fi;
 
+		iter := rec(convert_func := convert_func);
+
+		if not IsBound (r.specialvalues[1]) then 
+			Error ("IteratorPrimitivePcGroupsIterator: You must specify the degree(s) of the desired primitive groups");
+		else
+			iter.degs := Filtered (r.specialvalues[1], IsPPowerInt);
+		fi;	
+		
+		iter.degind := 0;
+		
+		if IsBound (r.specialvalues[2]) then
+			iter.orders := r.specialvalues[2];
+		else
+			iter.orders := fail;
+		fi;
+		
+		iter.iteratormatgrp := Iterator([]);
+
+		iter.IsDoneIterator := function (iterator)
+
+			local d, p, n, orders, o;
+			
+			if iterator!.degind > Length (iterator!.degs) then
+				Error ("isDoneIterator called after it returned true");
+			fi;
+			
+			while IsDoneIterator (iterator!.iteratormatgrp) do
+				iterator!.degind := iterator!.degind + 1;
+				if iterator!.degind > Length (iterator!.degs) then
+					return true;
+				fi;
+				d := iterator!.degs[iterator!.degind];
+				p := SmallestRootInt (d);
+				n := LogInt (d, p);
+				if IsAvailableIrreducibleSolvableGroupData (n, p) then				
+					if iterator!.orders <> fail then
+						orders := [];
+						for o in iterator!.orders do
+							if o mod d = 0 then
+								Add (orders, o/d);
+							fi;
+						od;
+						iterator!.iteratormatgrp := IteratorIrreducibleSolvableMatrixGroups(
+							Degree, n, Field, GF(p), Order, orders);
+					else
+						iterator!.iteratormatgrp := IteratorIrreducibleSolvableMatrixGroups(
+							Degree, n, Field, GF(p));
+
+					fi;
+				else
+					Error ("groups of degree ", d, " are beyond the scope of the IRREDSOL library");
+					iterator!.iteratormatgrp := Iterator([]);
+				fi;
+			od;
+			return false;
+		end;
+
+		iter.NextIterator := function (iterator)
+			
+			local G;
+			
+			G := NextIterator (iterator!.iteratormatgrp);
+			return iterator!.convert_func (G);
+		end;
+		
+		iter.ShallowCopy := function (iterator)
+			return rec (
+				orders := iterator!.orders,
+				degs := iterator!.degs,
+				degind := iterator!.degind,
+				convert_func := iterator!.convert_func,
+				iteratormatgrp := ShallowCopy (iterator!.iteratormatgrp),
+				IsDoneIterator := iterator!.IsDoneIterator,
+				NextIterator := iterator!.NextIterator,
+				ShallowCopy := iterator!.ShallowCopy);
+		end;
+		return IteratorByFunctions (iter);
+	end);
+	
+	
 ############################################################################
 ##
 #F  IteratorPrimitivePcGroups(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction (IteratorPrimitivePcGroups, 
+InstallGlobalFunction (IteratorPrimitivePcGroups,
 	function (arg)
-
-		local r, iterator;
-		
-		r := CheckAndExtractArguments ([[Degree, NrMovedPoints, LargestMovedPoint], 
-			[Order, Size]], 
-			[IsPosInt, IsPosInt], 
-			arg, 
-			"IteratorPrimitivePcGroups");
-		if ForAny (r.specialvalues, v -> IsEmpty (v)) then
-			return Iterator ([]);
-		fi;
-
-		iterator := Objectify (NewType (NewFamily ("iterator of prinitive pc groups fam"),
-			IsIteratorPrimitivePcGroupsRep and IsMutable), 
-			rec());
-
-		if not IsBound (r.specialvalues[1]) then 
-			Error ("IteratorPrimitivePcGroupsIterator: You must specify the degree(s) of the desired primitive groups");
-		else
-			iterator!.degs := Filtered (r.specialvalues[1], IsPrimePowerInt);
-		fi;	
-		
-		iterator!.degind := 0;
-		
-		if IsBound (r.specialvalues[2]) then
-			iterator!.orders := r.specialvalues[2];
-		else
-			iterator!.orders := fail;
-		fi;
-		
-		iterator!.iteratormatgrp := Iterator([]);
-		return iterator;
-	end);
-
-
-############################################################################
-##
-#M  IsDoneIterator
-##
-##  for iterator of library of primitive soluble pc groups
-##  
-InstallMethod (IsDoneIterator, "for primitive soluble pc groups groups", true,
-	[IsIteratorPrimitivePcGroupsRep], 0,
-	function (iterator)
-
-		local d, p, n, orders, o;
-		
-		if iterator!.degind > Length (iterator!.degs) then
-			Error ("isDoneIterator called after it returned true");
-		fi;
-		
-		while IsDoneIterator (iterator!.iteratormatgrp) do
-			iterator!.degind := iterator!.degind + 1;
-			if iterator!.degind > Length (iterator!.degs) then
-				return true;
-			fi;
-			d := iterator!.degs[iterator!.degind];
-			p := SmallestRootInt (d);
-			n := LogInt (d, p);
-			if IsAvailableIrreducibleSolvableGroupData (n, p) then				
-				if iterator!.orders <> fail then
-					orders := [];
-					for o in iterator!.orders do
-						if o mod d = 0 then
-							Add (orders, o/d);
-						fi;
-					od;
-					iterator!.iteratormatgrp := IteratorIrreducibleSolvableMatrixGroups(
-						Degree, n, Field, GF(p), Order, orders);
-				else
-					iterator!.iteratormatgrp := IteratorIrreducibleSolvableMatrixGroups(
-						Degree, n, Field, GF(p));
-
-				fi;
-			else
-				Error ("groups of degree ", d, " are beyond the scope of the IRREDSOL library");
-				iterator!.iteratormatgrp := Iterator([]);
-			fi;
-		od;
-		return false;
-	end);
-			
-			
-############################################################################
-##
-#M  NextIterator
-##
-##  for iterator of library of primitive soluble pc groups
-##  
-InstallMethod (NextIterator, "for primitve solvable pc groups", true,
-	[IsMutable and IsIteratorPrimitivePcGroupsRep], 0,
-	function (iterator)
-		
-		local G;
-		
-		G := NextIterator (iterator!.iteratormatgrp);
-		return PrimitivePcGroupIrreducibleMatrixGroupNC (G);
+		return DoIteratorPrimitiveSolvableGroups (
+			PrimitivePcGroupIrreducibleMatrixGroupNC,
+			arg);
 	end);
 	
 
@@ -323,6 +328,129 @@ InstallGlobalFunction (OnePrimitivePcGroup,
 			return NextIterator (iter);
 		fi;
 	end);
+
+
+############################################################################
+##
+#F  PrimitivePermutatioinGroupIrreducibleMatrixGroup(<G>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (PrimitivePermutationGroupIrreducibleMatrixGroup,
+	function (G)
+			
+		if not IsMatrixGroup (G) or not IsFinite (FieldOfMatrixGroup (G)) 
+				or not IsPrimeInt (Size (FieldOfMatrixGroup (G)))
+				or not IsIrreducibleMatrixGroup (G) then
+			Error ("G must be an irreducible matrix group over a prime field");
+		fi;
+
+		return PrimitivePermutationGroupIrreducibleMatrixGroupNC (G);
+	end);
+	
+			
+############################################################################
+##
+#F  PrimitivePermutationGroupIrreducibleMatrixGroupNC(<G>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (PrimitivePermutationGroupIrreducibleMatrixGroupNC, 
+	function ( M )
+	    local  gensc, genss, V, G;
+	    V := FieldOfMatrixGroup( M ) ^ DimensionOfMatrixGroup( M );
+	    gensc := List (GeneratorsOfGroup (M), x -> Permutation (x, V));
+	    genss := List( Basis( V ), x -> Permutation( x, V, \+));
+	    G := GroupByGenerators(Concatenation (genss, gensc));
+	    SetSize( G, Size( M ) * Size( V ) );
+	    SetSocle (G, Subgroup (G, genss));
+	    
+		# the following sets attributes/properties
+		# defined in the CRISP packages if that package is loaded
+		
+		if IsBoundGlobal ("SetSocleComplement") then
+			ValueGlobal ("SetSocleComplement") (G, Subgroup (G, gensc));
+		fi;
+		if IsBoundGlobal ("SetIsPrimitiveSolvable") then
+			ValueGlobal ("SetIsPrimitiveSolvable") (G, true);
+		fi;
+	    return G;
+	end);
+
+
+############################################################################
+##
+#F  IteratorPrimitiveSolvablePermutationGroups(<func_1>, <val_1>, ...)
+##
+##  see the IRREDSOL manual
+##  
+InstallGlobalFunction (IteratorPrimitiveSolvablePermutationGroups,
+	function (arg)
+		return DoIteratorPrimitiveSolvableGroups (
+			PrimitivePermutationGroupIrreducibleMatrixGroupNC,
+			arg);
+	end);
+	
+
+###########################################################################
+##
+#F  AllPrimitiveSolvablePermutationGroups(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (AllPrimitiveSolvablePermutationGroups,
+	function (arg)
+	
+		local iter, l, G;
+		
+		iter := CallFuncList (IteratorPrimitiveSolvablePermutationGroups, arg);
+		
+		l := [];
+		for G in iter do
+			Add (l, G);
+		od;
+		return l;
+	end);
+
+
+###########################################################################
+##
+#F  OnePrimitiveSolvablePermutationGroup(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (OnePrimitiveSolvablePermutationGroup,
+	function (arg)
+	
+		local iter;
+		
+		iter := CallFuncList (IteratorPrimitiveSolvablePermutationGroups, arg);
+		if IsDoneIterator (iter) then
+			return fail;
+		else 
+			return NextIterator (iter);
+		fi;
+	end);
+
+
+###########################################################################
+##
+#F  IdPrimitiveSolvableGroup(<grp>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (IdPrimitiveSolvableGroup,
+	G -> IdIrreducibleSolvableMatrixGroup (IrreducibleMatrixGroupPrimitiveSolvableGroup (G)));
+
+
+###########################################################################
+##
+#F  IdPrimitiveSolvableGroupNC(<grp>)
+##
+##  see IRREDSOL documentation
+##  
+InstallGlobalFunction (IdPrimitiveSolvableGroupNC,
+	G -> IdIrreducibleSolvableMatrixGroup (IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G)));
 
 
 ############################################################################

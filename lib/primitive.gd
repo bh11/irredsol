@@ -1,13 +1,24 @@
 ############################################################################
 ##
-##  primitive.gd                 IRREDSOL                 Burkhard H\"ofling
+##  primitive.gd                 IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
+
+
+############################################################################
+##
+#F  IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareGlobalFunction ("IrreducibleMatrixGroupPrimitiveSolvableGroup");
+DeclareGlobalFunction ("IrreducibleMatrixGroupPrimitiveSolvableGroupNC");
 
 
 ############################################################################
@@ -23,13 +34,24 @@ DeclareGlobalFunction ("PrimitivePcGroupIrreducibleMatrixGroupNC");
 
 ############################################################################
 ##
-#F  IrreducibleMatrixGroupPrimitivePcGroup(<G>)
-#F  IrreducibleMatrixGroupPrimitivePcGroupNC(<G>)
+#F  PrimitivePermutationGroupIrreducibleMatrixGroup(<G>)
+#F  PrimitivePermutationGroupIrreducibleMatrixGroupNC(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareGlobalFunction ("IrreducibleMatrixGroupPrimitivePcGroup");
-DeclareGlobalFunction ("IrreducibleMatrixGroupPrimitivePcGroupNC");
+DeclareGlobalFunction ("PrimitivePermutationGroupIrreducibleMatrixGroup");
+DeclareGlobalFunction ("PrimitivePermutationGroupIrreducibleMatrixGroupNC");
+
+
+############################################################################
+##
+#F  DoIteratorPrimitiveSolvableGroups(<convert_func>, <arg_list>)
+##
+##  generic constructor function for an iterator of all primitive solvable groups
+##  which can construct permutation groups or pc groups (or other types of groups),
+##  depending on convert_func
+##  
+DeclareGlobalFunction("DoIteratorPrimitiveSolvableGroups");
 
 
 ###########################################################################
@@ -57,6 +79,46 @@ DeclareGlobalFunction ("AllPrimitivePcGroups");
 ##  see IRREDSOL documentation
 ##  
 DeclareGlobalFunction ("OnePrimitivePcGroup");
+
+
+
+###########################################################################
+##
+#F  IteratorPrimitiveSolvablePermutationGroups(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareGlobalFunction ("IteratorPrimitiveSolvablePermutationGroups");
+
+
+###########################################################################
+##
+#F  AllPrimitiveSolvablePermutationGroups(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareGlobalFunction ("AllPrimitiveSolvablePermutationGroups");
+
+
+###########################################################################
+##
+#F  OnePrimitiveSolvablePermutationGroup(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareGlobalFunction ("OnePrimitiveSolvablePermutationGroup");
+
+
+
+###########################################################################
+##
+#F  IdPrimitiveSolvableGroup(<grp>)
+#F  IdPrimitiveSolvableGroupNC(<grp>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareGlobalFunction ("IdPrimitiveSolvableGroup");
+DeclareGlobalFunction ("IdPrimitiveSolvableGroupNC");
 
 
 ############################################################################
