@@ -8,9 +8,14 @@ SetPackageInfo( rec(
 
 ##  This is case sensitive, use your preferred spelling.
 
-PackageName := "irredsol",
+PackageName := "IRREDSOL",
 Subtitle := "A Library of irreducible solvable linear groups over finite fields",
-
+BannerString := "\
+----------------------------------------------------------------------\n\
+                        IRREDSOL Version 1.0.2\n\
+  A library of irreducible solvable linear groups over finite fields\n\
+              by Burkhard Hoefling (b.hoefling@tu-bs.de)\n\
+-----------------------------------------------------------------------\n",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
 Version := "1.0.2",
@@ -120,7 +125,7 @@ Status := "deposited",
 ##  You must provide the next two entries if and only if the status is 
 ##  "accepted":
 # format: 'name (place)'
-#CommunicatedBy := "Joachim Neubüser (Aachen)",
+#CommunicatedBy := "Joachim Neubueser (Aachen)",
 # format: mm/yyyy
 #AcceptDate := "12/2000",
 
@@ -183,7 +188,7 @@ PackageDoc := rec(
   LongTitle := "A library of irreducible solvable linear groups over finite fields",
   # Should this help book be autoloaded when GAP starts up? This should
   # usually be 'true', otherwise say 'false'. 
-  Autoload := false
+  Autoload := true
 ),
 
 
@@ -192,7 +197,7 @@ PackageDoc := rec(
 Dependencies := rec(
   # GAP version, use version strings for specifying exact versions,
   # prepend a '>=' for specifying a least version.
-  GAP := ">=4.3",
+  GAP := ">=4.4",
   # list of pairs [package name, (least) version],  package name is case
   # insensitive, least version denoted with '>=' prepended to version string.
   # without these, the package will not load
@@ -227,7 +232,7 @@ AvailabilityTest := ReturnTrue,
 ##  started.  This should usually be 'false'. Say 'true' only if your package 
 ##  provides some improvements of the GAP library which are likely to enhance 
 ##  the overall system performance for many users.
-Autoload := false,
+Autoload := true,
 
 ##  *Optional*, but recommended: path relative to package root to a file which 
 ##  contains as many tests of the package functionality as sensible.
