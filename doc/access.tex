@@ -56,6 +56,8 @@ data is not available (see "IsAvailableIrreducibleSolvableGroupData" for informa
 how to check this first), or if <k> is not in  
 `IndicesIrreducibleSolvableMatrixGroups'(<n>, <q>, <d>) 
 (see "IndicesIrreducibleSolvableMatrixGroups").
+For the groups returned, the attrbutes and properies described in
+"Additional functionality for matrix groups" are set to their appropriate values.
 
 
 \>`IsAvailableAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)'%
@@ -86,7 +88,9 @@ cannot be written over a proper subfield of $\F_q$. An error is raised if the re
 data is not available (see "IsAvailableAbsolutelyIrreducibleSolvableGroupData" for information 
 how to check this first), or if <k> does not lie in
 `IndicesAbsolutelyIrreducibleSolvableMatrixGroups'(<n>, <q>)
-(see "IndicesAbsolutelyIrreducibleSolvableMatrixGroups").
+(see "IndicesAbsolutelyIrFor the groups returned, the attrbutes and properies described in
+"Additional functionality for matrix groups" are set to their appropriate values.
+reducibleSolvableMatrixGroups").
 
 
 \>`IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups(<n>, <q>)'%
@@ -131,13 +135,16 @@ than to construct each group in the library using the functions in Section
 This function returns a list of all irreducible solvable matrix
 groups <G> in the {\IRREDSOL} library for which the return value of $<func_i>(G)$ lies in
 <arg_i>.  The arguments <func_1>, <func_2>, \dots,
-must be {\GAP} functions which takes matrix group as its only argument and returns a
-value, and <arg_1>, <arg_2>,
+must be {\GAP} functions which take matrix group as their only argument and
+return a value, and <arg_1>, <arg_2>,
 \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list
 `[<arg_i>]'. One of the functions must be `DegreeOfMatrixGroup' (or one of its
 equivalents, see below), and one function must be  `FieldOfMatrixGroup' (or `Field'). All
 groups <G> in the data library have the property that they cannot be written over a
-subfield of $`FieldOfMatrixGroup'(<G>)$; see Chapter~"Overview" for details. 
+subfield of $`FieldOfMatrixGroup'(<G>)$; see "Design of the group library" for details. 
+For the groups returned, the attrbutes and properies described in
+"Additional functionality for matrix groups" are set to their appropriate values.
+
 
 Note that there is also a function `IteratorIrreducibleSolvableMatrixGroups' (see
 "IteratorIrreducibleSolvableMatrixGroups") which allows to run through the list produced by
@@ -199,7 +206,10 @@ $<func_i>(G)$ lies in <arg_i>, or `fail' if no such group exists. The arguments 
 the list `[<arg_i>]'. One of the functions must be `DegreeOfMatrixGroup' (or one of its
 equivalents, see below), and one function must be  `FieldOfMatrixGroup' (or `Field'). All
 groups <G> in the data library have the property that they cannot be written over a
-subfield of $`FieldOfMatrixGroup'(<G>)$; see Chapter~"Overview" for details. 
+subfield of $`FieldOfMatrixGroup'(<G>)$; see see "Design of the group library" for details. 
+For the group returned, the attrbutes and properies described in
+"Additional functionality for matrix groups" are set to their appropriate values.
+
 
 For a list of functions which are handled particularly efficiently, see
 `AllIrreducibleSolvableMatrixGroups' ("AllIrreducibleSolvableMatrixGroups").
@@ -227,6 +237,10 @@ is functionally equivalent to
 
 (see "ref:Iterators" for details) but does not compute all relevant matrix groups at the same time. 
 This may save some memory. 
+For the groups returned, the attrbutes and properies described in
+"Additional functionality for matrix groups" are set to their appropriate values.
+
+
 
 
 
