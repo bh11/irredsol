@@ -1,3 +1,4 @@
+#!/bin/csh
 cd ../
 rm irredsol.zoo
 chmod -R a+rX irredsol
