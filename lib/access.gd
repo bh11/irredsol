@@ -1,41 +1,36 @@
 ############################################################################
 ##
-##  access.gd                    IRREDSOL                 Burkhard H\"ofling
+##  access.gd                    IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
+
 
 ############################################################################
 ##
-#V  GUARDIAN_MAT_PCGS
-#V  GUARDIAN_ORDER
-#V  GUARDIAN_PC_PRESENTATION
-#V  GUARDIAN_MIN_BLOCKDIM
-#V  GUARDIAN_FLAGS
-#V  GUARDIAN_MAX_FLAG
+#V  IRREDSOL_DATA
 ##
-##  positions of data entries in library data
-##
-BindGlobal ("GUARDIAN_MAT_PCGS", 1);
-BindGlobal ("GUARDIAN_ORDER", 2);
-BindGlobal ("GUARDIAN_PC_PRESENTATION", 3);
-BindGlobal ("GUARDIAN_MIN_BLOCKDIM", 4);
-BindGlobal ("GUARDIAN_FLAGS", 5);
-BindGlobal ("GUARDIAN_MAX_FLAG", 0);
-
-############################################################################
-##
-#V  ABS_IRRED_GUARDIAN_NUMBER
-#V  ABS_IRRED_CANONICAL_PCGS
-##
-##  positions of data entries in library data
-##
-BindGlobal ("ABS_IRRED_GUARDIAN_NUMBER", 1);
-BindGlobal ("ABS_IRRED_CANONICAL_PCGS", 2);
+##  Data structures for caching the groups and fingerprints in the library,
+##  the actual data will be loaded when required.
+##  
+BindGlobal ("IRREDSOL_DATA", rec(
+	GROUPS := [],                  # group descriptions
+	GUARDIANS := [],               # guardian data, each group in the library 
+	                               # is a subgroup of a guardian
+	GROUPS_LOADED := [],           # indicates which groups have been loaded
+	GAL_PERM := [],                # permutation of grops in the library
+	                               # induced by a Galois automorphism
+	MAX := [],                     # indices of maximal subgroups of the relevant GL
+	GROUPS_DIM1 := [],             # group info for dimension 1
+	FP := [],                      # fingerprints of groups
+	FP_INDEX := [],                # fingerprint index
+	FP_ELMS := [],                 # fingerprints of elements
+	FP_LOADED := []                # indicates which fingerprint files have been loaded
+));
 
 
 ############################################################################
@@ -58,15 +53,17 @@ DeclareGlobalFunction ("AbsolutelyIrreducibleSolvableMatrixGroup");
 
 ############################################################################
 ##
-#F  CanonicalIndexIrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>)
+#F  PermCanonicalIndexIrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>)
 ##
-##  computes a valid id for the group obtained by
-##  rewriting AbsolutelyIrreducibleSolvableMatrixGroup (n/d, q^d, k)
-##  as a matrix group over F_p^n. The result is meaningless if
+##  computes a record with entries perm, pow, orb, and min where perm is a 
+##  permutation, orb is the orbit of k under perm, min is the smallest
+##  integer in orb, and <k>^(<pi>^<pow>=<min>, such that [<n>, <q>, <d>, <min>]
+##  is a valid id for the group obtained by rewriting
+##  AbsolutelyIrreducibleSolvableMatrixGroup (n/d, q^d, k) as a matrix group
+##  over F_p^n. The result is meaningless if 
 ##  AbsolutelyIrreducibleSolvableMatrixGroup (n/d, q^d, k) does not exist
-##  
 ##
-DeclareGlobalFunction ("CanonicalIndexIrreducibleSolvableMatrixGroup"); 
+DeclareGlobalFunction ("PermCanonicalIndexIrreducibleSolvableMatrixGroup"); 
 
 
 ############################################################################

@@ -1,23 +1,13 @@
 ############################################################################
 ##
-##  loadfp.gd                    IRREDSOL                 Burkhard H\"ofling
+##  loadfp.gd                    IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
-
-
-############################################################################
-##
-#F  PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
-##
-##  returns the path of the fingerprint database index file, or
-##  fail if the file does not exist or is unreadable
-##  
-DeclareGlobalFunction ("PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex");
 
 
 ############################################################################
@@ -31,6 +21,16 @@ DeclareGlobalFunction ("IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint
 
 ############################################################################
 ##
+#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+##
+##  tries to load the fingerprint database index file and returns 
+##  true if it succeeds, and false otherwise
+##  
+DeclareGlobalFunction ("TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex");
+
+
+############################################################################
+##
 #F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
 ##
 ##  loads the fingerprint database index file
@@ -40,43 +40,50 @@ DeclareGlobalFunction ("LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex")
 
 ############################################################################
 ##
-#F  PathAbsolutelyIrreducibleSolvableGroupFingerprint(<n>, <q>, <k>)
+#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <k>)
 ##
-##  returns the path to the k-th fingerprint data file for GL(n,q), 
-##  if it exists and is readable, or fail otherwise.
+##  returns true if the k-th fingerprint data file for GL(n,q) exists, and
+##  false otherwise.
 ##  
-DeclareGlobalFunction ("PathAbsolutelyIrreducibleSolvableGroupFingerprint");
+DeclareGlobalFunction ("IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData");
+
+
+############################################################################
+##
+#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+##
+##  tries to load the <index>-th fingerprint data file for subgroups of GL(n,q) 
+##  and returns true if it succeeds and false otherwise.
+##  
+DeclareGlobalFunction ("TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData");
 
 
 ###########################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint(<n>, <q>, <o>)
+#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
 ##
-##  returns true if the fingerprint data file for subgroups of order o of
-##  GL(n,q) exists and is readable
-##
-##  Note that there is no fingerprint information for groups of order o
-##  if there is only one group of order o in the IRREDSOL library
-##  
-DeclareGlobalFunction ("IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint");
-
-
-###########################################################################
-##
-#F  AbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <o>)
-##
-##  returns the fingerprint data for subgroups of order o of GL(n,q) 
+##  loads the <index>-th fingerprint data file for subgroups of GL(n,q) 
 ##  The fiongerprint data is a record with entries elms
-##  and fps. Elms is a set of lists of four integers
-##  fps is a list. Each entry corresponds to one fingerprint
-##  For each fingerprint, there is a list with three entries,
-##  the first being the group order (i.e., <o>), the second is a set of 
-##  integers from [1..Length (elms)], indicating
-##  which of the entries in elms is in the particular fingerprint
-##  The third is a list indicating the indices of the gropus
-##  having that fingerprint.
+##  and fps. elms is a set of lists of four integers each.
+##  Each entry of elms corresponds to the fingerprint of one conjugacy 
+##  class of elements.
+##  Each entry of fps is a list with three entries and corresponds to a
+##  set of groups having the same fingerprint, F, say. Each entry is a 
+##  list with three elements, the first being the group order (i.e., <o>), 
+##  The second is a set of integers from [1..Length (elms)], indicating 
+##  which entries in elms occur in F. The third is a list of the indices
+##  of the gropus having that fingerprint F.
 ##  
-DeclareGlobalFunction ("AbsolutelyIrreducibleSolvableGroupFingerprintData");
+DeclareGlobalFunction ("LoadAbsolutelyIrreducibleSolvableGroupFingerprintData");
+
+
+###########################################################################
+##
+#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprints(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DeclareGlobalFunction ("LoadAbsolutelyIrreducibleSolvableGroupFingerprints");
 
 
 ###########################################################################
