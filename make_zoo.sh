@@ -1,7 +1,3 @@
-#!/bin/csh
-if [ "x$1" = "x" ];  then
-echo "Please supply a version number"
-else
 cd ../
 rm irredsol.zoo
 chmod -R a+rX irredsol
@@ -56,7 +52,6 @@ end
 zoo ach irredsol irredsol/README <irredsol/text_comment
 
 
-mv irredsol.zoo irredsol/crisp-$1.zoo
-fi
+mv irredsol.zoo irredsol/irredsol-$1.zoo
 
 
