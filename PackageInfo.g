@@ -9,14 +9,14 @@ SetPackageInfo( rec(
 ##  This is case sensitive, use your preferred spelling.
 
 PackageName := "irredsol",
-Subtitle := "Library of irreducible solvable linear groups over finite fields",
+Subtitle := "A Library of irreducible solvable linear groups over finite fields",
 
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
 Version := "1r0",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "??/??/????",
+Date := "29/07/2003",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
@@ -184,7 +184,7 @@ PackageDoc := rec(
   LongTitle := "A library of irreducible solvable linear groups over finite fields",
   # Should this help book be autoloaded when GAP starts up? This should
   # usually be 'true', otherwise say 'false'. 
-  AutoLoad := false
+  Autoload := false
 ),
 
 
