@@ -46,7 +46,7 @@ foreach file (irredsol/fp/*.idx)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
-foreach file (irredsol/fp/*.fpc)
+foreach file (irredsol/fp/*.fp)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
