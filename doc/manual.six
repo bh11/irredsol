@@ -1,63 +1,87 @@
 C overview.tex 1. Overview
 C access.tex 2. Accessing the data library
-S 2.1. Low level access functions
-F 2.1. IsAvailableIrreducibleSolvableGroupData
-F 2.1. IndicesIrreducibleSolvableMatrixGroups
-F 2.1. IrreducibleSolvableMatrixGroup
-F 2.1. IsAvailableAbsolutelyIrreducibleSolvableGroupData
-F 2.1. IndicesAbsolutelyIrreducibleSolvableMatrixGroups
-F 2.1. AbsolutelyIrreducibleSolvableMatrixGroup
-F 2.1. IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups
-S 2.2. Finding matrix groups with given properties
-F 2.2. AllIrreducibleSolvableMatrixGroups
-F 2.2. OneIrreducibleSolvableMatrixGroup
-F 2.2. IteratorIrreducibleSolvableMatrixGroups
+S 2.1. Design of the group library
+S 2.2. Low level access functions
+F 2.2. IsAvailableIrreducibleSolvableGroupData
+F 2.2. IndicesIrreducibleSolvableMatrixGroups
+F 2.2. IrreducibleSolvableMatrixGroup
+F 2.2. IsAvailableAbsolutelyIrreducibleSolvableGroupData
+F 2.2. IndicesAbsolutelyIrreducibleSolvableMatrixGroups
+F 2.2. AbsolutelyIrreducibleSolvableMatrixGroup
+F 2.2. IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups
+S 2.3. Finding matrix groups with given properties
+F 2.3. AllIrreducibleSolvableMatrixGroups
+F 2.3. OneIrreducibleSolvableMatrixGroup
+F 2.3. IteratorIrreducibleSolvableMatrixGroups
+S 2.4. Loading and unloading group data manually
+F 2.4. LoadAbsolutelyIrreducibleSolvableGroupData
+F 2.4. LoadedAbsolutelyIrreducibleSolvableGroupData
+F 2.4. UnloadAbsolutelydIrreducibleSolvableGroupData
 C recognition.tex 3. Recognition of matrix groups
 S 3.1. Identification of irreducible groups
-F 3.1. IdIrreducibleSolvableMatrixGroupAvailable
+F 3.1. IsAvailableIdIrreducibleSolvableMatrixGroup
 F 3.1. IdIrreducibleSolvableMatrixGroup
+F 3.1. RecognitionIrreducibleSolvableMatrixGroup
+F 3.1. RecognitionIrreducibleSolvableMatrixGroupNC
 S 3.2. Identification of absolutely irreducible groups
-F 3.2. IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable
+F 3.2. IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup
 F 3.2. IdAbsolutelyIrreducibleSolvableMatrixGroup
 F 3.2. RecognitionAbsolutelyIrreducibleSolvableMatrixGroup
 F 3.2. RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC
 S 3.3. Compatibility with other data libraries
 F 3.3. IdIrreducibleSolvableMatrixGroupIndexMS
 F 3.3. IndexMSIdIrreducibleSolvableMatrixGroup
-C matgroups.tex 4. Additional functionality for matrix groups
-S 4.1. Basic attributes for matrix groups
-F 4.1. DegreeOfMatrixGroup
-F 4.1. Degree!for matrix groups
-F 4.1. DimensionOfMatrixGroup
-F 4.1. Dimension!for matrix groups
-F 4.1. FieldOfMatrixGroup
-F 4.1. CharacteristicOfField
-F 4.1. Characteristic!for matrix groups
-S 4.2. Irreducibility and maximality of matrix groups
-F 4.2. IsIrreducibleMatrixGroup
-F 4.2. IsIrreducibleMatrixGroup
-F 4.2. IsIrreducible!for matrix groups
-F 4.2. IsAbsolutelyIrreducibleMatrixGroup
-F 4.2. IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup
-S 4.3. Primitivity of matrix groups
-F 4.3. MinimalBlockDimensionOfMatrixGroup
-F 4.3. MinimalBlockDimensionOfMatrixGroup
-F 4.3. MinimalBlockDimension!for matrix groups
-F 4.3. IsPrimitiveMatrixGroup
-F 4.3. IsPrimitiveMatrixGroup
-F 4.3. IsLinearlyPrimitive
-F 4.3. IsPrimitive!for matrix groups
-S 4.4. Conjugating matrix groups into smaller fields
-F 4.4. TraceField
-F 4.4. ConjugatingMatTraceField
-C advanced.tex 5. Advanced information
-S 5.1. Design of the group library
-S 5.2. Loading and unloading group data manually
-I 5.2. workspace!running out of
-F 5.2. LoadAbsolutelyIrreducibleSolvableGroupData
-F 5.2. LoadedAbsolutelyIrreducibleSolvableGroupData
-F 5.2. UnloadAbsolutelydIrreducibleSolvableGroupData
-S 5.3. Loading and unloading recognition data manually
-I 5.3. workspace!running out of
-F 5.3. LoadedAbsolutelyIrreducibleSolvableGroupFingerprints
-F 5.3. UnloadAbsolutelyIrreducibleSolvableGroupFingerprints
+S 3.4. Loading and unloading recognition data manually
+I 3.4. workspace!running out of
+F 3.4. LoadAbsolutelyIrreducibleSolvableGroupFingerprints
+F 3.4. LoadedAbsolutelyIrreducibleSolvableGroupFingerprints
+F 3.4. UnloadAbsolutelyIrreducibleSolvableGroupFingerprints
+C primitive.tex 4. Primitive solvable groups
+S 4.1. Translating between irreducible solvable matrix groups and primitive solvable groups
+F 4.1. PrimitivePcGroupIrreducibleMatrixGroup
+F 4.1. PrimitivePcGroupIrreducibleMatrixGroupNC
+F 4.1. PrimitivePermutationGroupIrreducibleMatrixGroup
+F 4.1. PrimitivePermutationGroupIrreducibleMatrixGroupNC
+F 4.1. IrreducibleMatrixGroupPrimitiveSolvableGroup
+F 4.1. IrreducibleMatrixGroupPrimitiveSolvableGroupNC
+S 4.2. Finding primitive pc groups with given properties
+F 4.2. AllPrimitivePcGroups
+F 4.2. OnePrimitivePcGroup
+F 4.2. IteratorPrimitivePcGroups
+S 4.3. Finding primitive solvable permutation groups with given properties
+F 4.3. AllPrimitiveSolvablePermutationGroups
+F 4.3. OnePrimitiveSolvablePermutationGroup
+F 4.3. IteratorPrimitivePcGroups
+S 4.4. Recognizing primitive solvable groups
+F 4.4. IdPrimitiveSolvableGroup
+F 4.4. IdPrimitiveSolvableGroupNC
+C matgroups.tex 5. Additional functionality for matrix groups
+S 5.1. Basic attributes for matrix groups
+F 5.1. DegreeOfMatrixGroup
+F 5.1. Degree!for matrix groups
+F 5.1. DimensionOfMatrixGroup
+F 5.1. Dimension!for matrix groups
+F 5.1. FieldOfMatrixGroup
+F 5.1. DefaultFieldOfMatrixGroup
+F 5.1. CharacteristicOfField
+F 5.1. Characteristic!for matrix groups
+F 5.1. RepresentationIsomorphism
+S 5.2. Irreducibility and maximality of matrix groups
+F 5.2. IsIrreducibleMatrixGroup
+F 5.2. IsIrreducibleMatrixGroup
+F 5.2. IsIrreducible!for matrix groups
+F 5.2. IsAbsolutelyIrreducibleMatrixGroup
+F 5.2. IsAbsolutelyIrreducible
+F 5.2. IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup
+S 5.3. Primitivity of matrix groups
+F 5.3. MinimalBlockDimensionOfMatrixGroup
+F 5.3. MinimalBlockDimensionOfMatrixGroup
+F 5.3. MinimalBlockDimension!for matrix groups
+F 5.3. IsPrimitiveMatrixGroup
+F 5.3. IsPrimitiveMatrixGroup
+F 5.3. IsPrimitive!for matrix groups
+F 5.3. IsLinearlyPrimitive
+F 5.3. ImprimitivitySystems
+S 5.4. Conjugating matrix groups into smaller fields
+F 5.4. TraceField
+F 5.4. ConjugatingMatTraceField
