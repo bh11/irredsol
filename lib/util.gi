@@ -1,12 +1,12 @@
 ############################################################################
 ##
-##  util.gi                      IRREDSOL                 Burkhard H\"ofling
+##  util.gi                      IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
 
 
@@ -103,11 +103,12 @@ InstallGlobalFunction (CanonicalPcgsByNumber,
 ##  actually constructing the canonical pcgs or the group
 ##  
 InstallGlobalFunction (OrderGroupByCanonicalPcgsByNumber,
-	function (ros, n)
+	function (pcgs, n)
 	
-		local order, j;
+		local ros, order, j;
 		
 		order := 1;
+		ros := RelativeOrders (pcgs);
 		n := RemInt (n, 2^Length (ros));
 		for j in [1..Length(ros)] do
 			if RemInt (n, 2) > 0 then
@@ -156,152 +157,8 @@ InstallGlobalFunction (ExponentsCanonicalPcgsByNumber,
 		
 		return exps;
 	end);
-	
-	
 
 
-
-
-	
-############################################################################
-##
-#V  GENS_EXT_AFF
-##
-##  This variable caches the return values of GeneratorsOfExtendedAffineGroup
-##  (see below)
-##  
-InstallValue (GENS_EXT_AFF, []);
-
-
-############################################################################
-##
-#F  GeneratorsOfExtendedAffineGroup(q, n)
-##
-##  Let q be a prime power and n an integer. This function returns a 
-##  record with entries genmul and gengal.
-##
-##  Both are n x n matrices over GF(q). genmul is the action of
-##  a generator of the multiplicative group of GF(q^n), regarded as a vector 
-##  space over GF(q). gengal is a matrix describing the action of a generator
-##  of the Galois group of GF(q^n)/GF(q) on that vector space.
-##  
-InstallGlobalFunction (GeneratorsOfExtendedAffineGroup,
-	function (q, n)
-
-		local pol, p, e, con, i, x, z, R, f, m, k, coeffs, g, h;
-		
-		if not IsBound (GENS_EXT_AFF[n]) then
-			GENS_EXT_AFF[n] := [];
-		fi;
-		if not IsBound (GENS_EXT_AFF[n][q]) then	
-			x := X(GF(q));
-			z := Zero (GF(q));
-			R := PolynomialRing (GF(q), 1);
-			p := SmallestRootInt (q);
-			e := LogInt (q, p);
-			con := ConwayPolynomial (p, n*e);
-			if e = 1 then
-				con := [con]; # we know that con is irreducible over GF(p)
-			else
-				con := Factors (R, con);
-			fi;
-			i := 1;
-			repeat
-				pol := con[i];	# try which irreducible factor has a root 
-								# whose root has the right order
-				f := One (R);
-				m := NullMat (n, n, GF(q));
-				for k in [1..n] do
-					f := f * x mod pol;
-					coeffs := CoefficientsOfUnivariatePolynomial (f);
-					m[k]{[1..Length (coeffs)]} := coeffs;
-				od;
-				i := i + 1;
-			until Order (m) = q^n - 1;
-			
-			g := NullMat (n, n, GF(q));
-			f := One (R);
-			h := PowerMod (x, q, pol);
-			g[1][1] := One (GF(q));
-			for k in [2..n] do
-				f := f * h mod pol;
-				coeffs := CoefficientsOfUnivariatePolynomial (f);
-				g[k]{[1..Length (coeffs)]} := coeffs;
-			od;
-			GENS_EXT_AFF[n][q] := rec (genmul := m, gengal := g);
-		fi;
-		return GENS_EXT_AFF[n][q];
-	end);
-
-
-############################################################################
-##
-#F  AsMatrixListOverSubield(list, n, q)
-##
-##  list must be a list of square matrices of the same size d over GF(q^n),
-##  where q is a prime power and n a positive integer.
-##
-##  This function rewrites each matrix in list as a matrix acting on
-##  GF(q^n)^d, regarded as a GF(q)-vector space.
-##  
-InstallGlobalFunction (AsMatrixListOverSubield, 
-	function (list, n, q)
-
-	local ggal, z, r, d, gens, pow, zero, g, h, i, j, k, x, L;
-	
-	if IsEmpty (list) then 
-		return []; 
-	fi;
-	
-	d := Length (list[1]);
-	
-	ggal := GeneratorsOfExtendedAffineGroup  (q, n);
-	z := ggal.genmul;
-	gens := [];
-	pow := [];
-	zero := 0*Z(q);
-	r := Z(q^n);
-	for g in list do
-		h := NullMat (n*d, n*d, GF(q));
-		for i in [1..d] do
-			for j in [1..d] do
-				x := g[i][j];
-				if x <> zero then
-					k := LogFFE (x, r) + 1;
-					if not IsBound(pow[k]) then
-						pow[k] := z^(k-1);
-					fi;
-					h{[(i-1)*n+1..i*n]}{[(j-1)*n+1..j*n]} := pow[k];
-				fi;
-			od;
-		od;
-		Add (gens, h);
-	od;
-
-	return gens;
-end);
-
-			
-############################################################################
-##
-#M  IsSubfield(<E>, <F>)
-##
-##  checks whether F is a subfield of E
-##  
-InstallMethod (IsSubfield, "for two finite fields", true, 
-	[IsField and IsFinite, IsField and IsFinite], 0,
-	function (E, F)
-	
-		local p;
-		p := Characteristic (F);
-		if p <> Characteristic (E) then
-			return false;
-		else
-			return LogInt (Size (E), p) mod LogInt (Size (F), p) = 0;
-		fi;
-	end);
-	
-	
 ############################################################################
 ##
 #F  IsMatGroupOverFieldFam(famG, famF)
@@ -312,6 +169,44 @@ InstallMethod (IsSubfield, "for two finite fields", true,
 InstallGlobalFunction (IsMatGroupOverFieldFam, function (famG, famF)
 	return CollectionsFamily (CollectionsFamily (famF)) = famG;
 end);
+
+
+############################################################################
+##
+#V  IRREDSOL_DATA.PRIME_POWERS
+##
+##  cache of proper prime powers, preset to all prime powers <= 65535
+##  
+IRREDSOL_DATA.PRIME_POWERS := [ 
+  4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 9, 
+  27, 81, 243, 729, 2187, 6561, 19683, 59049, 25, 125, 625, 3125, 15625, 49, 
+  343, 2401, 16807, 121, 1331, 14641, 169, 2197, 28561, 289, 4913, 361, 6859, 
+  529, 12167, 841, 24389, 961, 29791, 1369, 50653, 1681, 1849, 2209, 2809, 
+  3481, 3721, 4489, 5041, 5329, 6241, 6889, 7921, 9409, 10201, 10609, 11449, 
+  11881, 12769, 16129, 17161, 18769, 19321, 22201, 22801, 24649, 26569, 
+  27889, 29929, 32041, 32761, 36481, 37249, 38809, 39601, 44521, 49729, 
+  51529, 52441, 54289, 57121, 58081, 63001 ];
+
+
+############################################################################
+##
+#F  IsPPowerInt(q)
+##
+##  tests whether q is a prime power, caching new prime powers
+##  
+InstallGlobalFunction (IsPPowerInt, 
+	function (q)
+		if IsPrimeInt (q) then
+			return true;
+		elif q in IRREDSOL_DATA.PRIME_POWERS then
+			return true;
+		elif IsPrimePowerInt(q) then
+			AddSet (IRREDSOL_DATA.PRIME_POWERS, q);
+			return true;
+		else
+			return false;
+		fi;
+	end);
 
 
 ############################################################################
