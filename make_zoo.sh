@@ -38,15 +38,15 @@ foreach file (irredsol/htm/*)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
-foreach file (irredsol/data/*)
+foreach file (irredsol/grp/*)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
-foreach file (irredsol/fps/*.idx)
+foreach file (irredsol/fp/*.idx)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
-foreach file (irredsol/fps/*.fpc)
+foreach file (irredsol/fp/*.fpc)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
