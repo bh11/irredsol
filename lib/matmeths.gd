@@ -71,11 +71,11 @@ DeclareAttribute ("CharacteristicOfField", IsMatrixGroup);
 
 ############################################################################
 ##
-#A  RepresentationHomomorphism(<G>)
+#A  RepresentationIsomorphism
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute ("RepresentationHomomorphism", IsMatrixGroup);
+DeclareAttribute ("RepresentationIsomorphism", IsMatrixGroup);
 
 
 ############################################################################

@@ -19,6 +19,7 @@
 ##  
 BindGlobal ("ABS_IRRED_FP_INDEX", []);
 BindGlobal ("ABS_IRRED_FP", []);
+BindGlobal ("ABS_IRRED_FP_ELMS", []);
 
 
 ############################################################################
@@ -37,7 +38,7 @@ InstallGlobalFunction (PathAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
 			Error ("n must be at least 2");
 		fi;
 	
-		filename := Concatenation ("gl_", String (n), "_",String (q),".index");
+		filename := Concatenation ("gl_", String (n), "_",String (q),".idx");
 			
 		dirs := DirectoriesPackageLibrary ("irredsol", "fps");
 		for dir in dirs do
@@ -131,7 +132,7 @@ InstallGlobalFunction (PathAbsolutelyIrreducibleSolvableGroupFingerprint,
 			Error ("n must be at least 2");
 		fi;
 	
-		filename := Concatenation ("gl_", String (n), "_",String (q),"_", String(k),".fp");
+		filename := Concatenation ("gl_", String (n), "_",String (q),"_", String(k),".fpc");
 			
 		dirs := DirectoriesPackageLibrary ("irredsol", "fps");
 		for dir in dirs do
@@ -177,12 +178,20 @@ InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint,
 
 ###########################################################################
 ##
-#F  AbsolutelyIrreducibleSolvableGroupFingerprints(<n>, <q>, <o>)
+#F  AbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <o>)
 ##
-##  returns true if the fingerprint data file for subgroups of order o of
-##  GL(n,q) exists and is readable
+##  returns the fingerprint data for subgroups of order o of GL(n,q) 
+##  The fiongerprint data is a record with entries elms
+##  and fps. Elms is a set of lists of four integers
+##  fps is a list. Each entry corresponds to one fingerprint
+##  For each fingerprint, there is a list with three entries,
+##  the first being the group order (i.e., <o>), the second is a set of 
+##  integers from [1..Length (elms)], indicating
+##  which of the entries in elms is in the particular fingerprint
+##  The third is a list indicating the indices of the gropus
+##  having that fingerprint.
 ##  
-InstallGlobalFunction (AbsolutelyIrreducibleSolvableGroupFingerprints,
+InstallGlobalFunction (AbsolutelyIrreducibleSolvableGroupFingerprintData,
 	function (n, q, order)
 	
 		local pathname, pos, index, i;
@@ -206,9 +215,17 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableGroupFingerprints,
 		if not IsBound (ABS_IRRED_FP[n]) then
 			ABS_IRRED_FP[n] := [];
 		fi;
-		
+			
 		if not IsBound (ABS_IRRED_FP[n][q]) then
 			ABS_IRRED_FP[n][q] := [];
+		fi;
+		
+		if not IsBound (ABS_IRRED_FP_ELMS[n]) then
+			ABS_IRRED_FP_ELMS[n] := [];
+		fi;
+		
+		if not IsBound (ABS_IRRED_FP_ELMS[n][q]) then
+			ABS_IRRED_FP_ELMS[n][q] := [];
 		fi;
 		if not IsBound (ABS_IRRED_FP[n][q][pos]) then
 		
@@ -221,7 +238,7 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableGroupFingerprints,
 			Info (InfoIrredsol, 1, "reading file ", pathname);
 			Read (pathname);
 			
-			if not IsBound (ABS_IRRED_FP[n][q][pos]) then
+			if not IsBound (ABS_IRRED_FP[n][q][pos]) or not IsBound (ABS_IRRED_FP_ELMS[n][q][pos])then
 				Error ("Panic: reading data file didn't define required data");
 			fi;
 			for i in [1..Length (ABS_IRRED_FP_INDEX[n][q][2])] do
@@ -231,7 +248,8 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableGroupFingerprints,
 			od;
 			
 		fi;
-		return ABS_IRRED_FP[n][q][pos];
+		return rec (elms := ABS_IRRED_FP_ELMS[n][q][pos],
+					fps := ABS_IRRED_FP[n][q][pos]);
 	end);
 	
 		
@@ -270,6 +288,9 @@ InstallGlobalFunction (UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
 			MakeReadWriteGlobal ("ABS_IRRED_FP");
 			UnbindGlobal ("ABS_IRRED_FP");
 			BindGlobal ("ABS_IRRED_FP", []);
+			MakeReadWriteGlobal ("ABS_IRRED_FP_ELMS");
+			UnbindGlobal ("ABS_IRRED_FP_ELMS");
+			BindGlobal ("ABS_IRRED_FP_ELMS", []);
 			MakeReadWriteGlobal ("ABS_IRRED_FP_INDEX");
 			UnbindGlobal ("ABS_IRRED_FP_INDEX");
 			BindGlobal ("ABS_IRRED_FP_INDEX", []);

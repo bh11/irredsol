@@ -176,11 +176,11 @@ InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field",
 ##  
 InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field", 
 	IsMatGroupOverFieldFam,
-	[IsFFEMatrixGroup and HasRepresentationHomomorphism, IsField and IsFinite], 0,
+	[IsFFEMatrixGroup and HasRepresentationIsomorphism, IsField and IsFinite], 0,
 
 	function (G, F)	
 		return SmallBlockDimensionOfRepresentation (
-			Source (RepresentationHomomorphism (G)), RepresentationHomomorphism (G), F, DegreeOfMatrixGroup (G)) = DegreeOfMatrixGroup (G);		
+			Source (RepresentationIsomorphism (G)), RepresentationIsomorphism (G), F, DegreeOfMatrixGroup (G)) = DegreeOfMatrixGroup (G);		
 	end);
 
 
@@ -321,11 +321,11 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over fini
 ##  
 InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over finite field", 
 	IsMatGroupOverFieldFam,
-	[IsFFEMatrixGroup and HasRepresentationHomomorphism, IsField and IsFinite], 0,
+	[IsFFEMatrixGroup and HasRepresentationIsomorphism, IsField and IsFinite], 0,
 
 	function (G, F)	
 		return SmallBlockDimensionOfRepresentation (
-			Source (RepresentationHomomorphism (G)), RepresentationHomomorphism (G), F, 2) ;		
+			Source (RepresentationIsomorphism (G)), RepresentationIsomorphism (G), F, 2) ;		
 	end);
 
 
@@ -373,11 +373,11 @@ InstallMethod (Characteristic, "for matrix group", true, [IsMatrixGroup], 0,
 
 ############################################################################
 ##
-#M  RepresentationHomomorphism(<G>)
+#M  RepresentationIsomorphism(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (RepresentationHomomorphism, "for mat group handled by nice mono.", true,
+InstallMethod (RepresentationIsomorphism, "for mat group handled by nice mono.", true,
 	[IsMatrixGroup and IsHandledByNiceMonomorphism], 0,
 	function (G)
 
@@ -481,7 +481,7 @@ InstallMethod (ImprimitivitySystemsOp, "for matrix group handled by nice mono. a
 	[IsMatrixGroup and CategoryCollections (IsFFECollColl) and IsHandledByNiceMonomorphism, IsField and IsFinite], 0, 
 	function (G, F)
 		local rep;
-		rep := RepresentationHomomorphism (G);
+		rep := RepresentationIsomorphism (G);
 		return ImprimitivitySystemsForRepresentation (Source (rep), rep, F);
 	end);
 	
@@ -497,7 +497,7 @@ InstallMethod (ImprimitivitySystemsOp, "for matrix group handled by nice mono. a
 	[IsMatrixGroup and CategoryCollections (IsFFECollColl) and IsHandledByNiceMonomorphism, IsField and IsFinite], 0, 
 	function (G, F)
 		local rep;
-		rep := RepresentationHomomorphism (G);
+		rep := RepresentationIsomorphism (G);
 		return ImprimitivitySystemsForRepresentation (Source (rep), rep, F);
 	end);
 	

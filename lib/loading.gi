@@ -152,8 +152,7 @@ InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupData,
 			Read (pathname);
 			
 			if not IsBound (GUARDIAN_ABS_IRRED_DATA[n][q]) or not IsBound (ABS_IRRED_DATA[n][q]) 
-					# or not IsBound (ABS_IRRED_GAL_PERM[n][q]) 
-					then
+					or not IsBound (ABS_IRRED_GAL_PERM[n][q]) then
 				Error ("Panic: reading data file didn't define required data");
 			fi;
 			
@@ -317,16 +316,16 @@ InstallGlobalFunction (IsAvailableIrreducibleSolvableGroupData,
 		if not IsPosInt (n) or not IsPosInt (q) or not IsPrimePowerInt (q)  then
 			Error ("n and q must be positive integers and q must be a prime power");
 		fi;
-		if n = 1 then 
-			return q < 65536;
-		else
-			for d in DivisorsInt do
-				if PathAbsolutelyIrreducibleSolvableGroupData (n/d, q^d) = fail then
+		for d in DivisorsInt(n) do
+			if d = n then
+				if q^d >= 65535 then
 					return false;
 				fi;
-			od;
-			return true;
-		fi;
+			elif PathAbsolutelyIrreducibleSolvableGroupData (n/d, q^d) = fail then
+				return false;
+			fi;
+		od;
+		return true;
 	end);
 	
 	

@@ -39,14 +39,26 @@ DeclareAttribute ("FingerprintMatrixGroup", IsMatrixGroup);
 
 ############################################################################
 ##
+#F  ConjugatingMatIrreducibleOrFail(G, H, F)
+##
+##  G and H must be irreducible matrix groups over the finite field F
+##
+##  computes a matrix x such that G^x = H or returns fail if no such x exists
+##
+DeclareGlobalFunction ("ConjugatingMatIrreducibleOrFail");
+
+
+############################################################################
+##
 #F  ConjugatingMatImprimitiveOrFail(G, H, d, F)
 ##
-##  G and H must be matrix groups over the finite field F
+##  G and H must be irreducible matrix groups over the finite field F
 ##  H must be block monomial with block dimension d
 ##
 ##  computes a matrix x such that G^x = H or returns fail if no such x exists
 ##
-##  The function works best if d is small
+##  The function works best if d is small. Irreducibility is only requried 
+##  if ConjugatingMatIrreducibleOrFail is used
 ##
 DeclareGlobalFunction ("ConjugatingMatImprimitiveOrFail");
 

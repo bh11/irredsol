@@ -12,12 +12,12 @@
 
 ############################################################################
 ##
-#R  IsIteratorIrreducibleSolvableMatrixGroups
+#R  IsIteratorIrreducibleSolvableMatrixGroupsRep
 ##
 ##  representation for an iterator running throug a list of irreducible
 ##  solvable matrix groups
 ##  
-DeclareRepresentation ("IsIteratorIrreducibleSolvableMatrixGroups", 
+DeclareRepresentation ("IsIteratorIrreducibleSolvableMatrixGroupsRep", 
 	IsIterator and IsComponentObjectRep,
 	["dims", "dimi", "qs", "qi", "indices", "pos", "divdim", "divi",
 		"orders", "max", "primiive", "blockdims", "absirred",
@@ -260,7 +260,7 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 		r := CheckAndExtractArguments ([[Degree, DegreeOfMatrixGroup, Dimension, DimensionOfMatrixGroup], 
 			[Characteristic, CharacteristicOfField], [Field, FieldOfMatrixGroup], [Order, Size], 
 			[MinimalBlockDimension, MinimalBlockDimensionOfMatrixGroup], \
-   [IsPrimitive, IsPrimitiveMatrixGroup, IsLinearlyPrimitive], 
+ 			[IsPrimitive, IsPrimitiveMatrixGroup, IsLinearlyPrimitive], 
 			[IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup], 
 			[IsAbsolutelyIrreducibleMatrixGroup, IsAbsolutelyIrreducible]], 
 			[IsPosInt, p -> IsPosInt (p) and IsPrimeInt (p), F -> IsField (F) and IsFinite (F), IsPosInt,
@@ -281,7 +281,7 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 		fi;
 		
 		iterator := Objectify (NewType (NewFamily ("iterator of finite solvable matrix groups fam"),
-			IsIteratorIrreducibleSolvableMatrixGroups and IsMutable), 
+			IsIteratorIrreducibleSolvableMatrixGroupsRep and IsMutable), 
 			rec());
 		
 		
@@ -364,10 +364,10 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 ##
 #M  IsDoneIterator
 ##
-##  for iterator of database of irreducible soluble matrix groups
+##  for iterator of library of irreducible soluble matrix groups
 ##  
 InstallMethod (IsDoneIterator, "for irreducible solvable matrix groups", true,
-	[IsIteratorIrreducibleSolvableMatrixGroups], 0,
+	[IsIteratorIrreducibleSolvableMatrixGroupsRep], 0,
 	function (iterator)
 	
 		local blockdims, dim, div, q, min, max, G, H, gensH, repH, gensG, repG;
@@ -485,7 +485,7 @@ InstallMethod (IsDoneIterator, "for irreducible solvable matrix groups", true,
 ##  for iterator of database of irreducible soluble matrix groups
 ##  
 InstallMethod (NextIterator, "for irreducible solvable matrix groups", true,
-	[IsMutable and IsIteratorIrreducibleSolvableMatrixGroups], 0,
+	[IsMutable and IsIteratorIrreducibleSolvableMatrixGroupsRep], 0,
 	function (iterator)
 		
 		local G;

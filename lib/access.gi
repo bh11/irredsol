@@ -49,7 +49,7 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableMatrixGroup,
 		if not IsPosInt (n) or not IsPrimePowerInt (q) or not IsPosInt (k) then
 			Error ("n, q, k must be positive integers and q must be a prime power");
 		fi;
-			Info (InfoIrredsol, 2, "Constructing absolutely irreducible group with id ", 
+			Info (InfoIrredsol, 1, "Constructing absolutely irreducible group with id ", 
 				[n, q, k]);
 		LoadAbsolutelyIrreducibleSolvableGroupData (n, q);
 		idmat := Immutable (IdentityMat(n, GF(q)));
@@ -80,7 +80,7 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableMatrixGroup,
 	        od;
 	        hom := GroupHomomorphismByImagesNC (C, grp, Pcgs (C), gens);
 	        SetIsBijective (hom, true);
-	        SetRepresentationHomomorphism (grp, hom);
+	        SetRepresentationIsomorphism (grp, hom);
 	     	return grp;
 		fi;
 	    
@@ -105,11 +105,13 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableMatrixGroup,
 	    SetIdAbsolutelyIrreducibleSolvableMatrixGroup (grp, [n, q, k]);
 	    SetIdIrreducibleSolvableMatrixGroup (grp, [n, q, 1, k]);
 		SetFieldOfMatrixGroup (grp, GF(q));
-	    
+	    SetTraceField (grp, GF(q));			
+	    SetConjugatingMatTraceField (grp, One(grp));
+
 		hom := GroupHomomorphismByFunction (GroupOfPcgs (pcgs), grp, 
 			x -> ImageElm (pres, x), x -> PreImagesRepresentative (pres, x));
 		
-	    SetRepresentationHomomorphism (grp, hom);
+	    SetRepresentationIsomorphism (grp, hom);
 
 		SetMinimalBlockDimensionOfMatrixGroup (grp, guardianDesc[GUARDIAN_MIN_BLOCKDIM]);
 	    SetIsPrimitiveMatrixGroup (grp, MinimalBlockDimensionOfMatrixGroup(grp) = n);
@@ -231,9 +233,9 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
 		if d = 1 then 
 			return H;
 		else
-			Info (InfoIrredsol, 2, "Constructing irreducible group with id ", 
+			Info (InfoIrredsol, 1, "Constructing irreducible group with id ", 
 				[n, q, d, k]);
-			repH := RepresentationHomomorphism (H);
+			repH := RepresentationIsomorphism (H);
 			gensH := List (Pcgs (Source (repH)), x -> ImageElm (repH, x));
 			gensG := AsMatrixListOverSubield (gensH, d, q);
 			G := GroupWithGenerators (gensG);
@@ -248,11 +250,12 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
 			SetIdIrreducibleSolvableMatrixGroup (G, [n, q, d, k]);
 			SetFieldOfMatrixGroup (G, GF(q));
 			SetTraceField (G, GF(q));
+			SetConjugatingMatTraceField (G, One(G));
 		
 			repG := GroupHomomorphismByImagesNC (Source(repH), G, 
 				Pcgs (Source (repH)), gensG);
 			SetIsBijective (repG, true);
-			SetRepresentationHomomorphism (G, repG);
+			SetRepresentationIsomorphism (G, repG);
 			return G;
 		fi;
 	end);

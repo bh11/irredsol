@@ -63,12 +63,20 @@ DeclareGlobalFunction ("IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprint
 
 ###########################################################################
 ##
-#F  AbsolutelyIrreducibleSolvableGroupFingerprints(<n>, <q>, <o>)
+#F  AbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <o>)
 ##
-##  returns the set of all fingerprints of subgropus of order o of GL(n,q)
-##  in the database, or fail if there is only one subgroup of that order
+##  returns the fingerprint data for subgroups of order o of GL(n,q) 
+##  The fiongerprint data is a record with entries elms
+##  and fps. Elms is a set of lists of four integers
+##  fps is a list. Each entry corresponds to one fingerprint
+##  For each fingerprint, there is a list with three entries,
+##  the first being the group order (i.e., <o>), the second is a set of 
+##  integers from [1..Length (elms)], indicating
+##  which of the entries in elms is in the particular fingerprint
+##  The third is a list indicating the indices of the gropus
+##  having that fingerprint.
 ##  
-DeclareGlobalFunction ("AbsolutelyIrreducibleSolvableGroupFingerprints");
+DeclareGlobalFunction ("AbsolutelyIrreducibleSolvableGroupFingerprintData");
 
 
 ###########################################################################
