@@ -22,7 +22,7 @@ Date := "29/07/2003",
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.tu-bs.de/~bhoefling/irredsol/irredsol-0r1",
+ArchiveURL := "http://www.tu-bs.de/~bhoefling/irredsol/irredsol-1r0",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
