@@ -87,13 +87,16 @@ InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroupNC,
 		SetSocle (H, GroupOfPcgs (InducedPcgsByPcSequenceNC (FamilyPcgs (H),
 			FamilyPcgs(H){[Length (pcgs) + 1..Length (FamilyPcgs (H))]})));
 		SetFittingSubgroup (H, Socle (H));
-		if IsBound (SocleComplement) then
-			SetSocleComplement (H, GroupOfPcgs (InducedPcgsByPcSequenceNC (FamilyPcgs (H),
-				FamilyPcgs(H){[1..Length (pcgs)]})));
-		fi;
-		if IsBound (IsPrimitiveSolvable) then
-			SetIsPrimitiveSolvable (H, true);
-		fi;
+
+#       the following would require the CRISP package, so we leave it out
+
+#		if IsBound (SocleComplement) then
+#			SetSocleComplement (H, GroupOfPcgs (InducedPcgsByPcSequenceNC (FamilyPcgs (H),
+#				FamilyPcgs(H){[1..Length (pcgs)]})));
+#		fi;
+#		if IsBound (IsPrimitiveSolvable) then
+#			SetIsPrimitiveSolvable (H, true);
+#		fi;
 		return H;
 	end);
 	
