@@ -13,16 +13,16 @@ Subtitle := "A Library of irreducible solvable linear groups over finite fields"
 
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
-Version := "1r0",
+Version := "1r0n1",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "21/08/2003",
+Date := "07/01/2004",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r0",
+ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r0n1",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -95,7 +95,7 @@ ArchiveFormats := ".zoo",
 ##  
 Persons := [
   rec(
-  LastName := "Höfling",
+  LastName := "Hoefling",
   FirstNames := "Burkhard",
   IsAuthor := true,
   IsMaintainer := true,
@@ -103,7 +103,6 @@ Persons := [
   WWWHome := "http://www.tu-bs.de/~bhoeflin",
   #PostalAddress := "",           
   Place := "Braunschweig",
-  Institution := "Technical University"
   )
 # provide such a record for each author and/or maintainer ...
   
@@ -116,7 +115,7 @@ Persons := [
 ##    "dev"           for development versions of packages 
 ##    "other"         for all other packages
 ##
-Status := "dev",
+Status := "deposited",
 
 ##  You must provide the next two entries if and only if the status is 
 ##  "accepted":
@@ -135,7 +134,7 @@ Status := "dev",
 ##  the updating of package information on the GAP Website, and inclusion
 ##  and updating of the package in the GAP distribution.
 ##  
-README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README.irredsol-1r0",
+README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README.irredsol-1r0n1",
 PackageInfoURL := "http://www.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
@@ -150,7 +149,7 @@ AbstractHTML := "<P>The <span class=\"pkgname\">GAP</span> package \
 solvable subgroups of <I>GL(n,q)</I>, up to conjugacy, for small values \
 of <I>n</I> and <I>q</I>. ",
 
-PackageWWWHome := "http://www.tu-bs.de/~bhoeflin/irredsol/index.html",
+PackageWWWHome := "http://www.tu-bs.de/~bhoeflin/irredsol/index.htm",
                   
 ##  On the GAP Website there is an online version of all manuals in the
 ##  GAP distribution. To handle the documentation of a package it is
@@ -175,7 +174,7 @@ PackageDoc := rec(
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
   # Archive := "http://www.math.rwth-aachen.de/~Frank.Luebeck/EDIM/edimdoc-1p1.tar.bz2",
   ArchiveURLSubset := ["doc", "htm"],
-  HTMLStart := "htm/index.html",
+  HTMLStart := "htm/index.htm",
   PDFFile := "doc/manual.pdf",
   # the path to the .six file used by GAP's help system
   SixFile := "doc/manual.six",

@@ -1,6 +1,10 @@
 #!/bin/csh
+if [ "x$1" = "x" ];  then
+echo "Please supply a version number"
+else
 cd ../
 rm irredsol.zoo
+chmod -R a+rX irredsol
 
 set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
@@ -52,5 +56,7 @@ end
 zoo ach irredsol irredsol/README <irredsol/text_comment
 
 
+mv irredsol.zoo irredsol/crisp-$1.zoo
+fi
 
 
