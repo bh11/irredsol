@@ -13,16 +13,16 @@ Subtitle := "A Library of irreducible solvable linear groups over finite fields"
 
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
-Version := "1r0n1",
+Version := "1.0.2",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "07/01/2004",
+Date := "27/04/2004",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r0n1",
+ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r0n2",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -134,7 +134,7 @@ Status := "deposited",
 ##  the updating of package information on the GAP Website, and inclusion
 ##  and updating of the package in the GAP distribution.
 ##  
-README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README.irredsol-1r0n1",
+README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README",
 PackageInfoURL := "http://www.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
@@ -144,10 +144,10 @@ PackageInfoURL := "http://www.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 ##  Please, use '<span class="pkgname">GAP</span>' and
 ##  '<span class="pkgname">MyPKG</span>' for specifing package names.
 ##  
-AbstractHTML := "<P>The <span class=\"pkgname\">GAP</span> package \
-<span class=\"pkgname\">irredsol</span> provides a library of all irreducible \
-solvable subgroups of <I>GL(n,q)</I>, up to conjugacy, for small values \
-of <I>n</I> and <I>q</I>. ",
+AbstractHTML := "The <span class=\"pkgname\">GAP</span> package <span \
+class=\"pkgname\">irredsol</span> provides a library of all \
+irreducible solvable subgroups of <i>GL(n,q)</i>, up to conjugacy, \
+for small values of <i>n</i> and <i>q</i>.",
 
 PackageWWWHome := "http://www.tu-bs.de/~bhoeflin/irredsol/index.htm",
                   
@@ -174,7 +174,7 @@ PackageDoc := rec(
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
   # Archive := "http://www.math.rwth-aachen.de/~Frank.Luebeck/EDIM/edimdoc-1p1.tar.bz2",
   ArchiveURLSubset := ["doc", "htm"],
-  HTMLStart := "htm/index.htm",
+  HTMLStart := "htm/chapters.htm",
   PDFFile := "doc/manual.pdf",
   # the path to the .six file used by GAP's help system
   SixFile := "doc/manual.six",
