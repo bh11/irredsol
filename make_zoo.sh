@@ -1,11 +1,14 @@
 #! /bin/csh
 cd ../
 rm irredsol.zoo
-set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
-   loading.gd loading.gi matmeths.gd matmeths.gi recognize.gd recognize.gi \
-   util.gd util.gi)
 
-set docfiles = (manual.tex overview.tex access.tex matgroups.tex recognition.tex)
+set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
+   loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
+   recognize.gd recognize.gi util.gd util.gi)
+
+set docfiles = (manual.tex overview.tex access.tex matgroups.tex \
+    primitive.tex recognition.tex)
+    
 set manfiles = (.bbl .ind .idx .six .dvi .pdf)
 
 set testfiles = ()
@@ -38,7 +41,11 @@ for file (/data/*)
 	zoo ach irredsol irredsol/$file <irredsol/text_comment
 end
 
-for file (/fps/*)
+for file (/fps/*.idx)
+	zoo ach irredsol irredsol/$file <irredsol/text_comment
+end
+
+for file (/fps/*.fpc)
 	zoo ach irredsol irredsol/$file <irredsol/text_comment
 end
 

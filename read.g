@@ -14,6 +14,7 @@ ReadPkg ("irredsol", "lib/loadfp.gi");
 ReadPkg ("irredsol", "lib/access.gi");
 ReadPkg ("irredsol", "lib/iterators.gi");
 ReadPkg ("irredsol", "lib/recognize.gi");
+ReadPkg ("irredsol", "lib/primitive.gi");
 ReadPkg ("irredsol", "lib/util.gi");
 
 

@@ -13,7 +13,7 @@ Subtitle := "Library of irreducible solvable linear groups over finite fields",
 
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
-Version := "0.9",
+Version := "1r0",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 Date := "??/??/????",
@@ -69,7 +69,7 @@ ArchiveFormats := ".zoo",
 ##     rec(
 ##     # these are compulsory, characters are interpreted as latin-1, so
 ##     # German umlauts and other western European special characters are ok:
-##     LastName := "MŸller",
+##     LastName := "Müller",
 ##     FirstNames := "Fritz Eduard",
 ##  
 ##     # At least one of the following two entries must be given and set 
@@ -85,7 +85,7 @@ ArchiveFormats := ".zoo",
 ##     # complete URL, starting with protocol
 ##     WWWHome := "http://www.no.org/~Mueller",
 ##     # separate lines by '\n' (*optional*)
-##     PostalAddress := "Dr. F. MŸller\nNo Org Institute\nNo Place 13\n\
+##     PostalAddress := "Dr. F. Müller\nNo Org Institute\nNo Place 13\n\
 ##     12345 Notown\nNocountry"
 ##     
 ##     # If you want, add one or both of the following entries (*optional*)
@@ -95,7 +95,7 @@ ArchiveFormats := ".zoo",
 ##  
 Persons := [
   rec(
-  LastName := "Hšfling",
+  LastName := "Höfling",
   FirstNames := "Burkhard",
   IsAuthor := true,
   IsMaintainer := true,
@@ -121,7 +121,7 @@ Status := "dev",
 ##  You must provide the next two entries if and only if the status is 
 ##  "accepted":
 # format: 'name (place)'
-#CommunicatedBy := "Joachim NeubŸser (Aachen)",
+#CommunicatedBy := "Joachim Neubüser (Aachen)",
 # format: mm/yyyy
 #AcceptDate := "12/2000",
 
@@ -135,7 +135,7 @@ Status := "dev",
 ##  the updating of package information on the GAP Website, and inclusion
 ##  and updating of the package in the GAP distribution.
 ##  
-README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README.irredsol-0r9",
+README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README.irredsol-1r0",
 PackageInfoURL := "http://www.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
