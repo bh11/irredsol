@@ -1,29 +1,38 @@
 ############################################################################
 ##
-##  recognize.gd                 IRREDSOL                 Burkhard H\"ofling
+##  recognize.gd                 IRREDSOL                 Burkhard Hoefling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003 by Burkhard H\"ofling, 
-##  Institut f\"ur Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universit\"at Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
+##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig, Germany
 ##
 
 
 ############################################################################
 ##
-#F  IdIrreducibleSolvableMatrixGroupAvailable(<G>)
+#F  IsAvailableIdIrreducibleSolvableMatrixGroup(<G>)
 ##
 ##  see the IRREDSOL manual
 ##  
-DeclareGlobalFunction ("IdIrreducibleSolvableMatrixGroupAvailable");
+DeclareGlobalFunction ("IsAvailableIdIrreducibleSolvableMatrixGroup");
+
+
+############################################################################
+##
+#F  IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)
+##
+##  see the IRREDSOL manual
+##  
+DeclareGlobalFunction ("IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
 ##
 #F  IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable(<G>)
 ##
-##  see the IRREDSOL manual
+##  obsolete, old name for IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable
 ##  
 DeclareGlobalFunction ("IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable");
 
@@ -32,7 +41,8 @@ DeclareGlobalFunction ("IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable");
 ##
 #A  FingerprintMatrixGroup(<G>)
 ##
-##  see the IRREDSOL manual
+##  construct some data which is invariant under conjugation by an element
+##  of the containing GL
 ##  
 DeclareAttribute ("FingerprintMatrixGroup", IsMatrixGroup);
 
@@ -98,6 +108,23 @@ DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC");
 
 ############################################################################
 ##
+#F  RecognitionAISMatrixGroup(G, inds, wantmat, wantgroup)
+##
+##  version of RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC which 
+##  allows to prescribe a set of absolutely irreducible subgroups
+##  to which G is compared. This set is described as a subset <inds> of 
+##  IndicesAbsolutelyIrreducibleSolvableMatrixGroups (n, q), where n is the
+##  degree of G and q is the order of the trace field of G. if inds is fail,
+##  all groups in the IRREDSOL library are considered.
+##
+##  WARNING: The result may be wrong if G is not among the groups
+##  described by <inds>.
+##
+DeclareGlobalFunction ("RecognitionAISMatrixGroup");
+
+
+############################################################################
+##
 #F  RecognitionIrreducibleSolvableMatrixGroup(G, wantmat, wantgroup)
 ##
 ##  Let G be an irreducible solvable matrix group over a finite field. 
@@ -147,15 +174,6 @@ DeclareAttribute ("IdIrreducibleSolvableMatrixGroup", IsMatrixGroup);
 ##  see the IRREDSOL manual
 ##  
 DeclareAttribute ("IdAbsolutelyIrreducibleSolvableMatrixGroup", IsMatrixGroup);
-
-
-############################################################################
-##
-#V  MS_GROUP_INDEX
-##
-##  translation table for Mark Short's irredsol library
-##
-DeclareGlobalVariable ("MS_GROUP_INDEX");
 
 
 ############################################################################
