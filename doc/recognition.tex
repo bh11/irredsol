@@ -15,11 +15,10 @@
 
 This chapter describes some functions which, given an irreducible matrix 
 group, identify a group in the {\IRREDSOL} library which is conjugate
-to that group, see Sections "Identification of irreducible groups" 
-"Identification of absolutely irreducible groups". Moreover, 
-Section "Compatibility with other data libraries" describes how to 
-translate between groups in the {\IRREDSOL} library and the {\GAP} 
-library of irreducible solvable groups. 
+to that group, see Section~"Identification of irreducible groups".
+Moreover,  Section "Compatibility with other data libraries" describes
+how to  translate between groups in the {\IRREDSOL} library and the
+{\GAP}  library of irreducible solvable groups. 
 Section~"Loading and unloading recognition data manually" describes some 
 functions which allow to load and unload the recognition data in the 
 {\IRREDSOL} package manually.
@@ -30,7 +29,14 @@ functions which allow to load and unload the recognition data in the
 \>IsAvailableIdIrreducibleSolvableMatrixGroup(<G>) F
 
 This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
-"IdIrreducibleSolvableMatrixGroup") will work for the matrix group <G>, and `false' otherwise.
+"IdIrreducibleSolvableMatrixGroup") will work for the irreducible matrix group <G>, and `false' otherwise.
+
+\>`IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)'%
+{IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup}%
+@{`IsAvailableIdAbsolutelyIrreducible\\SolvableMatrixGroup'} F
+
+This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
+"IdIrreducibleSolvableMatrixGroup") will work for the absolutely irreducible matrix group <G>, and `false' otherwise.
 
 
 \>IdIrreducibleSolvableMatrixGroup(<G>) A
@@ -59,13 +65,13 @@ gap> IdIrreducibleSolvableMatrixGroup (G);
 {RecognitionIrreducibleSolvableMatrixGroupNC}%
 @{`RecognitionIrreducibleSolvable\\MatrixGroupNC'} F
 
-Let <G> be an absolutely irreducible solvable matrix group over a finite field. 
+Let <G> be an irreducible solvable matrix group over a finite field. 
 These functions identify a conjugate <H> of <G> group in the library. 
 They return a record which has the following entries:
 \beginitems
 `id' &  contains the id of <H> (and thus of
 <G>); cf. `IdIrreducibleSolvableMatrixGroup'
-("IdAbsolutelyIrreducibleSolvableMatrixGroup")
+("IdIrreducibleSolvableMatrixGroup")
 
 `mat' (optional) &
 a
@@ -89,41 +95,14 @@ gap> G := IrreducibleSolvableMatrixGroup (6, 2, 3, 5) ^
 >         RandomInvertibleMat (6, GF(4));
 <matrix group of size 42 with 3 generators>
 gap> r := RecognitionIrreducibleSolvableMatrixGroup (G, true, false);;
-ap> r.id;
+gap> r.id;
 [ 6, 2, 3, 5 ]
 gap> G^r.mat = CallFuncList (IrreducibleSolvableMatrixGroup, r.id);
 true
 \endexample
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Identification of absolutely irreducible groups}
-
-\>`IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)'%
-{IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup}%
-@{`IsAvailableIdAbsolutelyIrreducible\\SolvableMatrixGroup'} F
-
-This function returns `true' if `IdAbsolutelyIrreducibleSolvableMatrixGroup' (see
-"IdAbsolutelyIrreducibleSolvableMatrixGroup") will work for the matrix group <G>, and `false' otherwise.
-
 \>IdAbsolutelyIrreducibleSolvableMatrixGroup(<G>) A
-
-If the matrix group <G> is solvable and absolutely irreducible, and if 
- a conjugate in
-$GL(<n>, <F>)$ of $<G>$ belongs to the data base of  irreducible solvable groups in
-{\IRREDSOL}, this function returns a list `[<n>, <q>, <k>]' such that <G> is
-conjugate to  `AbsolutelyIrreducibleSolvableMatrixGroup'(<n>, <q>, <k>) (see
-"AbsolutelyIrreducibleSolvableMatrixGroup").
-
-\beginexample
-gap> G := AbsolutelyIrreducibleSolvableMatrixGroup (5,3,3) ^
->         RandomInvertibleMat (5,GF(27));  
-<matrix group of size 160 with 6 generators> 
-gap> IdAbsolutelyIrreducibleSolvableMatrixGroup (G); 
-[ 5, 3, 3 ]
-\endexample
-
-
 \>`RecognitionAbsolutelyIrreducibleSolvableMatrixGroup(%
    <G>, <wantmat>, <wantgroup>)'%
 {RecognitionAbsolutelyIrreducibleSolvableMatrixGroup}%
@@ -133,41 +112,13 @@ gap> IdAbsolutelyIrreducibleSolvableMatrixGroup (G);
 {RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC}%
 @{`RecognitionAbsolutelyIrreducibleSolvable\\MatrixGroupNC'} F
 
-Let <G> be an absolutely irreducible solvable matrix group over a finite field. 
-These functions identify a conjugate <H> of <G> group in the library. 
-They return a record which has the following entries:
-\beginitems
-`id' &  contains the id of <H> (and thus of
-<G>); cf. `IdAbsolutelyIrreducibleSolvableMatrixGroup'
-("IdAbsolutelyIrreducibleSolvableMatrixGroup")
+These functions are obsolete. Use the equivalent functions for irreducible matrix groups instead:
+`IdIrreducibleSolvableMatrixGroup' ("IdIrreducibleSolvableMatrixGroup"), 
+`RecognitionIrreducibleSolvableMatrixGroup' ("RecognitionIrreducibleSolvableMatrixGroup"), or
+`RecognitionIrreducibleSolvableMatrixGroupNC' ("RecognitionIrreducibleSolvableMatrixGroupNC")
+instead.
 
-`mat' (optional) &
-a
-matrix <x> such that $G^x = H$
 
-`group' (optional) & the group <H> 
-
-\enditems
-The entries `mat' and/or `group' are only present if the booleans <wantmat> and/or
-<wantgroup> are true, respectively. Note that in most cases, the function may 
-be much slower if <wantmat> is set to true.  
-
-The `NC' version does not check its arguments. It returns `fail' if
-the group <G> is beyond the scope of the {\IRREDSOL} library; see
-`IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup'
-("IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup"), while the
-ordinary version raises an error in this case.
-
-\beginexample
-gap> G := AbsolutelyIrreducibleSolvableMatrixGroup (5,3,3) ^
->         RandomInvertibleMat (5,GF(27)); 
-<matrix group of size 160 with 6 generators>
-gap> r := RecognitionAbsolutelyIrreducibleSolvableMatrixGroup (G, true, false);;
-gap> r.id;
-[ 5, 3, 3 ]
-gap> G^r.mat = AbsolutelyIrreducibleSolvableMatrixGroup (5, 3, 3);
-true;
-\endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Compatibility with other data libraries}
