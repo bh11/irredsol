@@ -12,13 +12,13 @@ PackageName := "IRREDSOL",
 Subtitle := "A Library of irreducible solvable linear groups over finite fields",
 BannerString := "\
 ----------------------------------------------------------------------\n\
-                        IRREDSOL Version 1.0.2\n\
+                        IRREDSOL Version 1.0.9\n\
   A library of irreducible solvable linear groups over finite fields\n\
               by Burkhard Hoefling (b.hoefling@tu-bs.de)\n\
 -----------------------------------------------------------------------\n",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
-Version := "1.0.2",
+Version := "1.0.9",
 
 ##  Release date of the current version in dd/mm/yyyy format.
 Date := "27/04/2004",
@@ -27,7 +27,7 @@ Date := "27/04/2004",
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r0n2",
+ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r0n9",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -150,7 +150,7 @@ PackageInfoURL := "http://www.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 ##  '<span class="pkgname">MyPKG</span>' for specifing package names.
 ##  
 AbstractHTML := "The <span class=\"pkgname\">GAP</span> package <span \
-class=\"pkgname\">irredsol</span> provides a library of all \
+class=\"pkgname\">IRREDSOL</span> provides a library of all \
 irreducible solvable subgroups of <i>GL(n,q)</i>, up to conjugacy, \
 for small values of <i>n</i> and <i>q</i>.",
 
@@ -236,12 +236,17 @@ Autoload := true,
 
 ##  *Optional*, but recommended: path relative to package root to a file which 
 ##  contains as many tests of the package functionality as sensible.
-#TestFile := "tst/all.g",
+TestFile := "tst/test.tst",
 
 ##  *Optional*: Here you can list some keyword related to the topic 
 ##  of the package.
 # Keywords := ["Smith normal form", "p-adic", "rational matrix inversion"]
-Keywords := ["linear group", "irreducible", "solvable", "matrix group", "library"]
+Keywords := ["linear group", "matrix group", "irreducible matrix group",
+   "absolutely irreducible matrix group",
+   "solvable group", "soluble group",
+   "library", "data base",
+   "matrix group recognition", "conjugacy of matrix groups",
+   "finite field", "trace field"]
 
 ));
 
