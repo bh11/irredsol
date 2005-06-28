@@ -50,7 +50,7 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupData,
 				if q > 65535 then
 					return false;
 				else
-					Info (InfoIrredsol, 1, "Computing irreducible solvable group data for ",
+					Info (InfoIrredsol, 2, "Computing irreducible solvable group data for ",
 						"GL(", n, ", ", q, ")");
 					p := SmallestRootInt (q);
 					e := LogInt (q, p);
@@ -112,7 +112,7 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupData,
 			
 			pathname := Concatenation ("grp/gl_", String (n), "_",String (q),".grp");
 			
-			Info (InfoIrredsol, 1, "Reading data file ", pathname);
+			Info (InfoIrredsol, 2, "Reading data file ", pathname);
 			if not ReadPackage ("irredsol", pathname) then
 				return false;
 			fi;

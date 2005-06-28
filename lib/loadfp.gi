@@ -55,7 +55,7 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex
 		if not IsBound (IRREDSOL_DATA.FP_INDEX[n][q]) then
 			pathname := Concatenation ("fp/gl_", String (n), "_",String (q),".idx");
 
-			Info (InfoIrredsol, 1, "Reading data file ", pathname);
+			Info (InfoIrredsol, 2, "Reading data file ", pathname);
 
 			if not ReadPackage ("irredsol", pathname) then
 				return false;
@@ -146,7 +146,7 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
 	
 			pathname := Concatenation ("fp/gl_", String (n), "_",String (q),"_", String(index),".fp");
 
-			Info (InfoIrredsol, 1, "reading file ", pathname);
+			Info (InfoIrredsol, 2, "Reading fingerprint file ", pathname);
 			if not ReadPackage ("irredsol", pathname) then
 				return false;
 			fi;
