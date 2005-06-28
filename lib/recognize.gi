@@ -112,7 +112,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail,
 		
 		x := MTX.Isomorphism (moduleG, modules[1]);
 		if x <> fail then 
-			Info (InfoIrredsol, 3, "conjugating matrix found");
+			Info (InfoIrredsol, 1, "conjugating matrix found");
 			return x;
 		fi;
 		
@@ -126,7 +126,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail,
 				fi;
 				x := MTX.Isomorphism (moduleG, module);
 				if x <> fail then 
-					Info (InfoIrredsol, 3, "conjugating matrix found");
+					Info (InfoIrredsol, 1, "conjugating matrix found");
 					return x;
 				fi;
 				if ForAll (modules, m -> MTX.Isomorphism (m, module) = fail ) then
@@ -136,7 +136,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail,
 			od;
 			i := i + 1;
 		od;
-		Info (InfoIrredsol, 3, "group are not conjugate");
+		Info (InfoIrredsol, 1, "group are not conjugate");
 		return fail;
 	end);
 
@@ -171,10 +171,10 @@ InstallGlobalFunction (ConjugatingMatImprimitiveOrFail, function (G, H, d, F)
 		r := RepresentativeAction (ImagesSource (hom), 
 				ImagesSet (hom, G), ImagesSet (hom, H));
 		if r <> fail then
-			Info (InfoIrredsol, 3, " conjugating matrix found");
+			Info (InfoIrredsol, 1, " conjugating matrix found");
 			return PreImagesRepresentative (hom, r);
 		else
-			Info (InfoIrredsol, 3, "groups are not conjugate");
+			Info (InfoIrredsol, 1, "groups are not conjugate");
 			return fail;
 		fi;
 	else
@@ -208,12 +208,12 @@ InstallGlobalFunction (ConjugatingMatImprimitiveOrFail, function (G, H, d, F)
 					# compute the corresponding matrix
 					mat := List (posbasis, k -> orb[k^r]);
 					r := Cinv * mat;
-					Info (InfoIrredsol, 3, " conjugating matrix found");
+					Info (InfoIrredsol, 1, " conjugating matrix found");
 					return r;
 				fi;
 			fi;
 		od;
-		Info (InfoIrredsol, 3, "groups are not conjugate");
+		Info (InfoIrredsol, 1, "groups are not conjugate");
 		return fail;
 	fi;
 end);
@@ -221,74 +221,18 @@ end);
 
 ############################################################################
 ##
-#F  RecognitionAbsolutelyIrreducibleSolvableMatrixGroup(G, wantmat, wantgroup)
-##
-##  Let G be an absolutely irreducible solvable matrix group over a finite field. 
-##  This function identifies a conjugate H of G group in the library. 
-##
-##  It returns a record which has the following entries:
-##  id:                contains the id of H (and thus of G), 
-##                     cf. IdAbsolutelyIrreducibleSolvableMatrixGroup
-##  mat: (optional)    a matrix x such that G^x = H
-##  group: (optional)  the group H
-##
-##  The entries mat and group are only present if the booleans wantmat and/or
-##  wantgroup are true, respectively.
-##
-##  Note that in most cases, the function will be much slower if wantmat
-##  is set to true.  
-##
-InstallGlobalFunction (RecognitionAbsolutelyIrreducibleSolvableMatrixGroup, 
-	function (G, wantmat, wantgroup)
-	
-		local info;
-		
-		# test if G is solvable
-	
-		if not IsMatrixGroup (G) or not IsFinite (FieldOfMatrixGroup (G)) or not IsSolvableGroup (G) then
-			Error ("G must be a solvable matrix group over a finite field");
-		fi;
-
-		if not IsBool (wantmat) or not IsBool (wantgroup) then
-			Error ("wantmat and wantgroup must be boolean");
-		fi;
-		info := RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC (G, wantmat, wantgroup);
-		if info = fail then
-			Error ("This group is not within the scope of the IRREDSOL library");
-		fi;
-		return info;
-	end);
-
-	
-############################################################################
-##
-#F  RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC(G, wantmat, wantgroup)
-##
-##  version of RecognitionAbsolutelyIrreducibleSolvableMatrixGroup which 
-##  does not check its arguments and returns fail if G is not within 
-##  the scope of the IRREDSOL library
-##
-InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC, 
-	function (G, wantmat, wantgroup)
-		
-		local n, q;
-				
-		if not IsAvailableAbsolutelyIrreducibleSolvableGroupData (DegreeOfMatrixGroup (G), Size (TraceField (G))) then
-			return fail;
-		else
-			return RecognitionAISMatrixGroup (G, fail, wantmat, wantgroup);
-		fi;
-	end);
-		
-
-############################################################################
-##
 #F  RecognitionAISMatrixGroup(G, inds, wantmat, wantgroup)
 ##
-##  version of RecognitionAbsolutelyIrreducibleSolvableMatrixGroup which 
-##  does not check its arguments and returns fail if G is not within 
-##  the scope of the IRREDSOL library
-##  if inds is fail, all groups in the library are considered.
+##  version of RecognitionIrreducibleSolvableMatrixGroupNC which 
+##  only works for absolutely irreducible groups G. This version
+##  allows to prescribe a set of absolutely irreducible subgroups
+##  to which G is compared. This set is described as a subset <inds> of 
+##  IndicesAbsolutelyIrreducibleSolvableMatrixGroups (n, q), where n is the
+##  degree of G and q is the order of the trace field of G. if inds is fail,
+##  all groups in the IRREDSOL library are considered.
+##
+##  WARNING: The result may be wrong if G is not among the groups
+##  described by <inds>.
 ##
 InstallGlobalFunction (RecognitionAISMatrixGroup,
 	function (G, inds, wantmat, wantgroup)
@@ -308,7 +252,7 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 		inds := SelectionIrreducibleSolvableMatrixGroups (
 			n, q, 1, inds, [order], fail, fail);
 
-		Info (InfoIrredsol, 2, Length (inds), 
+		Info (InfoIrredsol, 1, Length (inds), 
 					" groups of order ", order, " to compare");				
 			
 		if Length (inds) = 0 then
@@ -326,7 +270,7 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 					
 					fpinfo := IRREDSOL_DATA.FP[n][q][fppos];      # fingerprint info
 
-					Info (InfoIrredsol, 2, "computing fingerprint of group");
+					Info (InfoIrredsol, 1, "computing fingerprint of group");
 					
 					# which distingushing elements are in G?
 					
@@ -350,7 +294,7 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 						inds := Intersection (inds, fpinfo[3][pos]);
 					fi;
 					
-					Info (InfoIrredsol, 2, Length (inds), 
+					Info (InfoIrredsol, 1, Length (inds), 
 						" groups in the library have the same fingerprint");				
 				fi;
 			fi;
@@ -359,7 +303,7 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 		if Length (inds) > 1 or wantmat then 
 			# rewrite G over smaller field if necc.
 			
-			Info (InfoIrredsol, 2, "rewriting group over its trace field");
+			Info (InfoIrredsol, 1, "rewriting group over its trace field");
 			
 			t := ConjugatingMatTraceField (G);
 			if t <> One(G) then
@@ -378,13 +322,13 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 				# with different minimal block dimensions as well
 				
 				if Length (inds) > 1 then
-					Info (InfoIrredsol, 2, "computing imprimitivity systems of group");
+					Info (InfoIrredsol, 1, "computing imprimitivity systems of group");
 					systems := ImprimitivitySystems (G);
 					inds := SelectionIrreducibleSolvableMatrixGroups (
 						DegreeOfMatrixGroup (G), Size (F), 1, inds, [Order(G)], 
 						[MinimalBlockDimensionOfMatrixGroup (G)], fail);
 				fi;
-				Info (InfoIrredsol, 2, Length (inds), 
+				Info (InfoIrredsol, 1, Length (inds), 
 					" groups also have the same minimal block dimension");				
 			fi;
 			
@@ -394,10 +338,10 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 				H := AbsolutelyIrreducibleSolvableMatrixGroup (DegreeOfMatrixGroup (G), Size (F), inds[i]);
 
 				if fppos = fail then # compare fingerprints now
-					Info (InfoIrredsol, 2, "comparing fingerprints");				
+					Info (InfoIrredsol, 1, "comparing fingerprints");				
 					if FingerprintMatrixGroup (G) <> FingerprintMatrixGroup (H) then
-						Info (InfoIrredsol, 3, "fingerprint different from id ", 
-							IdAbsolutelyIrreducibleSolvableMatrixGroup (H));
+						Info (InfoIrredsol, 1, "fingerprint different from id ", 
+							IdIrreducibleSolvableMatrixGroup (H));
 						continue;
 					fi;
 				fi;
@@ -406,17 +350,17 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 					MinimalBlockDimensionOfMatrixGroup (G), F);
 					
 				if x = fail then
-					Info (InfoIrredsol, 3, "group does not have absolutely irreducible id ", IdAbsolutelyIrreducibleSolvableMatrixGroup (H));
+					Info (InfoIrredsol, 1, "group does not have id ", IdIrreducibleSolvableMatrixGroup (H));
 				else
 					Assert (1, G^x = H);
-					info.id := [DegreeOfMatrixGroup (G), Size (F), inds[i]];
+					info.id := [DegreeOfMatrixGroup (G), Size (F), 1, inds[i]];
 					if wantgroup then
 						info.group := H;
 					fi;
 					if wantmat then
 						info.mat := t*x;
 					fi;
-					Info (InfoIrredsol, 1, "absolutely irredducible group id is ", info.id);
+					Info (InfoIrredsol, 1, "group id is ", info.id);
 					return info;
 				fi;
 			od;
@@ -425,8 +369,8 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
 		# we are down to the last group - this must be it
 		
 		i := inds[Length (inds)];
-		info.id := [DegreeOfMatrixGroup (G), Size (F), i];
-		Info (InfoIrredsol, 1, "absolutely irreducible group id is ", info.id);
+		info.id := [DegreeOfMatrixGroup (G), Size (F), 1, i];
+		Info (InfoIrredsol, 1, "group id is ", info.id);
 		if not wantgroup and not wantmat then
 			return info;
 		fi;
@@ -514,8 +458,8 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
 		if not MTX.IsIrreducible (moduleG) then
 			Error ("G must be irreducible over FieldOfMatrixGroup (G)");
 		elif MTX.IsAbsolutelyIrreducible (moduleG) then
-			Info (InfoIrredsol, 2, "group is absolutely irreducible");
-			info := RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC (G, wantmat, wantgroup);
+			Info (InfoIrredsol, 1, "group is absolutely irreducible");
+			info := RecognitionAISMatrixGroup (G, fail, wantmat, wantgroup);
 			if info = fail then
 				return fail;
 			else
@@ -528,7 +472,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
 				fi;
 			fi;
 		else
-			Info (InfoIrredsol, 2, "reducing to the absolutely irreducible case");
+			Info (InfoIrredsol, 1, "reducing to the absolutely irreducible case");
 			module := GModuleByMats (gensG, GF(Characteristic (G)^MTX.DegreeSplittingField (moduleG)));
 			repeat
 				basis := MTX.ProperSubmoduleBasis (module);
@@ -558,37 +502,38 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
 			
 			# recognize absolutely irreducible component
 			
-			info := RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC (H, wantmat, false);
+			info := RecognitionAISMatrixGroup (H, fail, wantmat, false);
 			if info = fail then 
 				return fail;
 			fi;
+			
 			# translate results back
 			
 			q := Characteristic(H)^(e/d);
 			SetTraceField (G, GF(q));
 			Assert (1, q^d = info.id[2]);
 			perm_pow := PermCanonicalIndexIrreducibleSolvableMatrixGroup (
-					DegreeOfMatrixGroup (G), q, d, info.id[3]);
+					DegreeOfMatrixGroup (G), q, d, info.id[4]);
 
 			newinfo := rec (
-				id := [DegreeOfMatrixGroup (G), q, d, info.id[3]^(perm_pow.perm^perm_pow.pow)]);
+				id := [DegreeOfMatrixGroup (G), q, d, info.id[4]^(perm_pow.perm^perm_pow.pow)]);
 			if wantgroup then
 				newinfo.group := CallFuncList (IrreducibleSolvableMatrixGroup, newinfo.id);
 			fi;
 
 			if wantmat then
-				Info (InfoIrredsol, 2, "determining conjugating matrix");
+				Info (InfoIrredsol, 1, "determining conjugating matrix");
 				# raising to gal-th power is the galois automorphism which maps H to a conjugate of
 				# the absolutely irreducible group which is used to construct the irreducible group
 				# we want to find
 				gal := q^perm_pow.pow; 
 				if gal = 1 then
 				    gens := List (MTX.Generators(module), mat -> mat^info.mat);
-					Info (InfoIrredsol, 2, "already got right Galois conjugate");
+					Info (InfoIrredsol, 1, "already got right Galois conjugate");
 				else
 					# construct Galois conjugate of module
 					
-					Info (InfoIrredsol, 2, "computing and recognizing Galois conjugate");
+					Info (InfoIrredsol, 1, "computing and recognizing Galois conjugate");
 					
 					module := GModuleByMats (
 						List (MTX.Generators (module), mat -> List (mat, row -> List (row, x -> x^gal))),
@@ -610,12 +555,11 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
 					SetRepresentationIsomorphism (H, repH);
 					
 					# recognize absolutely irreducible component
-					
-					
+									
 					conjinfo := RecognitionAISMatrixGroup (H, [perm_pow.min], true, false);
 					if conjinfo = fail then 
 						Error ("panic: internal error, Galois conjugate isn't in the library");
-					elif conjinfo.id <> [info.id[1], info.id[2], perm_pow.min] then
+					elif conjinfo.id <> [info.id[1], info.id[2], 1, perm_pow.min] then
 						Error ("panic: internal error, didn't find correct Galois conjugate");
 					fi;
 					gens := List (MTX.Generators (module), mat -> mat^conjinfo.mat);
@@ -671,33 +615,6 @@ InstallMethod (IdIrreducibleSolvableMatrixGroup,
 RedispatchOnCondition(IdIrreducibleSolvableMatrixGroup, true,
 	[IsMatrixGroup and CategoryCollections (IsFFECollColl)],
 	[IsIrreducibleMatrixGroup and IsSolvableGroup], 0);
-
-
-############################################################################
-##
-#M  IdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)
-##
-##  see the IRREDSOL manual
-##  
-InstallMethod (IdAbsolutelyIrreducibleSolvableMatrixGroup, 
-	"for absolutely irreducible solvable matrix group over finite field", true,
-	[IsMatrixGroup and CategoryCollections (IsFFECollColl) 
-		and HasIsAbsolutelyIrreducibleMatrixGroup and HasIsSolvableGroup], 0,
-
-	function (G)
-		local info;
-		info := RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC (G, false, false);
-		if info = fail then
-			Error ("group is beyond the scope of the IRREDSOL library");
-		else
-			return info.id;
-		fi;
-	end);
-
-
-RedispatchOnCondition(IdAbsolutelyIrreducibleSolvableMatrixGroup, true,
-	[IsMatrixGroup and CategoryCollections (IsFFECollColl)],
-	[IsAbsolutelyIrreducibleMatrixGroup and IsSolvableGroup], 0);
 
 
 ############################################################################

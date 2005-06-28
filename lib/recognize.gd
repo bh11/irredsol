@@ -30,15 +30,6 @@ DeclareGlobalFunction ("IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup");
 
 ############################################################################
 ##
-#F  IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable(<G>)
-##
-##  obsolete, old name for IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable
-##  
-DeclareGlobalFunction ("IdAbsolutelyIrreducibleSolvableMatrixGroupAvailable");
-
-
-############################################################################
-##
 #A  FingerprintMatrixGroup(<G>)
 ##
 ##  construct some data which is invariant under conjugation by an element
@@ -75,42 +66,10 @@ DeclareGlobalFunction ("ConjugatingMatImprimitiveOrFail");
 
 ############################################################################
 ##
-#F  RecognitionAbsolutelyIrreducibleSolvableMatrixGroup(G, wantmat, wantgroup)
-##
-##  Let G be an absolutely irreducible solvable matrix group over a finite field. 
-##  This function identifies a conjugate H of G group in the library. 
-##
-##  It returns a record which has the following entries:
-##  id:                contains the id of H (and thus of G), 
-##                     cf. IdAbsolutelyIrreducibleSolvableMatrixGroup
-##  mat: (optional)    a matrix x such that G^x = H
-##  group: (optional)  the group H
-##
-##  The entries mat and group are only present if the booleans wantmat and/or
-##  wantgroup are true, respectively.
-##
-##  Note that in most cases, the function will be much slower if wantmat
-##  is set to true.  
-##
-DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroup");
-
-
-############################################################################
-##
-#F  RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC(G, wantmat, wantgroup)
-##
-##  version of RecognitionAbsolutelyIrreducibleSolvableMatrixGroup which 
-##  does not check its arguments and returns fail if G is not within 
-##  the scope of the IRREDSOL library
-##
-DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC");
-
-
-############################################################################
-##
 #F  RecognitionAISMatrixGroup(G, inds, wantmat, wantgroup)
 ##
-##  version of RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC which 
+##  version of RecognitionIrreducibleSolvableMatrixGroupNC which 
+##  only works for absolutely irreducible groups G. This version
 ##  allows to prescribe a set of absolutely irreducible subgroups
 ##  to which G is compared. This set is described as a subset <inds> of 
 ##  IndicesAbsolutelyIrreducibleSolvableMatrixGroups (n, q), where n is the
@@ -165,15 +124,6 @@ DeclareGlobalFunction ("RecognitionIrreducibleSolvableMatrixGroupNC");
 ##  see the IRREDSOL manual
 ##  
 DeclareAttribute ("IdIrreducibleSolvableMatrixGroup", IsMatrixGroup);
-
-
-############################################################################
-##
-#A  IdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)
-##
-##  see the IRREDSOL manual
-##  
-DeclareAttribute ("IdAbsolutelyIrreducibleSolvableMatrixGroup", IsMatrixGroup);
 
 
 ############################################################################
