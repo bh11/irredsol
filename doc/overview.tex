@@ -11,46 +11,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Overview}
 
-Let $n$ be a positive integer and $q$ a prime power satisfying  $q^n \<
-2^{16}$. The package {\IRREDSOL} provides a library of irreducible
-solvable subgroups of $GL(n, q)$, such that each irreducible solvable
-subgroup of $GL(n, q)$ is conjugate to precisely one group in the library. 
+The package {\IRREDSOL} provides a library of all irreducible
+solvable subgroups of $GL(n, q)$, up to conjugacy, where $n$ is a positive integer and $q$
+a prime power satisfying  $q^n \< 2^{16}$. The underlying data base lists 
+$28095$ absolutely irreducible groups of degree~$> 1$ and some additional information
+needed for constructing all irreducible groups, see Section~"Design of the group library"
+for details.
 
-35004 irreducibles and 28095 absolutely irreducibles
+The groups in the {\IRREDSOL} 
+library are parametrised by four integer parameters identifying
+the group (see Section~"Low
+level access functions"). In addition, there are functions which allow to 
+search the library for groups with given properties (see Section "Finding
+matrix groups with given properties"). Moreover, given an irreducible solvable matrix group
+<G>, it is possible to identify the group in the library to which <G> is conjugate,
+including a conjugating matrix, if desired. See Section~"identification of irreducible
+groups".
 
-It is possible to construct groups in the {\IRREDSOL} 
-library one at a time (see Section~"Low
-level access functions"), by supplying four integer parameters identifying
-the group in question. In addition, there are functions which facilitate 
-searching the library for groups with given properties (see Section "Finding
-matrix groups with given properties").
-
-Given an irreducible solvable matrix group <G>, it is possible
-to find the group in the library to which <G> is conjugate, see Sections
-"identification of irreducible groups" and "identification of absolutely
-irreducible groups".
-
-Moreover, the {\IRREDSOL} package provides additional functionality
+Apart from this, the {\IRREDSOL} package provides additional functionality
 for matrix groups, such as the computation of imprimitivity systems;
 see Chapter~"Additional functionality for matrix groups".
 
-Finally, the library of irreducible solvable matrix groups over prime
-fields translates into a library of isomorphism types of primitive solvable
-groups. There are functions available to translate between such irreducible solvable
-matrix groups and primitive groups, to search for primitive solvable groups with given 
-properties, and functions to recognize them, up to isomorphism; 
-see Sections "Translating between irreducible solvable matrix groups and primitive
-solvable groups", "Finding primitive solvable permutation groups with given
-properties",
-and "Recognizing primitive solvable groups", respectively.
+It is well-known that there is a bijection between the  irreducible solvable subgroups of
+$GL(n, p)$, where
+$p$ is a prime, and the conjugacy classes, or equivalently the isomorphism types, of
+primitive solvable subgroups of ${\rm Sym}(p^n)$. The {\IRREDSOL} package contains
+functions to translate between irreducible solvable matrix groups and primitive
+groups, to search for primitive solvable groups with given  properties, and functions to
+recognize them, up to isomorphism;  see Sections "Translating between irreducible solvable
+matrix groups and primitive solvable groups", "Finding primitive solvable permutation
+groups with given properties", and "Recognizing primitive solvable groups", respectively.
 
-Note that {\GAP} provides another library of all irreducible solvable
-subgroups of $GL(n, p)$, where $p$ is a prime and $p^n \< 2^8$ originally
+Note that {\GAP} contains another library consisting of all $372$ irreducible solvable
+subgroups of $GL(n, p)$, where $n > 1$, $p$ is a prime, and $p^n \< 2^8$ originally
 created by Mark Short and with two omissions in $GL(2,13)$ added later; 
-see Section "ref:Irreducible Solvable Matrix Groups" in the {\GAP} reference manual. All of
-these groups are,  of course, also part of the {\IRREDSOL} data base. The {\IRREDSOL}
-package provides functions to translate from the numbering used in the {\GAP} library
-to the numbering used in {\IRREDSOL} and back; see
+see Section "ref:Irreducible Solvable Matrix Groups" in the {\GAP} reference manual. 
+All of these groups are,  of course, also part of the {\IRREDSOL} data base, and the
+{\IRREDSOL} package provides functions to translate from the parametrisation used in the
+{\GAP} library to the parametrisation used in {\IRREDSOL} and back; see
 Section~"Compatibility with other data libraries".
 
 The groups in the {\IRREDSOL} data base were constructed using the methods
