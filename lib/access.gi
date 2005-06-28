@@ -50,8 +50,8 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableMatrixGroup,
 		if not IsPosInt (n) or not IsPPowerInt (q) or not IsPosInt (k) then
 			Error ("n, q, k must be positive integers and q must be a prime power");
 		fi;
-			Info (InfoIrredsol, 1, "Constructing absolutely irreducible group with id ", 
-				[n, q, k]);
+			Info (InfoIrredsol, 3, "Constructing absolutely irreducible group with id ", 
+				[n, q, 1, k]);
 		LoadAbsolutelyIrreducibleSolvableGroupData (n, q);
 		
 		if n = 1 then
@@ -98,7 +98,6 @@ InstallGlobalFunction (AbsolutelyIrreducibleSolvableMatrixGroup,
 	    		k in IRREDSOL_DATA.MAX[n][q]);
 		fi;
 		
-	    SetIdAbsolutelyIrreducibleSolvableMatrixGroup (grp, [n, q, k]);
 	    SetIdIrreducibleSolvableMatrixGroup (grp, [n, q, 1, k]);
 		SetFieldOfMatrixGroup (grp, GF(q));
 		SetDefaultFieldOfMatrixGroup(grp, GF(q));
@@ -213,7 +212,7 @@ InstallGlobalFunction (PermCanonicalIndexIrreducibleSolvableMatrixGroup,
 InstallGlobalFunction (IrreducibleSolvableMatrixGroup, 
 	function ( n, q, d, k )
 		
-		local perm, l, n0, q0, p, i, bas, mat, C, gddesc, desc, pres, gens, pcgs, grp, hom;
+		local perm, l, n0, q0, p, o, i, bas, mat, C, gddesc, desc, pres, gens, pcgs, grp, hom;
 		
 		if not IsPosInt (n) or not IsPosInt (d) or not IsPosInt (q) 
 				or not IsPPowerInt (q)  or not IsPosInt (k) or not n mod d = 0 then
@@ -249,7 +248,7 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
 				l := l^perm;
 			od;
 	
-			Info (InfoIrredsol, 1, "Constructing irreducible group with id ", 
+			Info (InfoIrredsol, 3, "Constructing irreducible group with id ", 
 				[n0, q0, d, k]);
 			
 	
@@ -263,16 +262,16 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
 				if not IsBound (IRREDSOL_DATA.GROUPS_DIM1[q][k]) then
 					Error ("inadmissible value for k");	
 				fi;
-				d := IRREDSOL_DATA.GROUPS_DIM1 [q][k][1];
+				o := IRREDSOL_DATA.GROUPS_DIM1 [q][k][1];
 				
-				mat := BlownUpMat (bas, [[Z(q)^((q-1)/d)]]);
+				mat := BlownUpMat (bas, [[Z(q)^((q-1)/o)]]);
 				grp := GroupWithGenerators ([mat], IdentityMat(n0, GF(q0)));
-				SetSize (grp, d);
+				SetSize (grp, o);
 				SetIsCyclic (grp, true);
 				i := PositionSet (DivisorsInt (LogInt (q, p)), LogInt (q0, p));
 				SetMinimalBlockDimensionOfMatrixGroup (grp, IRREDSOL_DATA.GROUPS_DIM1[q][k][2][i]);
 				
-				if d = 1 then
+				if o = 1 then
 					hom := IdentityMapping (grp);
 				else
 					C := AbelianGroup (IsPcGroup, [d]);
@@ -312,6 +311,7 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
 		    SetRepresentationIsomorphism (grp, hom);
 		    SetIsPrimitiveMatrixGroup (grp, MinimalBlockDimensionOfMatrixGroup(grp) = n);
 		    SetIsIrreducibleMatrixGroup (grp, true);
+		    SetIsAbsolutelyIrreducibleMatrixGroup (grp, d = 1);
 		    SetIsSolvableGroup (grp, true);
 			return grp;
 		fi;
