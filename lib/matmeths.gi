@@ -704,10 +704,10 @@ InstallMethod (TraceField, "for irreducible matrix group over finite field and s
 	local ext, gens, q, q0, module, module2, gens2, c, i, p;
 	
 	q := Size (FieldOfMatrixGroup (G));
-	Info (InfoIrredsol, 4, "TraceField: matrix group is over GF(",q,")");
+	Info (InfoIrredsol, 1, "TraceField: matrix group is over GF(",q,")");
 	
 	if IsTrivial (G) then
-		Info (InfoIrredsol, 4, "TraceField: trivial group case");
+		Info (InfoIrredsol, 1, "TraceField: trivial group case");
 		return FieldOfMatrixGroup (G);
 	fi;
 	
@@ -715,17 +715,17 @@ InstallMethod (TraceField, "for irreducible matrix group over finite field and s
 	
 	
 	q0 := Size ( Field (List ([1..LogInt (Size (G), 2) + 10], i -> TraceMat(PseudoRandom(G)))));
-	Info (InfoIrredsol, 4, "TraceField: trace field contains GF(",q0, ")");
 	
-	q0 := Size (PrimeField (FieldOfMatrixGroup(G)));
 	
 	if false and q = q0 then
+		Info (InfoIrredsol, 1, "TraceField: trace field is GF(", q0, ")");
 		return FieldOfMatrixGroup (G);
 	fi;
 	
-	Info (InfoIrredsol, 4, "TraceField: trace field contains GF(",q0, ")");
+	Info (InfoIrredsol, 1, "TraceField: trace field contains GF(",q0, ")");
 
 	module := GModuleByMats (GeneratorsOfGroup (G), FieldOfMatrixGroup (G));
+	
 	if not MTX.IsIrreducible (module) then
 		TryNextMethod();
 	fi;
@@ -734,22 +734,23 @@ InstallMethod (TraceField, "for irreducible matrix group over finite field and s
 		p := c[1];
 		for i in [1..c[2]] do
 		
-			Info (InfoIrredsol, 4, "TraceField: trying if trace field is GF(",q0, ")");
+			Info (InfoIrredsol, 1, "TraceField: trying if trace field is GF(",q0, ")");
 			# compute Galois conjugate of module
 			gens2 := List (MTX.Generators (module), g -> List (g, row -> List (row, a -> a^q0)));	
 			module2 := GModuleByMats (gens2, MTX.Field (module));
+					 	
+			# If module1 and module2 are conjugate, their traces are the same, and thus
+			# invariant under the Galois automorphism. Therefore the traces must belong to GF(q0).
+			# Thus by a theorem of Brauer, module1 (and module2) can be written over GF(q0).
+			# Conversely, if module1^x is over GF(q0) for some matrix x, 
+			# then module1^x = (module1^x)^q0 = (module1^q0)^(x^q0) = module2^(x^q0)
+			# which shows that module1 and module2 are conjugate.
+
+			# see also S. P. Glasby, R. B. Howlett, Writing representations over mnimal fields,
+			# Comm. Alg. 25 (1997), 1703--1711
 			
-			# G can be rewritten over GF(q0) if, and only 
-			# see S. P. Glasby, R. B. Howlett, Writing representations over mnimal fields,
-			# Comm. Alg. 25 (1997), 1703..1711
-			# Conversely, if the modules are isomorphic over GF(q), and module can be rewritten over GF(q1),
-			# then so can module2
-			# then
-			# module can be rewritten over GF(q1) iff the associated character is invariant under Gal(GF(q1))
-		 	# this is the case iff the module and module2 are equivalent
-		 	
 		 	if MTX.Isomorphism (module, module2) <> fail then
-				Info (InfoIrredsol, 4, "TraceField: trace field is GF(",q0, ")");
+				Info (InfoIrredsol, 1, "TraceField: trace field is GF(",q0, ")");
 				return GF(q0);
 			fi;
 	
@@ -757,7 +758,7 @@ InstallMethod (TraceField, "for irreducible matrix group over finite field and s
 		od;
 	od;
 	
-	Info (InfoIrredsol, 4, "TraceField: not rewritable over subfield: trace field is GF(",q0, ")");
+	Info (InfoIrredsol, 1, "TraceField: not rewritable over subfield: trace field is GF(",q0, ")");
 	
 	return GF(q0);
 end);
@@ -821,10 +822,9 @@ InstallMethod (ConjugatingMatTraceField, "for irreducible FFE matrix group",
 	[IsMatrixGroup and CategoryCollections (IsFFECollColl)], 0,
 	
 	function (G)
-
 	
-	local ext, q, q1, t, C, CC, D, Y, A, i, j, mu, nu, 
-		basis, moduleG, module, module2, module3, absirred;
+		local ext, q, q1, t, C, CC, D, Y, A, i, j, mu, nu, 
+			basis, moduleG, module, module2, module3, absirred;
 
 		if Length (GeneratorsOfGroup (G)) = 0 or TraceField(G) = FieldOfMatrixGroup (G) then
 			return One(G);
