@@ -208,14 +208,18 @@ groups" and "ref:Size" in the {\GAP} reference manual.
 
 \beginlist
 
-\item{--} `DegreeOfMatrixGroup' (or `Degree', `Dimension', `DimensionOfMatrixGroup'), 
-\item{--} `CharacteristicOfField' (or `Characteristic')
-\item{--} `FieldOfMatrixGroup' (or `Field' or `TraceField')
-\item{--} `Order' (or `Size')
-\item{--} `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' 
-\item{--} `IsAbsolutelyIrreducibleMatrixGroup' (or `IsAbsolutelyIrreducible')
-\item{--} `MinimalBlockDimensionOfMatrixGroup' (or `MinimalBlockDimension')
-\item{--} `IsPrimitiveMatrixGroup' (or `IsPrimitive', `IsLinearlyPrimitive')
+\item{$\bullet$} `DegreeOfMatrixGroup' (or `Degree', `Dimension',
+`DimensionOfMatrixGroup'), 
+\item{$\bullet$} `CharacteristicOfField' (or `Characteristic')
+\item{$\bullet$} `FieldOfMatrixGroup' (or `Field' or `TraceField')
+\item{$\bullet$} `Order' (or `Size')
+\item{$\bullet$} `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' 
+\item{$\bullet$} `IsAbsolutelyIrreducibleMatrixGroup' (or
+`IsAbsolutelyIrreducible')
+\item{$\bullet$} `MinimalBlockDimensionOfMatrixGroup' (or
+`MinimalBlockDimension')
+\item{$\bullet$} `IsPrimitiveMatrixGroup' (or `IsPrimitive',
+`IsLinearlyPrimitive')
 
 \endlist
 Note that computations with matrix groups over large vector spaces tend to be slow in {\GAP}. 
@@ -228,15 +232,19 @@ an isomorphic copy of <G>. Such an isomorphism can be found in the attribute
 gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 1, Field, GF(9));;
 gap> List (l, Order);
 [ 4, 8 ]
+
 # get all irreducible subgroups
 gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 1, Field, Subfields (GF(9)));;
 gap> List (l, Order);
 [ 1, 2, 4, 8 ]
+
 # get only maximal absolutely irreducible ones
 gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 4, Field, GF(3),
 >             IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup, true);;
 gap> SortedList (List (l, Order));
 [ 320, 640, 2304, 4608 ]
+
+# get only absolutely irreducible groups
 gap> l := AllIrreducibleSolvableMatrixGroups (Degree, 4, Field, GF(3),
 > IsAbsolutelyIrreducibleMatrixGroup, true);;
 gap> Collected (List (l, Order));
@@ -300,8 +308,9 @@ They are only relevant if timing or conservation of memory is an issue.
 
 \>LoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>) F
 
-This function loads the data for $GL(<n>, <q>)$ into memory and does some pre-processing. If the data
-is already loaded, the function does nothing. This function is called automatically when you access the
+This function loads the data for $GL(<n>, <q>)$ into the {\GAP} workspace and does 
+some pre-processing. If the data is already loaded, the function does nothing. This 
+function is called automatically when you access the
 {\IRREDSOL} library, so most users  will not need this function.
 
 \>`LoadedAbsolutelyIrreducibleSolvableGroupData()'%
@@ -315,7 +324,7 @@ This function returns a list. Each entry consists of an integer <n> and a set <l
 {UnloadAbsolutelydIrreducibleSolvableGroupData}%
 @{`UnloadAbsolutelydIrreducibleSolvable\\GroupData'} F
 
-This function can be used to delete data for irreducible groups from the {\GAP} workspace. If no argument
+This function can be used to delete data for $GL(<n>, <q>)$ from the {\GAP} workspace. If no argument
 is given, all data will be deleted. If only <n> is given, all data for degree <n> (and any <q>) will
 be deleted. If <n> and <q> are given, only the data for $GL(n, q)$ will be deleted from the {\GAP}
 workspace. Use this function if you run out of {\GAP} workspace. The
