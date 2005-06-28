@@ -12,7 +12,7 @@ set docfiles = (manual.tex overview.tex access.tex matgroups.tex \
     
 set manfiles = (.bbl .ind .idx .six .dvi .pdf)
 
-set testfiles = (test.tst testload.g)
+set testfiles = (test.tst)
 
 zoo ach irredsol irredsol/PackageInfo.g <irredsol/text_comment
 zoo ach irredsol irredsol/init.g <irredsol/text_comment
