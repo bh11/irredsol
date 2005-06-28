@@ -308,7 +308,7 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 			if Length (r.specialvalues[6]) = 1 then
 				iter.primitive := r.specialvalues[6][1];
 			else
-				Info (InfoWarning, 1, "IteratorIrreducibleSolvableMatrixGroups: `IsPrimitiveMatrixGroup' is redundant - will be ignored");
+				Info (InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: `IsPrimitiveMatrixGroup' is redundant - will be ignored");
 				iter.primitive := fail;
 			fi;
 		else
@@ -317,7 +317,7 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 		
 		if IsBound (r.specialvalues[7]) then
 			if Length (r.specialvalues[7]) > 1 then
-				Info (InfoWarning, 1, "IteratorIrreducibleSolvableMatrixGroups: `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' is redundant");
+				Info (InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' is redundant");
 				iter.max := fail;
 			else
 				iter.max := r.specialvalues[7][1];
@@ -328,12 +328,12 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 		
 		if IsBound (r.specialvalues[8]) then
 			if Length (r.specialvalues[8]) > 1 then
-				Info (InfoWarning, 1, "IteratorIrreducibleSolvableMatrixGroups: `IsAbsolutelyIrreducibleSolvableMatrixGroup' is redundant");
+				Info (InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: `IsAbsolutelyIrreducibleSolvableMatrixGroup' is redundant");
 				iter.absirred := fail;
 			else 
 				iter.absirred := r.specialvalues[8][1];
 				if iter.max = true and iter.absirred = false then
-					Info (InfoWarning, 1, "IteratorIrreducibleSolvableMatrixGroups: values of `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' ",
+					Info (InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: values of `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' ",
 						"and `IsAbsolutelyIrreducibleSolvableMatrixGroup' contradict each other");
 					return Iterator([]);
 				fi;
@@ -410,7 +410,7 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 
 						iterator!.di := 1;
 						if iterator!.absirred = true then
-							if iterator!.split = fail or q in iterator!.split then
+							if iterator!.split = fail or iterator!.qs[iterator!.qi] in iterator!.split then
 								iterator!.d := [1];
 							else
 								iterator!.d := [];
@@ -423,7 +423,7 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 								iterator!.d := Filtered (iterator!.divsdim, t -> q^t in iterator!.split);
 							fi;
 							if iterator!.absirred = false then
-								RemoveSet (iterator!.d, dim);
+								RemoveSet (iterator!.d, 1);
 							fi;
 						fi;		
 					od;
@@ -447,14 +447,14 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 						if iterator!.blockdims = fail then
 							blockdims := ShallowCopy (iterator!.divsdim);
 						else
-							blockdims := Intersection (iterator!.blockdims, blockdims);
+							blockdims := Intersection (iterator!.divsdim, iterator!.blockdims);
 						fi;
 						if iterator!.primitive = false then 
 							RemoveSet (blockdims, dim);
 						fi;
 					fi;
 					
-					if d = dim then #absolutely irreducible case
+					if d = 1 then #absolutely irreducible case
 						max := iterator!.max;
 					elif iterator!.max = true then
 						Error ("internal error: iterator!.max is true but trying to construct groups which are not abs. irred");
@@ -462,6 +462,11 @@ InstallGlobalFunction (IteratorIrreducibleSolvableMatrixGroups,
 						max := fail;
 					fi;
 						
+						
+					Info (InfoIrredsol, 2, "searching subgroups of GL(", dim, ", ", q, ")", 
+							" with splitting field GF(",q, "^",d,"), orders: ", iterator!.orders, 
+							" and block dims ", blockdims, " max = ", max);
+							
 					if IsAvailableAbsolutelyIrreducibleSolvableGroupData (dim/d, q^d) then
 						iterator!.indices := SelectionIrreducibleSolvableMatrixGroups (
 							dim, q, d, fail, iterator!.orders, blockdims, max);
