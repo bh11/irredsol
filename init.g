@@ -8,7 +8,7 @@
 ##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
 ##  Technische Universität Braunschweig, Germany
 ##
-DeclarePackage ("irredsol", "1.0", true);
+DeclarePackage ("irredsol", "1.0.9", true);
 DeclarePackageAutoDocumentation ("irredsol", "doc");
 
 ReadPkg ("irredsol", "lib/util.gd");
