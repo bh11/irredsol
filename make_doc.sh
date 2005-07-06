@@ -2,7 +2,7 @@
 cd doc
 tex manual
 makeindex manual
-bibtex manual.aux
+bibtex manual
 tex manual
 tex manual
 pdftex manual
