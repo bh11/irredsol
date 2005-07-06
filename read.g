@@ -8,14 +8,15 @@
 ##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
 ##  Technische Universitaet Braunschweig, Germany
 ##
-ReadPkg ("irredsol", "lib/matmeths.gi");
-ReadPkg ("irredsol", "lib/loading.gi");
-ReadPkg ("irredsol", "lib/loadfp.gi");
-ReadPkg ("irredsol", "lib/access.gi");
-ReadPkg ("irredsol", "lib/iterators.gi");
-ReadPkg ("irredsol", "lib/recognize.gi");
-ReadPkg ("irredsol", "lib/primitive.gi");
-ReadPkg ("irredsol", "lib/util.gi");
+ReadPackage ("irredsol", "lib/matmeths.gi");
+ReadPackage ("irredsol", "lib/loading.gi");
+ReadPackage ("irredsol", "lib/loadfp.gi");
+ReadPackage ("irredsol", "lib/access.gi");
+ReadPackage ("irredsol", "lib/iterators.gi");
+ReadPackage ("irredsol", "lib/recognize.gi");
+ReadPackage ("irredsol", "lib/primitive.gi");
+ReadPackage ("irredsol", "lib/util.gi");
+ReadPackage ("irredsol", "lib/obsolete.gi");
 
 
 ############################################################################

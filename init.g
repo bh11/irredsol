@@ -11,14 +11,15 @@
 DeclarePackage ("irredsol", "1.0.9", true);
 DeclarePackageAutoDocumentation ("irredsol", "doc");
 
-ReadPkg ("irredsol", "lib/util.gd");
-ReadPkg ("irredsol", "lib/matmeths.gd");
-ReadPkg ("irredsol", "lib/loading.gd");
-ReadPkg ("irredsol", "lib/loadfp.gd");
-ReadPkg ("irredsol", "lib/access.gd");
-ReadPkg ("irredsol", "lib/iterators.gd");
-ReadPkg ("irredsol", "lib/recognize.gd");
-ReadPkg ("irredsol", "lib/primitive.gd");
+ReadPackage ("irredsol", "lib/util.gd");
+ReadPackage ("irredsol", "lib/matmeths.gd");
+ReadPackage ("irredsol", "lib/loading.gd");
+ReadPackage ("irredsol", "lib/loadfp.gd");
+ReadPackage ("irredsol", "lib/access.gd");
+ReadPackage ("irredsol", "lib/iterators.gd");
+ReadPackage ("irredsol", "lib/recognize.gd");
+ReadPackage ("irredsol", "lib/primitive.gd");
+ReadPackage ("irredsol", "lib/obsolete.gd");
 
 
 ############################################################################

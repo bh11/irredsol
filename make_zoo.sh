@@ -5,7 +5,7 @@ chmod -R a+rX irredsol
 
 set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
-   recognize.gd recognize.gi util.gd util.gi)
+   recognize.gd recognize.gi util.gd util.gi obsolete.gd obsolete.gi)
 
 set docfiles = (manual.tex overview.tex access.tex matgroups.tex \
     primitive.tex recognition.tex)
@@ -38,7 +38,7 @@ foreach file (irredsol/htm/*)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
-foreach file (irredsol/grp/*)
+foreach file (irredsol/data/*)
 	zoo ach irredsol $file <irredsol/text_comment
 end
 
