@@ -9,29 +9,51 @@
 %%  Technische Universitaet Braunschweig, Germany
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newif\ifsymlinks
-\symlinkstrue
-\ifsymlinks
-   \input gapmacro.tex
+
+% read pdf synching macros, if available
+
+\immediate\openin0=pdfsync.tex
+\ifeof0
+   \let\next\relax
 \else
-   \input ../../../doc/gapmacro.tex
+   \def\next{\input pdfsync.tex
+      %\PDFSYNCStartrue
+      %\PDFSYNCDebugtrue
+   }
 \fi
+\closein0
+\next
+
+% input manual macros
+
+\input ../../../doc/gapmacro.tex
+
+% pdfsync requires files to be \input using \import
+
+\ifx\pdfsyncstart\undefined
+\else
+  \expandafter\outer\expandafter\def\csname Input\endcsname#1{%
+      \def\filename{#1.tex}\import{#1.tex}}
+  \def\inputaux#1#2#3{\immediate\openin#1=#2\jobname.#3
+     \ifeof#1\immediate\write16{No file #2\jobname.#3.}\else
+     \immediate\closein#1 \import{#2\jobname.#3} \fi}
+\fi
+
+% declare some package names
 \Package{IRREDSOL}
 \Package{CRISP}
-\def\\{\discretionary{\char92}{}{}}
+
+% allow manual line breaks in long function names
+\def\\{\discretionary{\char92}{}{}} 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \BeginningOfBook{irredsol}
-  \ifsymlinks
-     \UseReferences{crisp/doc}
-     \UseReferences{doc/ref}
-  \else
-     \UseReferences{../../../doc/ref}
-     \UseReferences{../../crisp/doc}
-  \fi
+  \UseReferences{../../../doc/ref}
+  \UseReferences{../../crisp/doc}
+
   \TitlePage{
     \vfill
     \centerline{\titlefont IRREDSOL}
-    \bigskip
     \bigskip
     \bigskip
     \centerline{\subtitlefont Version 1.0.9}
@@ -49,11 +71,14 @@
     \bigskip
     \centerline{\subtitlefont Burkhard H{\accent 127 o}f{}ling}
     \bigskip
-    \centerline{\bsf Institut f{\accent 127 u}r Geometrie, Algebra und Diskrete
+    \centerline{\secfont Institut f{\accent 127 u}r Geometrie, Algebra und Diskrete
        Mathematik}
-    \centerline{\bsf Technische Universit{\accent 127 a}t}
-	   \centerline{\bsf Braunschweig, Germany}
-    \centerline{\bsf \Mailto{b.hoefling@tu-bs.de}}
+    \medskip
+    \centerline{\secfont Technische Universit{\accent 127 a}t}
+    \medskip
+    \centerline{\secfont Braunschweig, Germany}
+     \medskip
+   \centerline{\secfont {b.hoefling@tu-bs.de}}
     \vfill
  }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
