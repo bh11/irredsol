@@ -11,7 +11,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % read pdf synching macros, if available
-
+\ifx\pdfoutput\undefined
+\else
 \immediate\openin0=pdfsync.tex
 \ifeof0
    \let\next\relax
@@ -23,6 +24,7 @@
 \fi
 \closein0
 \next
+\fi
 
 % input manual macros
 
