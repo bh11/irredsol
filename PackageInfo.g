@@ -21,7 +21,7 @@ BannerString := "\
 Version := "1.0.9",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "27/04/2004",
+Date := "06/07/2005",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
