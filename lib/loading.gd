@@ -30,15 +30,6 @@ DeclareGlobalFunction ("IsAvailableIrreducibleSolvableGroupData");
 
 ############################################################################
 ##
-#F  IsAvailablerreducibleSolvableGroupData(<n>, <q>)
-##
-##  see IRREDSOL documentation
-##  
-DeclareGlobalFunction ("IsAvailablerreducibleSolvableGroupData");
-
-
-############################################################################
-##
 #F  TryLoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
