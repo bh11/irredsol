@@ -26,7 +26,9 @@ functions which allow to load and unload the recognition data in the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Identification of irreducible groups}
 
-\>IsAvailableIdIrreducibleSolvableMatrixGroup(<G>) F
+\>`IsAvailableIdIrreducibleSolvableMatrixGroup(<G>)'%
+{IsAvailableIdIrreducibleSolvableMatrixGroup}%
+@{`IsAvailableIdIrreducible\\SolvableMatrixGroup'} F
 
 This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
 "IdIrreducibleSolvableMatrixGroup") will work for the irreducible matrix group <G>, and `false' otherwise.
@@ -65,7 +67,8 @@ gap> IdIrreducibleSolvableMatrixGroup (G);
 {RecognitionIrreducibleSolvableMatrixGroupNC}%
 @{`RecognitionIrreducibleSolvable\\MatrixGroupNC'} F
 
-Let <G> be an irreducible solvable matrix group over a finite field. 
+Let <G> be an irreducible solvable matrix group over a finite field, and let
+<wantmat> and <wantmat> be `true' or `false'. 
 These functions identify a conjugate <H> of <G> group in the library. 
 They return a record which has the following entries:
 \beginitems
@@ -73,22 +76,18 @@ They return a record which has the following entries:
 <G>); cf. `IdIrreducibleSolvableMatrixGroup'
 ("IdIrreducibleSolvableMatrixGroup")
 
-`mat' (optional) &
+`mat' (present if `wantmat' is `true') &
 a
 matrix <x> such that $G^x = H$
 
-`group' (optional) & the group <H> 
+`group' (present if `wantmat' is `true') & the group <H> 
 
 \enditems
-The entries `mat' and/or `group' are only present if the booleans <wantmat> and/or
-<wantgroup> are true, respectively. Note that in most cases, the function may 
-be much slower if <wantmat> is set to true.  
+Note that in most cases, `RecognitionIrreducibleSolvableMatrixGroup' and `RecognitionIrreducibleSolvableMatrixGroupNC' are 
+much slower if <wantmat> is set to true.   
 
-The `NC' version does not check its arguments. It returns `fail' if
-the group <G> is beyond the scope of the {\IRREDSOL} library; see
-`IsAvailableIdIrreducibleSolvableMatrixGroup'
-("IsAvailableIdIrreducibleSolvableMatrixGroup"), while the
-ordinary version raises an error in this case.
+`RecognitionIrreducibleSolvableMatrixGroupNC' does not check its arguments. If
+the group <G> is beyond the scope of the {\IRREDSOL} library (see "IsAvailableIdIrreducibleSolvableMatrixGroup"), `RecognitionIrreducibleSolvableMatrixGroupNC' returns `fail', while `RecognitionIrreducibleSolvableMatrixGroup' raises an error.
 
 \beginexample
 gap> G := IrreducibleSolvableMatrixGroup (6, 2, 3, 5) ^
@@ -112,12 +111,13 @@ true
 {RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC}%
 @{`RecognitionAbsolutelyIrreducibleSolvable\\MatrixGroupNC'} F
 
-These functions are obsolete. Use the equivalent functions for irreducible matrix groups instead:
+These functions are no longer available. These functions have been replaced by the
+functions 
 `IdIrreducibleSolvableMatrixGroup' ("IdIrreducibleSolvableMatrixGroup"), 
 `RecognitionIrreducibleSolvableMatrixGroup' ("RecognitionIrreducibleSolvableMatrixGroup"), or
-`RecognitionIrreducibleSolvableMatrixGroupNC' ("RecognitionIrreducibleSolvableMatrixGroupNC")
-instead.
+`RecognitionIrreducibleSolvableMatrixGroupNC' ("RecognitionIrreducibleSolvableMatrixGroupNC").
 
+Note that the ids returned by the functions for absolutely irreducible groups was a triple `[<n>, <d>, <k>]', while the replacement functions use ids of the form `[<n>, <d>, <d>, <k>]', where $<d> = 1$ in the absolutely irreducible case.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

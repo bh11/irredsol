@@ -14,21 +14,21 @@
 \Chapter{Primitive solvable groups}
 
 A finite group <G> is called {\it primitive} if it has a maximal subgroup <M> with 
-trivial core; the group acts primitively on the cosets of such
+trivial core; the group acts faithfully and primitively on the cosets of such
 a maximal subgroup.  
 
 Now assume that <G> is primitive and solvable. Then there exists a unique conjugacy class of 
 such maximal subgroups; the index of <M> in <G> is called the degree of <G>.
-In this case, the degree of <G> is always a prime power, $<p>^<n>$, say, and $<M>$ 
-complements the socle of $<G>$ which is the unique minimal normal subgroup <N> of~<G>. 
-Regarding <N> as a $GF(p)$-vector space, <M> acts as an irreducible subgroup of $GL(n,p)$ on <N>.
-Conversely, if <M> is an irreducible solvable subgroup of $GL(n,p)$, and $V = GF(p)^n$, then the
+Moreover, $<M>$ 
+complements the socle <N> of $<G>$. THe socle <N> coincides with the Fitting subgroup of <G>; it is the unique minimal normal subgroup <N> of~<G>. Therefore, the index of <M> in <G> is a prime power, $p^n$, say.
+Regarding <N> as a $\F_p$-vector space, <M> acts as an irreducible subgroup of $GL(n,p)$ on <N>.
+Conversely, if <M> is an irreducible solvable subgroup of $GL(n,p)$, and $V = \F_p^n$, then the
 split extension of $V$ by <M> is a primitive solvable group. 
 This establishes a well known
-bijection between the isomorphism types of primitive solvable groups of degree
+bijection between the isomorphism types (or, equivalently, the $Sym(p^n)$-conjugacy classes) of primitive solvable groups of degree
 $<p>^<n>$ and the conjugacy classes of irreducible solvable subgroups of $GL(n, p)$.
 
-The {\IRREDSOL} package provides functions for performing these translations,
+The {\IRREDSOL} package provides functions for translating between primitive solvable groups and irreducible solvable matrix groups, which are
 described in Section~"Translating between irreducible solvable matrix groups 
 and primitive solvable groups". Moreover, there are functions for finding
 primitive solvable groups with given properties, see Section~"Finding primitive pc groups
@@ -49,7 +49,7 @@ returns a primitive pc group <H> which is the split extension of <G> with its na
 underlying vector space~<V>. The `NC' version does not check whether <G> is over a prime field, 
 or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle" 
 in the {\GAP} reference manual, corresponding to~<V>. If the package {\CRISP} is loaded, 
-then the attribute `SocleComplement' (see "crisp:SocleComplement" is set to a subgroup of 
+then the attribute `SocleComplement' (see "crisp:SocleComplement" in the {\CRISP} manual) is set to a subgroup of 
 <H> isomorphic with <G>.
 
 \beginexample
@@ -58,15 +58,19 @@ gap> PrimitivePcGroupIrreducibleMatrixGroup (
 <pc group of size 160 with 6 generators>
 \endexample
 
-\>PrimitivePermutationGroupIrreducibleMatrixGroup(<G>) F
-\>PrimitivePermutationGroupIrreducibleMatrixGroupNC(<G>) F
+\>`PrimitivePermutationGroupIrreducibleMatrixGroup(<G>)'%
+{PrimitivePermutationGroupIrreducibleMatrixGroup}%
+@{`PrimitivePermutationGroup\\Irreducible\\MatrixGroup'} F
+\>`PrimitivePermutationGroupIrreducibleMatrixGroupNC(<G>)'%
+{PrimitivePermutationGroupIrreducibleMatrixGroupNC}%
+@{`PrimitivePermutationGroup\\Irreducible\\MatrixGroupNC'} F
 
 For a given irreducible solvable matrix group <G> over a prime field, this function
 returns a primitive permutation group~<H>, representing the affine action of <G> on its natural
 vector space~<V>. The `NC' version does not check whether <G> is over a prime field, 
 or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle" 
 in the {\GAP} reference manual, corresponding to~<V>. If the package {\CRISP} is loaded, 
-then the attribute `SocleComplement' (see "crisp:SocleComplement" is set to a subgroup of 
+then the attribute `SocleComplement' (see "crisp:SocleComplement" in the {\CRISP} manual) is set to a subgroup of 
 <H> isomorphic with <G>.
 
 \beginexample
@@ -75,14 +79,18 @@ gap> PrimitivePermutationGroupIrreducibleMatrixGroup (
 <permutation group of size 160 with 6 generators>
 \endexample
 
-\>IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>) F
-\>IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>) F
+\>`IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)'%
+{IrreducibleMatrixGroupPrimitiveSolvableGroup}%
+@{`IrreducibleMatrixGroup\\Primitive\\SolvableGroup'} F
+\>`IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>)'%
+{IrreducibleMatrixGroupPrimitiveSolvableGroupNC}%
+@{`IrreducibleMatrixGroup\\Primitive\\SolvableGroupNC'} F
 
 For a given primitive solvable group <G>, this function returns a matrix group 
 obtained from the conjugation
 action of <G> on its unique minimal normal subgroup <N>, regarded as a vector 
 space over $\F_p$, where $p$ is the exponent of <N>. 
-The $GF(p)$-basis of <N> is chosen arbitrarily, so that the matrix group returned 
+The $\F_p$-basis of <N> is chosen arbitrarily, so that the matrix group returned 
 is unique only up to conjugacy in the relevant $GL(n, p)$. The NC version does
 not check whether <G> is primitive and solvable.
 
@@ -104,8 +112,8 @@ in <arg_i>.  The arguments <func_1>, <func_2>, \dots,
 must be {\GAP} functions which take a pc group as their only argument and return a
 value, and <arg_1>, <arg_2>,
 \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list
-`[<arg_i>]'. One of the functions must be `Degree' (or one of its
-equivalents, see below).
+`[<arg_i>]'. One of the functions must be `Degree' or one of its
+equivalents, see below.
 
 The following functions <func_i> are handled particularly efficiently.
 
@@ -116,7 +124,7 @@ The following functions <func_i> are handled particularly efficiently.
 
 Note that there is also a function `IteratorPrimitivePcGroups' (see
 "IteratorPrimitivePcGroups") which allows one to run through the list produced by
-`AllPrimitivePcGroups' without having to store all of the groups
+`AllPrimitivePcGroups' without having to store all the groups in the list
 simultaneously.
 
 \beginexample
@@ -136,7 +144,7 @@ value, and <arg_1>, <arg_2>,
 `[<arg_i>]'. One of the functions must be `Degree' or one of its, equivalents, `NrMovedPoints' or `LargestMovedPoint'.
 
 For a list of functions which are handled particularly efficiently, see
-`AllPrimitivePcGroups' ("AllPrimitivePcGroups").
+"AllPrimitivePcGroups".
 
 \beginexample
 gap> OnePrimitivePcGroup (Degree, [256], Order, [256*255]);
@@ -180,11 +188,11 @@ This function returns a list of all primitive solvable permutation
 groups <G> corresponding to irreducible matrix groups in the  {\IRREDSOL} library 
 for which the return value of $<func_i>(G)$ lies
 in <arg_i>.  The arguments <func_1>, <func_2>, \dots,
-must be {\GAP} functions which take a pc group as their only argument and return a
+must be {\GAP} functions which take a permutation group as their only argument and return a
 value, and <arg_1>, <arg_2>,
 \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list
-`[<arg_i>]'. One of the functions must be `Degree' (or one of its
-equivalents, see below).
+`[<arg_i>]'. One of the functions must be `Degree' or one of its
+equivalents, see below.
 
 The following functions <func_i> are handled particularly efficiently. 
 
@@ -194,8 +202,8 @@ The following functions <func_i> are handled particularly efficiently.
 \item{--} `Order', `Size'
 \endlist
 
-Note that there is also a function `IteratorPrimitivePcGroups' (see
-"IteratorPrimitivePcGroups") which allows one to run through the list produced by
+Note that there is also a function `IteratorPrimitivePermutationGroups' (see
+"IteratorPrimitivePermutationGroups") which allows one to run through the list produced by
 `AllPrimitivePcGroups' without having to store all of the groups
 simultaneously.
 
@@ -217,7 +225,7 @@ This function returns one primitive solvable permutation
 group <G> corresponding to irreducible matrix groups in the  {\IRREDSOL} library 
 for which the return value of $<func_i>(G)$ lies in
 <arg_i>, or `fail' if no such group exists.  The arguments <func_1>, <func_2>, \dots,
-must be {\GAP} functions which take a pc group as their only argument and return a
+must be {\GAP} functions which take a permutation group as their only argument and return a
 value, and <arg_1>, <arg_2>,
 \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list
 `[<arg_i>]'. One of the functions must be `Degree' or one of its, equivalents, `NrMovedPoints' or `LargestMovedPoint'.
@@ -230,7 +238,7 @@ gap> OnePrimitiveSolvablePermutationGroup (Degree, [1..100], Size, [123321]);
 fail
 \endexample
 
-\>IteratorPrimitivePcGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
+\>IteratorPrimitivePermutationGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
 This function returns an iterator which runs through the list of all primitive solvable
 groups <G> in the  {\IRREDSOL} library such that
@@ -255,15 +263,15 @@ is functionally equivalent to
 compute all relevant pc groups at the same time. 
 This may save some memory. 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Recognizing primitive solvable groups}
 
 \>IdPrimitiveSolvableGroup(<G>) F
 \>IdPrimitiveSolvableGroupNC(<G>) F
 
-returns the id of the primitive pc group <G>. This is the same as
-the id of `IrreducibleMatrixGroupPrimitivePcGroup(<G>)', as returned by
-`IdIrreducibleSolvableMatrixGroup'; see "IdIrreducibleSolvableMatrixGroup".
+returns the id of the primitive solvable group <G>. This is the same as
+the id of `IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)', see "IrreducibleMatrixGroupPrimitiveSolvableGroup" and "IdIrreducibleSolvableMatrixGroup".
 Note that two primitive solvable groups are isomorphic if, and only if, their
 ids returned by `IdPrimitivePcGroup' are the same. The NC version does not
 check whether <G> is primitive and solvable.
