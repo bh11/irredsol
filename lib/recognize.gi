@@ -463,7 +463,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
          if info = fail then
             return fail;
          else
-            newinfo := rec (id := [DegreeOfMatrixGroup (G), Size (TraceField(G)), 1, info.id[3]]);
+            newinfo := rec (id := [DegreeOfMatrixGroup (G), Size (TraceField(G)), 1, info.id[4]]);
             if wantgroup then
                newinfo.group := info.group;
             fi;
