@@ -171,8 +171,7 @@ InstallGlobalFunction (OrdersAbsolutelyIrreducibleSolvableMatrixGroups,
             if IsBound (orders[j]) and orders[j][1] = o then
                orders[j][2] := orders[j][2] + 1;
             else
-               orders{[j+1..Length (orders)+1]} := orders{[j..Length (orders)]};
-               orders[j] := [o,1];
+               Add (orders, [o,1], j);
             fi;
          fi;
       od;
