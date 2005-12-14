@@ -177,7 +177,7 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
          if o = 1 then
             hom := IdentityMapping (grp);
          else
-            C := AbelianGroup (IsPcGroup, [d]);
+            C := AbelianGroup (IsPcGroup, [o]);
             hom := GroupHomomorphismByImagesNC (C, grp, [C.1], [mat]);
          fi;
          SetIsBijective (hom, true);
