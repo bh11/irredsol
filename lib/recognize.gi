@@ -48,9 +48,8 @@ InstallMethod (FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
    [IsMatrixGroup and CategoryCollections (IsFFECollColl)], 0,
    function (G)
 
-   local ids, counts, cl, id, pos, rep, i, F, g, q;
+   local ids, counts, cl, id, pos, rep, i, g, q;
    
-   F := DefaultFieldOfMatrixGroup (G);
    q := Size (TraceField (G));
    rep := RepresentationIsomorphism (G);
    ids := [];
@@ -58,7 +57,7 @@ InstallMethod (FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
       g := Representative (cl);
       if g <> g^0 then
          id := [Size (cl), Order (g), 
-            NumberOfFFPolynomial (CharacteristicPolynomial (F, F, ImageElm (rep, g), 1), 
+            NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (rep, g), 1), 
                q), 1];
          pos := PositionSorted (ids, id);
          if not IsBound (ids[pos]) or ids[pos]{[1,2,3]} <> id{[1,2,3]} then
