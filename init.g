@@ -6,9 +6,9 @@
 ##
 ##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
 ##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universität Braunschweig, Germany
+##  Technische Universitaet Braunschweig, Germany
 ##
-DeclarePackage ("irredsol", "1.0.9", true);
+DeclarePackage ("irredsol", "1.1", true);
 DeclarePackageAutoDocumentation ("irredsol", "doc");
 
 ReadPackage ("irredsol", "lib/util.gd");
