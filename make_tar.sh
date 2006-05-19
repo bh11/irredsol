@@ -10,6 +10,8 @@ rm -f $tarfile
 rm -f $tarfile.bz2
 chmod -R a+rX irredsol
 
+/Developer/Tools/SplitForks -s irredsol
+
 set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
    recognize.gd recognize.gi util.gd util.gi obsolete.gd obsolete.gi)
@@ -17,7 +19,7 @@ set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.g
 set docfiles = (manual.tex overview.tex access.tex matgroups.tex \
     primitive.tex recognition.tex)
     
-set manfiles = (.bbl .ind .idx .six .dvi .pdf .mst)
+set manfiles = (.bbl .ind .idx .six .dvi .pdf .mst .toc)
 
 set testfiles = (test.tst)
 
@@ -41,11 +43,11 @@ foreach file ($testfiles)
    tar -r -f $tarfile irredsol/tst/$file 
 end
 
-foreach file (irredsol/htm/*)
+foreach file (irredsol/htm/*.htm)
 	tar -r -f $tarfile $file 
 end
 
-foreach file (irredsol/data/*)
+foreach file (irredsol/data/*.grp)
 	tar -r -f $tarfile $file 
 end
 
@@ -58,6 +60,9 @@ foreach file (irredsol/fp/*.fp)
 end
 
 tar -r -f $tarfile irredsol/README 
+
+/System/Library/CoreServices/FixupResourceForks -q irredsol 
+
 bzip2  $tarfile 
 
 
