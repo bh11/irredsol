@@ -5,12 +5,13 @@ if ($tarfile == irredsol/irredsol-.tar) then
    exit;
 endif
 
+# this suppresses resouce forks in tarballs
+setenv COPY_EXTENDED_ATTRIBUTES_DISABLE 1
+
 cd ../
 rm -f $tarfile
 rm -f $tarfile.bz2
 chmod -R a+rX irredsol
-
-/Developer/Tools/SplitForks -s irredsol
 
 set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
@@ -61,7 +62,6 @@ end
 
 tar -r -f $tarfile irredsol/README 
 
-/System/Library/CoreServices/FixupResourceForks -q irredsol 
 
 bzip2  $tarfile 
 
