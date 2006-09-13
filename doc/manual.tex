@@ -10,37 +10,6 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% read pdf synching macros, if available
-\ifx\pdfoutput\undefined
-\else
-\immediate\openin0=pdfsync.tex
-\ifeof0
-   \let\next\relax
-\else
-   \def\next{\input pdfsync.tex
-      %\PDFSYNCStartrue
-      %\PDFSYNCDebugtrue
-   }
-\fi
-\closein0
-\next
-\fi
-
-% input manual macros
-
-\input ../../../doc/gapmacro.tex
-
-% pdfsync requires files to be \input using \import
-
-\ifx\pdfsyncstart\undefined
-\else
-  \expandafter\outer\expandafter\def\csname Input\endcsname#1{%
-      \def\filename{#1.tex}\import{#1.tex}}
-  \def\inputaux#1#2#3{\immediate\openin#1=#2\jobname.#3
-     \ifeof#1\immediate\write16{No file #2\jobname.#3.}\else
-     \immediate\closein#1 \import{#2\jobname.#3} \fi}
-\fi
-
 % declare some package names
 \Package{IRREDSOL}
 \Package{CRISP}
@@ -58,7 +27,7 @@
     \centerline{\titlefont IRREDSOL}
     \bigskip
     \bigskip
-    \centerline{\subtitlefont Version 1.1.1}
+    \centerline{\subtitlefont Version 1.1.2}
     \bigskip
     \bigskip
     \bigskip

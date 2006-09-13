@@ -12,22 +12,22 @@ PackageName := "IRREDSOL",
 Subtitle := "A Library of irreducible solvable linear groups over finite fields",
 BannerString := "\
 ----------------------------------------------------------------------\n\
-                         IRREDSOL Version 1.1.1\n\
+                         IRREDSOL Version 1.1.2\n\
   A library of irreducible solvable linear groups over finite fields\n\
               by Burkhard Hoefling (b.hoefling@tu-bs.de)\n\
 -----------------------------------------------------------------------\n",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
-Version := "1.1.1",
+Version := "1.1.2",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "23/04/2006",
+Date := "13/09/2006",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r1n1",
+ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r1n2",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
