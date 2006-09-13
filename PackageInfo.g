@@ -119,14 +119,14 @@ Persons := [
 ##    "dev"           for development versions of packages 
 ##    "other"         for all other packages
 ##
-Status := "deposited",
+Status := "accepted",
 
 ##  You must provide the next two entries if and only if the status is 
 ##  "accepted":
 # format: 'name (place)'
-#CommunicatedBy := "Joachim Neubueser (Aachen)",
+CommunicatedBy := "Gerhard Hiss (Aachen)",
 # format: mm/yyyy
-#AcceptDate := "12/2000",
+AcceptDate := "08/2006",
 
 ##  For a central overview of all packages and a collection of all package
 ##  archives it is necessary to have two files accessible which should be
