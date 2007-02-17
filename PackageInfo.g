@@ -14,7 +14,7 @@ BannerString := "\
 ----------------------------------------------------------------------\n\
                          IRREDSOL Version 1.1.2\n\
   A library of irreducible solvable linear groups over finite fields\n\
-              by Burkhard Hoefling (b.hoefling@tu-bs.de)\n\
+                         by Burkhard Hoefling\n\
 -----------------------------------------------------------------------\n",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
@@ -65,7 +65,7 @@ ArchiveFormats := ".tar.bz2", # the others are generated automatically
 ##  archives)
 ##  
 ##  These entries are *optional*.
-BinaryFiles := ["doc/manual.dvi", "doc/manual.pdf"],
+BinaryFiles := ["doc/manual.pdf"],
 
 ##  Information about authors and maintainers. Specify for each person a 
 ##  record with the following information:
@@ -103,7 +103,6 @@ Persons := [
   FirstNames := "Burkhard",
   IsAuthor := true,
   IsMaintainer := true,
-  Email := "b.hoefling@tu-bs.de",
   WWWHome := "http://www.tu-bs.de/~bhoeflin",
   #PostalAddress := "",           
   Place := "Braunschweig",
