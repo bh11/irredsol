@@ -27,7 +27,7 @@ Date := "13/09/2006",
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.tu-bs.de/~bhoeflin/irredsol/irredsol-1r1n2",
+ArchiveURL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/irredsol-1r1n2",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -103,7 +103,7 @@ Persons := [
   FirstNames := "Burkhard",
   IsAuthor := true,
   IsMaintainer := true,
-  WWWHome := "http://www.tu-bs.de/~bhoeflin",
+  WWWHome := "http://www-public.tu-bs.de:8080/~bhoeflin",
   #PostalAddress := "",           
   Place := "Braunschweig",
   )
@@ -137,8 +137,8 @@ AcceptDate := "08/2006",
 ##  the updating of package information on the GAP Website, and inclusion
 ##  and updating of the package in the GAP distribution.
 ##  
-README_URL := "http://www.tu-bs.de/~bhoeflin/irredsol/README",
-PackageInfoURL := "http://www.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
+README_URL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/README",
+PackageInfoURL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
@@ -152,7 +152,7 @@ class=\"pkgname\">IRREDSOL</span> provides a library of all \
 irreducible solvable subgroups of <i>GL(n,q)</i>, up to conjugacy, \
 for small values of <i>n</i> and <i>q</i>.",
 
-PackageWWWHome := "http://www.tu-bs.de/~bhoeflin/irredsol/index.htm",
+PackageWWWHome := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/index.htm",
                   
 ##  On the GAP Website there is an online version of all manuals in the
 ##  GAP distribution. To handle the documentation of a package it is
