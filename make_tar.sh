@@ -20,7 +20,7 @@ set libfiles = (access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.g
 set docfiles = (manual.tex overview.tex access.tex matgroups.tex \
     primitive.tex recognition.tex)
     
-set manfiles = (.bbl .ind .idx .six .dvi .pdf .mst .toc)
+set manfiles = (.bbl .ind .idx .six .pdf .mst .toc)
 
 set testfiles = (test.tst)
 
