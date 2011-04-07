@@ -1,12 +1,10 @@
 ############################################################################
 ##
-##  util.gd                      IRREDSOL                 Burkhard Hoefling
+##  util.gd                      IRREDSOL                  Burkhard Höfling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
 
@@ -21,7 +19,7 @@ DeclareInfoClass ("InfoIrredsol");
 
 ############################################################################
 ##
-#I  TestFlag(<n>)
+#F  TestFlag(<n>)
 ##
 ##  tests if a bit is set in t
 ##  

@@ -1,12 +1,10 @@
 ############################################################################
 ##
-##  util.gi                      IRREDSOL                 Burkhard Hoefling
+##  util.gi                       IRREDSOL                  Burkhard Höfling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
 
@@ -18,10 +16,10 @@
 ##  integer n
 ##  
 InstallGlobalFunction (TestFlag,
-   function (n, i)
-      return QuoInt (n, 2^i) mod 2 = 1;
-   end);
-   
+    function (n, i)
+        return QuoInt (n, 2^i) mod 2 = 1;
+    end);
+    
 
 ############################################################################
 ##
@@ -32,19 +30,19 @@ InstallGlobalFunction (TestFlag,
 ##  
 InstallGlobalFunction (NumberOfFFPolynomial, function (p, q)
 
-   local cf, z, sum, c;
-   
-   cf := CoefficientsOfUnivariatePolynomial (p);
-   z := Z(q);
-   sum := 0;
-   for c in cf do
-      if c = 0*z then
-         sum := sum * q;
-      else 
-         sum := sum * q + LogFFE (c, z) + 1;
-      fi;
-   od;
-   return sum;
+    local cf, z, sum, c;
+    
+    cf := CoefficientsOfUnivariatePolynomial (p);
+    z := Z(q);
+    sum := 0;
+    for c in cf do
+        if c = 0*z then
+            sum := sum * q;
+        else 
+            sum := sum * q + LogFFE (c, z) + 1;
+        fi;
+    od;
+    return sum;
 end);
 
 
@@ -55,27 +53,27 @@ end);
 ##  computes a d x d matrix over GF(q) represented by the integer n
 ##  
 InstallGlobalFunction (FFMatrixByNumber,
-   function (n, d, q)
-   
-      local z, m, i, j, k;
-      
-      z := Z(q);
-      m := NullMat (d,d, GF(q));
-   
-      for i in [d, d-1..1] do
-         for j in [d, d-1..1] do
-            k := RemInt (n, q);
-            n := QuoInt (n, q);
-            if k > 0 then
-               m[i][j] := z^(k-1);
-            fi;
-         od;
-      od;
-      ConvertToMatrixRep (m, q);
-      return m;
-   end);
-   
-   
+    function (n, d, q)
+    
+        local z, m, i, j, k;
+        
+        z := Z(q);
+        m := NullMat (d,d, GF(q));
+    
+        for i in [d, d-1..1] do
+            for j in [d, d-1..1] do
+                k := RemInt (n, q);
+                n := QuoInt (n, q);
+                if k > 0 then
+                    m[i][j] := z^(k-1);
+                fi;
+            od;
+        od;
+        ConvertToMatrixRep (m, q);
+        return m;
+    end);
+    
+    
 ############################################################################
 ##
 #F  CanonicalPcgsByNumber(<pcgs>, <n>)
@@ -83,16 +81,16 @@ InstallGlobalFunction (FFMatrixByNumber,
 ##  computes the canonical pcgs wrt. pcgs represented by the integer n
 ##  
 InstallGlobalFunction (CanonicalPcgsByNumber,
-   function (pcgs, n)
-   
-      local gens, cpcgs;
-      
-      gens := List (ExponentsCanonicalPcgsByNumber (RelativeOrders (pcgs), n), 
-         exp -> PcElementByExponents (pcgs, exp));
-      cpcgs := InducedPcgsByPcSequenceNC (pcgs, gens);
-      SetIsCanonicalPcgs (cpcgs, true);
-      return cpcgs;
-   end);
+    function (pcgs, n)
+    
+        local gens, cpcgs;
+        
+        gens := List (ExponentsCanonicalPcgsByNumber (RelativeOrders (pcgs), n), 
+            exp -> PcElementByExponents (pcgs, exp));
+        cpcgs := InducedPcgsByPcSequenceNC (pcgs, gens);
+        SetIsCanonicalPcgs (cpcgs, true);
+        return cpcgs;
+    end);
 
 
 ############################################################################
@@ -103,21 +101,21 @@ InstallGlobalFunction (CanonicalPcgsByNumber,
 ##  actually constructing the canonical pcgs or the group
 ##  
 InstallGlobalFunction (OrderGroupByCanonicalPcgsByNumber,
-   function (pcgs, n)
-   
-      local ros, order, j;
-      
-      order := 1;
-      ros := RelativeOrders (pcgs);
-      n := RemInt (n, 2^Length (ros));
-      for j in [1..Length(ros)] do
-         if RemInt (n, 2) > 0 then
-            order := order * ros[j];
-         fi;
-         n := QuoInt (n, 2);
-      od;
-      return order;
-   end);
+    function (pcgs, n)
+    
+        local ros, order, j;
+        
+        order := 1;
+        ros := RelativeOrders (pcgs);
+        n := RemInt (n, 2^Length (ros));
+        for j in [1..Length(ros)] do
+            if RemInt (n, 2) > 0 then
+                order := order * ros[j];
+            fi;
+            n := QuoInt (n, 2);
+        od;
+        return order;
+    end);
 
 
 ############################################################################
@@ -129,34 +127,34 @@ InstallGlobalFunction (OrderGroupByCanonicalPcgsByNumber,
 ##  constructing the canonical pcgs itself
 ##  
 InstallGlobalFunction (ExponentsCanonicalPcgsByNumber,
-   function (ros, n)
-   
-      local depths, len, d, exps, exp, j, cpcgs;
-      depths := [];
-      len := Length(ros);
-      for j in [1..len] do
-         d := RemInt (n, 2);
-         n := QuoInt (n, 2);
-         if d > 0 then
-            Add (depths, j);
-         fi;
-      od;
-   
-      exps := [];
-      for d in depths do
-         exp := ListWithIdenticalEntries (len, 0);
-         exp[d] := 1;
-         for j in [d+1..len] do
-            if not j in depths then
-               exp[j] := RemInt (n, ros[j]);
-               n := QuoInt (n, ros[j]);
+    function (ros, n)
+    
+        local depths, len, d, exps, exp, j, cpcgs;
+        depths := [];
+        len := Length(ros);
+        for j in [1..len] do
+            d := RemInt (n, 2);
+            n := QuoInt (n, 2);
+            if d > 0 then
+                Add (depths, j);
             fi;
-         od;
-         Add (exps, exp);
-      od;
-      
-      return exps;
-   end);
+        od;
+    
+        exps := [];
+        for d in depths do
+            exp := ListWithIdenticalEntries (len, 0);
+            exp[d] := 1;
+            for j in [d+1..len] do
+                if not j in depths then
+                    exp[j] := RemInt (n, ros[j]);
+                    n := QuoInt (n, ros[j]);
+                fi;
+            od;
+            Add (exps, exp);
+        od;
+        
+        return exps;
+    end);
 
 
 ############################################################################
@@ -167,7 +165,7 @@ InstallGlobalFunction (ExponentsCanonicalPcgsByNumber,
 ##  whose family is famF
 ##  
 InstallGlobalFunction (IsMatGroupOverFieldFam, function (famG, famF)
-   return CollectionsFamily (CollectionsFamily (famF)) = famG;
+    return CollectionsFamily (CollectionsFamily (famF)) = famG;
 end);
 
 
@@ -195,18 +193,18 @@ IRREDSOL_DATA.PRIME_POWERS := [
 ##  tests whether q is a prime power, caching new prime powers
 ##  
 InstallGlobalFunction (IsPPowerInt, 
-   function (q)
-      if IsPrimeInt (q) then
-         return true;
-      elif q in IRREDSOL_DATA.PRIME_POWERS then
-         return true;
-      elif IsPrimePowerInt(q) then
-         AddSet (IRREDSOL_DATA.PRIME_POWERS, q);
-         return true;
-      else
-         return false;
-      fi;
-   end);
+    function (q)
+        if IsPrimeInt (q) then
+            return true;
+        elif q in IRREDSOL_DATA.PRIME_POWERS then
+            return true;
+        elif IsPrimePowerInt(q) then
+            AddSet (IRREDSOL_DATA.PRIME_POWERS, q);
+            return true;
+        else
+            return false;
+        fi;
+    end);
 
 
 ############################################################################

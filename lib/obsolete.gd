@@ -1,12 +1,10 @@
 ############################################################################
 ##
-##  access.gd                    IRREDSOL                 Burkhard Hoefling
+##  access.gd                    IRREDSOL                  Burkhard Höfling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
 
@@ -54,6 +52,57 @@ DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC");
 ##  
 DeclareGlobalFunction ("IdAbsolutelyIrreducibleSolvableMatrixGroup");
    
+
+############################################################################
+##
+#F  PrimitivePermutationGroupIrreducibleMatrixGroup(<G>)
+#F  PrimitivePermutationGroupIrreducibleMatrixGroupNC(<G>)
+##
+##  see IRREDSOL documentation
+##  
+DECLAE_IRREDSOL_OBSOLETE ("PrimitivePermutationGroupIrreducibleMatrixGroup", 
+    "PrimitivePermGroupIrreducibleMatrixGroup");
+DECLAE_IRREDSOL_OBSOLETE ("PrimitivePermutationGroupIrreducibleMatrixGroupNC", 
+    "PrimitivePermGroupIrreducibleMatrixGroupNC");
+    
+############################################################################
+##
+#F  PrimitiveSolvablePermutationGroup(<n>,<q>,<d>,<k>)
+##
+##  see IRREDSOL documentation
+##  
+DECLAE_IRREDSOL_OBSOLETE ("PrimitiveSolvablePermutationGroup", 
+    "PrimitiveSolvablePermGroup");
+
+###########################################################################
+##
+#F  IteratorPrimitiveSolvablePermutationGroups(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DECLAE_IRREDSOL_OBSOLETE ("IteratorPrimitiveSolvablePermutationGroups", 
+    "IteratorPrimitiveSolvablePermGroups");
+
+###########################################################################
+##
+#F  AllPrimitiveSolvablePermutationGroups(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DECLAE_IRREDSOL_OBSOLETE ("AllPrimitiveSolvablePermutationGroups", 
+    "AllPrimitiveSolvablePermGroups");
+
+
+###########################################################################
+##
+#F  OnePrimitiveSolvablePermutationGroup(<arg>)
+##
+##  see IRREDSOL documentation
+##  
+DECLAE_IRREDSOL_OBSOLETE ("OnePrimitiveSolvablePermutationGroup", 
+    "OnePrimitiveSolvablePermGroup");
+
+
 
 ############################################################################
 ##

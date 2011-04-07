@@ -1,12 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%%  recognition.tex        IRREDSOL documentation          Burkhard Hoefling
+%%  recognition.tex        IRREDSOL documentation           Burkhard Höfling
 %%
 %%  @(#)$Id$
 %%
-%%  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-%%  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-%%  Technische Universitaet Braunschweig, Germany
+%%  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 %%
 
 
@@ -35,7 +33,7 @@ This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
 
 \>`IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)'%
 {IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup}%
-@{`IsAvailableIdAbsolutelyIrreducible\\SolvableMatrixGroup'} F
+@{`IsAvailable\\Id\\Absolutely\\Irreducible\\Solvable\\MatrixGroup'} F
 
 This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
 "IdIrreducibleSolvableMatrixGroup") will work for the absolutely irreducible matrix group <G>, and `false' otherwise.
@@ -59,11 +57,11 @@ gap> IdIrreducibleSolvableMatrixGroup (G);
 
 
 \>`RecognitionIrreducibleSolvableMatrixGroup(%
-   <G>, <wantmat>, <wantgroup>)'%
+   <G>[, <wantmat>[, <wantgroup>[,<wantiso>]]])'%
 {RecognitionIrreducibleSolvableMatrixGroup}%
 @{`RecognitionIrreducibleSolvable\\MatrixGroup'} F
 \>`RecognitionIrreducibleSolvableMatrixGroupNC(%
-   <G>, <wantmat>,<wantgroup>)'%
+   <G>[, <wantmat>[, <wantgroup>[,<wantiso>]]])'%
 {RecognitionIrreducibleSolvableMatrixGroupNC}%
 @{`RecognitionIrreducibleSolvable\\MatrixGroupNC'} F
 
@@ -72,16 +70,17 @@ Let <G> be an irreducible solvable matrix group over a finite field, and let
 These functions identify a conjugate <H> of <G> group in the library. 
 They return a record which has the following entries:
 \beginitems
-`id' &  contains the id of <H> (and thus of
-<G>); cf. `IdIrreducibleSolvableMatrixGroup'
-("IdIrreducibleSolvableMatrixGroup")
+`id' &  contains the id of <H> (and thus of <G>); 
+    cf. `IdIrreducibleSolvableMatrixGroup'  ("IdIrreducibleSolvableMatrixGroup")
 
 `mat' (present if `wantmat' is `true') &
-a
-matrix <x> such that $G^x = H$
+    a matrix <x> such that $G^x = H$
 
-`group' (present if `wantmat' is `true') & the group <H> 
+`group' (present if `wantgroup' is `true') & the group <H> 
 
+`iso' (present if `wantiso' is `true') & a group isomorphism from the source of
+    `RepresentationIsomorphism(<G>)' to the source of `RepresentationIsomorphism(<H>)'.
+    
 \enditems
 Note that in most cases, `RecognitionIrreducibleSolvableMatrixGroup' and `RecognitionIrreducibleSolvableMatrixGroupNC' are 
 much slower if <wantmat> is set to true.   
