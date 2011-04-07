@@ -30,7 +30,7 @@ gap> for d in [2.. limit] do
 >                      fi;
 >                   od;
 >                   if Length (wrong) > 0 then
->                      Error ("wrong subfield info for indices ", wrong, " d = ", t);
+>                      Error ("GL(",m/e,",",p^e,"): wrong subfield info for indices ", wrong, " d = ", e/t);
 >                   fi;
 >                od;
 >             fi;         
