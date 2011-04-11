@@ -1,16 +1,15 @@
 ############################################################################
 ##
-##  init.g                       irredsol                 Burkhard Hoefling
+##  init.g                       IRREDSOL                  Burkhard Höfling
 ##
 ##  @(#)$Id$
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
-DeclarePackage ("irredsol", "1.1.2", true);
+DeclarePackage ("irredsol", "1.2", true);
 DeclarePackageAutoDocumentation ("irredsol", "doc");
 
+ReadPackage ("irredsol", "lib/util.g");
 ReadPackage ("irredsol", "lib/util.gd");
 ReadPackage ("irredsol", "lib/matmeths.gd");
 ReadPackage ("irredsol", "lib/loading.gd");
@@ -19,6 +18,7 @@ ReadPackage ("irredsol", "lib/access.gd");
 ReadPackage ("irredsol", "lib/iterators.gd");
 ReadPackage ("irredsol", "lib/recognize.gd");
 ReadPackage ("irredsol", "lib/primitive.gd");
+# ReadPackage ("irredsol", "lib/recognizeprim.gd");
 ReadPackage ("irredsol", "lib/obsolete.gd");
 
 
