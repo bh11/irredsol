@@ -6,8 +6,6 @@
 ##
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
-DeclarePackage ("irredsol", "1.2", true);
-DeclarePackageAutoDocumentation ("irredsol", "doc");
 
 ReadPackage ("irredsol", "lib/util.g");
 ReadPackage ("irredsol", "lib/util.gd");
