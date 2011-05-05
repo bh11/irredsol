@@ -52,7 +52,7 @@ InstallMethod (FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
     rep := RepresentationIsomorphism (G);
     ids := [];
     len := 0;
-    for cl in ConjugacyClasses(Source (rep)) do
+    for cl in AttributeValueNotSet (ConjugacyClasses, Source (rep)) do
         g := Representative (cl);
         if g <> g^0 then
             id := [Size (cl), Order (g), 
@@ -85,9 +85,266 @@ end);
 ##  from the source of RepresentationIsomorphism (G) to the source of 
 ##  RepresentationIsomorphism (H). If no such matrix exists, the 
 ##  function returns fail.
+##  this works like the GAP function Morphium but only looks for linear
+##  isomorphisms. 
 ##
-InstallGlobalFunction(ConjugatingMatIrreducibleOrFail,
-    function (G, H, F)
+InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
+    
+    local q, isoG, preG, isoH, preH, ccl, cl, ids, id, gens, genspos, imglist, g, i, j, k, len, 
+        cost, weight, mingens, mincost, mingenspos, totalcost, pos, d, ind, imgs, hom, count,
+        sizes, D, proj, homG, homH, group, S, occ, cpH,
+        imglistrep, moduleG, moduleH, dirr, mat;
+    
+    q := Size (F);
+    isoG := RepresentationIsomorphism(G);
+    preG := Source (isoG);
+    isoH := RepresentationIsomorphism(H);
+    preH := Source (isoH);
+    ccl := ConjugacyClasses (preG);
+    ids := [];
+    occ := [];
+    len := 0;
+    for i in [1..Length (ccl)] do
+        cl := ccl[i];
+        id := [Size (cl), Order (Representative (cl)), 
+            NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoG, Representative (cl))), q)];
+        pos := PositionSorted (ids, id);
+        if pos > len then
+            ids[pos] := id;
+            occ[pos] := [i];
+            len := len + 1;
+        elif ids[pos] <> id then
+            CopyListEntries( ids, pos, 1, ids, pos + 1, 1, len - pos + 1 );
+            CopyListEntries( occ, pos, 1, occ, pos + 1, 1, len - pos + 1 );
+            ids[pos] := id;
+            occ[pos] := [i];
+            len := len + 1;
+        else
+            Add (occ[pos], i);
+        fi;
+    od;
+    
+    cost := [];
+    for i in [2..Length (ids)] do
+        cost[i] := ids[i][1]*Length (occ[i]);
+    od;
+    
+    
+    gens := ShallowCopy (MinimalGeneratingSet (preG));
+    Info (InfoMorph, 1, "MinimalGeneratingSet has ", Length (gens), " generators");
+    
+    mincost := 1;
+    mingenspos := [];
+    
+    for i in [1..Length (gens)] do
+        g := gens[i];
+        id := [Size (ConjugacyClass (preG, g)), Order(g), 
+            NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoG, g)), q)];
+        pos := PositionSorted (ids, id);
+        mincost := mincost * cost[pos];
+        Add (mingenspos, pos);
+    od;
+    mingens := gens;
+
+    Info (InfoMorph, 1, "RepresentativeActionFullGL: cost of minimal generating system is ", mincost);
+    
+    # try to find better generators
+    
+    if mincost > 100*Size(preG) then 
+        weight := [0];
+        for i in [2..Length (ids)] do
+            weight[i] := weight[i-1] + QuoInt (Size(preG), cost[i]);
+        od;
+            
+        for i in [1..7*Length (MinimalGeneratingSet(preG))] do
+            gens := [];
+            S := TrivialSubgroup (preG);
+            totalcost := 1;
+            genspos := [];
+            repeat
+                if Random ([1..10]) = 1 then
+                    g := Random (preG);
+                    id := [Size (ConjugacyClass (preG, g)), Order(g), 
+                        NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoG, g)), q)];
+                    pos := PositionSorted (ids, id);
+                else
+                    k := Random (0, weight[Length (weight)]);
+                    pos := PositionSorted (weight, k);
+                    g := Random (ccl[Random (occ[pos])]);
+                fi;
+                if not g in S then
+                    totalcost := totalcost * cost[pos];
+                    Add (gens, g);
+                    Add (genspos, pos);
+                    S := ClosureGroup (S, g);
+                    #remove for redundant generators - we need not check g
+                    j := 1;
+                    repeat
+                        while j < Length (gens) and Size (Subgroup (S, gens{Difference ([1..Length (gens)], [j])})) < Size (S) do
+                            j := j + 1;
+                        od;
+                        if j < Length (gens) then
+                            totalcost := totalcost/cost[genspos[j]];
+                            Remove (gens, j);
+                            Remove (genspos, j);
+                        fi;
+                    until j >= Length (gens);
+                    if totalcost > mincost then
+                        break;
+                    fi;
+                fi;
+            until Size (S) = Size(preG);
+            
+            if totalcost < mincost then
+                mingens := gens;
+                mincost := totalcost;
+                mingenspos := genspos;
+                Info (InfoMorph, 2, "RepresentativeActionFullGL: found better generating system of cost ", mincost, " after ", i, " steps");
+            else
+                Info (InfoMorph, 3, "RepresentativeActionFullGL: found generating system of cost ", totalcost);
+            fi;
+        od;
+    fi;
+    
+    Info (InfoMorph, 1, "RepresentativeActionFullGL: using generating system of cost ", mincost);
+    
+    ccl := ConjugacyClasses(preH);
+
+    # compute set of possible generator images
+    
+    imglist := [];
+    cpH := [];
+    
+    SortParallel (mingenspos, mingens, function (i, j) return cost[i] > cost[j]; end);
+    
+    for i in [1..Length (mingens)] do
+        id := ids[mingenspos[i]];
+        imglist[i] := [];
+        count := Length (occ[mingenspos[i]]);
+        for j in [1..Length (ccl)] do
+            cl := ccl[j];
+            if Size (cl) = id[1] and Order (Representative(cl)) = id[2] then
+                if not IsBound (cpH[j]) then
+                    cpH[j] := NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoH, Representative(cl))), q);
+                fi;
+                if cpH[j] = id[3] then
+                    if i = 1 then
+                        Add (imglist[i], Representative(cl));
+                    else
+                        Append (imglist[i], AttributeValueNotSet (AsList, cl));
+                    fi;
+                    count := count - 1;
+                    # we assume that repG and repH have the same fingerprint, so that we know how many classes to expect
+                    # if this fails, it doesn't matter if we miss some possible images, since the groups 
+                    # will be nonisomorphic anyway
+                    if count = 0 then 
+                        break; 
+                    fi;
+                fi;
+            fi;
+        od;
+        if count > 0 then
+            Info (InfoMorph, 2, "RepresentativeActionFullGL: conjugacy clases don't match - groups cannot be conjugate");
+            return fail;
+        fi;
+        Assert (0, i = 1 or Length (imglist[i]) = cost[mingenspos[i]]);
+    od;
+    
+    
+    Info (InfoMorph, 2, "image lists have lengths ", List (imglist, Length));
+    
+
+    gens := List (mingens, g -> ImageElm (isoG, g));
+    
+    dirr := Length (mingens) + 1;
+    moduleG := List ([1..Length (mingens)], d -> GModuleByMats (gens{[1..d]}, GF(q)));
+    repeat
+        dirr := dirr - 1;
+    until dirr = 0 or not MTX.IsIrreducible (moduleG[dirr]);
+    
+    dirr := dirr + 1;
+    
+    if dirr > Length (mingens) then
+        Error ("repG must be irreducible");
+    fi;
+    imglistrep := List ([1..Length (mingens)], 
+        d -> List (imglist[d], g -> ImageElm (isoH, g)));
+    
+    sizes := List ([1..Length (mingens)], d -> Size (Group (mingens{[1..d]})));
+
+    D := DirectProduct (preG, preH);
+    homG := Embedding (D, 1);
+    homH := Embedding (D, 2);
+    proj := Projection (D, 2);
+    
+    gens := List (mingens, g -> ImageElm(homG, g));
+    
+    for i in [1..Length (gens)] do
+        imglist[i] := List (imglist[i], h -> ImageElm(homH, h));
+    od;
+
+    # do a backtrack search through the possible images
+    d := 1;
+    ind := [0];
+    imgs := [];
+    group := [];
+    count := 0;
+    repeat
+        count := count + 1;
+        ind[d] := ind[d] + 1;
+        if count mod 1000 = 0 then
+            Info (InfoMorph, 2, "RepresentativeActionFullGL: count = ", count, " trying indices: ", ind{[1..d]});
+        else
+            Info (InfoMorph, 3, "RepresentativeActionFullGL: count = ", count, " trying indices: ", ind{[1..d]});
+        fi;
+            
+        imgs[d] := imglist[d][ind[d]];
+        if d = 1 then
+            group[d] := Group (gens[d]*imgs[d]);
+        else
+            group[d] := ClosureGroup (group[d-1], gens[d]*imgs[d]);
+        fi;
+        if d = 1 or Size (group[d]) = sizes[d] and Size (ImagesSet (proj, group[d])) = sizes[d] then 
+        
+            # map from gens to imgs is an isomorphism
+            
+            if d >= dirr then
+                moduleH := GModuleByMats (List ([1..d], i -> imglistrep[i][ind[i]]), GF(q));
+                mat := MTX.IsomorphismIrred (moduleG[d], moduleH);
+            else
+                mat := true;
+            fi;
+            if mat <> fail then
+                if d < Length (gens) then
+                    d := d + 1;
+                    ind[d] := 0;
+                else
+                    hom := GroupGeneralMappingByImages (preG, preH, 
+                        List (gens, g -> PreImagesRepresentative (homG, g)), 
+                        List (imgs, h -> PreImagesRepresentative (homH, h)));
+                    if not IsGroupHomomorphism (hom) or not IsBijective (hom) then
+                        Error ("hom is not an isomophism");
+                    fi;
+                    Info (InfoMorph, 1, "RepresentativeActionFullGL: found after ", count, " attempts");
+                    Info (InfoMorph, 2, "RepresentativeActionFullGL: found indices ", ind);
+                    return rec (mat := mat, iso := hom);
+                fi;
+            else
+                Info (InfoMorph, 3, "step: ", ind{[1..d]}, " linearity fails");
+            fi;
+        fi;
+        while d > 0 and ind[d] = Length (imglist[d]) do
+            d := d - 1;
+        od;
+    until d = 0;
+    Info (InfoMorph, 1, "RepresentativeActionFullGL:: reps cannot be conjugate,  ", count, " attempts");
+        
+    return fail;
+end);
+
+
+
+ConjugatingMatIrreducibleOrFailOld :=     function (G, H, F)
 
         local repG, repH, gensG, iso, gensH, autH, moduleG, orb, modules, i, x, a, gens, module;
         
@@ -150,7 +407,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail,
         od;
         Info (InfoIrredsol, 1, "group are not conjugate");
         return fail;
-    end);
+    end;
 
 
 ############################################################################
@@ -176,8 +433,13 @@ InstallGlobalFunction (ConjugatingMatImprimitiveOrFail, function (G, H, d, F)
     n := DegreeOfMatrixGroup (H);
     systemsG := ImprimitivitySystems (G);
 
+    if Minimum (systemsG, sys -> Length (sys.bases[1])) <> d then
+        Info (InfoIrredsol, 1, "different minimal block dimension - groups are not conjugate");
+        return fail;
+    fi;
+    
     if d = n then
-        if Size (G) mod 1024 <> 0 and Size(G) < 100000 then
+        if Size(G) < 100000 then
             return ConjugatingMatIrreducibleOrFail (G, H, F);
         fi;
         hom := NiceMonomorphism (GL(n, Size(F)));
@@ -567,12 +829,15 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
             newinfo := rec (
                 id := [DegreeOfMatrixGroup (G), q, d, info.id[4]^(perm_pow.perm^perm_pow.pow)]);
             if wantgroup then
+            
+                # todo: this isn't good enough if we also need to construct an isomorphism!
+                
                 newinfo.group := CallFuncList (IrreducibleSolvableMatrixGroup, newinfo.id);
             fi;
 
             if wantmat then
                 Info (InfoIrredsol, 1, "determining conjugating matrix");
-                # raising to gal-th power is the galois automorphism which maps H to a conjugate of
+                # raising to gal-th power is the field automorphism which maps H to a conjugate of
                 # the absolutely irreducible group which is used to construct the irreducible group
                 # we want to find
                 gal := q^perm_pow.pow; 
