@@ -310,7 +310,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
             
             if d >= dirr then
                 moduleH := GModuleByMats (List ([1..d], i -> imglistrep[i][ind[i]]), GF(q));
-                mat := MTX.IsomorphismIrred (moduleG[d], moduleH);
+                mat := MTX.Isomorphism (moduleG[d], moduleH);
             else
                 mat := true;
             fi;
@@ -433,7 +433,7 @@ InstallGlobalFunction (ConjugatingMatImprimitiveOrFail, function (G, H, d, F)
     n := DegreeOfMatrixGroup (H);
     systemsG := ImprimitivitySystems (G);
 
-    if Minimum (systemsG, sys -> Length (sys.bases[1])) <> d then
+    if Minimum (List (systemsG, sys -> Length (sys.bases[1]))) <> d then
         Info (InfoIrredsol, 1, "different minimal block dimension - groups are not conjugate");
         return fail;
     fi;
