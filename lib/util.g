@@ -70,5 +70,20 @@ BindGlobal ("DECLAE_IRREDSOL_OBSOLETE",
 
 ############################################################################
 ##
+#F  CopyListEntries
+##
+##  replacement for GAP 4.5 kernel function
+##  
+if not IsBound (CopyListEntries) then
+    BindGlobal ("CopyListEntries", 
+        function (src, from1, step1, dst, from2, step2, n)
+            dst{[from2, from2+step2..from2+(n-1)*step2]} := 
+                src{[from1, from1+step1..from1+(n-1)*step1]};
+        end);
+fi;
+
+
+############################################################################
+##
 #E
 ##
