@@ -13,14 +13,15 @@ SetPackageInfo( rec(
 ##  This is case sensitive, use your preferred spelling.
 
 PackageName := "IRREDSOL",
-Subtitle := "A Library of irreducible solvable linear groups over finite fields",
+Subtitle := "A Library of irreducible solvable linear groups over finite fields \
+          and of finite primivite soluble groups",
 BannerString := "\
 ----------------------------------------------------------------------\n\
                           IRREDSOL Version 1.2\n\
   A library of irreducible solvable linear groups over finite fields\n\
-                   and finite primivite soluble groups\n\
+                and of finite primivite soluble groups\n\
                          by Burkhard Höfling\n\
------------------------------------------------------------------------\n",
+----------------------------------------------------------------------\n",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
 Version := "1.2",
@@ -154,8 +155,9 @@ PackageInfoURL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/PackageInf
 ##  
 AbstractHTML := "The <span class=\"pkgname\">GAP</span> package <span \
 class=\"pkgname\">IRREDSOL</span> provides a library of all \
-irreducible solvable subgroups of <i>GL(n,q)</i>, up to conjugacy, \
-for small values of <i>n</i> and <i>q</i>.",
+irreducible soluble subgroups of <i>GL(n,q)</i>, up to conjugacy, \
+for <i>q<sup>n</sup></i> up to 1000000, \
+and a library of the primitive soluble groups of degree up to 1000000.",
 
 PackageWWWHome := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/index.html",
                   
@@ -200,7 +202,7 @@ PackageDoc := rec(
 Dependencies := rec(
   # GAP version, use version strings for specifying exact versions,
   # prepend a '>=' for specifying a least version.
-  GAP := ">=4.5",
+  GAP := ">=4.4.12",
   # list of pairs [package name, (least) version],  package name is case
   # insensitive, least version denoted with '>=' prepended to version string.
   # without these, the package will not load
