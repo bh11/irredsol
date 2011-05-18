@@ -1,4 +1,4 @@
-############################################################################
+    ############################################################################
 ##
 ##  access.gi                    IRREDSOL                   Burkhard Höfling
 ##
@@ -109,7 +109,7 @@ InstallGlobalFunction (PermCanonicalIndexIrreducibleSolvableMatrixGroup,
 InstallGlobalFunction (IrreducibleSolvableMatrixGroup, 
     function ( n, q, d, k )
         
-        local perm, l, n0, q0, p, o, i, bas, mat, C, gddesc, desc, pres, gens, pcgs, grp, hom;
+        local perm, l, n0, q0, p, o, i, bas, mat, C, c, gddesc, desc, pres, gens, pcgs, grp, hom;
         
         if not IsPosInt (n) or not IsPosInt (d) or not IsPosInt (q) 
                 or not IsPPowerInt (q)  or not IsPosInt (k) or not n mod d = 0 then
@@ -157,7 +157,7 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
             if not IsBound (IRREDSOL_DATA.GROUPS_DIM1[q][k]) then
                 Error ("inadmissible value for k");    
             fi;
-            o := IRREDSOL_DATA.GROUPS_DIM1 [q][k][1];
+            o := IRREDSOL_DATA.GROUPS_DIM1[q][k][1];
             
             mat := [[Z(q)^((q-1)/o)]];
             if d > 1 then
@@ -176,10 +176,14 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
             if o = 1 then
                 hom := IdentityMapping (grp);
             else
-                C := AbelianGroup (IsPcGroup, [o]);
-                hom := GroupHomomorphismByImagesNC (C, grp, [C.1], [mat]);
+                Assert (1, Length (IRREDSOL_DATA.GUARDIANS[1][q]) = 1);
+                C := IRREDSOL_DATA.GUARDIANS[1][q][1];
+                Assert (1, Length (MinimalGeneratingSet(C)) = 1);
+                c := MinimalGeneratingSet(C)[1]^((q-1)/o);
+                Assert (1, Order (c) = o);
+                hom := GroupHomomorphismByImagesNC (SubgroupNC (C, [c]), grp, [c], [mat]);
+                SetIsBijective (hom, true);
             fi;
-            SetIsBijective (hom, true);
         else
             if not IsBound (IRREDSOL_DATA.GROUPS[n][q][k]) then
                 Error ("inadmissible value for k");    
@@ -188,7 +192,7 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
             # construct group and isomorphic pc group
             
             desc  := IRREDSOL_DATA.GROUPS[n][q][k];
-              gddesc := IRREDSOL_DATA.GUARDIANS[n][q][desc[1]];
+            gddesc := IRREDSOL_DATA.GUARDIANS[n][q][desc[1]];
             pres := gddesc[3];
             
             pcgs := CanonicalPcgsByNumber (FamilyPcgs (Source (pres)), desc[2]);
@@ -213,7 +217,7 @@ InstallGlobalFunction (IrreducibleSolvableMatrixGroup,
             fi;
         fi;
         
-	  SetIdIrreducibleSolvableMatrixGroup (grp, [n0, q0, d, k]);
+        SetIdIrreducibleSolvableMatrixGroup (grp, [n0, q0, d, k]);
         SetFieldOfMatrixGroup (grp, GF(q0));
         SetDefaultFieldOfMatrixGroup(grp, GF(q0));
         SetTraceField (grp, GF(q0));            
