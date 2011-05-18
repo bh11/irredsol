@@ -17,22 +17,25 @@
 ##  denote the split
 ##  extension of $G$ by $V = \F_p$, where <G> acts on <V> via <hom>.
 ##  This function returns a record with the following components.
-##     ext:   the group $E$
-##     V:     the subgroup $V$ of $E$
+##     ext:   the group $E$ as a new pc group
+##     V:     the subgroup $V$ of $E$ corresponding to the vector space
 ##     C:     a complement of $V$ in $E$ isomorphic with $G$
 ##     embed: a group homomorphism $G \to E$ with image $C$
 ##     proj:  a group homomorphism $E \to G$ with kernel $V$
-##     pcgsV: a pcgs of V whose elements correspond to the natural basis elements
-##              of the vector space V
-##     pcgsC: a pcgs of C whose elements correspond to the images of pcgs under
-##              hom
+##     pcgsV: an induced pcgs of V (wrt. FamilyPcgs(E)) whose elements 
+##               correspond to the natural basis elements
+##               of the vector space V
+##     pcgsC: an induced pcgs of C (wrt. FamilyPcgs(E)) whose elements  
+##               correspond to the images of pcgs under embed; 
+##               the elements of pcgsC act on pcgsV as the images of pcgs
+##               under hom act on the natural basis of V
 ##  
 InstallGlobalFunction (PcGroupExtensionByMatrixAction,
     function (pcgs, hom)
         local p, d, ros, f, coll, exp, mat, i, j, r, E, pcgsC, pcgsV;
         
         p := Size (FieldOfMatrixGroup (Range(hom)));
-	 d := DegreeOfMatrixGroup (Range(hom));
+        d := DegreeOfMatrixGroup (Range(hom));
         if not IsPrimeInt (p) then
             Error ("Range(hom) must be over a prime field ");
         fi;
@@ -77,6 +80,7 @@ InstallGlobalFunction (PcGroupExtensionByMatrixAction,
         od;
         
         E := GroupByRwsNC (coll);
+        SetSize (E, Product (ros) * p^d);
         pcgsV := InducedPcgsByPcSequenceNC (FamilyPcgs (E),
             FamilyPcgs(E){[Length (pcgs) + 1..Length (FamilyPcgs (E))]});
 
@@ -93,7 +97,7 @@ InstallGlobalFunction (PcGroupExtensionByMatrixAction,
             pcgsV := pcgsV,
             pcgsC := pcgsC);        
         r.embed := GroupHomomorphismByImagesNC (GroupOfPcgs(pcgs), E, pcgs, pcgsC);
-    	  SetIsInjective (r.embed, true);
+        SetIsInjective (r.embed, true);
         SetImagesSource (r.embed, r.C);
         r.proj := GroupHomomorphismByImagesNC (E, GroupOfPcgs (pcgs), 
             Concatenation (pcgsC, pcgsV), 
@@ -139,15 +143,12 @@ InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroupNC,
         rep := RepresentationIsomorphism(G);
         ext := PcGroupExtensionByMatrixAction (Pcgs (Source(rep)), rep);
         SetSocle (ext.E, ext.V);
+        SetSocleComplement(ext.E, ext.C);
         SetFittingSubgroup (ext.E, ext.V);
 
         # the following sets attributes/properties which are defined 
         # in the CRISP packages
-        
-        if IsBoundGlobal ("SetSocleComplement") then
-            ValueGlobal ("SetSocleComplement") (ext.E, ext.C);
-        fi;
-        
+                
         if IsBoundGlobal ("SetIsPrimitiveSolvable") then
             ValueGlobal ("SetIsPrimitiveSolvable") (ext.E, true);
         fi;
@@ -165,22 +166,73 @@ InstallGlobalFunction (PrimitivePcGroupIrreducibleMatrixGroupNC,
 ##  see IRREDSOL documentation
 ##  
 InstallGlobalFunction (PrimitivePcGroup,
-     function (n, p, d, k)
-          
-          local G;
-             
-          if not IsPosInt (n) or not IsPosInt (d) or not IsPosInt (p) or not IsPrimeInt (p) then
-                Error ("n, p, and d must be positive integers, ",
-                     "p must be a prime, and d must divide n");
-          elif not k in IndicesIrreducibleSolvableMatrixGroups (n, p, d) then
-                Error ("k must be in IndicesIrreducibleSolvableMatrixGroups (n, p, d)");
-          else
-                G := PrimitivePcGroupIrreducibleMatrixGroupNC (
-                     IrreducibleSolvableMatrixGroup (n, p, d, k));
-                SetIdPrimitiveSolvableGroup (G, [n,p,d,k]);
-          fi;
-          return G;
-     end);
+    function (n, p, d, k)
+      
+        local q, desc, G, mat, bas, hom, ext, o, pcgs, pcgsC, pcgsV, H;
+         
+        if not IsPosInt (n) or not IsPosInt (d) or not IsPosInt (p) or not IsPrimeInt (p) or n mod d <> 0 then
+            Error ("n, p, and d must be positive integers, ",
+                "p must be a prime, and d must divide n");
+        elif not k in IndicesIrreducibleSolvableMatrixGroups (n, p, d) then
+            Error ("k must be in IndicesIrreducibleSolvableMatrixGroups (n, p, d)");
+        else    
+            n := n /d;
+            q := p^d;
+            LoadAbsolutelyIrreducibleSolvableGroupData (n, q);
+            if n > 1 then
+                desc := IRREDSOL_DATA.GROUPS[n][q][k];
+            fi;
+            if not IsBound (IRREDSOL_DATA.PRIM_GUARDIANS[n]) then
+                IRREDSOL_DATA.PRIM_GUARDIANS[n] := [];
+            fi;
+            if not IsBound (IRREDSOL_DATA.PRIM_GUARDIANS[n][q]) then
+                if n = 1 then
+                    G := IRREDSOL_DATA.GUARDIANS[1][q][1];
+                    mat := [[Z(q)]];
+                    hom := GroupHomomorphismByImagesNC (G, Group (mat), 
+                        MinimalGeneratingSet(G), [mat]);
+                    SetIsBijective (hom, true);
+                else
+                    hom := IRREDSOL_DATA.GUARDIANS[n][q][desc[1]][3];
+                    G := Source (hom);
+                fi;
+                if d > 1 then
+                    bas := CanonicalBasis (AsVectorSpace (GF(p), GF(q)));
+                    mat := List (InducedPcgsWrtFamilyPcgs (G), 
+                        g -> BlownUpMat (bas, ImageElm (hom, g)));
+                    hom := GroupHomomorphismByImagesNC (G, Group (mat), 
+                        InducedPcgsWrtFamilyPcgs (G), mat);
+                fi;
+                    
+                IRREDSOL_DATA.PRIM_GUARDIANS[n][q] := 
+                    PcGroupExtensionByMatrixAction (InducedPcgsWrtFamilyPcgs (G), hom);
+
+            fi;
+            ext := IRREDSOL_DATA.PRIM_GUARDIANS[n][q];
+            if n = 1 then
+                Assert (1, Length (MinimalGeneratingSet(ext.C)) = 1);
+                o := IRREDSOL_DATA.GROUPS_DIM1[q][k][1];
+                pcgsC := InducedPcgsByGenerators (FamilyPcgs (ext.E), 
+                    [MinimalGeneratingSet(ext.C)[1]^((q-1)/o)]);
+            else
+                pcgsC := CanonicalPcgsByNumber (ext.pcgsC, desc[2]);
+            fi;
+            pcgs := InducedPcgsByPcSequenceNC (FamilyPcgs (ext.E), Concatenation (pcgsC, ext.pcgsV));
+            H := GroupOfPcgs (pcgs);
+            SetIdPrimitiveSolvableGroup (H, [n*d,p,d,k]);
+            SetSocle (H, ext.V);
+            SetFittingSubgroup (H, ext.V);
+            SetSocleComplement(H, GroupOfPcgs (pcgsC));
+
+            # the following sets attributes/properties which are defined 
+            # in the CRISP packages
+                
+            if IsBoundGlobal ("SetIsPrimitiveSolvable") then
+                ValueGlobal ("SetIsPrimitiveSolvable") (H, true);
+            fi;
+            return H;
+        fi;
+    end);
     
             
 ############################################################################
@@ -190,44 +242,44 @@ InstallGlobalFunction (PrimitivePcGroup,
 ##  see IRREDSOL documentation
 ##  
 InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroup,
-     function (G)
+    function (G)
 
-          local F, p, matgrp, compl;
+        local F, p, matgrp, compl;
 
-          if not IsFinite (G) or not IsSolvableGroup (G) then
-                Error ("G must be finite and solvable");
-                
-          # test if primitive - use the CRISP method if it is available     
-          elif IsBoundGlobal ("IsPrimitiveSolvable") 
-                     and ValueGlobal ("IsPrimitiveSolvable") (G) = true then
-                return IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G);
-                
-          else # test for primitivity
-                F := FittingSubgroup (G);
-                
-                if not IsPGroup (F)  or not IsAbelian (F) then
-                     Error ("G must be primitive");
+        if not IsFinite (G) or not IsSolvableGroup (G) then
+            Error ("G must be finite and solvable");
+            
+        # test if primitive - use the CRISP method if it is available     
+        elif IsBoundGlobal ("IsPrimitiveSolvable") 
+                 and ValueGlobal ("IsPrimitiveSolvable") (G) then
+            return IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G);
+            
+        else # test for primitivity
+            F := FittingSubgroup (G);
+            
+            if not IsPGroup (F)  or not IsAbelian (F) then
+                Error ("G must be primitive");
+            else
+                p := PrimePGroup (F);
+
+                if ForAny (GeneratorsOfGroup (F), x -> x^p <> One(G)) then
+                    Error ("G must be primitive");
                 else
-                     p := PrimePGroup (F);
-
-                     if ForAny (GeneratorsOfGroup (F), x -> x^p <> One(G)) then
-                          Error ("G must be primitive");
-                     else
-                          matgrp := IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G);
-                          if not IsIrreducibleMatrixGroup (matgrp, GF(p)) then
-                                Error ("G must be primitive");
-                          else
-                                compl := Complementclasses (G, F);
-                                if Length (compl) <> 1 then
-                                     Error ("G must be primitive");
-                                fi;
-                                SetSocle (G, F);
-                                return matgrp;
-                          fi;
-                     fi;
+                    matgrp := IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G);
+                    if not IsIrreducibleMatrixGroup (matgrp, GF(p)) then
+                        Error ("G must be primitive");
+                    else
+                        compl := Complementclasses (G, F);
+                        if Length (compl) <> 1 then
+                            Error ("G must be primitive");
+                        fi;
+                        SetSocle (G, F);
+                        return matgrp;
+                    fi;
                 fi;
-          fi;
-     end);
+            fi;
+        fi;
+    end);
     
             
 ############################################################################
@@ -239,13 +291,14 @@ InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroup,
 InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroupNC,
     function (G)
     
-        local N, p, pcgsN, pcgsGmodN, GmodN, one, mat, mats, g, h, i, H, hom;
+        local N, p, F, pcgsN, pcgsGmodN, GmodN, one, mat, mats, g, h, i, H, hom;
         
         N := FittingSubgroup (G);
         
         pcgsN := Pcgs (N);
         p := RelativeOrders (pcgsN)[1];
-        one := One (GF(p));
+        F := GF(p);
+        one := One (F);
         
         mats := [];
         
@@ -255,12 +308,12 @@ InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroupNC,
             for i in [1..Length (pcgsN)] do
                 mat[i] := ExponentsOfPcElement (pcgsN, pcgsN[i]^g)*one;
             od;
-            Add (mats, mat);
+            Add (mats, ImmutableMatrix (F, mat));
         od;
         H := Group (mats);
         SetSize (H, Size (G)/Size (N));
         GmodN := PcGroupWithPcgs (pcgsGmodN);
-        hom := GroupHomomorphismByImagesNC (GmodN, H, FamilyPcgs (GmodN), mats);
+        hom := GroupGeneralMappingByImages (GmodN, H, FamilyPcgs (GmodN), mats);
         SetIsGroupHomomorphism (hom, true);
         SetIsBijective (hom, true);
         SetRepresentationIsomorphism (H, hom);
@@ -452,20 +505,20 @@ InstallGlobalFunction (PrimitivePermGroupIrreducibleMatrixGroup,
 ##  
 InstallGlobalFunction (PrimitivePermGroupIrreducibleMatrixGroupNC, 
     function ( M )
-         local  gensc, genss, V, G;
-         V := FieldOfMatrixGroup( M ) ^ DimensionOfMatrixGroup( M );
-         gensc := List (GeneratorsOfGroup (M), x -> Permutation (x, V));
-         genss := List( Basis( V ), x -> Permutation( x, V, \+));
-         G := GroupByGenerators(Concatenation (genss, gensc));
-         SetSize( G, Size( M ) * Size( V ) );
-         SetSocle (G, Subgroup (G, genss));
+        local  gensc, genss, V, bas, enum, G;
+        V := FieldOfMatrixGroup( M ) ^ DimensionOfMatrixGroup( M );
+        bas := CanonicalBasis (V);
+        enum := EnumeratorByBasis (bas);
+        gensc := List (GeneratorsOfGroup (M), x -> Permutation (x, enum));
+        genss := List( bas, x -> Permutation( x, enum, \+));
+        G := GroupByGenerators(Concatenation (genss, gensc));
+        SetSize( G, Size( M ) * Size( V ) );
+        SetSocle (G, Subgroup (G, genss));
+        SetSocleComplement(G, Subgroup (G, gensc));
          
         # the following sets attributes/properties which are defined 
         # in the CRISP packages
 
-        if IsBoundGlobal ("SetSocleComplement") then
-            ValueGlobal ("SetSocleComplement") (G, Subgroup (G, gensc));
-        fi;
         if IsBoundGlobal ("SetIsPrimitiveSolvable") then
             ValueGlobal ("SetIsPrimitiveSolvable") (G, true);
         fi;
@@ -551,36 +604,6 @@ InstallGlobalFunction (OnePrimitiveSolvablePermGroup,
         fi;
     end);
 
-
-###########################################################################
-##
-#F  IdPrimitiveSolvableGroup(<grp>)
-##
-##  see IRREDSOL documentation
-##  
-InstallMethod (IdPrimitiveSolvableGroup, "for solvable group",
-     true, [IsSolvableGroup and IsFinite], 0,
-     G -> IdIrreducibleSolvableMatrixGroup (IrreducibleMatrixGroupPrimitiveSolvableGroup (G)));
-
-
-RedispatchOnCondition (IdPrimitiveSolvableGroup, true, [IsGroup], 
-     [IsFinite and IsSolvableGroup], 0);
-
-
-###########################################################################
-##
-#F  IdPrimitiveSolvableGroupNC(<grp>)
-##
-##  see IRREDSOL documentation
-##  
-InstallGlobalFunction (IdPrimitiveSolvableGroupNC,
-     function(G)
-          local id;
-          id := IdIrreducibleSolvableMatrixGroup (IrreducibleMatrixGroupPrimitiveSolvableGroupNC (G));
-          SetIdPrimitiveSolvableGroup (G, id);
-          return id;
-     end);
-     
 
 ############################################################################
 ##
