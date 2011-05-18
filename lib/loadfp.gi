@@ -42,7 +42,7 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex
         fi;
         
         if n = 1 then
-            return q <= 65535;
+            return true;
         fi;
         
         if not IsBound (IRREDSOL_DATA.FP_INDEX[n]) then
