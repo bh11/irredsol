@@ -104,7 +104,7 @@ extension field of `FieldOfMatrixGroup'(<G>).
 gap> G := IrreducibleSolvableMatrixGroup (4, 2, 2, 3);
 <matrix group of size 10 with 2 generators>
 gap> IsAbsolutelyIrreducibleMatrixGroup(G);
-false;
+false
 \endexample
 
 \>`IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup(<G>)'%
@@ -134,7 +134,7 @@ of all block systems of <G>. If <F> is not specified, $F =
 which are irreducible over <F> are available.
 
 \beginexample
-gap> G := AbsolutelyIrreducibleSolvableMatrixGroup (2,3,4);;
+gap> G := IrreducibleSolvableMatrixGroup (2,3,1,4);;
 gap> MinimalBlockDimension (G, GF(3));
 2
 gap> MinimalBlockDimension (G, GF(9));
@@ -152,8 +152,7 @@ $`MinimalBlockDimensionOfMatrixGroup'(<G>, <F>) = d$. If <F> is not
 specified, $F = `FieldOfMatrixGroup'(<G>)$ is assumed.
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup (2,2,1,1);
-Group([ <an immutable 2x2 matrix over GF2>, <an immutable 2x2 matrix over GF2> ])
+gap> G := IrreducibleSolvableMatrixGroup (2,2,1,1);;
 gap> IsPrimitiveMatrixGroup (G, GF(2));
 true
 gap> IsIrreducibleMatrixGroup (G, GF(4));

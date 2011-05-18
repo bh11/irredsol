@@ -26,7 +26,7 @@ functions which allow to load and unload the recognition data in the
 
 \>`IsAvailableIdIrreducibleSolvableMatrixGroup(<G>)'%
 {IsAvailableIdIrreducibleSolvableMatrixGroup}%
-@{`IsAvailableIdIrreducible\\SolvableMatrixGroup'} F
+@{`IsAvailable\\Id\\Irreducible\\Solvable\\MatrixGroup'} F
 
 This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
 "IdIrreducibleSolvableMatrixGroup") will work for the irreducible matrix group <G>, and `false' otherwise.
@@ -49,8 +49,8 @@ conjugate to  `IrreducibleSolvableMatrixGroup'(<n>, <q>, <d>, <k>) (see
 "IrreducibleSolvableMatrixGroup").
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup (12, 2, 3, 52)^RandomInvertibleMat (12, GF(8));
-<matrix group of size 2340 with 6 generators>
+gap> G := IrreducibleSolvableMatrixGroup (12, 2, 3, 52)^RandomInvertibleMat (12, GF(2));;
+# <matrix group of size 2340 with 6 generators>
 gap> IdIrreducibleSolvableMatrixGroup (G);
 [ 12, 2, 3, 52 ]
 \endexample
@@ -140,7 +140,8 @@ gap> G := IrreducibleSolvableGroupMS (6,2,5);
 gap> H := IrreducibleSolvableMatrixGroup (6, 2, 2, 4);
 <matrix group of size 27 with 3 generators>
 gap> G = H;
-false # groups in the libraries need not be the same
+false 
+# groups in the libraries need not be the same
 gap> r := RecognitionIrreducibleSolvableMatrixGroup (G, true, false);;
 gap> G^r.mat = H;
 true
@@ -156,11 +157,11 @@ This function returns a triple [<n>, <p>, <l>] such that
 gap> IndexMSIdIrreducibleSolvableMatrixGroup (6, 2, 2, 7);
 [ 6, 2, 13 ]
 gap> G := IrreducibleSolvableGroupMS (6,2,13);
-<matrix group of size 27 with 2 generators>
+<matrix group of size 63 with 3 generators>
 gap> H := IrreducibleSolvableMatrixGroup (6, 2, 2, 7);
-<matrix group of size 27 with 3 generators>
+<matrix group of size 63 with 3 generators>
 gap> G = H;
-false # groups in the libraries need not be the same
+false 
 gap> r := RecognitionIrreducibleSolvableMatrixGroup (G, true, false);;
 gap> G^r.mat = H;
 true
