@@ -42,52 +42,53 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupData,
         if not IsBound (IRREDSOL_DATA.GAL_PERM[n]) then
             IRREDSOL_DATA.GAL_PERM[n] := [];
         fi;
-        
-        if n = 1 then
-            if not IsBound (IRREDSOL_DATA.GROUPS_DIM1[q]) then
-		    Info (InfoIrredsol, 2, "Computing irreducible solvable group data for ",
-			  "GL(", n, ", ", q, ")");
-		    p := SmallestRootInt (q);
-		    e := LogInt (q, p);
-		    orders := ShallowCopy (DivisorsInt (q-1));
-		    # remove groups which are over a proper subfield
-		    if e > 1 then
-			  for d in Set (Factors (e)) do
-				 SubtractSet (orders, DivisorsInt (p^(e/d) - 1));
-			  od;
-		    fi;
-  
-		    if p < q then
-			  divs := Reversed (Difference (DivisorsInt (e), [1]));
-			  info := List (orders, o -> [o, []]);
-			  for j in [1..Length (divs)] do
-				 d := divs[j];
-				 q0 := p^(e/d);
-
-				 for i in info do
-					
-					for t in DivisorsInt (GcdInt (i[1], d)) do
-					    m := d/t;
-					    if (q0^m -1) mod (i[1]/t) = 0 then
-						  i[2][j] := m;
-					    fi;
-					od;
-				 od;
-			  od;
-		    else
-			  info := List (orders, o -> [o]);
-		    fi;
-		    
-		    IRREDSOL_DATA.GROUPS_DIM1[q] := info;
-		    IRREDSOL_DATA.GAL_PERM[1][q] := ();
-	  	 fi;
-            return true;
-        fi;
-        
         if not IsBound (IRREDSOL_DATA.GUARDIANS[n]) then
             IRREDSOL_DATA.GUARDIANS[n] := [];
         fi;
-        if not IsBound (IRREDSOL_DATA.GROUPS[n]) then
+         
+        if n = 1 then
+            if not IsBound (IRREDSOL_DATA.GROUPS_DIM1[q]) then
+                Info (InfoIrredsol, 2, "Computing irreducible solvable group data for ",
+                  "GL(", n, ", ", q, ")");
+                p := SmallestRootInt (q);
+                e := LogInt (q, p);
+                orders := ShallowCopy (DivisorsInt (q-1));
+                # remove groups which are over a proper subfield
+                if e > 1 then
+                  for d in Set (Factors (e)) do
+                     SubtractSet (orders, DivisorsInt (p^(e/d) - 1));
+                  od;
+                fi;
+      
+                if p < q then
+                  divs := Reversed (Difference (DivisorsInt (e), [1]));
+                  info := List (orders, o -> [o, []]);
+                  for j in [1..Length (divs)] do
+                     d := divs[j];
+                     q0 := p^(e/d);
+
+                     for i in info do
+                        
+                        for t in DivisorsInt (GcdInt (i[1], d)) do
+                            m := d/t;
+                            if (q0^m -1) mod (i[1]/t) = 0 then
+                              i[2][j] := m;
+                            fi;
+                        od;
+                     od;
+                  od;
+                else
+                  info := List (orders, o -> [o]);
+                fi;
+                
+                IRREDSOL_DATA.GUARDIANS[1][q] := [CyclicGroup (IsPcGroup, q-1)];
+                IRREDSOL_DATA.GROUPS_DIM1[q] := info;
+                IRREDSOL_DATA.GAL_PERM[1][q] := ();
+            fi;
+            return true;
+        fi;
+        
+       if not IsBound (IRREDSOL_DATA.GROUPS[n]) then
             IRREDSOL_DATA.GROUPS[n] := [];
         fi;
         if not IsBound (IRREDSOL_DATA.MAX[n]) then
@@ -248,22 +249,25 @@ InstallGlobalFunction (UnloadAbsolutelyIrreducibleSolvableGroupData,
             IRREDSOL_DATA.GAL_PERM := [];
             IRREDSOL_DATA.MAX := [];
             IRREDSOL_DATA.GROUPS_DIM1 := [];
+            IRREDSOL_DATA.PRIM_GUARDIANS := [];
         elif IsPosInt (arg[1]) and Length (arg) = 1 then
             UnbindIfBound (IRREDSOL_DATA.GAL_PERM, arg[1]);
+            UnbindIfBound (IRREDSOL_DATA.GUARDIANS, arg[1]);
+            UnbindIfBound (IRREDSOL_DATA.PRIM_GUARDIANS, arg[1]);
             if arg[1] = 1 then
                 UnbindGlobal ("IRREDSOL_DATA.GROUPS_DIM1");
                 BindGlobal ("IRREDSOL_DATA.GROUPS_DIM1", []);
             else
-                UnbindIfBound (IRREDSOL_DATA.GUARDIANS, arg[1]);
                 UnbindIfBound (IRREDSOL_DATA.GROUPS, arg[1]);
                 UnbindIfBound (IRREDSOL_DATA.MAX, arg[1]);
             fi;
-        elif Length (arg) = 2 and IsPosInt (arg[1]) and IsPPowerInt (arg[2]) and arg[2] <> 1 then
+        elif Length (arg) = 2 and IsPosInt (arg[1]) and IsPPowerInt (arg[2]) then
+            UnbindIfBound (IRREDSOL_DATA.GUARDIANS, arg[1], arg[2]);
+            UnbindIfBound (IRREDSOL_DATA.PRIM_GUARDIANS, arg[1], arg[2]);
             UnbindIfBound (IRREDSOL_DATA.GAL_PERM, arg[1], arg[2]);
             if arg[1] = 1 then
                 UnbindIfBound (IRREDSOL_DATA.GROUPS_DIM1, arg[2]);
             else
-                UnbindIfBound (IRREDSOL_DATA.GUARDIANS, arg[1], arg[2]);
                 UnbindIfBound (IRREDSOL_DATA.GROUPS, arg[1], arg[2]);
                 UnbindIfBound (IRREDSOL_DATA.MAX, arg[1], arg[2]);
             fi;
