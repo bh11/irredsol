@@ -27,7 +27,7 @@ BannerString := "\
 Version := "1.2",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "25/03/2011",
+Date := "18/05/2011",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
@@ -110,8 +110,7 @@ Persons := [
   IsAuthor := true,
   IsMaintainer := true,
   WWWHome := "http://www-public.tu-bs.de:8080/~bhoeflin",
-  #PostalAddress := "",           
-  Place := "Braunschweig",
+  Email := "b.hoefling@tu-bs.de"
   )
 # provide such a record for each author and/or maintainer ...
   
