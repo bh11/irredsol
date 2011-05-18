@@ -92,7 +92,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
     
     local q, isoG, preG, isoH, preH, ccl, cl, ids, id, gens, genspos, imglist, g, i, j, k, len, 
         cost, weight, mingens, mincost, mingenspos, totalcost, pos, d, ind, imgs, hom, count,
-        sizes, D, proj, homG, homH, group, S, occ, cpH,
+        sizes, D, projG, projH, homG, homH, group, S, occ, cpH,
         imglistrep, moduleG, moduleH, dirr, mat;
     
     q := Size (F);
@@ -146,7 +146,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
     od;
     mingens := gens;
 
-    Info (InfoMorph, 1, "RepresentativeActionFullGL: cost of minimal generating system is ", mincost);
+    Info (InfoMorph, 1, "ConjugatingMatIrreducibleOrFail: cost of minimal generating system is ", mincost);
     
     # try to find better generators
     
@@ -199,14 +199,14 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
                 mingens := gens;
                 mincost := totalcost;
                 mingenspos := genspos;
-                Info (InfoMorph, 2, "RepresentativeActionFullGL: found better generating system of cost ", mincost, " after ", i, " steps");
+                Info (InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: found better generating system of cost ", mincost, " after ", i, " steps");
             else
-                Info (InfoMorph, 3, "RepresentativeActionFullGL: found generating system of cost ", totalcost);
+                Info (InfoMorph, 3, "ConjugatingMatIrreducibleOrFail: found generating system of cost ", totalcost);
             fi;
         od;
     fi;
     
-    Info (InfoMorph, 1, "RepresentativeActionFullGL: using generating system of cost ", mincost);
+    Info (InfoMorph, 1, "ConjugatingMatIrreducibleOrFail: using generating system of cost ", mincost);
     
     ccl := ConjugacyClasses(preH);
 
@@ -244,7 +244,9 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
             fi;
         od;
         if count > 0 then
-            Info (InfoMorph, 2, "RepresentativeActionFullGL: conjugacy clases don't match - groups cannot be conjugate");
+            Info (InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: conjugacy clases don't match - groups cannot be conjugate");
+            
+            Error("Breakpoint");
             return fail;
         fi;
         Assert (0, i = 1 or Length (imglist[i]) = cost[mingenspos[i]]);
@@ -275,7 +277,8 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
     D := DirectProduct (preG, preH);
     homG := Embedding (D, 1);
     homH := Embedding (D, 2);
-    proj := Projection (D, 2);
+    projG := Projection (D, 1);
+    projH := Projection (D, 2);
     
     gens := List (mingens, g -> ImageElm(homG, g));
     
@@ -293,9 +296,9 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
         count := count + 1;
         ind[d] := ind[d] + 1;
         if count mod 1000 = 0 then
-            Info (InfoMorph, 2, "RepresentativeActionFullGL: count = ", count, " trying indices: ", ind{[1..d]});
+            Info (InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: count = ", count, " trying indices: ", ind{[1..d]});
         else
-            Info (InfoMorph, 3, "RepresentativeActionFullGL: count = ", count, " trying indices: ", ind{[1..d]});
+            Info (InfoMorph, 3, "ConjugatingMatIrreducibleOrFail: count = ", count, " trying indices: ", ind{[1..d]});
         fi;
             
         imgs[d] := imglist[d][ind[d]];
@@ -304,7 +307,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
         else
             group[d] := ClosureGroup (group[d-1], gens[d]*imgs[d]);
         fi;
-        if d = 1 or Size (group[d]) = sizes[d] and Size (ImagesSet (proj, group[d])) = sizes[d] then 
+        if d = 1 or Size (group[d]) = sizes[d] and Size (ImagesSet (projH, group[d])) = sizes[d] then 
         
             # map from gens to imgs is an isomorphism
             
@@ -320,13 +323,13 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
                     ind[d] := 0;
                 else
                     hom := GroupGeneralMappingByImages (preG, preH, 
-                        List (gens, g -> PreImagesRepresentative (homG, g)), 
-                        List (imgs, h -> PreImagesRepresentative (homH, h)));
+                        List (gens, g -> ImageElm (projG, g)), 
+                        List (imgs, h -> ImageElm (projH, h)));
                     if not IsGroupHomomorphism (hom) or not IsBijective (hom) then
                         Error ("hom is not an isomophism");
                     fi;
-                    Info (InfoMorph, 1, "RepresentativeActionFullGL: found after ", count, " attempts");
-                    Info (InfoMorph, 2, "RepresentativeActionFullGL: found indices ", ind);
+                    Info (InfoMorph, 1, "ConjugatingMatIrreducibleOrFail: found after ", count, " attempts");
+                    Info (InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: found indices ", ind);
                     return rec (mat := mat, iso := hom);
                 fi;
             else
@@ -337,77 +340,10 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
             d := d - 1;
         od;
     until d = 0;
-    Info (InfoMorph, 1, "RepresentativeActionFullGL:: reps cannot be conjugate,  ", count, " attempts");
+    Info (InfoMorph, 1, "ConjugatingMatIrreducibleOrFail:: reps cannot be conjugate,  ", count, " attempts");
         
     return fail;
 end);
-
-
-
-ConjugatingMatIrreducibleOrFailOld :=     function (G, H, F)
-
-        local repG, repH, gensG, iso, gensH, autH, moduleG, orb, modules, i, x, a, gens, module;
-        
-        repG := RepresentationIsomorphism (G);
-        repH := RepresentationIsomorphism (H);
-        
-        # this speeds up RationalClasses and thus IsomorphismGroups
-        
-        if Size(Source (repG)) < 10000 then
-            List (ConjugacyClasses (Source (repG)), Elements);
-            List (ConjugacyClasses (Source (repH)), Elements);
-        fi;
-
-        iso := IsomorphismGroups (Source (repG), Source (repH));
-        if iso = fail then
-            return fail;
-        fi;
-        
-        gensG := SmallGeneratingSet (Source (repG));
-        gensH := List (gensG, g -> ImageElm (iso, g));
-        
-        autH := AutomorphismGroup (Source (repH));
-        
-        moduleG := GModuleByMats (List (gensG, h -> ImageElm (repG, h)), F);
-        if not MTX.IsIrreducible (moduleG) then
-            Error ("G must be irreducible over F");
-        fi;
-
-        orb := [gensH];
-        modules := [GModuleByMats (List (gensH, h -> ImageElm (repH, h)), F)];
-        if not MTX.IsIrreducible (modules[1]) then
-            Error ("panic: image should be irreducible");
-        fi;
-        
-        x := MTX.Isomorphism (moduleG, modules[1]);
-        if x <> fail then 
-            Info (InfoIrredsol, 1, "conjugating matrix found");
-            return rec (mat := x, iso := iso);
-        fi;
-        
-        i := 1;
-        while i <= Length (orb) do
-            for a in GeneratorsOfGroup (autH) do
-                gens := List (orb[i], h -> ImageElm (a, h));
-                module := GModuleByMats (List (gens, h -> ImageElm (repH, h)), F);
-                if not MTX.IsIrreducible (module) then
-                    Error ("panic: image should be irreducible");
-                fi;
-                x := MTX.Isomorphism (moduleG, module);
-                if x <> fail then 
-                    Info (InfoIrredsol, 1, "conjugating matrix found");
-                    return rec (mat := x, iso := iso);
-                fi;
-                if ForAll (modules, m -> MTX.Isomorphism (m, module) = fail ) then
-                    Add (orb, gens);
-                    Add (modules, module);
-                fi;
-            od;
-            i := i + 1;
-        od;
-        Info (InfoIrredsol, 1, "group are not conjugate");
-        return fail;
-    end;
 
 
 ############################################################################
@@ -829,9 +765,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
             newinfo := rec (
                 id := [DegreeOfMatrixGroup (G), q, d, info.id[4]^(perm_pow.perm^perm_pow.pow)]);
             if wantgroup then
-            
-                # todo: this isn't good enough if we also need to construct an isomorphism!
-                
+                            
                 newinfo.group := CallFuncList (IrreducibleSolvableMatrixGroup, newinfo.id);
             fi;
 
@@ -843,8 +777,14 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
                 gal := q^perm_pow.pow; 
                 if gal = 1 then
                      gens := List (MTX.Generators(module), mat -> mat^info.mat);
-                    Info (InfoIrredsol, 1, "already got right Galois conjugate");
-                else
+                     Info (InfoIrredsol, 1, "already got right Galois conjugate");
+                     if wantiso then
+                        if Source (RepresentationIsomorphism (newinfo.group)) <> Range (info.iso) then
+                            Error ("sources of isomorphisms don't match");
+                        fi;
+                        newinfo.iso := info.iso;
+                    fi;
+               else
                     # construct Galois conjugate of module
                     
                     Info (InfoIrredsol, 1, "computing and recognizing Galois conjugate");
@@ -870,13 +810,19 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
                     
                     # recognize absolutely irreducible component
                                     
-                    conjinfo := RecognitionAISMatrixGroup (H, [perm_pow.min], true, false, false);
+                    conjinfo := RecognitionAISMatrixGroup (H, [perm_pow.min], true, false, wantiso);
                     if conjinfo = fail then 
                         Error ("panic: internal error, Galois conjugate isn't in the library");
                     elif conjinfo.id <> [info.id[1], info.id[2], 1, perm_pow.min] then
                         Error ("panic: internal error, didn't find correct Galois conjugate");
                     fi;
                     gens := List (MTX.Generators (module), mat -> mat^conjinfo.mat);
+                    if wantiso then
+                        if Source (RepresentationIsomorphism (newinfo.group)) <> Range (conjinfo.iso) then
+                            Error ("sources of isomorphisms don't match");
+                        fi;
+                        newinfo.iso := conjinfo.iso;
+                    fi;
                 fi;
                  
                 basis := CanonicalBasis (AsVectorSpace (GF(q), GF(q^d)));
@@ -895,9 +841,6 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
                         Error ("panic: no conjugating mat found");
                     fi;                                  
             fi;
-            if wantiso then
-                newinfo.iso := info.iso;
-            fi;
 
         fi;
         Info (InfoIrredsol, 1, "irreducible group id is", newinfo.id);
@@ -913,7 +856,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
 ##  
 InstallMethod (IdIrreducibleSolvableMatrixGroup, 
     "for irreducible solvable matrix group over finite field", true,
-    [IsMatrixGroup and CategoryCollections (IsFFECollColl) 
+    [IsFFEMatrixGroup 
         and IsIrreducibleMatrixGroup and IsSolvableGroup], 0,
 
     function (G)
@@ -930,7 +873,7 @@ InstallMethod (IdIrreducibleSolvableMatrixGroup,
     
     
 RedispatchOnCondition(IdIrreducibleSolvableMatrixGroup, true,
-    [IsMatrixGroup and CategoryCollections (IsFFECollColl)],
+    [IsFFEMatrixGroup],
     [IsIrreducibleMatrixGroup and IsSolvableGroup], 0);
 
 
