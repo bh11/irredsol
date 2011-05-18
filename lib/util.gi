@@ -120,11 +120,12 @@ InstallGlobalFunction (OrderGroupByCanonicalPcgsByNumber,
 
 ############################################################################
 ##
-#F  ExponentsCanonicalPcgsByNumber(<pcgs>, <n>)
+#F  ExponentsCanonicalPcgsByNumber(<ros>, <n>)
 ##
-##  computes the list of exponent vectors (relative to exp) of the 
+##  computes the list of exponent vectors of the 
 ##  elements of CanonicalPcgsByNumber(<pcgs>, <n>)) without actually
-##  constructing the canonical pcgs itself
+##  constructing the canonical pcgs itself - it is enough to know the 
+##  relative orders of the pc elements
 ##  
 InstallGlobalFunction (ExponentsCanonicalPcgsByNumber,
     function (ros, n)
@@ -190,11 +191,13 @@ IRREDSOL_DATA.PRIME_POWERS :=
 ##
 #F  IsPPowerInt(q)
 ##
-##  tests whether q is a prime power, caching new prime powers
+##  tests whether q is a positive prime power, caching new prime powers
 ##  
 InstallGlobalFunction (IsPPowerInt, 
     function (q)
-        if IsPrimeInt (q) then
+        if not IsPosInt (q) then
+            return false;
+        elif IsPrimeInt (q) then
             return true;
         elif q in IRREDSOL_DATA.PRIME_POWERS then
             return true;
