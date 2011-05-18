@@ -15,7 +15,7 @@ ReadPackage ("irredsol", "lib/access.gi");
 ReadPackage ("irredsol", "lib/iterators.gi");
 ReadPackage ("irredsol", "lib/recognize.gi");
 ReadPackage ("irredsol", "lib/primitive.gi");
-# ReadPackage ("irredsol", "lib/recognizeprim.gi");
+ReadPackage ("irredsol", "lib/recognizeprim.gi");
 ReadPackage ("irredsol", "lib/util.gi");
 ReadPackage ("irredsol", "lib/obsolete.gi");
 

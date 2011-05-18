@@ -16,7 +16,7 @@ ReadPackage ("irredsol", "lib/access.gd");
 ReadPackage ("irredsol", "lib/iterators.gd");
 ReadPackage ("irredsol", "lib/recognize.gd");
 ReadPackage ("irredsol", "lib/primitive.gd");
-# ReadPackage ("irredsol", "lib/recognizeprim.gd");
+ReadPackage ("irredsol", "lib/recognizeprim.gd");
 ReadPackage ("irredsol", "lib/obsolete.gd");
 
 
