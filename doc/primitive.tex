@@ -11,41 +11,54 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Primitive solvable groups}
 
-A finite group <G> is called {\it primitive} if it has a maximal subgroup <M> with 
-trivial core; the group acts faithfully and primitively on the cosets of such
-a maximal subgroup.  
+An abstract finite group <G> is called {\it primitive} if it has a maximal 
+subgroup <M> with trivial core. Note that the permutation action of <G> on the 
+cosets of <M> is faithful and primitive. Conversely, if <G> is a primitive 
+permutation group, then a point stabilizer <M> of <G> is a maximal
+subgroup with trivial core. However, a permutation group which is primitive 
+as an abstract group need not be primitive as a permutation group. 
 
 Now assume that <G> is primitive and solvable. Then there exists a unique conjugacy class of 
-such maximal subgroups; the index of <M> in <G> is called the degree of <G>.
+such maximal subgroups~<M>; the index of <M> in <G> is called the {\it degree} of <G>.
 Moreover, $<M>$ 
-complements the socle <N> of $<G>$. THe socle <N> coincides with the Fitting subgroup of <G>; it is the unique minimal normal subgroup <N> of~<G>. Therefore, the index of <M> in <G> is a prime power, $p^n$, say.
+complements the socle <N> of $<G>$. THe socle <N> coincides with the Fitting 
+subgroup of <G>; it is the unique minimal normal subgroup <N> of~<G>. Therefore, 
+the index of <M> in <G> is a prime power, $p^n$, say.
 Regarding <N> as a $\F_p$-vector space, <M> acts as an irreducible subgroup of $GL(n,p)$ on <N>.
 Conversely, if <M> is an irreducible solvable subgroup of $GL(n,p)$, and $V = \F_p^n$, then the
 split extension of $V$ by <M> is a primitive solvable group. 
 This establishes a well known
-bijection between the isomorphism types (or, equivalently, the $Sym(p^n)$-conjugacy classes) of primitive solvable groups of degree
+bijection between the isomorphism types (or, equivalently, the 
+$Sym(p^n)$-conjugacy classes) of primitive solvable permutation groups of degree
 $<p>^<n>$ and the conjugacy classes of irreducible solvable subgroups of $GL(n, p)$.
 
-The {\IRREDSOL} package provides functions for translating between primitive solvable groups and irreducible solvable matrix groups, which are
+The {\IRREDSOL} package provides functions for translating between primitive solvable 
+groups and irreducible solvable matrix groups, which are
 described in Section~"Translating between irreducible solvable matrix groups 
 and primitive solvable groups". Moreover, there are functions for finding
-primitive solvable groups with given properties, see Sections~"Finding primitive pc groups
+primitive solvable groups with given properties, see Sections~"Finding primitive 
+pc groups
 with given properties" and "Finding primitive solvable permutation groups
 with given properties".
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Translating between irreducible solvable matrix groups and primitive
 solvable groups}
 
 \>PrimitivePcGroup(<n>,<p>,<d>,<k>) F
-\>PrimitiveSolvablePermGroup(<n>,<q>,<d>,<k>) F
+\>PrimitiveSolvablePermGroup(<n>,<p>,<d>,<k>) F
 
-These functions return the primitive solvable pc group resp. primitive solvable permutation group corresponding to 
-`IrreducibleSolvableMatrixGroup(<n>,<p>,<d>,<k>)', where <n> is a positive integer, <p> is a prime, <d> divides <n>
-and <k> occurs in the list `IndicesIrreducibleSolvableMatrixGroups(<n>,<p>,<d>)' (see "IndicesIrreducibleSolvableMatrixGroups").
+These functions return the primitive solvable pc group resp. primitive solvable 
+permutation group obtainewd as the natural split extension of $V = \F_p^n$ by
+`IrreducibleSolvableMatrixGroup(<n>,<p>,<d>,<k>)'. Here, <n> is a positive 
+integer, <p> is a prime, <d> divides <n> and <k> occurs in the list 
+`IndicesIrreducibleSolvableMatrixGroups(<n>,<p>,<d>)' 
+(see "IndicesIrreducibleSolvableMatrixGroups").
+
+As long as the relevant group data is not unloaded manually 
+(see "UnloadAbsolutelyIrreducibleSolvableGroupData"), the functions `PrimitivePcGroup'
+and `PrimitiveSolvablePermGroup' will return the same group when called multiple times
+with the same arguments.
 
 
 \>PrimitivePcGroupIrreducibleMatrixGroup(<G>) F
@@ -103,9 +116,8 @@ not check whether <G> is primitive and solvable.
 
 \beginexample
 gap> IrreducibleMatrixGroupPrimitiveSolvableGroup (SymmetricGroup (4));
-Group([ <an immutable 2x2 matrix over GF2>, <an immutable 2x2 matrix over GF2>
-    , <an immutable 2x2 matrix over GF2>, <an immutable 2x2 matrix over GF2> 
- ])
+Group([ <an immutable 2x2 matrix over GF2>, 
+  <an immutable 2x2 matrix over GF2> ])
 \endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -283,14 +295,20 @@ ids returned by `IdPrimitivePcGroup' are the same. The NC version does not
 check whether <G> is primitive and solvable.
 
 \beginexample
-gap> G := PrimitivePcGroupIrreducibleMatrixGroup (\
->             IrreducibleSolvableMatrixGroup (6,2,3,3));
-<pc group of size 8064 with 10 generators>
+gap> G := SmallGroup (432, 734);
+<pc group of size 432 with 7 generators>
 gap> IdPrimitiveSolvableGroup (G);
-[ 6, 2, 3, 3 ]
+[ 2, 3, 1, 2 ]
+gap> G := AlternatingGroup (4);
+Alt( [ 1 .. 4 ] )
+gap> IdPrimitiveSolvableGroup (G);
+[ 2, 2, 2, 1 ]
 \endexample
 
+\>RecognitionPrimitiveSolvableGroup(<G>,<wantiso>) F
 
+This function returns a record <r> which identifies the primitive solvable group <G>.
+The component `id' is always present and contains the id of
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Obsolete functions}
 
