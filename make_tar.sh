@@ -47,7 +47,7 @@ for file in $testfiles
    do tar -r -f $tarfile irredsol/tst/$file 
 done
 
-for file in irredsol/html/*.html
+for file in irredsol/html/*.htm
 	do tar -r -f $tarfile $file 
 done
 
