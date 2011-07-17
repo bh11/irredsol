@@ -13,12 +13,16 @@
 % input GAP macro file
 \input ../../../doc/gapmacro.tex
 
+\citebookstrue
+\biblitemtrue
+\bibindent 4em
+
 % declare some package names
 \Package{IRREDSOL}
 \Package{CRISP}
 
 % allow manual line breaks in long function names
-\def\\{\discretionary{\char92}{}{}} 
+\gdef\\{\discretionary{\char92}{}{}} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \BeginningOfBook{irredsol}
