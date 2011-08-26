@@ -7,8 +7,9 @@ fi
 
    
 
-# this suppresses resouce forks in tarballs
-COPY_EXTENDED_ATTRIBUTES_DISABLE=1
+# this suppresses extended attributes in tarballs
+export COPY_EXTENDED_ATTRIBUTES_DISABLE=1
+export COPYFILE_DISABLE=1
 
 cd ../
 rm -f $tarfile
