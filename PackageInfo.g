@@ -33,7 +33,7 @@ Date := "18/05/2011",
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/irredsol-1r2",
+ArchiveURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/irredsol-1r2",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
@@ -109,7 +109,7 @@ Persons := [
   FirstNames := "Burkhard",
   IsAuthor := true,
   IsMaintainer := true,
-  WWWHome := "http://www-public.tu-bs.de:8080/~bhoeflin",
+  WWWHome := "http://www.icm.tu-bs.de/~bhoeflin",
   Email := "b.hoefling@tu-bs.de"
   )
 # provide such a record for each author and/or maintainer ...
@@ -158,7 +158,7 @@ irreducible soluble subgroups of <i>GL(n,q)</i>, up to conjugacy, \
 for <i>q<sup>n</sup></i> up to 1000000, \
 and a library of the primitive soluble groups of degree up to 1000000.",
 
-PackageWWWHome := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/index.html",
+PackageWWWHome := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/index.html",
                   
 ##  On the GAP Website there is an online version of all manuals in the
 ##  GAP distribution. To handle the documentation of a package it is
