@@ -142,8 +142,8 @@ AcceptDate := "08/2006",
 ##  the updating of package information on the GAP Website, and inclusion
 ##  and updating of the package in the GAP distribution.
 ##  
-README_URL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/README",
-PackageInfoURL := "http://www-public.tu-bs.de:8080/~bhoeflin/irredsol/PackageInfo.g",
+README_URL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/README",
+PackageInfoURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
@@ -183,7 +183,7 @@ PackageDoc := rec(
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
   # Archive := "http://www.math.rwth-aachen.de/~Frank.Luebeck/EDIM/edimdoc-1p1.tar.bz2",
   ArchiveURLSubset := ["doc", "html"],
-  HTMLStart := "html/chapters.html",
+  HTMLStart := "html/chapters.htm",
   PDFFile := "doc/manual.pdf",
   # the path to the .six file used by GAP's help system
   SixFile := "doc/manual.six",
