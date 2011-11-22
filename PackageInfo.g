@@ -15,25 +15,25 @@ SetPackageInfo( rec(
 PackageName := "IRREDSOL",
 Subtitle := "A Library of irreducible solvable linear groups over finite fields \
           and of finite primivite soluble groups",
-BannerString := "\
+##  See '?Extending: Version Numbers' in GAP help for an explanation
+##  of valid version numbers.
+Version := "1.2.1",
+
+##  Release date of the current version in dd/mm/yyyy format.
+Date := "22/11/2011",
+
+BannerString := Concatenation("\
 ----------------------------------------------------------------------\n\
-                          IRREDSOL Version 1.2\n\
+                          IRREDSOL Version ", ~.Version, "\n\
   A library of irreducible solvable linear groups over finite fields\n\
                 and of finite primivite soluble groups\n\
                          by Burkhard Höfling\n\
-----------------------------------------------------------------------\n",
-##  See '?Extending: Version Numbers' in GAP help for an explanation
-##  of valid version numbers.
-Version := "1.2",
-
-##  Release date of the current version in dd/mm/yyyy format.
-Date := "18/05/2011",
-
+----------------------------------------------------------------------\n"),
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/irredsol-1r2",
+ArchiveURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/irredsol-1r2n1",
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
