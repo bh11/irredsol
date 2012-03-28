@@ -874,7 +874,7 @@ InstallMethod (ConjugatingMatTraceField, "for irreducible FFE matrix group",
             module := moduleG;
             ext := FieldOfMatrixGroup (G);
         else
-            ext := GF(Characteristic (G)^MTX.DegreeSplittingField (moduleG));
+            ext := GF(CharacteristicOfField (G)^MTX.DegreeSplittingField (moduleG));
             module := GModuleByMats (GeneratorsOfGroup (G), ext);
             repeat
                 basis := MTX.ProperSubmoduleBasis (module);

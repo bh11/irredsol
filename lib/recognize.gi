@@ -720,7 +720,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
              fi;
         else
             Info (InfoIrredsol, 1, "reducing to the absolutely irreducible case");
-            module := GModuleByMats (gensG, GF(Characteristic (G)^MTX.DegreeSplittingField (moduleG)));
+            module := GModuleByMats (gensG, GF(CharacteristicOfField (G)^MTX.DegreeSplittingField (moduleG)));
             repeat
                 basis := MTX.ProperSubmoduleBasis (module);
                 module := MTX.InducedActionSubmodule (module, basis);
@@ -734,7 +734,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
             SetIsIrreducibleMatrixGroup (H, true);
             SetIsSolvableGroup (H, true);
             SetSize (H, Size (G));
-            e := LogInt (Size (TraceField (H)), Characteristic (H));
+            e := LogInt (Size (TraceField (H)), CharacteristicOfField (H));
             d := DegreeOfMatrixGroup (G)/MTX.Dimension (module);
             Assert (1, e mod d = 0);
             
@@ -756,7 +756,7 @@ InstallGlobalFunction (RecognitionIrreducibleSolvableMatrixGroupNC,
             
             # translate results back
             
-            q := Characteristic(H)^(e/d);
+            q := CharacteristicOfField(H)^(e/d);
             SetTraceField (G, GF(q));
             Assert (1, q^d = info.id[2]);
             perm_pow := PermCanonicalIndexIrreducibleSolvableMatrixGroup (
