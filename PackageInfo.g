@@ -163,8 +163,6 @@ PackageWWWHome := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/index.html",
 ##  On the GAP Website there is an online version of all manuals in the
 ##  GAP distribution. To handle the documentation of a package it is
 ##  necessary to have:
-##     - an archive containing the package documentation (in at least one 
-##       of HTML or PDF-format, preferably both formats)
 ##     - the start file of the HTML documentation (if provided), *relative to
 ##       package root*
 ##     - the PDF-file (if provided) *relative to the package root*
@@ -181,7 +179,6 @@ PackageWWWHome := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/index.html",
 PackageDoc := rec(
   BookName := "irredsol",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
-  # Archive := "http://www.math.rwth-aachen.de/~Frank.Luebeck/EDIM/edimdoc-1p1.tar.bz2",
   ArchiveURLSubset := ["doc", "html"],
   HTMLStart := "html/chapters.htm",
   PDFFile := "doc/manual.pdf",
