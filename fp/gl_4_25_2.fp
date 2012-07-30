@@ -2,8 +2,6 @@
 ##
 ##  gl_4_25_2.fp                IRREDSOL                  Burkhard Höfling
 ##
-##  @(#)$Id$
-##
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 

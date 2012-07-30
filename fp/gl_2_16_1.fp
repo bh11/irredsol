@@ -2,8 +2,6 @@
 ##
 ##  gl_2_16_1.fp                 IRREDSOL                  Burkhard Hoefling
 ##
-##  @(#)$Id$
-##
 ##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
 ##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
 ##  Technische Universitaet Braunschweig, Germany

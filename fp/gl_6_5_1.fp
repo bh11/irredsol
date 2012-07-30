@@ -2,8 +2,6 @@
 ##
 ##  gl_6_5_1.fp                IRREDSOL                  Burkhard Höfling
 ##
-##  @(#)$$
-##
 ##  Copyright (C) 2003-2011 by Burkhard Höfling, 
 ##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
 ##  Technische Universitaet Braunschweig, Germany

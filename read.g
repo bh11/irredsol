@@ -2,8 +2,6 @@
 ##
 ##  read.g                       irredsol                  Burkhard Höfling
 ##
-##  @(#)$Id$
-##
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 

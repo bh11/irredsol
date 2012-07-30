@@ -2,9 +2,7 @@
 ##
 ##  gl_2_881_2.fp                IRREDSOL                  Burkhard Höfling
 ##
-##  @(#)$Id$
-##
-##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
+#  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
 
