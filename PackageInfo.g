@@ -15,10 +15,10 @@ Subtitle := "A Library of irreducible solvable linear groups over finite fields 
           and of finite primivite soluble groups",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
-Version := "1.2.1",
+Version := "1.2.2",
 
 ##  Release date of the current version in dd/mm/yyyy format.
-Date := "22/11/2011",
+Date := "today",
 
 BannerString := Concatenation("\
 ----------------------------------------------------------------------\n\
