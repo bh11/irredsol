@@ -11,8 +11,7 @@ SetPackageInfo( rec(
 ##  This is case sensitive, use your preferred spelling.
 
 PackageName := "IRREDSOL",
-Subtitle := "A Library of irreducible solvable linear groups over finite fields \
-          and of finite primivite soluble groups",
+Subtitle := "A Library of irreducible solvable linear groups over finite fields and of finite primivite soluble groups",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
 Version := "1.2.2",
