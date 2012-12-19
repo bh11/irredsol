@@ -1,10 +1,8 @@
 #! /bin/sh
 cd doc
-tex manual
-makeindex manual
+pdftex manual
+makeindex -s manual.ist manual
 bibtex manual
-tex manual
-tex manual
 pdftex manual
 pdftex manual
 cd ..

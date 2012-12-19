@@ -24,7 +24,8 @@ libfiles="access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
 docfiles="manual.tex overview.tex access.tex matgroups.tex \
     primitive.tex recognition.tex"
     
-manexts=".bbl .ind .idx .six .pdf .mst .toc"
+manexts=".bbl .ind .idx .six .pdf .ist .toc \
+    .example-2.tst .example-3.tst .example-4.tst .example-5.tst"
 
 testfiles="test.tst"
 

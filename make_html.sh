@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 rm -f html/CHAP???.html
 rm -f html/biblio.html
 rm -f html/theindex.html
