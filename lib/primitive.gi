@@ -267,7 +267,7 @@ InstallGlobalFunction (IrreducibleMatrixGroupPrimitiveSolvableGroup,
                     if not IsIrreducibleMatrixGroup (matgrp, GF(p)) then
                         Error ("G must be primitive");
                     else
-                        compl := Complementclasses (G, F);
+                        compl := ComplementClassesRepresentatives (G, F);
                         if Length (compl) <> 1 then
                             Error ("G must be primitive");
                         fi;
