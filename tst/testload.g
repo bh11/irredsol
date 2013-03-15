@@ -1,7 +1,7 @@
 LoadPackage ("irredsol", "", false);
 UnloadAbsolutelyIrreducibleSolvableGroupData ();
 d := 2;;
-limit := 10^6;;
+limit := 2*10^6;;
 for d in [2.. limit] do
     p := SmallestRootInt (d);
     if IsPrimeInt (p) then
