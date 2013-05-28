@@ -21,7 +21,7 @@ libfiles="access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    recognize.gd recognize.gi recognizeprim.gd recognizeprim.gi \
    util.g util.gd util.gi obsolete.gd obsolete.gi"
 
-docfiles="manual.tex overview.tex access.tex matgroups.tex \
+docfiles="manual.tex copyright.tex overview.tex access.tex matgroups.tex \
     primitive.tex recognition.tex"
     
 manexts=".bbl .ind .idx .six .pdf .ist .toc \
