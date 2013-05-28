@@ -1,4 +1,4 @@
-gap> START_TEST("$Id$");
+gap> START_TEST("irredsol");
 gap> LoadPackage ("irredsol", "", false);
 true
 gap> SetInfoLevel (InfoIrredsol, 0);
