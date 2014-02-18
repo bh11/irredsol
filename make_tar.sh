@@ -66,6 +66,7 @@ for file in irredsol/fp/*.fp
 done
 
 tar -r -f $tarfile irredsol/README 
+tar -r -f $tarfile irredsol/LICENSE
 
 bzip2 $tarfile 
 
