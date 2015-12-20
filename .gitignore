@@ -1,1 +1,17 @@
 private
+doc/manual.aux
+doc/manual.bbl
+doc/manual.blg
+doc/manual.example-2.tst
+doc/manual.example-3.tst
+doc/manual.example-4.tst
+doc/manual.example-5.tst
+doc/manual.idx
+doc/manual.ilg
+doc/manual.ind
+doc/manual.lab
+doc/manual.log
+doc/manual.pdf
+doc/manual.six
+doc/manual.toc
+html
