@@ -87,12 +87,4 @@ for i in inds do
     if G^info.mat <> info.group or info.id <> IdIrreducibleSolvableMatrixGroup (G) then
        Error ("wrong result for group of id ", IdIrreducibleSolvableMatrixGroup (G));
     fi;
- od;
-G1:=Group([ [ [ Z(7), 0*Z(7) ], [ 0*Z(7), Z(7) ] ], [ [ Z(7)^0, Z(7)^0 ],
- [ Z(7)^5, Z(7)^3 ] ], [ [ Z(7)^4, 0*Z(7) ], [ Z(7)^4, Z(7)^2 ] ]]);;
-IdIrreducibleSolvableMatrixGroup(G1);
-# [ 2, 7, 1, 20 ]
-G2:=Group([ [ [ Z(7), Z(7)^5 ], [ Z(7), Z(7)^0 ] ],[ [ Z(7), Z(7)^3 ], [
-  Z(7), Z(7)^4 ] ] ]);;
-IdIrreducibleSolvableMatrixGroup(G2);
-#[ 2, 7, 1, 21 ]
+od;
