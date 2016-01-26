@@ -5,17 +5,22 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-ReadPackage ("irredsol", "lib/util.g");
-ReadPackage ("irredsol", "lib/util.gd");
-ReadPackage ("irredsol", "lib/matmeths.gd");
-ReadPackage ("irredsol", "lib/loading.gd");
-ReadPackage ("irredsol", "lib/loadfp.gd");
-ReadPackage ("irredsol", "lib/access.gd");
-ReadPackage ("irredsol", "lib/iterators.gd");
-ReadPackage ("irredsol", "lib/recognize.gd");
-ReadPackage ("irredsol", "lib/primitive.gd");
-ReadPackage ("irredsol", "lib/recognizeprim.gd");
-ReadPackage ("irredsol", "lib/obsolete.gd");
+BindGlobal ("IRREDSOL_Read", function (path)
+    if not ReadPackage("irredsol", path) then
+        Error("IRREDSOL package: Can't read file ",path, ". The package may be damaged");
+    fi;
+end);
+IRREDSOL_Read("lib/util.g");
+IRREDSOL_Read("lib/util.gd");
+IRREDSOL_Read("lib/matmeths.gd");
+IRREDSOL_Read("lib/loading.gd");
+IRREDSOL_Read("lib/loadfp.gd");
+IRREDSOL_Read("lib/access.gd");
+IRREDSOL_Read("lib/iterators.gd");
+IRREDSOL_Read("lib/recognize.gd");
+IRREDSOL_Read("lib/primitive.gd");
+IRREDSOL_Read("lib/recognizeprim.gd");
+IRREDSOL_Read("lib/obsolete.gd");
 
 
 ############################################################################

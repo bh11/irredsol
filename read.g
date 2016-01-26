@@ -6,16 +6,16 @@
 ##
 
 
-ReadPackage ("irredsol", "lib/matmeths.gi");
-ReadPackage ("irredsol", "lib/loading.gi");
-ReadPackage ("irredsol", "lib/loadfp.gi");
-ReadPackage ("irredsol", "lib/access.gi");
-ReadPackage ("irredsol", "lib/iterators.gi");
-ReadPackage ("irredsol", "lib/recognize.gi");
-ReadPackage ("irredsol", "lib/primitive.gi");
-ReadPackage ("irredsol", "lib/recognizeprim.gi");
-ReadPackage ("irredsol", "lib/util.gi");
-ReadPackage ("irredsol", "lib/obsolete.gi");
+IRREDSOL_Read("lib/matmeths.gi");
+IRREDSOL_Read("lib/loading.gi");
+IRREDSOL_Read("lib/loadfp.gi");
+IRREDSOL_Read("lib/access.gi");
+IRREDSOL_Read("lib/iterators.gi");
+IRREDSOL_Read("lib/recognize.gi");
+IRREDSOL_Read("lib/primitive.gi");
+IRREDSOL_Read("lib/recognizeprim.gi");
+IRREDSOL_Read("lib/util.gi");
+IRREDSOL_Read("lib/obsolete.gi");
 
 
 ############################################################################

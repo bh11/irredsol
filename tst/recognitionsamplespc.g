@@ -1,7 +1,10 @@
 LoadPackage ("irredsol", "", false);
 SetInfoLevel (InfoIrredsol, 4);
-LoadPackage ("crisp", "", false);
-ReadPackage ("crisp", "private/maximal.gi");
+if not LoadPackage ("crisp", "", false)
+    or not ReadPackage ("crisp", "private/maximal.gi") then
+        Error("Can't read file from CRISP package");
+fi;
+
 
 RecognitionPrimitiveSolvableGroup (SymmetricGroup (3), true);
 RecognitionPrimitiveSolvableGroup (SymmetricGroup (4), true);
