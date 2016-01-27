@@ -6,7 +6,7 @@ solvable subgroups of GL(n, q), up to conjugacy, where n is a positive
 integer and q a prime power satisfying q^n <= 1000000, and a library
 of all primitive soluble groups of degree at most 1000000.
 
-This version of IRREDSOL requires at least GAP 4.4.12.
+This version of IRREDSOL requires at least GAP 4.5.
 
 In order to install IRREDSOL, you have to get the package archive file 
 `irredsol-1r2n4.tar.gz', or any other archive format suitable for your
