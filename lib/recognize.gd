@@ -123,6 +123,7 @@ DECLARE_IRREDSOL_FUNCTION("RecognitionIrreducibleSolubleMatrixGroupNC");
 DeclareAttribute("IdIrreducibleSolubleMatrixGroup", IsMatrixGroup);
 DECLARE_IRREDSOL_SYNONYMS_ATTR("IdIrreducibleSolubleMatrixGroup");
 
+
 ############################################################################
 ##
 #F  IdIrreducibleSolubleMatrixGroupIndexMS(<n>, <p>, <k>)
