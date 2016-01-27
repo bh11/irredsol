@@ -26,12 +26,12 @@ DeclareGlobalFunction ("TestFlag");
 
 ############################################################################
 ##
-#F  NumberOfFFPolynomial(<p>, <q>)
+#F  CodeCharacteristicPolynomial(<mat>, <q>)
 ##
-##  computes a number characterising the polynomial p.
-##  The polynomial p wmust be over GF(q)
+##  given a matrix mat over GF(q), this computes a number which uniquely
+##  identifies the characteristic polynomial of mat.
 ##  
-DeclareGlobalFunction ("NumberOfFFPolynomial");
+DeclareGlobalFunction ("CodeCharacteristicPolynomial");
 
 
 ############################################################################
@@ -45,10 +45,9 @@ DeclareGlobalFunction ("FFMatrixByNumber");
 
 ############################################################################
 ##
-#F  CanonicalPcgsByNumber(<p>, <q>)
+#F  CanonicalPcgsByNumber(<pcgs>, <n>)
 ##
-##  computes a number characterising the matrix m.
-##  The matrix m wmust be over GF(q)
+##  computes the canonical pcgs wrt. pcgs represented by the integer n
 ##  
 DeclareGlobalFunction ("CanonicalPcgsByNumber");
 

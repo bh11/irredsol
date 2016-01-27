@@ -53,9 +53,7 @@ InstallMethod (FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
     for cl in AttributeValueNotSet (ConjugacyClasses, Source (rep)) do
         g := Representative (cl);
         if g <> g^0 then
-            id := [Size (cl), Order (g), 
-                NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (rep, g), 1), 
-                    q), 1];
+            id := [Size (cl), Order (g), CodeCharacteristicPolynomial(ImageElm (rep, g), q), 1];
             pos := PositionSorted (ids, id);
             if pos > len then
                 ids[pos] := id;
@@ -105,7 +103,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
     for i in [1..Length (ccl)] do
         cl := ccl[i];
         id := [Size (cl), Order (Representative (cl)), 
-            NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoG, Representative (cl))), q)];
+            CodeCharacteristicPolynomial(ImageElm (isoG, Representative (cl)), q)];
         pos := PositionSorted (ids, id);
         if pos > len then
             ids[pos] := id;
@@ -137,7 +135,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
     for i in [1..Length (gens)] do
         g := gens[i];
         id := [Size (ConjugacyClass (preG, g)), Order(g), 
-            NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoG, g)), q)];
+            CodeCharacteristicPolynomial (ImageElm (isoG, g), q)];
         pos := PositionSorted (ids, id);
         mincost := mincost * cost[pos];
         Add (mingenspos, pos);
@@ -163,7 +161,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
                 if Random ([1..10]) = 1 then
                     g := Random (preG);
                     id := [Size (ConjugacyClass (preG, g)), Order(g), 
-                        NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoG, g)), q)];
+                        CodeCharacteristicPolynomial (ImageElm (isoG, g), q)];
                     pos := PositionSorted (ids, id);
                 else
                     k := Random (0, weight[Length (weight)]);
@@ -223,7 +221,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function (G, H, F)
             cl := ccl[j];
             if Size (cl) = id[1] and Order (Representative(cl)) = id[2] then
                 if not IsBound (cpH[j]) then
-                    cpH[j] := NumberOfFFPolynomial (CharacteristicPolynomial (ImageElm (isoH, Representative(cl))), q);
+                    cpH[j] := CodeCharacteristicPolynomial (ImageElm (isoH, Representative(cl)), q);
                 fi;
                 if cpH[j] = id[3] then
                     if i = 1 then

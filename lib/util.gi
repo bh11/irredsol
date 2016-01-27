@@ -21,27 +21,43 @@ InstallGlobalFunction (TestFlag,
 
 ############################################################################
 ##
-#F  NumberOfFFPolynomial(<p>, <q>)
+#F  CodeCharacteristicPolynomial(<mat>, <q>)
 ##
-##  computes a number characterising the polynomial p.
-##  The polynomial p wmust be over GF(q)
+##  given a matrix mat over GF(q), this computes a number which uniquely
+##  identifies the characteristic polynomial of mat.
 ##  
-InstallGlobalFunction (NumberOfFFPolynomial, function (p, q)
+InstallGlobalFunction (CodeCharacteristicPolynomial,
+    function (mat, q)
 
-    local cf, z, sum, c;
-    
-    cf := CoefficientsOfUnivariatePolynomial (p);
-    z := Z(q);
-    sum := 0;
-    for c in cf do
-        if c = 0*z then
-            sum := sum * q;
-        else 
-            sum := sum * q + LogFFE (c, z) + 1;
+        local cf, z, sum, c;
+
+        z := Z(q);
+        if Length (mat) = 2 then
+            cf := [ mat[1][1]*mat[2][2] - mat[1][2]*mat[2][1],
+                    - mat[1][1] - mat[2][2],
+                    z^0];
+        elif Length (mat) = 3 then
+            cf := [ - mat[1][1]*mat[2][2]*mat[3][3] - mat[1][2]*mat[2][3]*mat[3][1] - mat[1][3]*mat[2][1]*mat[3][2]
+                    + mat[1][1]*mat[2][3]*mat[3][2] + mat[2][2]*mat[1][3]*mat[3][1] + mat[3][3]*mat[2][1]*mat[1][2],
+                    mat[1][1]*mat[2][2] + mat[2][2]*mat[3][3] + mat[1][1]*mat[3][3]
+                        - mat[1][2]*mat[2][1] - mat[2][3]*mat[3][2] - mat[1][3]*mat[3][1],
+                    - mat[1][1] - mat[2][2] - mat[3][3],
+                    z^0];
+        else
+            cf := CoefficientsOfUnivariatePolynomial (CharacteristicPolynomial (mat, 1));
         fi;
-    od;
-    return sum;
-end);
+        z := Z(q);
+        sum := 0;
+        for c in cf do
+            if c = 0*z then
+                sum := sum * q;
+            else 
+                sum := sum * q + LogFFE (c, z) + 1;
+            fi;
+        od;
+
+        return sum;
+    end);
 
 
 ############################################################################
