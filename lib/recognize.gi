@@ -481,9 +481,16 @@ InstallGlobalFunction (RecognitionAISMatrixGroup,
                     
                     # which distingushing elements are in G?
                     
-                    elminds := Filtered ([1..Length (fpinfo[1])], i -> 
-                        fpinfo[1][i] in FingerprintMatrixGroup (G));
-                    
+                    if IsEmpty(fpinfo[1]) then
+                        Info (InfoIrredsol, 1, "all groups have the same fingerprint");
+                        # this is enough, same code handles this special case
+                        elminds := [];
+                    else
+                        Info (InfoIrredsol, 1, "computing fingerprint of group");
+                        elminds := Filtered ([1..Length (fpinfo[1])], i ->
+                            fpinfo[1][i] in FingerprintMatrixGroup (G));
+                    fi;
+
                     # find relevant info in database
 
                     pos := PositionSet (fpinfo[2], elminds);
