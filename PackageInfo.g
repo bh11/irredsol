@@ -11,7 +11,7 @@ SetPackageInfo( rec(
 ##  This is case sensitive, use your preferred spelling.
 
 PackageName := "IRREDSOL",
-Subtitle := "A Library of irreducible solvable linear groups over finite fields and of finite primivite soluble groups",
+Subtitle := "A library of irreducible soluble linear groups over finite fields and of finite primivite soluble groups",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers.
 Version := "1.2.4",
@@ -22,7 +22,7 @@ Date := "18/02/2014",
 BannerString := Concatenation("\
 ----------------------------------------------------------------------\n\
                           IRREDSOL Version ", ~.Version, "\n\
-  A library of irreducible solvable linear groups over finite fields\n\
+  A library of irreducible soluble linear groups over finite fields\n\
                 and of finite primivite soluble groups\n\
                          by Burkhard Höfling\n\
 ----------------------------------------------------------------------\n"),
@@ -168,7 +168,7 @@ PackageDoc := rec(
   SixFile := "doc/manual.six",
   # a longer title of the book, this together with the book name should
   # fit on a single text line (appears with the '?books' command in GAP)
-  LongTitle := "A library of irreducible solvable linear groups over finite fields",
+  LongTitle := "A library of irreducible soluble linear groups over finite fields",
   # Should this help book be autoloaded when GAP starts up? This should
   # usually be 'true', otherwise say 'false'. 
   Autoload := true
@@ -226,7 +226,7 @@ TestFile := "tst/test.tst",
 # Keywords := ["Smith normal form", "p-adic", "rational matrix inversion"]
 Keywords := ["linear group", "matrix group", "irreducible matrix group",
    "absolutely irreducible matrix group",
-   "solvable group", "soluble group",
+   "soluble group", "soluble group",
    "library", "data base",
    "matrix group recognition", "conjugacy of matrix groups",
    "finite field", "trace field"]

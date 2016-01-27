@@ -10,7 +10,7 @@
 ##
 #F  PcGroupExtensionByMatrixAction(<pcgs>, <hom>)
 ##
-##  Let <G> be a finite solvable group with pcgs <pcgs>, and let <hom> be a 
+##  Let <G> be a finite soluble group with pcgs <pcgs>, and let <hom> be a 
 ##  group hom. $<hom>\colon G \to GL(n, p)$, where $p$ is a prime. Let  $E$ 
 ##  denote the split
 ##  extension of $G$ by $V = \F_p$, where <G> acts on <V> via <hom>.
@@ -30,13 +30,13 @@ DECLARE_IRREDSOL_FUNCTION("PcGroupExtensionByMatrixAction");
 
 ############################################################################
 ##
-#F  IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)
-#F  IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolubleGroup(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolubleGroupNC(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("IrreducibleMatrixGroupPrimitiveSolvableGroup");
-DECLARE_IRREDSOL_FUNCTION("IrreducibleMatrixGroupPrimitiveSolvableGroupNC");
+DECLARE_IRREDSOL_FUNCTION("IrreducibleMatrixGroupPrimitiveSolubleGroup");
+DECLARE_IRREDSOL_FUNCTION("IrreducibleMatrixGroupPrimitiveSolubleGroupNC");
 
 
 ############################################################################
@@ -72,22 +72,22 @@ DECLARE_IRREDSOL_FUNCTION("PrimitivePermGroupIrreducibleMatrixGroupNC");
 
 ############################################################################
 ##
-#F  PrimitiveSolvablePermGroup(<n>,<q>,<d>,<k>)
+#F  PrimitiveSolublePermGroup(<n>,<q>,<d>,<k>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("PrimitiveSolvablePermGroup");
+DECLARE_IRREDSOL_FUNCTION("PrimitiveSolublePermGroup");
 
 
 ############################################################################
 ##
-#F  DoIteratorPrimitiveSolvableGroups(<convert_func>, <arg_list>)
+#F  DoIteratorPrimitiveSolubleGroups(<convert_func>, <arg_list>)
 ##
-##  generic constructor function for an iterator of all primitive solvable groups
+##  generic constructor function for an iterator of all primitive soluble groups
 ##  which can construct permutation groups or pc groups (or other types of groups),
 ##  depending on convert_func
 ##  
-DECLARE_IRREDSOL_FUNCTION("DoIteratorPrimitiveSolvableGroups");
+DECLARE_IRREDSOL_FUNCTION("DoIteratorPrimitiveSolubleGroups");
 
 
 ###########################################################################
@@ -119,29 +119,29 @@ DECLARE_IRREDSOL_FUNCTION("OnePrimitivePcGroup");
 
 ###########################################################################
 ##
-#F  IteratorPrimitiveSolvablePermGroups(<arg>)
+#F  IteratorPrimitiveSolublePermGroups(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("IteratorPrimitiveSolvablePermGroups");
+DECLARE_IRREDSOL_FUNCTION("IteratorPrimitiveSolublePermGroups");
 
 
 ###########################################################################
 ##
-#F  AllPrimitiveSolvablePermGroups(<arg>)
+#F  AllPrimitiveSolublePermGroups(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("AllPrimitiveSolvablePermGroups");
+DECLARE_IRREDSOL_FUNCTION("AllPrimitiveSolublePermGroups");
 
 
 ###########################################################################
 ##
-#F  OnePrimitiveSolvablePermGroup(<arg>)
+#F  OnePrimitiveSolublePermGroup(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("OnePrimitiveSolvablePermGroup");
+DECLARE_IRREDSOL_FUNCTION("OnePrimitiveSolublePermGroup");
 
 
 

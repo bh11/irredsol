@@ -541,7 +541,7 @@ InstallMethod(RepresentationIsomorphism, "for mat group handled by nice mono.", 
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod(RepresentationIsomorphism, "solvable group: inverse of IsomorphismPcGroup", true,
+InstallMethod(RepresentationIsomorphism, "soluble group: inverse of IsomorphismPcGroup", true,
     [IsMatrixGroup], 0,
     function(G)
 

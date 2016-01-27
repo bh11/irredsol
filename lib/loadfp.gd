@@ -8,55 +8,55 @@
 
 ############################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+#F  IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintIndex(<n>, <q>)
 ##
 ##  returns true if the fingerprint data index is available
 ##  
-DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintIndex");
 
 
 ############################################################################
 ##
-#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+#F  TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(<n>, <q>)
 ##
 ##  tries to load the fingerprint database index file and returns 
 ##  true if it succeeds, and false otherwise
 ##  
-DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex");
+DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex");
 
 
 ############################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(<n>, <q>)
 ##
 ##  loads the fingerprint database index file
 ##  
-DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex");
+DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex");
 
 
 ############################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <k>)
+#F  IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintData(<n>, <q>, <k>)
 ##
 ##  returns true if the k-th fingerprint data file for GL(n,q) exists, and
 ##  false otherwise.
 ##  
-DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintData");
 
 
 ############################################################################
 ##
-#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+#F  TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintData(<n>, <q>, <index>)
 ##
 ##  tries to load the <index>-th fingerprint data file for subgroups of GL(n,q) 
 ##  and returns true if it succeeds and false otherwise.
 ##  
-DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData");
+DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintData");
 
 
 ###########################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupFingerprintData(<n>, <q>, <index>)
 ##
 ##  loads the <index>-th fingerprint data file for subgroups of GL(n,q) 
 ##  The fiongerprint data is a record with entries elms
@@ -70,34 +70,34 @@ DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintD
 ##  which entries in elms occur in F. The third is a list of the indices
 ##  of the gropus having that fingerprint F.
 ##  
-DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolvableGroupFingerprintData");
+DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolubleGroupFingerprintData");
 
 
 ###########################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprints(<arg>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupFingerprints(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolvableGroupFingerprints");
+DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolubleGroupFingerprints");
 
 
 ###########################################################################
 ##
-#F  UnloadAbsolutelyIrreducibleSolvableGroupFingerprints(<arg>)
+#F  UnloadAbsolutelyIrreducibleSolubleGroupFingerprints(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolvableGroupFingerprints");
+DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolubleGroupFingerprints");
 
 
 ###########################################################################
 ##
-#F  LoadedAbsolutelyIrreducibleSolvableGroupFingerprints(<arg>)
+#F  LoadedAbsolutelyIrreducibleSolubleGroupFingerprints(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolvableGroupFingerprints");
+DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolubleGroupFingerprints");
 
 
 ###########################################################################

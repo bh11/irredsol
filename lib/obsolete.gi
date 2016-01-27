@@ -8,41 +8,41 @@
 
 ############################################################################
 ##
-#F  IndicesAbsolutelyIrreducibleSolvableMatrixGroups(<n>, <q>)
+#F  IndicesAbsolutelyIrreducibleSolubleMatrixGroups(<n>, <q>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IndicesAbsolutelyIrreducibleSolvableMatrixGroups,
+InstallGlobalFunction(IndicesAbsolutelyIrreducibleSolubleMatrixGroups,
     function(n, q)
-        Info(InfoWarning, 1, "Obsolete function. See ?IndicesAbsolutelyIrreducibleSolvableMatrixGroups.");
-        return IndicesIrreducibleSolvableMatrixGroups(n, q, 1);
+        Info(InfoWarning, 1, "Obsolete function. See ?IndicesAbsolutelyIrreducibleSolubleMatrixGroups.");
+        return IndicesIrreducibleSolubleMatrixGroups(n, q, 1);
     end);
 
 
 ############################################################################
 ##
-#F  AbsolutelyIrreducibleSolvableMatrixGroup(<n>, <q>, <k>)
+#F  AbsolutelyIrreducibleSolubleMatrixGroup(<n>, <q>, <k>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(AbsolutelyIrreducibleSolvableMatrixGroup,
+InstallGlobalFunction(AbsolutelyIrreducibleSolubleMatrixGroup,
     function(n, q, k)
-        Info(InfoWarning, 1, "Obsolete function. See ? AbsolutelyIrreducibleSolvableMatrixGroup.");
-        return IrreducibleSolvableMatrixGroup(n, q, 1, k);
+        Info(InfoWarning, 1, "Obsolete function. See ? AbsolutelyIrreducibleSolubleMatrixGroup.");
+        return IrreducibleSolubleMatrixGroup(n, q, 1, k);
     end);
 
 
 ############################################################################
 ##
-#F  RecognitionAbsolutelyIrreducibleSolvableMatrixGroup(G, wantmat, wantgroup)
+#F  RecognitionAbsolutelyIrreducibleSolubleMatrixGroup(G, wantmat, wantgroup)
 ##
 ##  see the IRREDSOL manual
 ##
-InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolvableMatrixGroup,
+InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolubleMatrixGroup,
     function(G, wantmat, wantgroup)
         local r;
-        Info(InfoWarning, 1, "Obsolete function. See ? RecognitionAbsolutelyIrreducibleSolvableMatrixGroup.");
-        r := RecognitionIrreducibleSolvableMatrixGroup(G, wantmat, wantgroup);
+        Info(InfoWarning, 1, "Obsolete function. See ? RecognitionAbsolutelyIrreducibleSolubleMatrixGroup.");
+        r := RecognitionIrreducibleSolubleMatrixGroup(G, wantmat, wantgroup);
         if r.id[3] <> 1 then
             Error("G is not absolutely irreducible");
         fi;
@@ -53,15 +53,15 @@ InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolvableMatrixGroup,
 
 ############################################################################
 ##
-#F  RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC(G, wantmat, wantgroup)
+#F  RecognitionAbsolutelyIrreducibleSolubleMatrixGroupNC(G, wantmat, wantgroup)
 ##
 ##  see the IRREDSOL manual
 ##
-InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC,
+InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolubleMatrixGroupNC,
     function(G, wantmat, wantgroup)
         local r;
-        Info(InfoWarning, 1, "Obsolete function. See ? RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC.");
-        r := RecognitionIrreducibleSolvableMatrixGroupNC(G, wantmat, wantgroup);
+        Info(InfoWarning, 1, "Obsolete function. See ? RecognitionAbsolutelyIrreducibleSolubleMatrixGroupNC.");
+        r := RecognitionIrreducibleSolubleMatrixGroupNC(G, wantmat, wantgroup);
         if r <> fail then
             if r.id[3] <> 1 then
                 Error("G is not absolutely irreducible");
@@ -74,15 +74,15 @@ InstallGlobalFunction(RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC,
 
 ############################################################################
 ##
-#A  IdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)
+#A  IdAbsolutelyIrreducibleSolubleMatrixGroup(<G>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction("IdAbsolutelyIrreducibleSolvableMatrixGroup",
+InstallGlobalFunction("IdAbsolutelyIrreducibleSolubleMatrixGroup",
     function(G)
         local r;
-        Info(InfoWarning, 1, "Obsolete function. See ? IdAbsolutelyIrreducibleSolvableMatrixGroup.");
-        r := IdIrreducibleSolvableMatrixGroup(G, false, false);
+        Info(InfoWarning, 1, "Obsolete function. See ? IdAbsolutelyIrreducibleSolubleMatrixGroup.");
+        r := IdIrreducibleSolubleMatrixGroup(G, false, false);
         if r[3] <> 1 then
             Error("G is not absolutely irreducible");
         fi;

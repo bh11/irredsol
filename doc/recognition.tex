@@ -15,7 +15,7 @@ group, identify a group in the {\IRREDSOL} library which is conjugate
 to that group, see Section~"Identification of irreducible groups".
 Moreover,  Section "Compatibility with other data libraries" describes
 how to  translate between groups in the {\IRREDSOL} library and the
-{\GAP}  library of irreducible solvable groups. 
+{\GAP}  library of irreducible soluble groups. 
 Section~"Loading and unloading recognition data manually" describes some 
 functions which allow to load and unload the recognition data in the 
 {\IRREDSOL} package manually.
@@ -23,38 +23,53 @@ functions which allow to load and unload the recognition data in the
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Identification of irreducible groups}
 
+\>`IsAvailableIdIrreducibleSolubleMatrixGroup(<G>)'%
+{IsAvailableIdIrreducibleSolubleMatrixGroup}%
+@{`IsAvailable\\Id\\Irreducible\\Soluble\\MatrixGroup'} F
 \>`IsAvailableIdIrreducibleSolvableMatrixGroup(<G>)'%
 {IsAvailableIdIrreducibleSolvableMatrixGroup}%
 @{`IsAvailable\\Id\\Irreducible\\Solvable\\MatrixGroup'} F
 
-This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
-"IdIrreducibleSolvableMatrixGroup") will work for the irreducible matrix group <G>, and `false' otherwise.
+This function returns `true' if `IdIrreducibleSolubleMatrixGroup' (see
+"IdIrreducibleSolubleMatrixGroup") will work for the irreducible matrix group <G>, and `false' otherwise.
 
+\>`IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup(<G>)'%
+{IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup}%
+@{`IsAvailable\\Id\\Absolutely\\Irreducible\\Soluble\\MatrixGroup'} F
 \>`IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)'%
 {IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup}%
 @{`IsAvailable\\Id\\Absolutely\\Irreducible\\Solvable\\MatrixGroup'} F
 
-This function returns `true' if `IdIrreducibleSolvableMatrixGroup' (see
-"IdIrreducibleSolvableMatrixGroup") will work for the absolutely irreducible matrix group <G>, and `false' otherwise.
+This function returns `true' if `IdIrreducibleSolubleMatrixGroup' (see
+"IdIrreducibleSolubleMatrixGroup") will work for the absolutely irreducible matrix group <G>, and `false' otherwise.
 
 
+\>IdIrreducibleSolubleMatrixGroup(<G>) A
 \>IdIrreducibleSolvableMatrixGroup(<G>) A
 
-If the matrix group <G> is solvable and irreducible over $F
+If the matrix group <G> is soluble and irreducible over $F
 = `FieldOfMatrixGroup'(<G>)$, (see "ref:FieldOfMatrixGroup" in the {\GAP} reference manual), and a conjugate in
-$GL(<n>, <F>)$ of $<G>$ belongs to the data base of  irreducible solvable groups in
+$GL(<n>, <F>)$ of $<G>$ belongs to the data base of  irreducible soluble groups in
 {\IRREDSOL}, this function returns a list `[<n>, <q>, <d>, <k>]' such that <G> is
-conjugate to  `IrreducibleSolvableMatrixGroup'(<n>, <q>, <d>, <k>) (see
-"IrreducibleSolvableMatrixGroup").
+conjugate to  `IrreducibleSolubleMatrixGroup'(<n>, <q>, <d>, <k>) (see
+"IrreducibleSolubleMatrixGroup").
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(12, 2, 3, 52)^RandomInvertibleMat(12, GF(2));;
+gap> G := IrreducibleSolubleMatrixGroup(12, 2, 3, 52)^RandomInvertibleMat(12, GF(2));;
 # <matrix group of size 2340 with 6 generators>
-gap> IdIrreducibleSolvableMatrixGroup(G);
+gap> IdIrreducibleSolubleMatrixGroup(G);
 [ 12, 2, 3, 52 ]
 \endexample
 
 
+\>`RecognitionIrreducibleSolubleMatrixGroup(%
+   <G>[, <wantmat>[, <wantgroup>[,<wantiso>]]])'%
+{RecognitionIrreducibleSolubleMatrixGroup}%
+@{`RecognitionIrreducibleSoluble\\MatrixGroup'} F
+\>`RecognitionIrreducibleSolubleMatrixGroupNC(%
+   <G>[, <wantmat>[, <wantgroup>[,<wantiso>]]])'%
+{RecognitionIrreducibleSolubleMatrixGroupNC}%
+@{`RecognitionIrreducibleSoluble\\MatrixGroupNC'} F
 \>`RecognitionIrreducibleSolvableMatrixGroup(%
    <G>[, <wantmat>[, <wantgroup>[,<wantiso>]]])'%
 {RecognitionIrreducibleSolvableMatrixGroup}%
@@ -64,13 +79,13 @@ gap> IdIrreducibleSolvableMatrixGroup(G);
 {RecognitionIrreducibleSolvableMatrixGroupNC}%
 @{`RecognitionIrreducibleSolvable\\MatrixGroupNC'} F
 
-Let <G> be an irreducible solvable matrix group over a finite field, and let
+Let <G> be an irreducible soluble matrix group over a finite field, and let
 <wantmat> and <wantmat> be `true' or `false'. 
 These functions identify a conjugate <H> of <G> group in the library. 
 They return a record which has the following entries:
 \beginitems
 `id' &  contains the id of <H> (and thus of <G>); 
-    cf. `IdIrreducibleSolvableMatrixGroup'  ("IdIrreducibleSolvableMatrixGroup")
+    cf. `IdIrreducibleSolubleMatrixGroup'  ("IdIrreducibleSolubleMatrixGroup")
 
 `mat' (present if `wantmat' is `true') &
     a matrix <x> such that $G^x = H$
@@ -81,40 +96,49 @@ They return a record which has the following entries:
     `RepresentationIsomorphism(<G>)' to the source of `RepresentationIsomorphism(<H>)'.
     
 \enditems
-Note that in most cases, `Recog\-nition\-Irreducible\-Solvable\-Matrix\-Group' and 
+Note that in most cases, `Recog\-nition\-Irreducible\-Soluble\-Matrix\-Group' and 
 `Recog\-nition\-Irreducible\-Sol\-vable\-Matrix\-Group\-NC' are 
 much slower if <wantmat> is set to true.   
 
-`RecognitionIrreducibleSolvableMatrixGroupNC' does not check its arguments. If
-the group <G> is beyond the scope of the {\IRREDSOL} library (see "IsAvailableIdIrreducibleSolvableMatrixGroup"), `RecognitionIrreducibleSolvableMatrixGroupNC' returns `fail', while `RecognitionIrreducibleSolvableMatrixGroup' raises an error.
+`RecognitionIrreducibleSolubleMatrixGroupNC' does not check its arguments. If
+the group <G> is beyond the scope of the {\IRREDSOL} library (see "IsAvailableIdIrreducibleSolubleMatrixGroup"), `RecognitionIrreducibleSolubleMatrixGroupNC' returns `fail', while `RecognitionIrreducibleSolubleMatrixGroup' raises an error.
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(6, 2, 3, 5) ^
+gap> G := IrreducibleSolubleMatrixGroup(6, 2, 3, 5) ^
 >         RandomInvertibleMat(6, GF(4));
 <matrix group of size 42 with 3 generators>
-gap> r := RecognitionIrreducibleSolvableMatrixGroup(G, true, false);;
+gap> r := RecognitionIrreducibleSolubleMatrixGroup(G, true, false);;
 gap> r.id;
 [ 6, 2, 3, 5 ]
-gap> G^r.mat = CallFuncList(IrreducibleSolvableMatrixGroup, r.id);
+gap> G^r.mat = CallFuncList(IrreducibleSolubleMatrixGroup, r.id);
 true
 \endexample
 
 
+\>IdAbsolutelyIrreducibleSolubleMatrixGroup(<G>) A
+\>`RecognitionAbsolutelyIrreducibleSolubleMatrixGroup(%
+   <G>, <wantmat>, <wantgroup>)'%
+{RecognitionAbsolutelyIrreducibleSolubleMatrixGroup}%
+@{`RecognitionAbsolutelyIrreducibleSoluble\\MatrixGroup'} F
+\>`RecognitionAbsolutelyIrreducibleSolubleMatrixGroupNC(%
+   <G>, <wantmat>,<wantgroup>)'%
+{RecognitionAbsolutelyIrreducibleSolubleMatrixGroupNC}%
+@{`RecognitionAbsolutelyIrreducibleSoluble\\Matrix\\Group\\NC'} F
 \>IdAbsolutelyIrreducibleSolvableMatrixGroup(<G>) A
-\>`RecognitionAbsolutelyIrreducibleSolvableMatrixGroup(%
+\>`RecognitionAbsolutelyIrreducibleSolubleMatrixGroup(%
    <G>, <wantmat>, <wantgroup>)'%
 {RecognitionAbsolutelyIrreducibleSolvableMatrixGroup}%
 @{`RecognitionAbsolutelyIrreducibleSolvable\\MatrixGroup'} F
 \>`RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC(%
    <G>, <wantmat>,<wantgroup>)'%
-{RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC}%
+{RecognitionAbsolutelyIrreducibleSoluvaleMatrixGroupNC}%
 @{`RecognitionAbsolutelyIrreducibleSolvable\\Matrix\\Group\\NC'} F
 
 These functions are no longer available. These functions have been replaced by the
 functions 
-`IdIrreducibleSolvableMatrixGroup' ("IdIrreducibleSolvableMatrixGroup"), 
-`RecognitionIrreducibleSolvableMatrixGroup' ("RecognitionIrreducibleSolvableMatrixGroup"), or
-`Recognition\-Irre\-du\-ci\-bleSolvableMatrixGroupNC' ("RecognitionIrreducibleSolvableMatrixGroupNC").
+`IdIrreducibleSolubleMatrixGroup' ("IdIrreducibleSolubleMatrixGroup"), 
+`RecognitionIrreducibleSolubleMatrixGroup' ("RecognitionIrreducibleSolubleMatrixGroup"), or
+`Recognition\-Irre\-du\-ci\-bleSolubleMatrixGroupNC' ("RecognitionIrreducibleSolubleMatrixGroupNC").
 
 Note that the ids returned by the functions for absolutely irreducible groups was a triple `[<n>, <d>, <k>]', while the replacement functions use ids of the form `[<n>, <d>, <d>, <k>]', where $<d> = 1$ in the absolutely irreducible case.
 
@@ -122,47 +146,47 @@ Note that the ids returned by the functions for absolutely irreducible groups wa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Compatibility with other data libraries}
 
-A library of irreducible solvable subgroups of $GL(n, p)$, where $p$ is a 
+A library of irreducible soluble subgroups of $GL(n, p)$, where $p$ is a 
 prime and $p^n \leq 255$ already exists in {\GAP}, see Section "ref:Irreducible Solvable Matrix Groups" in the {\GAP} reference manual. The following functions
 allow one to translate between between that library and the {\IRREDSOL} library. 
 
 
-\>IdIrreducibleSolvableMatrixGroupIndexMS(<n>, <p>, <k>) F
+\>IdIrreducibleSolubleMatrixGroupIndexMS(<n>, <p>, <k>) F
 
-This function returns the id (see "IdIrreducibleSolvableMatrixGroup") of <G>, 
-where <G> is `IrreducibleSolvableGroupMS'(<n>, <p>, <k>) (see "ref:IrreducibleSolvableGroupMS" in the {\GAP} reference manual).
+This function returns the id (see "IdIrreducibleSolubleMatrixGroup") of <G>, 
+where <G> is `IrreducibleSolubleGroupMS'(<n>, <p>, <k>) (see "ref:IrreducibleSolvableGroupMS" in the {\GAP} reference manual).
 
 \beginexample
-gap> IdIrreducibleSolvableMatrixGroupIndexMS(6, 2, 5);
+gap> IdIrreducibleSolubleMatrixGroupIndexMS(6, 2, 5);
 [ 6, 2, 2, 4 ]
-gap> G := IrreducibleSolvableGroupMS(6,2,5);
+gap> G := IrreducibleSolubleGroupMS(6,2,5);
 <matrix group of size 27 with 2 generators>
-gap> H := IrreducibleSolvableMatrixGroup(6, 2, 2, 4);
+gap> H := IrreducibleSolubleMatrixGroup(6, 2, 2, 4);
 <matrix group of size 27 with 3 generators>
 gap> G = H;
 false 
 # groups in the libraries need not be the same
-gap> r := RecognitionIrreducibleSolvableMatrixGroup(G, true, false);;
+gap> r := RecognitionIrreducibleSolubleMatrixGroup(G, true, false);;
 gap> G^r.mat = H;
 true
 \endexample
 
-\>IndexMSIdIrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>) F
+\>IndexMSIdIrreducibleSolubleMatrixGroup(<n>, <q>, <d>, <k>) F
 
 This function returns a triple [<n>, <p>, <l>] such that
-`IrreducibleSolvableGroupMS'(<n>, <p>, <l>) (see "ref:IrreducibleSolvableGroupMS" in the {\GAP} reference manual) is conjugate to
-`IrreducibleSolvableMatrixGroup'(<n>, <q>, <d>, <k>) (see "IrreducibleSolvableMatrixGroup").
+`IrreducibleSolubleGroupMS'(<n>, <p>, <l>) (see "ref:IrreducibleSolvableGroupMS" in the {\GAP} reference manual) is conjugate to
+`IrreducibleSolubleMatrixGroup'(<n>, <q>, <d>, <k>) (see "IrreducibleSolubleMatrixGroup").
 
 \beginexample
-gap> IndexMSIdIrreducibleSolvableMatrixGroup(6, 2, 2, 7);
+gap> IndexMSIdIrreducibleSolubleMatrixGroup(6, 2, 2, 7);
 [ 6, 2, 13 ]
-gap> G := IrreducibleSolvableGroupMS(6,2,13);
+gap> G := IrreducibleSolubleGroupMS(6,2,13);
 <matrix group of size 63 with 3 generators>
-gap> H := IrreducibleSolvableMatrixGroup(6, 2, 2, 7);
+gap> H := IrreducibleSolubleMatrixGroup(6, 2, 2, 7);
 <matrix group of size 63 with 3 generators>
 gap> G = H;
 false 
-gap> r := RecognitionIrreducibleSolvableMatrixGroup(G, true, false);;
+gap> r := RecognitionIrreducibleSolubleMatrixGroup(G, true, false);;
 gap> G^r.mat = H;
 true
 \endexample
@@ -175,23 +199,23 @@ The data required by the {\IRREDSOL} library is loaded into {\GAP}'s workspace a
 and the previous section describe how to load and unload this data manually. 
 They are only relevant if timing or conservation of memory is an issue.
 \index{workspace!running out of}
-\>`LoadAbsolutelyIrreducibleSolvableGroupFingerprints(<n>, <q>)'%
-{LoadAbsolutelyIrreducibleSolvableGroupFingerprints}%
-@{`LoadAbsolutelyIrreducibleSolvableGroup\\Fingerprints'} F
+\>`LoadAbsolutelyIrreducibleSolubleGroupFingerprints(<n>, <q>)'%
+{LoadAbsolutelyIrreducibleSolubleGroupFingerprints}%
+@{`LoadAbsolutelyIrreducibleSolubleGroup\\Fingerprints'} F
 This function loads the fingerprint data required for the recognition
-of absolutely irreducible solvable subgroups of $GL(<n>, <q>)$.
+of absolutely irreducible soluble subgroups of $GL(<n>, <q>)$.
 
-\>`LoadedAbsolutelyIrreducibleSolvableGroupFingerprints()'%
-{LoadedAbsolutelyIrreducibleSolvableGroupFingerprints}%
-@{`LoadedAbsolutelyIrreducibleSolvableGroup\\Fingerprints'} F
+\>`LoadedAbsolutelyIrreducibleSolubleGroupFingerprints()'%
+{LoadedAbsolutelyIrreducibleSolubleGroupFingerprints}%
+@{`LoadedAbsolutelyIrreducibleSolubleGroup\\Fingerprints'} F
 
 This function returns a list. Each entry consists of an integer <n> and a set <l>. The set
 <l> contains all prime powers <q> such that the recognition data for $GL(<n>, <q>)$ is currently in
 memory.
 
-\>`UnloadAbsolutelyIrreducibleSolvableGroupFingerprints([n [,q]])'%
-{UnloadAbsolutelyIrreducibleSolvableGroupFingerprints}%
-@{`UnloadAbsolutelyIrreducibleSolvableGroup\\Finger\\prints'} F
+\>`UnloadAbsolutelyIrreducibleSolubleGroupFingerprints([n [,q]])'%
+{UnloadAbsolutelyIrreducibleSolubleGroupFingerprints}%
+@{`UnloadAbsolutelyIrreducibleSolubleGroup\\Finger\\prints'} F
 
 This function can be used to delete recognition data for irreducible groups from the {\GAP} workspace. If no
 argument is given, all data will be deleted. If only <n> is given, all data for degree <n> (and any

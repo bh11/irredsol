@@ -8,41 +8,41 @@
 
 ###########################################################################
 ##
-#F  IdPrimitiveSolvableGroup(<grp>)
+#F  IdPrimitiveSolubleGroup(<grp>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod(IdPrimitiveSolvableGroup, "for solvable group",
+InstallMethod(IdPrimitiveSolubleGroup, "for soluble group",
      true, [IsSolvableGroup and IsFinite], 0,
-     G -> IdIrreducibleSolvableMatrixGroup(IrreducibleMatrixGroupPrimitiveSolvableGroup(G)));
+     G -> IdIrreducibleSolubleMatrixGroup(IrreducibleMatrixGroupPrimitiveSolubleGroup(G)));
 
 
-RedispatchOnCondition(IdPrimitiveSolvableGroup, true, [IsGroup],
+RedispatchOnCondition(IdPrimitiveSolubleGroup, true, [IsGroup],
      [IsFinite and IsSolvableGroup], 0);
 
 
 ###########################################################################
 ##
-#F  IdPrimitiveSolvableGroupNC(<grp>)
+#F  IdPrimitiveSolubleGroupNC(<grp>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(IdPrimitiveSolvableGroupNC,
+InstallGlobalFunction(IdPrimitiveSolubleGroupNC,
      function(G)
           local id;
-          id := IdIrreducibleSolvableMatrixGroup(IrreducibleMatrixGroupPrimitiveSolvableGroupNC(G));
-          SetIdPrimitiveSolvableGroup(G, id);
+          id := IdIrreducibleSolubleMatrixGroup(IrreducibleMatrixGroupPrimitiveSolubleGroupNC(G));
+          SetIdPrimitiveSolubleGroup(G, id);
           return id;
      end);
      
 
 ############################################################################
 ##
-#F  RecognitionPrimitiveSolvableGroup(<G>)
+#F  RecognitionPrimitiveSolubleGroup(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(RecognitionPrimitiveSolvableGroup,
+InstallGlobalFunction(RecognitionPrimitiveSolubleGroup,
     function(G, wantiso)
     
         local N, F, p, pcgsN, C, pcgsC, one, i, mat, mats, CC, H, hom, infomat, info, rep, ext, imgs, g, r;
@@ -106,7 +106,7 @@ InstallGlobalFunction(RecognitionPrimitiveSolvableGroup,
         SetIsBijective(hom, true);
         SetRepresentationIsomorphism(H, hom);
 
-        infomat := RecognitionIrreducibleSolvableMatrixGroup(H, wantiso, wantiso, wantiso);
+        infomat := RecognitionIrreducibleSolubleMatrixGroup(H, wantiso, wantiso, wantiso);
 
         info := rec(id := infomat.id);
         if not wantiso then

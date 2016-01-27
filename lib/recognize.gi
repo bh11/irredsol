@@ -8,30 +8,30 @@
 
 ############################################################################
 ##
-#F  IsAvailableIdIrreducibleSolvableMatrixGroup(<G>)
+#F  IsAvailableIdIrreducibleSolubleMatrixGroup(<G>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IsAvailableIdIrreducibleSolvableMatrixGroup,
+InstallGlobalFunction(IsAvailableIdIrreducibleSolubleMatrixGroup,
     function(G)
         return IsMatrixGroup(G) and IsFinite(FieldOfMatrixGroup(G))
             and IsSolvableGroup(G)  and IsIrreducibleMatrixGroup(G)
-            and IsAvailableIrreducibleSolvableGroupData(
+            and IsAvailableIrreducibleSolubleGroupData(
                 DegreeOfMatrixGroup(G), Size(TraceField(G)));
     end);
 
 
 ############################################################################
 ##
-#F  IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup(<G>)
+#F  IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup(<G>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup,
+InstallGlobalFunction(IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup,
     function(G)
         return IsMatrixGroup(G) and IsFinite(FieldOfMatrixGroup(G))
             and IsSolvableGroup(G) and IsAbsolutelyIrreducibleMatrixGroup(G)
-            and IsAvailableAbsolutelyIrreducibleSolvableGroupData(
+            and IsAvailableAbsolutelyIrreducibleSolubleGroupData(
                 DegreeOfMatrixGroup(G), Size(TraceField(G)));
     end);
 
@@ -430,11 +430,11 @@ end);
 ##
 #F  RecognitionAISMatrixGroup(G, inds, wantmat, wantgroup, wantiso)
 ##
-##  version of RecognitionIrreducibleSolvableMatrixGroupNC which 
+##  version of RecognitionIrreducibleSolubleMatrixGroupNC which 
 ##  only works for absolutely irreducible groups G. This version
 ##  allows to prescribe a set of absolutely irreducible subgroups
 ##  to which G is compared. This set is described as a subset <inds> of 
-##  IndicesAbsolutelyIrreducibleSolvableMatrixGroups(n, q), where n is the
+##  IndicesAbsolutelyIrreducibleSolubleMatrixGroups(n, q), where n is the
 ##  degree of G and q is the order of the trace field of G. if inds is fail,
 ##  all groups in the IRREDSOL library are considered.
 ##
@@ -456,7 +456,7 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
         
         allinds := inds = fail;
         
-        inds := SelectionIrreducibleSolvableMatrixGroups(
+        inds := SelectionIrreducibleSolubleMatrixGroups(
             n, q, 1, inds, [order], fail, fail);
 
         Info(InfoIrredsol, 1, Length(inds), 
@@ -466,13 +466,13 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
             Error("panic: no group of order ", order, " in the IRREDSOL library");
         elif Length(inds) > 1 then 
             # cut down candidate grops by looking at fingerprints
-            if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q) then
+            if not TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(n, q) then
                 fppos := fail;
             else
                 fppos := PositionSet(IRREDSOL_DATA.FP_INDEX[n][q][1], order);
                 
                 if fppos <> fail then # fingerprint info available
-                    LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(
+                    LoadAbsolutelyIrreducibleSolubleGroupFingerprintData(
                         n, q, IRREDSOL_DATA.FP_INDEX[n][q][2][fppos]);
                     
                     fpinfo := IRREDSOL_DATA.FP[n][q][fppos];        # fingerprint info
@@ -538,7 +538,7 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
                 if Length(inds) > 1 then
                     Info(InfoIrredsol, 1, "computing imprimitivity systems of group");
                     systems := ImprimitivitySystems(G);
-                    inds := SelectionIrreducibleSolvableMatrixGroups(
+                    inds := SelectionIrreducibleSolubleMatrixGroups(
                         DegreeOfMatrixGroup(G), Size(F), 1, inds, [Order(G)], 
                         [MinimalBlockDimensionOfMatrixGroup(G)], fail);
                 fi;
@@ -549,13 +549,13 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
             # find possible groups in the library
                         
             for i in [1..Length(inds)-1] do 
-                H := IrreducibleSolvableMatrixGroup(DegreeOfMatrixGroup(G), Size(F), 1, inds[i]);
+                H := IrreducibleSolubleMatrixGroup(DegreeOfMatrixGroup(G), Size(F), 1, inds[i]);
 
                 if fppos = fail then # compare fingerprints now
                     Info(InfoIrredsol, 1, "comparing fingerprints");                
                     if FingerprintMatrixGroup(G) <> FingerprintMatrixGroup(H) then
                         Info(InfoIrredsol, 1, "fingerprint different from id ", 
-                            IdIrreducibleSolvableMatrixGroup(H));
+                            IdIrreducibleSolubleMatrixGroup(H));
                         continue;
                     fi;
                 fi;
@@ -567,7 +567,7 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
                           MinimalBlockDimensionOfMatrixGroup(G), F);
                 fi;
                 if x = fail then
-                    Info(InfoIrredsol, 1, "group does not have id ", IdIrreducibleSolvableMatrixGroup(H));
+                    Info(InfoIrredsol, 1, "group does not have id ", IdIrreducibleSolubleMatrixGroup(H));
                 else
                     Assert(1, G^(x.mat) = H);
                     info.id := [DegreeOfMatrixGroup(G), Size(F), 1, inds[i]];
@@ -594,7 +594,7 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
         if not wantgroup and not wantmat then
             return info;
         fi;
-        H := IrreducibleSolvableMatrixGroup(DegreeOfMatrixGroup(G), Size(F), 1, i);
+        H := IrreducibleSolubleMatrixGroup(DegreeOfMatrixGroup(G), Size(F), 1, i);
         if wantgroup then
             info.group := H;
         fi;
@@ -623,14 +623,14 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
     
 ############################################################################
 ##
-#F  RecognitionIrreducibleSolvableMatrixGroup(G, wantmat, wantgroup)
+#F  RecognitionIrreducibleSolubleMatrixGroup(G, wantmat, wantgroup)
 ##
-##  Let G be an irreducible solvable matrix group over a finite field. 
+##  Let G be an irreducible soluble matrix group over a finite field. 
 ##  This function identifies a conjugate H of G group in the library. 
 ##
 ##  It returns a record which has the following entries:
 ##  id:                     contains the id of H (and thus of G), 
-##                            cf. IdIrreducibleSolvableMatrixGroup
+##                            cf. IdIrreducibleSolubleMatrixGroup
 ##  mat: (optional)     a matrix x such that G^x = H
 ##  group: (optional)  the group H
 ##
@@ -642,21 +642,21 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
 ##  Note that in most cases, the function will be much slower if wantmat
 ##  is set to true.  
 ##
-InstallGlobalFunction(RecognitionIrreducibleSolvableMatrixGroup, 
+InstallGlobalFunction(RecognitionIrreducibleSolubleMatrixGroup, 
     function(arg)
     
         local G, wantmat, wantgroup, wantiso, info;
         
         if Length(arg) < 2 or Length(arg) > 4 then
-          Error("RecognitionIrreducibleSolvableMatrixGroup(G [, wantmat [, wantgroup [,wantiso]]])");
+          Error("RecognitionIrreducibleSolubleMatrixGroup(G [, wantmat [, wantgroup [,wantiso]]])");
         fi;
         
-        # test if G is solvable
+        # test if G is soluble
         
         G := arg[1];
         if not IsMatrixGroup(G) or not IsFinite (FieldOfMatrixGroup(G)) 
                 or not IsSolvableGroup(G) then
-            Error("G must be a solvable matrix group over a finite field");
+            Error("G must be a soluble matrix group over a finite field");
         fi;
 
         wantmat := arg[2];
@@ -673,7 +673,7 @@ InstallGlobalFunction(RecognitionIrreducibleSolvableMatrixGroup,
         if not IsBool (wantmat) or not IsBool (wantgroup) or not IsBool (wantiso) then
             Error("wantmat, wantgroup and wantiso must be booleans");
         fi;
-        info := RecognitionIrreducibleSolvableMatrixGroupNC(G, 
+        info := RecognitionIrreducibleSolubleMatrixGroupNC(G, 
             wantmat, wantgroup, wantiso);
         if info = fail then
             Error("This group is not within the scope of the IRREDSOL library");
@@ -684,13 +684,13 @@ InstallGlobalFunction(RecognitionIrreducibleSolvableMatrixGroup,
     
 ############################################################################
 ##
-#F  RecognitionIrreducibleSolvableMatrixGroupNC(G, wantmat, wantgroup, wantiso)
+#F  RecognitionIrreducibleSolubleMatrixGroupNC(G, wantmat, wantgroup, wantiso)
 ##
-##  version of RecognitionIrreducibleSolvableMatrixGroup which does not check
+##  version of RecognitionIrreducibleSolubleMatrixGroup which does not check
 ##  its arguments and returns fail if G is not within the scope of the 
 ##  IRREDSOL library
 ##
-InstallGlobalFunction(RecognitionIrreducibleSolvableMatrixGroupNC, 
+InstallGlobalFunction(RecognitionIrreducibleSolubleMatrixGroupNC, 
     function(G, wantmat, wantgroup, wantiso)
 
         local moduleG, module, info, newinfo, conjinfo, gens, perm_pow, basis, 
@@ -762,14 +762,14 @@ InstallGlobalFunction(RecognitionIrreducibleSolvableMatrixGroupNC,
             q := CharacteristicOfField(H)^(e/d);
             SetTraceField (G, GF(q));
             Assert(1, q^d = info.id[2]);
-            perm_pow := PermCanonicalIndexIrreducibleSolvableMatrixGroup(
+            perm_pow := PermCanonicalIndexIrreducibleSolubleMatrixGroup(
                     DegreeOfMatrixGroup(G), q, d, info.id[4]);
 
             newinfo := rec(
                 id := [DegreeOfMatrixGroup(G), q, d, info.id[4]^(perm_pow.perm^perm_pow.pow)]);
             if wantgroup then
                             
-                newinfo.group := CallFuncList(IrreducibleSolvableMatrixGroup, newinfo.id);
+                newinfo.group := CallFuncList(IrreducibleSolubleMatrixGroup, newinfo.id);
             fi;
 
             if wantmat then
@@ -853,12 +853,12 @@ InstallGlobalFunction(RecognitionIrreducibleSolvableMatrixGroupNC,
 
 ############################################################################
 ##
-#M  IdIrreducibleSolvableMatrixGroup(<G>)
+#M  IdIrreducibleSolubleMatrixGroup(<G>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallMethod(IdIrreducibleSolvableMatrixGroup, 
-    "for irreducible solvable matrix group over finite field", true,
+InstallMethod(IdIrreducibleSolubleMatrixGroup, 
+    "for irreducible soluble matrix group over finite field", true,
     [IsFFEMatrixGroup 
         and IsIrreducibleMatrixGroup and IsSolvableGroup], 0,
 
@@ -866,7 +866,7 @@ InstallMethod(IdIrreducibleSolvableMatrixGroup,
         
         local info;
         
-        info := RecognitionIrreducibleSolvableMatrixGroupNC(G, false, false, false);
+        info := RecognitionIrreducibleSolubleMatrixGroupNC(G, false, false, false);
         if info = fail then
             Error("group is beyond the scope of the IRREDSOL library");
         else
@@ -875,7 +875,7 @@ InstallMethod(IdIrreducibleSolvableMatrixGroup,
     end);
     
     
-RedispatchOnCondition(IdIrreducibleSolvableMatrixGroup, true,
+RedispatchOnCondition(IdIrreducibleSolubleMatrixGroup, true,
     [IsFFEMatrixGroup],
     [IsIrreducibleMatrixGroup and IsSolvableGroup], 0);
 
@@ -961,11 +961,11 @@ MakeImmutable(IRREDSOL_DATA.MS_GROUP_INDEX);
 
 ############################################################################
 ##
-#F  IdIrreducibleSolvableMatrixGroupIndexMS(<n>, <p>, <k>)
+#F  IdIrreducibleSolubleMatrixGroupIndexMS(<n>, <p>, <k>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IdIrreducibleSolvableMatrixGroupIndexMS,
+InstallGlobalFunction(IdIrreducibleSolubleMatrixGroupIndexMS,
     function(n, p, k)
         if IsInt(n) and n > 1 and IsPosInt(p) and IsPrimeInt(p) 
                 and IsPosInt(k) then
@@ -990,11 +990,11 @@ InstallGlobalFunction(IdIrreducibleSolvableMatrixGroupIndexMS,
 
 ############################################################################
 ##
-#F  IndexMSIdIrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>)
+#F  IndexMSIdIrreducibleSolubleMatrixGroup(<n>, <q>, <d>, <k>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IndexMSIdIrreducibleSolvableMatrixGroup,
+InstallGlobalFunction(IndexMSIdIrreducibleSolubleMatrixGroup,
     function(n, p, d, k)
         local pos;
         

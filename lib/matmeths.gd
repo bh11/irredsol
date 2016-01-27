@@ -61,7 +61,7 @@ DeclareOperation("IsPrimitive", [IsMatrixGroup, IsField]);
 ##
 DeclareAttribute("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup);
 KeyDependentOperation("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
-DECLARE_IRREDSOL_SYNONYMS("MinimalBlockDimensionOfMatrixGroup");
+DECLARE_IRREDSOL_SYNONYMS_ATTR("MinimalBlockDimensionOfMatrixGroup");
 DeclareOperation("MinimalBlockDimension", [IsMatrixGroup, IsField]);
 
 
@@ -87,12 +87,12 @@ DeclareAttribute("RepresentationIsomorphism", IsMatrixGroup);
 
 ############################################################################
 ##
-#P  IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup(<G>)
+#P  IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareProperty("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup", IsMatrixGroup);
-DECLARE_IRREDSOL_SYNONYMS("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup");
+DeclareProperty("IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup", IsMatrixGroup);
+DECLARE_IRREDSOL_SYNONYMS("IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup");
 
 
 ############################################################################

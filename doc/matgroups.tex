@@ -83,7 +83,7 @@ invariant under the action of <G>. If <F> is not
 specified, `FieldOfMatrixGroup'(<G>) is used as <F>.
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(4, 2, 2, 3);
+gap> G := IrreducibleSolubleMatrixGroup(4, 2, 2, 3);
 <matrix group of size 10 with 2 generators>
 gap> IsIrreducibleMatrixGroup(G);
 true
@@ -100,18 +100,21 @@ If present, this operation returns true if <G> is absolutely irreducible, i.~e.,
 extension field of `FieldOfMatrixGroup'(<G>).
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(4, 2, 2, 3);
+gap> G := IrreducibleSolubleMatrixGroup(4, 2, 2, 3);
 <matrix group of size 10 with 2 generators>
 gap> IsAbsolutelyIrreducibleMatrixGroup(G);
 false
 \endexample
 
+\>`IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup(<G>)'%
+{IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup}%
+@{`IsMaximalAbsolutelyIrreducibleSoluble\\MatrixGroup'} P
 \>`IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup(<G>)'%
 {IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup}%
 @{`IsMaximalAbsolutelyIrreducibleSolvable\\MatrixGroup'} P
 
 This property, if present, is `true' if, and only if, <G> is absolutely irreducible and maximal among 
-the solvable subgroups of $GL(d, F)$, where $d$ is `DegreeOfMatrixGroup'(<G>) and
+the soluble subgroups of $GL(d, F)$, where $d$ is `DegreeOfMatrixGroup'(<G>) and
 $F$ equals `FieldOfMatrixGroup'(<G>). 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,7 +136,7 @@ of all block systems of <G>. If <F> is not specified, `FieldOfMatrixGroup'(<G>)
 which are irreducible over <F> are available.
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(2,3,1,4);;
+gap> G := IrreducibleSolubleMatrixGroup(2,3,1,4);;
 gap> MinimalBlockDimension(G, GF(3));
 2
 gap> MinimalBlockDimension(G, GF(9));
@@ -151,7 +154,7 @@ $`MinimalBlockDimensionOfMatrixGroup'(<G>, <F>) = d$. If <F> is not
 specified, it is assumed that <F> is `FieldOfMatrixGroup'(<G>).
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(2,2,1,1);;
+gap> G := IrreducibleSolubleMatrixGroup(2,2,1,1);;
 gap> IsPrimitiveMatrixGroup(G, GF(2));
 true
 gap> IsIrreducibleMatrixGroup(G, GF(4));
@@ -181,7 +184,7 @@ Each imprimitivity system is given by a record with the following entries:
 \enditems
 
 \beginexample
-gap> G := IrreducibleSolvableMatrixGroup(6, 2, 1, 9);
+gap> G := IrreducibleSolubleMatrixGroup(6, 2, 1, 9);
 <matrix group of size 54 with 4 generators>
 gap> impr := ImprimitivitySystems(G, GF(2));;
 gap> List(ImprimitivitySystems(G, GF(2)), r -> Length(r.bases));
@@ -210,7 +213,7 @@ has a conjugate which is a matrix group over `TraceField'(<G>).
 
 \beginexample
 gap> repeat
->        G := IrreducibleSolvableMatrixGroup(8, 2, 2, 7)^RandomInvertibleMat(8, GF(8));
+>        G := IrreducibleSolubleMatrixGroup(8, 2, 2, 7)^RandomInvertibleMat(8, GF(8));
 >    until FieldOfMatrixGroup(G) = GF(8);
 gap> TraceField(G);
 GF(2)
@@ -228,7 +231,7 @@ Note that, for matrix groups over infinite fields, such a matrix <x>
 need not exist.
 \beginexample
 gap> repeat
->       G := IrreducibleSolvableMatrixGroup(8, 2, 2, 7) ^ 
+>       G := IrreducibleSolubleMatrixGroup(8, 2, 2, 7) ^ 
 >                RandomInvertibleMat(8, GF(8));
 >    until FieldOfMatrixGroup(G) = GF(8);
 gap> FieldOfMatrixGroup(G^ConjugatingMatTraceField(G));

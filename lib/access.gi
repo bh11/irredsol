@@ -8,11 +8,11 @@
 
 ############################################################################
 ##
-#F  IndicesIrreducibleSolvableMatrixGroups(<n>, <q>, <d>)
+#F  IndicesIrreducibleSolubleMatrixGroups(<n>, <q>, <d>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IndicesIrreducibleSolvableMatrixGroups, 
+InstallGlobalFunction(IndicesIrreducibleSolubleMatrixGroups, 
     function( n, q, d )
         
         local data, inds, perm, i, k, l, max;
@@ -26,7 +26,7 @@ InstallGlobalFunction(IndicesIrreducibleSolvableMatrixGroups,
             return [];
         fi;
 
-        LoadAbsolutelyIrreducibleSolvableGroupData(n/d, q^d);
+        LoadAbsolutelyIrreducibleSolubleGroupData(n/d, q^d);
 
         if d < n then
             data := IRREDSOL_DATA.GROUPS[n/d][q^d];
@@ -66,14 +66,14 @@ InstallGlobalFunction(IndicesIrreducibleSolvableMatrixGroups,
 
 ############################################################################
 ##
-#F  PermCanonicalIndexIrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>  
+#F  PermCanonicalIndexIrreducibleSolubleMatrixGroup(<n>, <q>, <d>, <k>  
 ##
-InstallGlobalFunction(PermCanonicalIndexIrreducibleSolvableMatrixGroup, 
+InstallGlobalFunction(PermCanonicalIndexIrreducibleSolubleMatrixGroup, 
     function( n, q, d, k )
 
         local perm, pow, l, orb, min, powmin;
         
-        LoadAbsolutelyIrreducibleSolvableGroupData(n/d, q^d);
+        LoadAbsolutelyIrreducibleSolubleGroupData(n/d, q^d);
         
         perm := IRREDSOL_DATA.GAL_PERM[n/d][q^d]^LogInt(q, SmallestRootInt(q));
         
@@ -100,11 +100,11 @@ InstallGlobalFunction(PermCanonicalIndexIrreducibleSolvableMatrixGroup,
 
 ############################################################################
 ##
-#F  IrreducibleSolvableMatrixGroup(<n>, <q>, <d>, <k>)
+#F  IrreducibleSolubleMatrixGroup(<n>, <q>, <d>, <k>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IrreducibleSolvableMatrixGroup, 
+InstallGlobalFunction(IrreducibleSolubleMatrixGroup, 
     function( n, q, d, k )
         
         local perm, l, n0, q0, p, o, i, bas, mat, C, c, gddesc, desc, pres, gens, pcgs, grp, hom;
@@ -121,7 +121,7 @@ InstallGlobalFunction(IrreducibleSolvableMatrixGroup,
         q := q0^d;
         p := SmallestRootInt(q0);
         
-        LoadAbsolutelyIrreducibleSolvableGroupData(n, q);
+        LoadAbsolutelyIrreducibleSolubleGroupData(n, q);
         
         if d > 1 then # rewrite as matrix group over subfield
 
@@ -215,7 +215,7 @@ InstallGlobalFunction(IrreducibleSolvableMatrixGroup,
             fi;
         fi;
         
-        SetIdIrreducibleSolvableMatrixGroup(grp, [n0, q0, d, k]);
+        SetIdIrreducibleSolubleMatrixGroup(grp, [n0, q0, d, k]);
         SetFieldOfMatrixGroup(grp, GF(q0));
         SetDefaultFieldOfMatrixGroup(grp, GF(q0));
         SetTraceField(grp, GF(q0));            
@@ -232,17 +232,17 @@ InstallGlobalFunction(IrreducibleSolvableMatrixGroup,
 
 ############################################################################
 ##
-#F  IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups(<n>, <q>)
+#F  IndicesMaximalAbsolutelyIrreducibleSolubleMatrixGroups(<n>, <q>)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups,
+InstallGlobalFunction(IndicesMaximalAbsolutelyIrreducibleSolubleMatrixGroups,
     function( n, q )
     
         if not IsPosInt(n) or not IsPPowerInt(q)  then
             Error("n and q must be positive integers and q must be a prime power");
         fi;
-        LoadAbsolutelyIrreducibleSolvableGroupData(n, q);
+        LoadAbsolutelyIrreducibleSolubleGroupData(n, q);
         if n = 1 then
             return Immutable([Length(IRREDSOL_DATA.GROUPS_DIM1 [q])]);
         else

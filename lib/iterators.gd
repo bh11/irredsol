@@ -8,29 +8,29 @@
 
 ############################################################################
 ##
-#F  SelectionIrreducibleSolvableMatrixGroups(n, q, d, indices, orders, blockdims, max)
+#F  SelectionIrreducibleSolubleMatrixGroups(n, q, d, indices, orders, blockdims, max)
 ##
 ##  selects the subset of <indices> corresponding to those irreducible 
 ##  matrix gropus whose orders are in <orders>, whose minimal block dims are in 
-##  <blockdims>. if max is true and d = 1, only the maximal solvable groups are returned,
+##  <blockdims>. if max is true and d = 1, only the maximal soluble groups are returned,
 ##  if max is false, the non-maximal ones are returned. 
 ##  To ignore one of the parameters orders, blockdims, max, set it to fail
 ##  If <indices> is fail, all groups are considered.
 ##  
-DECLARE_IRREDSOL_FUNCTION("SelectionIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("SelectionIrreducibleSolubleMatrixGroups");
 
 
 ############################################################################
 ##
-#F  OrdersAbsolutelyIrreducibleSolvableMatrixGroups(n, q, blockdims, max)
+#F  OrdersAbsolutelyIrreducibleSolubleMatrixGroups(n, q, blockdims, max)
 ##
 ##  returns a set. Each entry is a pair [order, count] describing how many
 ##  groups of that order are in the data base whose minimal block dims are in <blockdims>
-##  if max is true, only the maximal solvable groups are counted, if max is
+##  if max is true, only the maximal soluble groups are counted, if max is
 ##  false, the non-maximal ones are returned. 
 ##  To ignore one of the parameters blockdims, max, set it to fail
 ##  
-DECLARE_IRREDSOL_FUNCTION("OrdersAbsolutelyIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("OrdersAbsolutelyIrreducibleSolubleMatrixGroups");
 
 
 ############################################################################
@@ -55,29 +55,29 @@ DeclareGlobalFunction("CheckAndExtractArguments");
 
 ############################################################################
 ##
-#F  IteratorIrreducibleSolvableMatrixGroups(<func_1>, <val_1>, ...)
+#F  IteratorIrreducibleSolubleMatrixGroups(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION("IteratorIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("IteratorIrreducibleSolubleMatrixGroups");
 
 
 ############################################################################
 ##
-#F  OneIrreducibleSolvableMatrixGroup(<func_1>, <val_1>, ...)
+#F  OneIrreducibleSolubleMatrixGroup(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION("OneIrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("OneIrreducibleSolubleMatrixGroup");
 
 
 ############################################################################
 ##
-#F  AllIrreducibleSolvableMatrixGroups(<func_1>, <val_1>, ...)
+#F  AllIrreducibleSolubleMatrixGroups(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION("AllIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("AllIrreducibleSolubleMatrixGroups");
 
 
 ############################################################################

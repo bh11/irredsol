@@ -8,7 +8,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Chapter{Primitive solvable groups}
+\Chapter{Primitive soluble groups}
 
 An abstract finite group <G> is called {\it primitive} if it has a maximal 
 subgroup <M> with trivial core. Note that the permutation action of <G> on the 
@@ -17,53 +17,54 @@ permutation group, then a point stabilizer <M> of <G> is a maximal
 subgroup with trivial core. However, a permutation group which is primitive 
 as an abstract group need not be primitive as a permutation group. 
 
-Now assume that <G> is primitive and solvable. Then there exists a unique conjugacy class of 
+Now assume that <G> is primitive and soluble. Then there exists a unique conjugacy class of 
 such maximal subgroups~<M>; the index of <M> in <G> is called the {\it degree} of <G>.
 Moreover, $<M>$ 
 complements the socle <N> of $<G>$. THe socle <N> coincides with the Fitting 
 subgroup of <G>; it is the unique minimal normal subgroup <N> of~<G>. Therefore, 
 the index of <M> in <G> is a prime power, $p^n$, say.
 Regarding <N> as a $\F_p$-vector space, <M> acts as an irreducible subgroup of $GL(n,p)$ on <N>.
-Conversely, if <M> is an irreducible solvable subgroup of $GL(n,p)$, and $V = \F_p^n$, then the
-split extension of $V$ by <M> is a primitive solvable group. 
+Conversely, if <M> is an irreducible soluble subgroup of $GL(n,p)$, and $V = \F_p^n$, then the
+split extension of $V$ by <M> is a primitive soluble group. 
 This establishes a well known
 bijection between the isomorphism types (or, equivalently, the 
-$Sym(p^n)$-conjugacy classes) of primitive solvable permutation groups of degree
-$<p>^<n>$ and the conjugacy classes of irreducible solvable subgroups of $GL(n, p)$.
+$Sym(p^n)$-conjugacy classes) of primitive soluble permutation groups of degree
+$<p>^<n>$ and the conjugacy classes of irreducible soluble subgroups of $GL(n, p)$.
 
-The {\IRREDSOL} package provides functions for translating between primitive solvable 
-groups and irreducible solvable matrix groups, which are
-described in Section~"Translating between irreducible solvable matrix groups 
-and primitive solvable groups". Moreover, there are functions for finding
-primitive solvable groups with given properties, see Sections~"Finding primitive 
+The {\IRREDSOL} package provides functions for translating between primitive soluble 
+groups and irreducible soluble matrix groups, which are
+described in Section~"Translating between irreducible soluble matrix groups 
+and primitive soluble groups". Moreover, there are functions for finding
+primitive soluble groups with given properties, see Sections~"Finding primitive 
 pc groups
-with given properties" and "Finding primitive solvable permutation groups
+with given properties" and "Finding primitive soluble permutation groups
 with given properties".
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Translating between irreducible solvable matrix groups and primitive
-solvable groups}
+\Section{Translating between irreducible soluble matrix groups and primitive
+soluble groups}
 
 \>PrimitivePcGroup(<n>,<p>,<d>,<k>) F
+\>PrimitiveSolublePermGroup(<n>,<p>,<d>,<k>) F
 \>PrimitiveSolvablePermGroup(<n>,<p>,<d>,<k>) F
 
-These functions return the primitive solvable pc group resp. primitive solvable 
+These functions return the primitive soluble pc group resp. primitive soluble 
 permutation group obtainewd as the natural split extension of $V = \F_p^n$ by
-`IrreducibleSolvableMatrixGroup(<n>,<p>,<d>,<k>)'. Here, <n> is a positive 
+`IrreducibleSolubleMatrixGroup(<n>,<p>,<d>,<k>)'. Here, <n> is a positive 
 integer, <p> is a prime, <d> divides <n> and <k> occurs in the list 
-`IndicesIrreducibleSolvableMatrixGroups(<n>,<p>,<d>)' 
-(see "IndicesIrreducibleSolvableMatrixGroups").
+`IndicesIrreducibleSolubleMatrixGroups(<n>,<p>,<d>)' 
+(see "IndicesIrreducibleSolubleMatrixGroups").
 
 As long as the relevant group data is not unloaded manually 
-(see "UnloadAbsolutelyIrreducibleSolvableGroupData"), the functions `PrimitivePcGroup'
-and `PrimitiveSolvablePermGroup' will return the same group when called multiple times
+(see "UnloadAbsolutelyIrreducibleSolubleGroupData"), the functions `PrimitivePcGroup'
+and `PrimitiveSolublePermGroup' will return the same group when called multiple times
 with the same arguments.
 
 
 \>PrimitivePcGroupIrreducibleMatrixGroup(<G>) F
 \>PrimitivePcGroupIrreducibleMatrixGroupNC(<G>) F
 
-For a given irreducible solvable matrix group <G> over a prime field, this function
+For a given irreducible soluble matrix group <G> over a prime field, this function
 returns a primitive pc group <H> which is the split extension of <G> with its natural
 underlying vector space~<V>. The `NC' version does not check whether <G> is over a prime field, 
 or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle" 
@@ -73,7 +74,7 @@ then the attribute `SocleComplement' (see "crisp:SocleComplement" in the {\CRISP
 
 \beginexample
 gap> PrimitivePcGroupIrreducibleMatrixGroup(
->       IrreducibleSolvableMatrixGroup(4,2,2,3));
+>       IrreducibleSolubleMatrixGroup(4,2,2,3));
 <pc group of size 160 with 6 generators>
 \endexample
 
@@ -84,7 +85,7 @@ gap> PrimitivePcGroupIrreducibleMatrixGroup(
 {PrimitivePermGroupIrreducibleMatrixGroupNC}%
 @{`PrimitivePermGroup\\Irreducible\\MatrixGroupNC'} F
 
-For a given irreducible solvable matrix group <G> over a prime field, this function
+For a given irreducible soluble matrix group <G> over a prime field, this function
 returns a primitive permutation group~<H>, representing the affine action of <G> on its natural
 vector space~<V>. The `NC' version does not check whether <G> is over a prime field, 
 or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle" 
@@ -94,27 +95,27 @@ then the attribute `SocleComplement' (see "crisp:SocleComplement" in the {\CRISP
 
 \beginexample
 gap> PrimitivePermGroupIrreducibleMatrixGroup(
->       IrreducibleSolvableMatrixGroup(4,2,2,3));
+>       IrreducibleSolubleMatrixGroup(4,2,2,3));
 <permutation group of size 160 with 6 generators>
 \endexample
 
-\>`IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)'%
-{IrreducibleMatrixGroupPrimitiveSolvableGroup}%
-@{`IrreducibleMatrixGroup\\Primitive\\SolvableGroup'} F
+\>`IrreducibleMatrixGroupPrimitiveSolubleGroup(<G>)'%
+{IrreducibleMatrixGroupPrimitiveSolubleGroup}%
+@{`IrreducibleMatrixGroup\\Primitive\\SolubleGroup'} F
 \>`IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>)'%
 {IrreducibleMatrixGroupPrimitiveSolvableGroupNC}%
 @{`IrreducibleMatrixGroup\\Primitive\\SolvableGroupNC'} F
 
-For a given primitive solvable group <G>, this function returns a matrix group 
+For a given primitive soluble group <G>, this function returns a matrix group 
 obtained from the conjugation
 action of <G> on its unique minimal normal subgroup <N>, regarded as a vector 
 space over $\F_p$, where $p$ is the exponent of <N>. 
 The $\F_p$-basis of <N> is chosen arbitrarily, so that the matrix group returned 
 is unique only up to conjugacy in the relevant $GL(n, p)$. The NC version does
-not check whether <G> is primitive and solvable.
+not check whether <G> is primitive and soluble.
 
 \beginexample
-gap> IrreducibleMatrixGroupPrimitiveSolvableGroup(SymmetricGroup(4));
+gap> IrreducibleMatrixGroupPrimitiveSolubleGroup(SymmetricGroup(4));
 Group([ <an immutable 2x2 matrix over GF2>, 
   <an immutable 2x2 matrix over GF2> ])
 \endexample
@@ -124,7 +125,7 @@ Group([ <an immutable 2x2 matrix over GF2>,
 
 \>AllPrimitivePcGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
-This function returns a list of all primitive solvable pc
+This function returns a list of all primitive soluble pc
 groups <G> in the  {\IRREDSOL} library for which the return value of $<func_i>(G)$ lies
 in <arg_i>.  The arguments <func_1>, <func_2>, \dots,
 must be {\GAP} functions which take a pc group as their only argument and return a
@@ -153,7 +154,7 @@ gap> AllPrimitivePcGroups(Degree, [1..255], Order, [168]);
 
 \>OnePrimitivePcGroup(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
-This function returns one primitive solvable pc
+This function returns one primitive soluble pc
 group <G> in the  {\IRREDSOL} library for which the return value of $<func_i>(G)$ lies in
 <arg_i>, or `fail' if no such group exists.  The arguments <func_1>, <func_2>, \dots,
 must be {\GAP} functions which take a pc group as their only argument and return a
@@ -171,7 +172,7 @@ gap> OnePrimitivePcGroup(Degree, [256], Order, [256*255]);
 
 \>IteratorPrimitivePcGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
-This function returns an iterator which runs through the list of all primitive solvable
+This function returns an iterator which runs through the list of all primitive soluble
 pc groups <G> in the  {\IRREDSOL} library such that
 $<func_i>(G)$ lies in <arg_i>. The arguments <func_1>, <func_2>, \dots,
 must be {\GAP} functions taking a pc group as their only argument and returning 
@@ -196,13 +197,14 @@ This may save some memory.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Finding primitive solvable permutation groups with given
+\Section{Finding primitive soluble permutation groups with given
 properties}
 
 
+\>AllPrimitiveSolublePermGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 \>AllPrimitiveSolvablePermGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
-This function returns a list of all primitive solvable permutation
+This function returns a list of all primitive soluble permutation
 groups <G> corresponding to irreducible matrix groups in the  {\IRREDSOL} library 
 for which the return value of $<func_i>(G)$ lies
 in <arg_i>.  The arguments <func_1>, <func_2>, \dots,
@@ -226,7 +228,7 @@ Note that there is also a function `IteratorPrimitivePermGroups' (see
 simultaneously.
 
 \beginexample
-gap> AllPrimitiveSolvablePermGroups(Degree, [1..100], Order, [72]);
+gap> AllPrimitiveSolublePermGroups(Degree, [1..100], Order, [72]);
 [ Group([ (1,4,7)(2,5,8)(3,6,9), (1,2,3)(4,5,6)(7,8,9), (2,4)(3,7)(6,8), 
       (2,3)(5,6)(8,9), (4,7)(5,8)(6,9) ]), 
   Group([ (1,4,7)(2,5,8)(3,6,9), (1,2,3)(4,5,6)(7,8,9), (2,5,3,9)(4,8,7,6), 
@@ -237,9 +239,10 @@ gap> List(last, IdGroup);
 \endexample
 
 
+\>OnePrimitiveSolublePermGroup(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 \>OnePrimitiveSolvablePermGroup(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
-This function returns one primitive solvable permutation
+This function returns one primitive soluble permutation
 group <G> corresponding to irreducible matrix groups in the  {\IRREDSOL} library 
 for which the return value of $<func_i>(G)$ lies in
 <arg_i>, or `fail' if no such group exists.  The arguments <func_1>, <func_2>, \dots,
@@ -249,16 +252,16 @@ value, and <arg_1>, <arg_2>,
 `[<arg_i>]'. One of the functions must be `Degree' or one of its, equivalents, `NrMovedPoints' or `LargestMovedPoint'.
 
 For a list of functions which are handled particularly efficiently, see
-"AllPrimitiveSolvablePermGroups".
+"AllPrimitiveSolublePermGroups".
 
 \beginexample
-gap> OnePrimitiveSolvablePermGroup(Degree, [1..100], Size, [123321]);
+gap> OnePrimitiveSolublePermGroup(Degree, [1..100], Size, [123321]);
 fail
 \endexample
 
 \>IteratorPrimitivePermGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
-This function returns an iterator which runs through the list of all primitive solvable
+This function returns an iterator which runs through the list of all primitive soluble
 groups <G> in the  {\IRREDSOL} library such that
 $<func_i>(G)$ lies in <arg_i>. The arguments <func_1>, <func_2>, \dots,
 must be {\GAP} functions taking a pc group as their only argument and returning 
@@ -267,50 +270,54 @@ must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list `[<arg_
 One of the functions must be `Degree' or one of its, equivalents, `NrMovedPoints' 
 or `LargestMovedPoint'.
 For a list of functions which are handled particularly efficiently, see
-"AllPrimitiveSolvablePermGroups".
+"AllPrimitiveSolublePermGroups".
 
 Using 
 
-`IteratorPrimitiveSolvablePermGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots)) 
+`IteratorPrimitiveSolublePermGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots)) 
 
 is functionally equivalent to 
 
-`Iterator'(`AllPrimitiveSolvablePermGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots))
+`Iterator'(`AllPrimitiveSolublePermGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots))
 
 (see "ref:Iterators" in the {\GAP} reference manual for details) but does not 
 compute all relevant permutation groups at the same time. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Recognizing primitive solvable groups}
+\Section{Recognizing primitive soluble groups}
 
+\>IdPrimitiveSolubleGroup(<G>) F
+\>IdPrimitiveSolubleGroupNC(<G>) F
 \>IdPrimitiveSolvableGroup(<G>) F
 \>IdPrimitiveSolvableGroupNC(<G>) F
 
-returns the id of the primitive solvable group <G>. This is the same as
-the id of `IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)', see "IrreducibleMatrixGroupPrimitiveSolvableGroup" and "IdIrreducibleSolvableMatrixGroup".
-Note that two primitive solvable groups are isomorphic if, and only if, their
+returns the id of the primitive soluble group <G>. This is the same as
+the id of `IrreducibleMatrixGroupPrimitiveSolubleGroup(<G>)', see "IrreducibleMatrixGroupPrimitiveSolubleGroup" and "IdIrreducibleSolubleMatrixGroup".
+Note that two primitive soluble groups are isomorphic if, and only if, their
 ids returned by `IdPrimitivePcGroup' are the same. The NC version does not
-check whether <G> is primitive and solvable.
+check whether <G> is primitive and soluble.
 
 \beginexample
 gap> G := SmallGroup(432, 734);
 <pc group of size 432 with 7 generators>
-gap> IdPrimitiveSolvableGroup(G);
+gap> IdPrimitiveSolubleGroup(G);
 [ 2, 3, 1, 2 ]
 gap> G := AlternatingGroup(4);
 Alt( [ 1 .. 4 ] )
-gap> IdPrimitiveSolvableGroup(G);
+gap> IdPrimitiveSolubleGroup(G);
 [ 2, 2, 2, 1 ]
 \endexample
 
+\>RecognitionPrimitiveSolubleGroup(<G>,<wantiso>) F
 \>RecognitionPrimitiveSolvableGroup(<G>,<wantiso>) F
 
-This function returns a record <r> which identifies the primitive solvable group <G>.
+This function returns a record <r> which identifies the primitive soluble group <G>.
 The component `id' is always present and contains the id of
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Obsolete functions}
 
+\>PrimitiveSolublePermutationGroup(<n>,<q>,<d>,<k>) F
 \>PrimitiveSolvablePermutationGroup(<n>,<q>,<d>,<k>) F
 \>`PrimitivePermutationGroupIrreducibleMatrixGroup(<G>)'%
 {PrimitivePermutationGroupIrreducibleMatrixGroup}%
@@ -318,8 +325,10 @@ The component `id' is always present and contains the id of
 \>`PrimitivePermutationGroupIrreducibleMatrixGroupNC(<G>)'%
 {PrimitivePermutationGroupIrreducibleMatrixGroupNC}%
 @{`PrimitivePermutationGroup\\Irreducible\\MatrixGroupNC'} F
+\>AllPrimitiveSolublePermutationGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 \>AllPrimitiveSolvablePermutationGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 \>IteratorPrimitivePermutationGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
+\>OnePrimitiveSolublePermutationGroup(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 \>OnePrimitiveSolvablePermutationGroup(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
 These functions have been renamed from `\dots PermutationGroup\dots' to `\dots PermGroup\dots'.

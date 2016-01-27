@@ -8,25 +8,25 @@
     
 ############################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
+#F  IsAvailableAbsolutelyIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolvableGroupData,
+InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolubleGroupData,
     function(n, q)
     
         if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
             Error("n and q must be positive integers and q must be a prime power");
         fi;
-        return TryLoadAbsolutelyIrreducibleSolvableGroupData(n, q);
+        return TryLoadAbsolutelyIrreducibleSolubleGroupData(n, q);
     end);
     
     
 ############################################################################
 ##
-#F  TryLoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
+#F  TryLoadAbsolutelyIrreducibleSolubleGroupData(<n>, <q>)
 ##
-InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupData,
+InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolubleGroupData,
     function(n, q)
     
         local filename, pathname, dirs, dir, inds, desc, guardianData, guardianDesc, data, 
@@ -46,7 +46,7 @@ InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupData,
          
         if n = 1 then
             if not IsBound(IRREDSOL_DATA.GROUPS_DIM1[q]) then
-                Info(InfoIrredsol, 2, "Computing irreducible solvable group data for ",
+                Info(InfoIrredsol, 2, "Computing irreducible soluble group data for ",
                   "GL(", n, ", ", q, ")");
                 p := SmallestRootInt(q);
                 e := LogInt(q, p);
@@ -155,7 +155,7 @@ InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupData,
             MakeImmutable(IRREDSOL_DATA.GROUPS[n][q]);
             MakeImmutable(IRREDSOL_DATA.MAX[n][q]);
             IRREDSOL_DATA.GROUPS_LOADED[n][q] := true;
-            Info(InfoIrredsol, 2, "irreducible solvable group data for GL(", n, ", ", q, ") loaded");
+            Info(InfoIrredsol, 2, "irreducible soluble group data for GL(", n, ", ", q, ") loaded");
         fi;
         return true;
     end);
@@ -163,18 +163,18 @@ InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupData,
 
 ###########################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupData,
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolubleGroupData,
     function(n, q)
     
         if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
             Error("n and q must be positive integers and q must be a prime power");
         fi;
         
-        if not TryLoadAbsolutelyIrreducibleSolvableGroupData(n, q) then
+        if not TryLoadAbsolutelyIrreducibleSolubleGroupData(n, q) then
             Error("Panic: missing data file for GL(",n,", ", q, ")");
         fi;
     end);
@@ -182,11 +182,11 @@ InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupData,
 
 ############################################################################
 ##
-#F  LoadedAbsolutelyIrreducibleSolvableGroupData()
+#F  LoadedAbsolutelyIrreducibleSolubleGroupData()
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolvableGroupData,
+InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolubleGroupData,
     function()
     
         local n, p, data, fields;
@@ -211,11 +211,11 @@ InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolvableGroupData,
 
 ############################################################################
 ##
-#F  UnloadAbsolutelyIrreducibleSolvableGroupData([<n>[, <q>]])
+#F  UnloadAbsolutelyIrreducibleSolubleGroupData([<n>[, <q>]])
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolvableGroupData,
+InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolubleGroupData,
     function(arg)
     
         local UnbindIfBound;
@@ -270,18 +270,18 @@ InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolvableGroupData,
                 UnbindIfBound(IRREDSOL_DATA.MAX, arg[1], arg[2]);
             fi;
         else
-            Error("Usage: `UnloadAbsolutelyIrreducibleSolvableGroupData( [n [, q]] )'");
+            Error("Usage: `UnloadAbsolutelyIrreducibleSolubleGroupData( [n [, q]] )'");
         fi;
     end);
 
 
 ############################################################################
 ##
-#F  IsAvailableIrreducibleSolvableGroupData(<n>, <q>)
+#F  IsAvailableIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(IsAvailableIrreducibleSolvableGroupData,
+InstallGlobalFunction(IsAvailableIrreducibleSolubleGroupData,
     function(n, q)
     
         local d;
@@ -290,7 +290,7 @@ InstallGlobalFunction(IsAvailableIrreducibleSolvableGroupData,
             Error("n and q must be positive integers and q must be a prime power");
         fi;
         for d in DivisorsInt(n) do
-            if not IsAvailableAbsolutelyIrreducibleSolvableGroupData(n/d, q^d) then
+            if not IsAvailableAbsolutelyIrreducibleSolubleGroupData(n/d, q^d) then
                 return false;
             fi;
         od;

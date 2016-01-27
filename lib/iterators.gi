@@ -8,16 +8,16 @@
 
 ############################################################################
 ##
-#F  SelectionIrreducibleSolvableMatrixGroups(n, q, d, indices, orders, blockdims, max)
+#F  SelectionIrreducibleSolubleMatrixGroups(n, q, d, indices, orders, blockdims, max)
 ##
 ##  selects the subset of <indices> corresponding to those irreducible 
 ##  matrix gropus whose orders are in <orders>, whose minimal block dims are in 
-##  <blockdims>. if max is true and d = 1, only the maximal solvable groups are returned,
+##  <blockdims>. if max is true and d = 1, only the maximal soluble groups are returned,
 ##  if max is false, the non-maximal ones are returned. 
 ##  To ignore one of the parameters orders, blockdims, max, set it to fail
 ##  If <indices> is fail, all groups are considered.
 ##  
-InstallGlobalFunction(SelectionIrreducibleSolvableMatrixGroups,
+InstallGlobalFunction(SelectionIrreducibleSolubleMatrixGroups,
     function(n0, q0, d, indices, orders, blockdims, max)
     
         local n, q, p, descs, gddescs, i;
@@ -28,12 +28,12 @@ InstallGlobalFunction(SelectionIrreducibleSolvableMatrixGroups,
         # info comes from GL(n, q)
         
         
-        LoadAbsolutelyIrreducibleSolvableGroupData(n, q);
+        LoadAbsolutelyIrreducibleSolubleGroupData(n, q);
         
         if indices = fail then
-            indices := IndicesIrreducibleSolvableMatrixGroups(n0, q0, d);
+            indices := IndicesIrreducibleSolubleMatrixGroups(n0, q0, d);
         else 
-            indices := Intersection(indices, IndicesIrreducibleSolvableMatrixGroups(n0, q0, d));
+            indices := Intersection(indices, IndicesIrreducibleSolubleMatrixGroups(n0, q0, d));
         fi;
         
         if n = 1 then # from groups of degree 1 - defer to orders
@@ -114,20 +114,20 @@ InstallGlobalFunction(SelectionIrreducibleSolvableMatrixGroups,
 
 ############################################################################
 ##
-#F  OrdersAbsolutelyIrreducibleSolvableMatrixGroups(n, q, blockdims, max)
+#F  OrdersAbsolutelyIrreducibleSolubleMatrixGroups(n, q, blockdims, max)
 ##
 ##  returns a set. Each entry is a pair [order, count] describing how many
 ##  groups of that order are in the data base whose minimal block dims are in <blockdims>
-##  if max is true, only the maximal solvable groups are counted, if max is
+##  if max is true, only the maximal soluble groups are counted, if max is
 ##  false, the non-maximal ones are returned. 
 ##  To ignore one of the parameters blockdims, max, set it to fail
 ##  
-InstallGlobalFunction(OrdersAbsolutelyIrreducibleSolvableMatrixGroups,
+InstallGlobalFunction(OrdersAbsolutelyIrreducibleSolubleMatrixGroups,
     function(n, q, blockdims, max)
     
         local orders, descs, guardianDescs, desc, guardianDesc, grpinds, i, j, grp, o;
     
-        LoadAbsolutelyIrreducibleSolvableGroupData(n,q);
+        LoadAbsolutelyIrreducibleSolubleGroupData(n,q);
         
         if n = 1 then
             if blockdims <> fail and not 1 in blockdims then
@@ -233,11 +233,11 @@ InstallGlobalFunction(CheckAndExtractArguments,
 
 ############################################################################
 ##
-#F  IteratorIrreducibleSolvableMatrixGroups(<func_1>, <val_1>, ...)
+#F  IteratorIrreducibleSolubleMatrixGroups(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
+InstallGlobalFunction(IteratorIrreducibleSolubleMatrixGroups,
     function(arg)
     
         local r, p, q, k, iter, primes;
@@ -249,23 +249,23 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
                 [[Order, Size], IsPosInt],
                 [[MinimalBlockDimension, MinimalBlockDimensionOfMatrixGroup], IsPosInt],
                  [[IsPrimitive, IsPrimitiveMatrixGroup, IsLinearlyPrimitive], x -> x in [true, false]],
-                [[IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup], x -> x in [true, false]],
+                [[IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup], x -> x in [true, false]],
                 [[IsAbsolutelyIrreducibleMatrixGroup, IsAbsolutelyIrreducible], x -> x in [true, false]],
                 [[SplittingField], F -> IsField (F) and IsFinite (F)]
             ], 
             arg, 
-            "IteratorIrreducibleSolvableMatrixGroups");
+            "IteratorIrreducibleSolubleMatrixGroups");
         
         if ForAny (r.specialvalues, v -> IsEmpty(v)) then
             return Iterator ([]);
         fi;
 
         if not IsBound(r.specialvalues[1]) then 
-            Error("IteratorIrreducibleSolvableMatrixGroups: You must specify the degree(s) of the desired matrix groups");
+            Error("IteratorIrreducibleSolubleMatrixGroups: You must specify the degree(s) of the desired matrix groups");
         fi;
         
         if not IsBound(r.specialvalues[3]) then 
-            Error("IteratorIrreducibleSolvableMatrixGroups: You must specify the field(s) of the desired matrix groups");
+            Error("IteratorIrreducibleSolubleMatrixGroups: You must specify the field(s) of the desired matrix groups");
         fi;
         
         # set up data for the iterator record
@@ -302,7 +302,7 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
             if Length(r.specialvalues[6]) = 1 then
                 iter.primitive := r.specialvalues[6][1];
             else
-                Info(InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: `IsPrimitiveMatrixGroup' is redundant - will be ignored");
+                Info(InfoWarning, 2, "IteratorIrreducibleSolubleMatrixGroups: `IsPrimitiveMatrixGroup' is redundant - will be ignored");
                 iter.primitive := fail;
             fi;
         else
@@ -311,7 +311,7 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
         
         if IsBound(r.specialvalues[7]) then
             if Length(r.specialvalues[7]) > 1 then
-                Info(InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' is redundant");
+                Info(InfoWarning, 2, "IteratorIrreducibleSolubleMatrixGroups: `IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup' is redundant");
                 iter.max := fail;
             else
                 iter.max := r.specialvalues[7][1];
@@ -322,13 +322,13 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
         
         if IsBound(r.specialvalues[8]) then
             if Length(r.specialvalues[8]) > 1 then
-                Info(InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: `IsAbsolutelyIrreducibleSolvableMatrixGroup' is redundant");
+                Info(InfoWarning, 2, "IteratorIrreducibleSolubleMatrixGroups: `IsAbsolutelyIrreducibleSolubleMatrixGroup' is redundant");
                 iter.absirred := fail;
             else 
                 iter.absirred := r.specialvalues[8][1];
                 if iter.max = true and iter.absirred = false then
-                    Info(InfoWarning, 2, "IteratorIrreducibleSolvableMatrixGroups: values of `IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup' ",
-                        "and `IsAbsolutelyIrreducibleSolvableMatrixGroup' contradict each other");
+                    Info(InfoWarning, 2, "IteratorIrreducibleSolubleMatrixGroups: values of `IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup' ",
+                        "and `IsAbsolutelyIrreducibleSolubleMatrixGroup' contradict each other");
                     return Iterator([]);
                 fi;
             fi;
@@ -461,8 +461,8 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
                             " with splitting field GF(",q, "^",d,"), orders: ", iterator!.orders, 
                             " and block dims ", blockdims, " max = ", max);
                             
-                    if IsAvailableAbsolutelyIrreducibleSolvableGroupData(dim/d, q^d) then
-                        iterator!.indices := SelectionIrreducibleSolvableMatrixGroups(
+                    if IsAvailableAbsolutelyIrreducibleSolubleGroupData(dim/d, q^d) then
+                        iterator!.indices := SelectionIrreducibleSolubleMatrixGroups(
                             dim, q, d, fail, iterator!.orders, blockdims, max);
                     else
                         Error("group data for GL(", dim/d, ", ",q^d,") is not available. Type \'return;\' to skip these subgroups.");
@@ -470,7 +470,7 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
                     fi;
                     iterator!.pos := 1;
                 od;
-                G := IrreducibleSolvableMatrixGroup(
+                G := IrreducibleSolubleMatrixGroup(
                     iterator!.dims[iterator!.dimi], 
                     iterator!.qs[iterator!.qi],    
                     iterator!.d[iterator!.di], 
@@ -538,16 +538,16 @@ InstallGlobalFunction(IteratorIrreducibleSolvableMatrixGroups,
 
 ############################################################################
 ##
-#F  OneIrreducibleSolvableMatrixGroup(<func_1>, <val_1>, ...)
+#F  OneIrreducibleSolubleMatrixGroup(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(OneIrreducibleSolvableMatrixGroup,
+InstallGlobalFunction(OneIrreducibleSolubleMatrixGroup,
     function(arg)
     
         local iter;
         
-        iter := CallFuncList(IteratorIrreducibleSolvableMatrixGroups, arg);
+        iter := CallFuncList(IteratorIrreducibleSolubleMatrixGroups, arg);
         if IsDoneIterator(iter) then
             return fail;
         else 
@@ -558,16 +558,16 @@ InstallGlobalFunction(OneIrreducibleSolvableMatrixGroup,
     
 ############################################################################
 ##
-#F  AllIrreducibleSolvableMatrixGroups(<func_1>, <val_1>, ...)
+#F  AllIrreducibleSolubleMatrixGroups(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(AllIrreducibleSolvableMatrixGroups,
+InstallGlobalFunction(AllIrreducibleSolubleMatrixGroups,
     function(arg)
     
         local iter, l, G;
         
-        iter := CallFuncList(IteratorIrreducibleSolvableMatrixGroups, arg);
+        iter := CallFuncList(IteratorIrreducibleSolubleMatrixGroups, arg);
         
         l := [];
         for G in iter do

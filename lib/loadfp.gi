@@ -12,25 +12,25 @@ IRREDSOL_DATA.FP_LOADED := [];
 
 ############################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+#F  IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintIndex,
     function(n, q)
     
         if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
             Error("n and q must be positive integers and q must be a prime power");
         fi;
         
-        return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q);
+        return TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(n, q);
         
     end);
     
     
 ############################################################################
 ##
-#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+#F  TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex,
     function(n, q)
     
         local pathname;
@@ -69,16 +69,16 @@ InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
 
 ###########################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex,
     function(n, q)
     
         if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
             Error("n and q must be positive integers and q must be a prime power");
         fi;
         
-        if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q) then
+        if not TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(n, q) then
             Error("Panic: missing fingerprint index file for GL(",n,", ", q, ")");
         fi;
     end);
@@ -86,9 +86,9 @@ InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
     
 ############################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+#F  IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintData(<n>, <q>, <index>)
 ##  
-InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData,
+InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolubleGroupFingerprintData,
 
     function(n, q, index)
         if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q) 
@@ -97,15 +97,15 @@ InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintDa
                     ", and q must be a prime power");
         fi;
         
-        return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(n, q, index);
+        return TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintData(n, q, index);
     end);
     
     
 ###########################################################################
 ##
-#F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+#F  TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintData(<n>, <q>, <index>)
 ##
-InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
+InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintData,
     function(n, q, index)
     
         local pathname, i;
@@ -160,26 +160,26 @@ InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
         
 ###########################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupFingerprintData(<n>, <q>, <index>)
 ##  
-InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolubleGroupFingerprintData,
     function(n, q, index)
     
         if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q) or not IsPosInt(index) then
             Error("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
         fi;
-        if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(n, q, index) then
+        if not TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintData(n, q, index) then
             Error("Panic: ", index, "-th fingerprint file for GL(",n,", ", q, ") is missing");
         fi;
     end);
 
 ###########################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupFingerprints(<n>, <q>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupFingerprints(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprints,
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolubleGroupFingerprints,
     function(n, q)
     
         local i;
@@ -188,20 +188,20 @@ InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprints,
             Error("n and q must be positive integers, and q must be a prime power");
         fi;
     
-        LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q);
+        LoadAbsolutelyIrreducibleSolubleGroupFingerprintIndex(n, q);
         for i in Set(IRREDSOL_DATA.FP_INDEX[n][q][2]) do
-            LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(n, q, i);
+            LoadAbsolutelyIrreducibleSolubleGroupFingerprintData(n, q, i);
         od;
     end);
     
 
 ###########################################################################
 ##
-#F  UnloadAbsolutelyIrreducibleSolvableGroupFingerprints(<arg>)
+#F  UnloadAbsolutelyIrreducibleSolubleGroupFingerprints(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
+InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolubleGroupFingerprints,
     function(arg)
     
         local UnbindIfBound;
@@ -243,18 +243,18 @@ InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
                 UnbindIfBound(IRREDSOL_DATA.FP_LOADED, arg[1], arg[2]);
             fi;
         else
-            Error("Usage: `UnloadAbsolutelyIrreducibleSolvableGroupFingerprints( [n [, q]] )'");
+            Error("Usage: `UnloadAbsolutelyIrreducibleSolubleGroupFingerprints( [n [, q]] )'");
         fi;
     end);
 
 
 ############################################################################
 ##
-#F  LoadedAbsolutelyIrreducibleSolvableGroupFingerprints()
+#F  LoadedAbsolutelyIrreducibleSolubleGroupFingerprints()
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolvableGroupFingerprints,
+InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolubleGroupFingerprints,
     function()
     
         local n, p, data, fields;

@@ -10,21 +10,21 @@
 ##
 #F  DECLARE_IRREDSOL_SYNONYMS
 ##
-##  declare two synonyms, one for UK English, and one for a shorter form
+##  declare two synonyms, one for US English, and one for a shorter form
 ##  
 BindGlobal("DECLARE_IRREDSOL_SYNONYMS", 
      function(name)
           local name2;
-          name2 := ReplacedString(name, "Solvable", "Soluble");
-          if name2 <> name then
+          name2 := ReplacedString(name, "Soluble", "Solvable");
+          if name2 <> name and not IsBoundGlobal(name2) then
                 DeclareSynonym(name2, ValueGlobal(name));
           fi;
           name2 := ShallowCopy(name);
-          name2 := ReplacedString(name2, "AbsolutelyIrreducibleSolvable", "AIS");
-          name2 := ReplacedString(name2, "IrreducibleSolvable", "IrredSol");
-          # name2 := ReplacedString(name2, "PrimitiveSolvable", "PrimSol");
+          name2 := ReplacedString(name2, "AbsolutelyIrreducibleSoluble", "AIS");
+          name2 := ReplacedString(name2, "IrreducibleSoluble", "IrredSol");
+          # name2 := ReplacedString(name2, "PrimitiveSoluble", "PrimSol");
           # name2 := ReplacedString(name2, "Primitive", "Prim");
-          # name2 := ReplacedString(name2, "Solvable", "Sol");
+          # name2 := ReplacedString(name2, "Soluble", "Sol");
           # name2 := ReplacedString(name2, "Matrix", "Mat");
           # name2 := ReplacedString(name2, "Indices", "Inds");
           # name2 := ReplacedString(name2, "Minimal", "Min");
@@ -32,11 +32,25 @@ BindGlobal("DECLARE_IRREDSOL_SYNONYMS",
           # name2 := ReplacedString(name2, "Dimension", "Dim");
           # name2 := ReplacedString(name2, "Extension", "Ext");
           # name2 := ReplacedString(name2, "Fingerprint", "Fp");
-          if name2 <> name then
+          if name2 <> name and not IsBoundGlobal(name2) then
                 DeclareSynonym(name2, ValueGlobal(name));
           fi;
      end);
 
+
+############################################################################
+##
+#F  DECLARE_IRREDSOL_SYNONYMS_ATTR
+##
+##  like DECLARE_IRREDSOL_SYNONYMS, but also declares synonyms for setter
+##  and tester
+##  
+BindGlobal("DECLARE_IRREDSOL_SYNONYMS_ATTR",
+    function(name)
+        DECLARE_IRREDSOL_SYNONYMS(name);
+        DECLARE_IRREDSOL_SYNONYMS(Concatenation("Set", name));
+        DECLARE_IRREDSOL_SYNONYMS(Concatenation("Has", name));
+    end);
 
 ############################################################################
 ##
@@ -63,6 +77,7 @@ BindGlobal("DECLAE_IRREDSOL_OBSOLETE",
                      "Please use `", new, "' instead.");
                 return CallFuncList(ValueGlobal(new), arg);
           end);
+          DECLARE_IRREDSOL_SYNONYMS(name);
      end);
 
 

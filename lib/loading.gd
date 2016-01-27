@@ -8,56 +8,56 @@
 
 ############################################################################
 ##
-#F  IsAvailableAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
+#F  IsAvailableAbsolutelyIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolubleGroupData");
 
 
 ############################################################################
 ##
-#F  IsAvailableIrreducibleSolvableGroupData(<n>, <q>)
+#F  IsAvailableIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("IsAvailableIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableIrreducibleSolubleGroupData");
 
 
 ############################################################################
 ##
-#F  TryLoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
+#F  TryLoadAbsolutelyIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolubleGroupData");
 
 
 ############################################################################
 ##
-#F  LoadAbsolutelyIrreducibleSolvableGroupData(<n>, <q>)
+#F  LoadAbsolutelyIrreducibleSolubleGroupData(<n>, <q>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolubleGroupData");
 
 
 ############################################################################
 ##
-#F  LoadedAbsolutelyIrreducibleSolvableGroupData()
+#F  LoadedAbsolutelyIrreducibleSolubleGroupData()
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolubleGroupData");
 
 
 ############################################################################
 ##
-#F  UnloadAbsolutelyIrreducibleSolvableGroupData([<n>[, <q>]])
+#F  UnloadAbsolutelyIrreducibleSolubleGroupData([<n>[, <q>]])
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolubleGroupData");
 
 
 ############################################################################

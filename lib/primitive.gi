@@ -10,7 +10,7 @@
 ##
 #F  PcGroupExtensionByMatrixAction(<pcgs>, <hom>)
 ##
-##  Let <G> be a finite solvable group with pcgs <pcgs>, and let <hom> be a 
+##  Let <G> be a finite soluble group with pcgs <pcgs>, and let <hom> be a 
 ##  group hom. $<hom>\colon G \to GL(n, p)$, where $p$ is a prime. Let  $E$ 
 ##  denote the split
 ##  extension of $G$ by $V = \F_p$, where <G> acts on <V> via <hom>.
@@ -147,8 +147,8 @@ InstallGlobalFunction(PrimitivePcGroupIrreducibleMatrixGroupNC,
         # the following sets attributes/properties which are defined 
         # in the CRISP packages
                 
-        if IsBoundGlobal("SetIsPrimitiveSolvable") then
-            ValueGlobal("SetIsPrimitiveSolvable")(ext.E, true);
+        if IsBoundGlobal("SetIsPrimitiveSoluble") then
+            ValueGlobal("SetIsPrimitiveSoluble")(ext.E, true);
         fi;
         return ext.E;
         
@@ -171,12 +171,12 @@ InstallGlobalFunction(PrimitivePcGroup,
         if not IsPosInt(n) or not IsPosInt(d) or not IsPosInt(p) or not IsPrimeInt(p) or n mod d <> 0 then
             Error("n, p, and d must be positive integers, ",
                 "p must be a prime, and d must divide n");
-        elif not k in IndicesIrreducibleSolvableMatrixGroups(n, p, d) then
-            Error("k must be in IndicesIrreducibleSolvableMatrixGroups(n, p, d)");
+        elif not k in IndicesIrreducibleSolubleMatrixGroups(n, p, d) then
+            Error("k must be in IndicesIrreducibleSolubleMatrixGroups(n, p, d)");
         else    
             n := n /d;
             q := p^d;
-            LoadAbsolutelyIrreducibleSolvableGroupData(n, q);
+            LoadAbsolutelyIrreducibleSolubleGroupData(n, q);
             if n > 1 then
                 desc := IRREDSOL_DATA.GROUPS[n][q][k];
             fi;
@@ -217,7 +217,7 @@ InstallGlobalFunction(PrimitivePcGroup,
             fi;
             pcgs := InducedPcgsByPcSequenceNC(FamilyPcgs(ext.E), Concatenation(pcgsC, ext.pcgsV));
             H := GroupOfPcgs(pcgs);
-            SetIdPrimitiveSolvableGroup(H, [n*d,p,d,k]);
+            SetIdPrimitiveSolubleGroup(H, [n*d,p,d,k]);
             SetSocle(H, ext.V);
             SetFittingSubgroup(H, ext.V);
             SetSocleComplement(H, GroupOfPcgs(pcgsC));
@@ -225,8 +225,8 @@ InstallGlobalFunction(PrimitivePcGroup,
             # the following sets attributes/properties which are defined 
             # in the CRISP packages
                 
-            if IsBoundGlobal("SetIsPrimitiveSolvable") then
-                ValueGlobal("SetIsPrimitiveSolvable")(H, true);
+            if IsBoundGlobal("SetIsPrimitiveSoluble") then
+                ValueGlobal("SetIsPrimitiveSoluble")(H, true);
             fi;
             return H;
         fi;
@@ -235,22 +235,22 @@ InstallGlobalFunction(PrimitivePcGroup,
             
 ############################################################################
 ##
-#F  IrreducibleMatrixGroupPrimitiveSolvableGroup(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolubleGroup(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolvableGroup,
+InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolubleGroup,
     function(G)
 
         local F, p, matgrp, compl;
 
         if not IsFinite(G) or not IsSolvableGroup(G) then
-            Error("G must be finite and solvable");
+            Error("G must be finite and soluble");
             
         # test if primitive - use the CRISP method if it is available     
-        elif IsBoundGlobal("IsPrimitiveSolvable") 
-                 and ValueGlobal("IsPrimitiveSolvable")(G) then
-            return IrreducibleMatrixGroupPrimitiveSolvableGroupNC(G);
+        elif IsBoundGlobal("IsPrimitiveSoluble") 
+                 and ValueGlobal("IsPrimitiveSoluble")(G) then
+            return IrreducibleMatrixGroupPrimitiveSolubleGroupNC(G);
             
         else # test for primitivity
             F := FittingSubgroup(G);
@@ -263,7 +263,7 @@ InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolvableGroup,
                 if ForAny(GeneratorsOfGroup(F), x -> x^p <> One(G)) then
                     Error("G must be primitive");
                 else
-                    matgrp := IrreducibleMatrixGroupPrimitiveSolvableGroupNC(G);
+                    matgrp := IrreducibleMatrixGroupPrimitiveSolubleGroupNC(G);
                     if not IsIrreducibleMatrixGroup(matgrp, GF(p)) then
                         Error("G must be primitive");
                     else
@@ -282,11 +282,11 @@ InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolvableGroup,
             
 ############################################################################
 ##
-#F  IrreducibleMatrixGroupPrimitiveSolvableGroupNC(<G>)
+#F  IrreducibleMatrixGroupPrimitiveSolubleGroupNC(<G>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolvableGroupNC,
+InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolubleGroupNC,
     function(G)
     
         local N, p, F, pcgsN, pcgsGmodN, GmodN, one, mat, mats, g, h, i, H, hom;
@@ -321,13 +321,13 @@ InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolvableGroupNC,
 
 ############################################################################
 ##
-#F  DoIteratorPrimitiveSolvableGroups(<convert_func>, <arg_list>)
+#F  DoIteratorPrimitiveSolubleGroups(<convert_func>, <arg_list>)
 ##
-##  generic constructor function for an iterator of all primitive solvable groups
+##  generic constructor function for an iterator of all primitive soluble groups
 ##  which can construct permutation groups or pc groups (or other types of groups),
 ##  depending on convert_func
 ##  
-InstallGlobalFunction(DoIteratorPrimitiveSolvableGroups, 
+InstallGlobalFunction(DoIteratorPrimitiveSolubleGroups, 
     function(convert_func, arg_list)
 
         local r, iter;
@@ -375,7 +375,7 @@ InstallGlobalFunction(DoIteratorPrimitiveSolvableGroups,
                 d := iterator!.degs[iterator!.degind];
                 p := SmallestRootInt(d);
                 n := LogInt(d, p);
-                if IsAvailableIrreducibleSolvableGroupData(n, p) then                
+                if IsAvailableIrreducibleSolubleGroupData(n, p) then                
                     if iterator!.orders <> fail then
                         orders := [];
                         for o in iterator!.orders do
@@ -383,10 +383,10 @@ InstallGlobalFunction(DoIteratorPrimitiveSolvableGroups,
                                 Add(orders, o/d);
                             fi;
                         od;
-                        iterator!.iteratormatgrp := IteratorIrreducibleSolvableMatrixGroups(
+                        iterator!.iteratormatgrp := IteratorIrreducibleSolubleMatrixGroups(
                             Degree, n, Field, GF(p), Order, orders);
                     else
-                        iterator!.iteratormatgrp := IteratorIrreducibleSolvableMatrixGroups(
+                        iterator!.iteratormatgrp := IteratorIrreducibleSolubleMatrixGroups(
                             Degree, n, Field, GF(p));
 
                     fi;
@@ -429,7 +429,7 @@ InstallGlobalFunction(DoIteratorPrimitiveSolvableGroups,
 ##  
 InstallGlobalFunction(IteratorPrimitivePcGroups,
     function(arg)
-        return DoIteratorPrimitiveSolvableGroups(
+        return DoIteratorPrimitiveSolubleGroups(
             PrimitivePcGroupIrreducibleMatrixGroupNC,
             arg);
     end);
@@ -517,8 +517,8 @@ InstallGlobalFunction(PrimitivePermGroupIrreducibleMatrixGroupNC,
         # the following sets attributes/properties which are defined 
         # in the CRISP packages
 
-        if IsBoundGlobal("SetIsPrimitiveSolvable") then
-            ValueGlobal("SetIsPrimitiveSolvable")(G, true);
+        if IsBoundGlobal("SetIsPrimitiveSoluble") then
+            ValueGlobal("SetIsPrimitiveSoluble")(G, true);
         fi;
          return G;
     end);
@@ -526,23 +526,23 @@ InstallGlobalFunction(PrimitivePermGroupIrreducibleMatrixGroupNC,
 
 ############################################################################
 ##
-#F  PrimitiveSolvablePermGroup(<n>,<p>,<d>,<k>)
+#F  PrimitiveSolublePermGroup(<n>,<p>,<d>,<k>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(PrimitiveSolvablePermGroup,
+InstallGlobalFunction(PrimitiveSolublePermGroup,
     function(n, p, d, k)
 
         local G;
         if not IsPosInt(n) or not IsPosInt(d) or not IsPosInt(p) or not IsPrimeInt(p) then
             Error("n, p, and d must be positive integers, ",
                 "p must be a prime, and d must divide n");
-        elif not k in IndicesIrreducibleSolvableMatrixGroups(n, p, d) then
-            Error("k must be in IndicesIrreducibleSolvableMatrixGroups(n, p, d)");
+        elif not k in IndicesIrreducibleSolubleMatrixGroups(n, p, d) then
+            Error("k must be in IndicesIrreducibleSolubleMatrixGroups(n, p, d)");
         else
             G := PrimitivePermGroupIrreducibleMatrixGroupNC(
-                    IrreducibleSolvableMatrixGroup(n, p, d, k));
-            SetIdPrimitiveSolvableGroup(G, [n,p,d,k]);
+                    IrreducibleSolubleMatrixGroup(n, p, d, k));
+            SetIdPrimitiveSolubleGroup(G, [n,p,d,k]);
         fi;
         return G;
      end);
@@ -550,13 +550,13 @@ InstallGlobalFunction(PrimitiveSolvablePermGroup,
             
 ############################################################################
 ##
-#F  IteratorPrimitiveSolvablePermGroups(<func_1>, <val_1>, ...)
+#F  IteratorPrimitiveSolublePermGroups(<func_1>, <val_1>, ...)
 ##
 ##  see the IRREDSOL manual
 ##  
-InstallGlobalFunction(IteratorPrimitiveSolvablePermGroups,
+InstallGlobalFunction(IteratorPrimitiveSolublePermGroups,
     function(arg)
-        return DoIteratorPrimitiveSolvableGroups(
+        return DoIteratorPrimitiveSolubleGroups(
             PrimitivePermGroupIrreducibleMatrixGroupNC,
             arg);
     end);
@@ -564,16 +564,16 @@ InstallGlobalFunction(IteratorPrimitiveSolvablePermGroups,
 
 ###########################################################################
 ##
-#F  AllPrimitiveSolvablePermGroups(<arg>)
+#F  AllPrimitiveSolublePermGroups(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(AllPrimitiveSolvablePermGroups,
+InstallGlobalFunction(AllPrimitiveSolublePermGroups,
     function(arg)
     
         local iter, l, G;
         
-        iter := CallFuncList(IteratorPrimitiveSolvablePermGroups, arg);
+        iter := CallFuncList(IteratorPrimitiveSolublePermGroups, arg);
         
         l := [];
         for G in iter do
@@ -585,16 +585,16 @@ InstallGlobalFunction(AllPrimitiveSolvablePermGroups,
 
 ###########################################################################
 ##
-#F  OnePrimitiveSolvablePermGroup(<arg>)
+#F  OnePrimitiveSolublePermGroup(<arg>)
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction(OnePrimitiveSolvablePermGroup,
+InstallGlobalFunction(OnePrimitiveSolublePermGroup,
     function(arg)
     
         local iter;
         
-        iter := CallFuncList(IteratorPrimitiveSolvablePermGroups, arg);
+        iter := CallFuncList(IteratorPrimitiveSolublePermGroups, arg);
         if IsDoneIterator(iter) then
             return fail;
         else 

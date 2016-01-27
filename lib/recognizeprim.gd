@@ -8,21 +8,21 @@
 
 ############################################################################
 ##
-#F  RecognitionPrimitiveSolvableGroup(<G>)
+#F  RecognitionPrimitiveSolubleGroup(<G>)
 ##
-DECLARE_IRREDSOL_FUNCTION("RecognitionPrimitiveSolvableGroup");
+DECLARE_IRREDSOL_FUNCTION("RecognitionPrimitiveSolubleGroup");
     
 
 ###########################################################################
 ##
-#A  IdPrimitiveSolvableGroup(<grp>)
-#F  IdPrimitiveSolvableGroupNC(<grp>)
+#A  IdPrimitiveSolubleGroup(<grp>)
+#F  IdPrimitiveSolubleGroupNC(<grp>)
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute("IdPrimitiveSolvableGroup", IsGroup);
-DECLARE_IRREDSOL_SYNONYMS("IdPrimitiveSolvableGroup");
-DECLARE_IRREDSOL_FUNCTION("IdPrimitiveSolvableGroupNC");
+DeclareAttribute("IdPrimitiveSolubleGroup", IsGroup);
+DECLARE_IRREDSOL_SYNONYMS_ATTR("IdPrimitiveSolubleGroup");
+DECLARE_IRREDSOL_FUNCTION("IdPrimitiveSolubleGroupNC");
 
 
 ############################################################################
