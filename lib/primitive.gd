@@ -25,7 +25,7 @@
 ##     pcgsC: a pcgs of C whose elements correspond to the images of pcgs under
 ##              hom
 ##  
-DECLARE_IRREDSOL_FUNCTION ("PcGroupExtensionByMatrixAction");
+DECLARE_IRREDSOL_FUNCTION("PcGroupExtensionByMatrixAction");
 
 
 ############################################################################
@@ -35,8 +35,8 @@ DECLARE_IRREDSOL_FUNCTION ("PcGroupExtensionByMatrixAction");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IrreducibleMatrixGroupPrimitiveSolvableGroup");
-DECLARE_IRREDSOL_FUNCTION ("IrreducibleMatrixGroupPrimitiveSolvableGroupNC");
+DECLARE_IRREDSOL_FUNCTION("IrreducibleMatrixGroupPrimitiveSolvableGroup");
+DECLARE_IRREDSOL_FUNCTION("IrreducibleMatrixGroupPrimitiveSolvableGroupNC");
 
 
 ############################################################################
@@ -46,8 +46,8 @@ DECLARE_IRREDSOL_FUNCTION ("IrreducibleMatrixGroupPrimitiveSolvableGroupNC");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("PrimitivePcGroupIrreducibleMatrixGroup");
-DECLARE_IRREDSOL_FUNCTION ("PrimitivePcGroupIrreducibleMatrixGroupNC");
+DECLARE_IRREDSOL_FUNCTION("PrimitivePcGroupIrreducibleMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("PrimitivePcGroupIrreducibleMatrixGroupNC");
 
 
 ############################################################################
@@ -56,7 +56,7 @@ DECLARE_IRREDSOL_FUNCTION ("PrimitivePcGroupIrreducibleMatrixGroupNC");
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareGlobalFunction ("PrimitivePcGroup");
+DeclareGlobalFunction("PrimitivePcGroup");
 
 
 ############################################################################
@@ -66,8 +66,8 @@ DeclareGlobalFunction ("PrimitivePcGroup");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("PrimitivePermGroupIrreducibleMatrixGroup");
-DECLARE_IRREDSOL_FUNCTION ("PrimitivePermGroupIrreducibleMatrixGroupNC");
+DECLARE_IRREDSOL_FUNCTION("PrimitivePermGroupIrreducibleMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("PrimitivePermGroupIrreducibleMatrixGroupNC");
 
 
 ############################################################################
@@ -76,7 +76,7 @@ DECLARE_IRREDSOL_FUNCTION ("PrimitivePermGroupIrreducibleMatrixGroupNC");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("PrimitiveSolvablePermGroup");
+DECLARE_IRREDSOL_FUNCTION("PrimitiveSolvablePermGroup");
 
 
 ############################################################################
@@ -96,7 +96,7 @@ DECLARE_IRREDSOL_FUNCTION("DoIteratorPrimitiveSolvableGroups");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IteratorPrimitivePcGroups");
+DECLARE_IRREDSOL_FUNCTION("IteratorPrimitivePcGroups");
 
 
 ###########################################################################
@@ -105,7 +105,7 @@ DECLARE_IRREDSOL_FUNCTION ("IteratorPrimitivePcGroups");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("AllPrimitivePcGroups");
+DECLARE_IRREDSOL_FUNCTION("AllPrimitivePcGroups");
 
 
 ###########################################################################
@@ -114,7 +114,7 @@ DECLARE_IRREDSOL_FUNCTION ("AllPrimitivePcGroups");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("OnePrimitivePcGroup");
+DECLARE_IRREDSOL_FUNCTION("OnePrimitivePcGroup");
 
 
 ###########################################################################
@@ -123,7 +123,7 @@ DECLARE_IRREDSOL_FUNCTION ("OnePrimitivePcGroup");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IteratorPrimitiveSolvablePermGroups");
+DECLARE_IRREDSOL_FUNCTION("IteratorPrimitiveSolvablePermGroups");
 
 
 ###########################################################################
@@ -132,7 +132,7 @@ DECLARE_IRREDSOL_FUNCTION ("IteratorPrimitiveSolvablePermGroups");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("AllPrimitiveSolvablePermGroups");
+DECLARE_IRREDSOL_FUNCTION("AllPrimitiveSolvablePermGroups");
 
 
 ###########################################################################
@@ -141,7 +141,7 @@ DECLARE_IRREDSOL_FUNCTION ("AllPrimitiveSolvablePermGroups");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("OnePrimitiveSolvablePermGroup");
+DECLARE_IRREDSOL_FUNCTION("OnePrimitiveSolvablePermGroup");
 
 
 

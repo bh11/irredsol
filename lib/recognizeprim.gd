@@ -10,7 +10,7 @@
 ##
 #F  RecognitionPrimitiveSolvableGroup(<G>)
 ##
-DECLARE_IRREDSOL_FUNCTION ("RecognitionPrimitiveSolvableGroup");
+DECLARE_IRREDSOL_FUNCTION("RecognitionPrimitiveSolvableGroup");
     
 
 ###########################################################################
@@ -20,9 +20,9 @@ DECLARE_IRREDSOL_FUNCTION ("RecognitionPrimitiveSolvableGroup");
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute ("IdPrimitiveSolvableGroup", IsGroup);
-DECLARE_IRREDSOL_SYNONYMS ("IdPrimitiveSolvableGroup");
-DECLARE_IRREDSOL_FUNCTION ("IdPrimitiveSolvableGroupNC");
+DeclareAttribute("IdPrimitiveSolvableGroup", IsGroup);
+DECLARE_IRREDSOL_SYNONYMS("IdPrimitiveSolvableGroup");
+DECLARE_IRREDSOL_FUNCTION("IdPrimitiveSolvableGroupNC");
 
 
 ############################################################################

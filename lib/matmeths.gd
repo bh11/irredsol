@@ -16,10 +16,10 @@
 ##
 ##  IsIrreducible(<G>) is declared in the GAP library
 ##
-DeclareProperty ("IsIrreducibleMatrixGroup", IsMatrixGroup);
-KeyDependentOperation ("IsIrreducibleMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
-DECLARE_IRREDSOL_SYNONYMS ("IsIrreducibleMatrixGroup");
-DeclareOperation ("IsIrreducible", [IsMatrixGroup, IsField]);
+DeclareProperty("IsIrreducibleMatrixGroup", IsMatrixGroup);
+KeyDependentOperation("IsIrreducibleMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
+DECLARE_IRREDSOL_SYNONYMS("IsIrreducibleMatrixGroup");
+DeclareOperation("IsIrreducible", [IsMatrixGroup, IsField]);
 
 ############################################################################
 ##
@@ -28,9 +28,9 @@ DeclareOperation ("IsIrreducible", [IsMatrixGroup, IsField]);
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareOperation ("IsAbsolutelyIrreducible", [IsMatrixGroup]);
-DeclareProperty ("IsAbsolutelyIrreducibleMatrixGroup", IsMatrixGroup);
-DECLARE_IRREDSOL_SYNONYMS ("IsAbsolutelyIrreducibleMatrixGroup");
+DeclareOperation("IsAbsolutelyIrreducible", [IsMatrixGroup]);
+DeclareProperty("IsAbsolutelyIrreducibleMatrixGroup", IsMatrixGroup);
+DECLARE_IRREDSOL_SYNONYMS("IsAbsolutelyIrreducibleMatrixGroup");
 
 
 ############################################################################
@@ -42,11 +42,11 @@ DECLARE_IRREDSOL_SYNONYMS ("IsAbsolutelyIrreducibleMatrixGroup");
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareProperty ("IsPrimitiveMatrixGroup", IsMatrixGroup);
-KeyDependentOperation ("IsPrimitiveMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
-DECLARE_IRREDSOL_SYNONYMS ("IsPrimitiveMatrixGroup");
-DeclareProperty ("IsPrimitive", IsMatrixGroup); # already a property elsewhere in the library
-DeclareOperation ("IsPrimitive", [IsMatrixGroup, IsField]);
+DeclareProperty("IsPrimitiveMatrixGroup", IsMatrixGroup);
+KeyDependentOperation("IsPrimitiveMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
+DECLARE_IRREDSOL_SYNONYMS("IsPrimitiveMatrixGroup");
+DeclareProperty("IsPrimitive", IsMatrixGroup); # already a property elsewhere in the library
+DeclareOperation("IsPrimitive", [IsMatrixGroup, IsField]);
 
 
 ############################################################################
@@ -59,10 +59,10 @@ DeclareOperation ("IsPrimitive", [IsMatrixGroup, IsField]);
 ##  
 ##  MinimalBlockDImension(<G>) is an attribute declared in the GAP library
 ##
-DeclareAttribute ("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup);
-KeyDependentOperation ("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
-DECLARE_IRREDSOL_SYNONYMS ("MinimalBlockDimensionOfMatrixGroup");
-DeclareOperation ("MinimalBlockDimension", [IsMatrixGroup, IsField]);
+DeclareAttribute("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup);
+KeyDependentOperation("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
+DECLARE_IRREDSOL_SYNONYMS("MinimalBlockDimensionOfMatrixGroup");
+DeclareOperation("MinimalBlockDimension", [IsMatrixGroup, IsField]);
 
 
 ############################################################################
@@ -73,7 +73,7 @@ DeclareOperation ("MinimalBlockDimension", [IsMatrixGroup, IsField]);
 ##  
 ##  Characteristic(<G>) is defined in the GAP library
 ##
-DeclareAttribute ("CharacteristicOfField", IsMatrixGroup);
+DeclareAttribute("CharacteristicOfField", IsMatrixGroup);
 
 
 ############################################################################
@@ -82,7 +82,7 @@ DeclareAttribute ("CharacteristicOfField", IsMatrixGroup);
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute ("RepresentationIsomorphism", IsMatrixGroup);
+DeclareAttribute("RepresentationIsomorphism", IsMatrixGroup);
 
 
 ############################################################################
@@ -91,8 +91,8 @@ DeclareAttribute ("RepresentationIsomorphism", IsMatrixGroup);
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareProperty ("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup", IsMatrixGroup);
-DECLARE_IRREDSOL_SYNONYMS ("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup");
+DeclareProperty("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup", IsMatrixGroup);
+DECLARE_IRREDSOL_SYNONYMS("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -104,7 +104,7 @@ DECLARE_IRREDSOL_SYNONYMS ("IsMaximalAbsolutelyIrreducibleSolvableMatrixGroup");
 ##  of block dimension k, where k < limit, or k >= limit and G has no
 ##  block system of block dimesnion < limit
 ##  
-DeclareGlobalFunction ("SmallBlockDimensionOfRepresentation");
+DeclareGlobalFunction("SmallBlockDimensionOfRepresentation");
 
 
 ############################################################################
@@ -124,7 +124,7 @@ DeclareGlobalFunction ("SmallBlockDimensionOfRepresentation");
 ##  stab1: the stabilizer in G of the first block (i. e., the block with basis bases[1])
 ##  min:    true if the block system is a minimal block system amongst the systems returned
 ##
-DeclareGlobalFunction ("ImprimitivitySystemsForRepresentation");
+DeclareGlobalFunction("ImprimitivitySystemsForRepresentation");
 
 
 ############################################################################
@@ -134,8 +134,8 @@ DeclareGlobalFunction ("ImprimitivitySystemsForRepresentation");
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute ("ImprimitivitySystems", IsMatrixGroup);
-KeyDependentOperation ("ImprimitivitySystems", IsMatrixGroup, IsField, ReturnTrue);
+DeclareAttribute("ImprimitivitySystems", IsMatrixGroup);
+KeyDependentOperation("ImprimitivitySystems", IsMatrixGroup, IsField, ReturnTrue);
 
 
 ############################################################################
@@ -144,7 +144,7 @@ KeyDependentOperation ("ImprimitivitySystems", IsMatrixGroup, IsField, ReturnTru
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute ("TraceField", IsMatrixGroup);
+DeclareAttribute("TraceField", IsMatrixGroup);
 
 
 ############################################################################
@@ -153,7 +153,7 @@ DeclareAttribute ("TraceField", IsMatrixGroup);
 ##
 ##  see IRREDSOL documentation
 ##  
-DeclareAttribute ("SplittingField", IsMatrixGroup);
+DeclareAttribute("SplittingField", IsMatrixGroup);
 
 
 ############################################################################
@@ -163,7 +163,7 @@ DeclareAttribute ("SplittingField", IsMatrixGroup);
 ##  returns a matrix x such that the matrix entries of G^x lie in the
 ##  trace field of G.
 ##  
-DeclareAttribute ("ConjugatingMatTraceField", IsMatrixGroup);
+DeclareAttribute("ConjugatingMatTraceField", IsMatrixGroup);
 
 
 ############################################################################

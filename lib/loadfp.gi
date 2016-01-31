@@ -14,14 +14,14 @@ IRREDSOL_DATA.FP_LOADED := [];
 ##
 #F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
-    function (n, q)
+InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+    function(n, q)
     
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q)  then
-            Error ("n and q must be positive integers and q must be a prime power");
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
+            Error("n and q must be positive integers and q must be a prime power");
         fi;
         
-        return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q);
+        return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q);
         
     end);
     
@@ -30,37 +30,37 @@ InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintI
 ##
 #F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
-    function (n, q)
+InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+    function(n, q)
     
         local pathname;
         
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q)  then
-            Error ("n and q must be positive integers and q must be a prime power");
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
+            Error("n and q must be positive integers and q must be a prime power");
         fi;
         
         if n = 1 then
             return true;
         fi;
         
-        if not IsBound (IRREDSOL_DATA.FP_INDEX[n]) then
+        if not IsBound(IRREDSOL_DATA.FP_INDEX[n]) then
             IRREDSOL_DATA.FP_INDEX[n] := [];
         fi;
         
-        if not IsBound (IRREDSOL_DATA.FP_INDEX[n][q]) then
-            pathname := Concatenation ("fp/gl_", String (n), "_",String (q),".idx");
+        if not IsBound(IRREDSOL_DATA.FP_INDEX[n][q]) then
+            pathname := Concatenation("fp/gl_", String(n), "_",String(q),".idx");
 
-            Info (InfoIrredsol, 2, "Reading data file ", pathname);
+            Info(InfoIrredsol, 2, "Reading data file ", pathname);
 
-            if not ReadPackage ("irredsol", pathname) then
+            if not ReadPackage("irredsol", pathname) then
                 return false;
             fi;
             
             
-            if not IsBound (IRREDSOL_DATA.FP_INDEX[n][q]) then
-                Error ("Panic: reading data file didn't define required data");
+            if not IsBound(IRREDSOL_DATA.FP_INDEX[n][q]) then
+                Error("Panic: reading data file didn't define required data");
             fi;
-            MakeImmutable (IRREDSOL_DATA.FP_INDEX[n][q]);
+            MakeImmutable(IRREDSOL_DATA.FP_INDEX[n][q]);
             
         fi;
         return true;
@@ -71,15 +71,15 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex
 ##
 #F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(<n>, <q>)
 ##  
-InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
-    function (n, q)
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
+    function(n, q)
     
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q)  then
-            Error ("n and q must be positive integers and q must be a prime power");
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q)  then
+            Error("n and q must be positive integers and q must be a prime power");
         fi;
         
-        if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q) then
-            Error ("Panic: missing fingerprint index file for GL(",n,", ", q, ")");
+        if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q) then
+            Error("Panic: missing fingerprint index file for GL(",n,", ", q, ")");
         fi;
     end);
     
@@ -88,16 +88,16 @@ InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex,
 ##
 #F  IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
 ##  
-InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData,
+InstallGlobalFunction(IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintData,
 
-    function (n, q, index)
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) 
-            or not IsPosInt (index) then
-                Error ("n, q, and index must be positive integers",
+    function(n, q, index)
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q) 
+            or not IsPosInt(index) then
+                Error("n, q, and index must be positive integers",
                     ", and q must be a prime power");
         fi;
         
-        return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData (n, q, index);
+        return TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(n, q, index);
     end);
     
     
@@ -105,50 +105,50 @@ InstallGlobalFunction (IsAvailableAbsolutelyIrreducibleSolvableGroupFingerprintD
 ##
 #F  TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
 ##
-InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
-    function (n, q, index)
+InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
+    function(n, q, index)
     
         local pathname, i;
         
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) or not IsPosInt (index) then
-            Error ("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q) or not IsPosInt(index) then
+            Error("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
         fi;
 
         if n = 1 then
             return; # group is unique, up to conjugacy - no information stored
         fi;
         
-        if not IsBound (IRREDSOL_DATA.FP[n]) then
+        if not IsBound(IRREDSOL_DATA.FP[n]) then
             IRREDSOL_DATA.FP[n] := [];
         fi;
             
-        if not IsBound (IRREDSOL_DATA.FP[n][q]) then
+        if not IsBound(IRREDSOL_DATA.FP[n][q]) then
             IRREDSOL_DATA.FP[n][q] := [];
         fi;
         
-        if not IsBound (IRREDSOL_DATA.FP_LOADED[n]) then
+        if not IsBound(IRREDSOL_DATA.FP_LOADED[n]) then
             IRREDSOL_DATA.FP_LOADED[n] := [];
         fi;
         
-        if not IsBound (IRREDSOL_DATA.FP_LOADED[n][q]) then
+        if not IsBound(IRREDSOL_DATA.FP_LOADED[n][q]) then
             IRREDSOL_DATA.FP_LOADED[n][q] := [];
         fi;
         
-        if not IsBound (IRREDSOL_DATA.FP_LOADED[n][q][index]) then
+        if not IsBound(IRREDSOL_DATA.FP_LOADED[n][q][index]) then
             
             Unbind(IRREDSOL_DATA.FP_LOADED[n][q][index]); # if anything fails during loading
                 # we won't have inconsistencies
     
-            pathname := Concatenation ("fp/gl_", String (n), "_",String (q),"_", String(index),".fp");
+            pathname := Concatenation("fp/gl_", String(n), "_",String(q),"_", String(index),".fp");
 
-            Info (InfoIrredsol, 2, "Reading fingerprint file ", pathname);
-            if not ReadPackage ("irredsol", pathname) then
+            Info(InfoIrredsol, 2, "Reading fingerprint file ", pathname);
+            if not ReadPackage("irredsol", pathname) then
                 return false;
             fi;
             
-            for i in [1..Length (IRREDSOL_DATA.FP_INDEX[n][q][2])] do
+            for i in [1..Length(IRREDSOL_DATA.FP_INDEX[n][q][2])] do
                 if IRREDSOL_DATA.FP_INDEX[n][q][2][i] = index then
-                    MakeImmutable (IRREDSOL_DATA.FP[n][q][i]);
+                    MakeImmutable(IRREDSOL_DATA.FP[n][q][i]);
                 fi;
             od;
             IRREDSOL_DATA.FP_LOADED[n][q][index] := true;
@@ -162,14 +162,14 @@ InstallGlobalFunction (TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
 ##
 #F  LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(<n>, <q>, <index>)
 ##  
-InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
-    function (n, q, index)
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
+    function(n, q, index)
     
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) or not IsPosInt (index) then
-            Error ("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q) or not IsPosInt(index) then
+            Error("n and q must be positive integers, q must be a prime power, and pos must be a positive integer");
         fi;
-        if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData (n, q, index) then
-            Error ("Panic: ", index, "-th fingerprint file for GL(",n,", ", q, ") is missing");
+        if not TryLoadAbsolutelyIrreducibleSolvableGroupFingerprintData(n, q, index) then
+            Error("Panic: ", index, "-th fingerprint file for GL(",n,", ", q, ") is missing");
         fi;
     end);
 
@@ -179,18 +179,18 @@ InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprintData,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprints,
-    function (n, q)
+InstallGlobalFunction(LoadAbsolutelyIrreducibleSolvableGroupFingerprints,
+    function(n, q)
     
         local i;
         
-        if not IsPosInt (n) or not IsPosInt (q) or not IsPPowerInt (q) then
-            Error ("n and q must be positive integers, and q must be a prime power");
+        if not IsPosInt(n) or not IsPosInt(q) or not IsPPowerInt(q) then
+            Error("n and q must be positive integers, and q must be a prime power");
         fi;
     
-        LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex (n, q);
-        for i in Set (IRREDSOL_DATA.FP_INDEX[n][q][2]) do
-            LoadAbsolutelyIrreducibleSolvableGroupFingerprintData (n, q, i);
+        LoadAbsolutelyIrreducibleSolvableGroupFingerprintIndex(n, q);
+        for i in Set(IRREDSOL_DATA.FP_INDEX[n][q][2]) do
+            LoadAbsolutelyIrreducibleSolvableGroupFingerprintData(n, q, i);
         od;
     end);
     
@@ -201,49 +201,49 @@ InstallGlobalFunction (LoadAbsolutelyIrreducibleSolvableGroupFingerprints,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction (UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
-    function (arg)
+InstallGlobalFunction(UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
+    function(arg)
     
         local UnbindIfBound;
         
-        UnbindIfBound := function (arg)
+        UnbindIfBound := function(arg)
             local data, i;
             
             data := arg[1];
             i := 2;
-            while i < Length (arg)  do
-                if not IsBound (data[arg[i]]) then
+            while i < Length(arg)  do
+                if not IsBound(data[arg[i]]) then
                     return false;
                 fi;
                 data := data[arg[i]];
                 i := i + 1;
             od;
-            if IsBound (data[arg[i]]) then
-                Unbind (data[arg[i]]);
+            if IsBound(data[arg[i]]) then
+                Unbind(data[arg[i]]);
                 return true;
             else
                 return false;
             fi;
         end;
                     
-        if Length (arg) = 0 then
+        if Length(arg) = 0 then
             IRREDSOL_DATA.FP := [];
             IRREDSOL_DATA.FP_INDEX := [];
             IRREDSOL_DATA.FP_LOADED := [];
-        elif IsPosInt (arg[1]) and Length (arg) = 1 then
+        elif IsPosInt(arg[1]) and Length(arg) = 1 then
             if arg[1] > 1 then
-                UnbindIfBound (IRREDSOL_DATA.FP, arg[1]);
-                UnbindIfBound (IRREDSOL_DATA.FP_INDEX, arg[1]);
-                UnbindIfBound (IRREDSOL_DATA.FP_LOADED, arg[1]);
+                UnbindIfBound(IRREDSOL_DATA.FP, arg[1]);
+                UnbindIfBound(IRREDSOL_DATA.FP_INDEX, arg[1]);
+                UnbindIfBound(IRREDSOL_DATA.FP_LOADED, arg[1]);
             fi;
-        elif Length (arg) = 2 and IsPosInt (arg[1]) and IsPPowerInt (arg[2]) and arg[2] <> 1 then
+        elif Length(arg) = 2 and IsPosInt(arg[1]) and IsPPowerInt(arg[2]) and arg[2] <> 1 then
             if arg[1] > 1 then
-                UnbindIfBound (IRREDSOL_DATA.FP, arg[1], arg[2]);
-                UnbindIfBound (IRREDSOL_DATA.FP_INDEX, arg[1], arg[2]);
-                UnbindIfBound (IRREDSOL_DATA.FP_LOADED, arg[1], arg[2]);
+                UnbindIfBound(IRREDSOL_DATA.FP, arg[1], arg[2]);
+                UnbindIfBound(IRREDSOL_DATA.FP_INDEX, arg[1], arg[2]);
+                UnbindIfBound(IRREDSOL_DATA.FP_LOADED, arg[1], arg[2]);
             fi;
         else
-            Error ("Usage: `UnloadAbsolutelyIrreducibleSolvableGroupFingerprints ( [n [, q]] )'");
+            Error("Usage: `UnloadAbsolutelyIrreducibleSolvableGroupFingerprints( [n [, q]] )'");
         fi;
     end);
 
@@ -254,22 +254,22 @@ InstallGlobalFunction (UnloadAbsolutelyIrreducibleSolvableGroupFingerprints,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallGlobalFunction (LoadedAbsolutelyIrreducibleSolvableGroupFingerprints,
-    function ()
+InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolvableGroupFingerprints,
+    function()
     
         local n, p, data, fields;
         
         data := [];
-        for n in [1..Length (IRREDSOL_DATA.FP)] do
-            if IsBound (IRREDSOL_DATA.FP[n]) then
+        for n in [1..Length(IRREDSOL_DATA.FP)] do
+            if IsBound(IRREDSOL_DATA.FP[n]) then
                 fields := [];
-                for p in [1..Length (IRREDSOL_DATA.FP[n])] do
-                    if IsBound (IRREDSOL_DATA.FP[n][p]) then
-                        Add (fields, p);
+                for p in [1..Length(IRREDSOL_DATA.FP[n])] do
+                    if IsBound(IRREDSOL_DATA.FP[n][p]) then
+                        Add(fields, p);
                     fi;
                 od;
-                if not IsEmpty (fields) then
-                    Add (data, [n, fields]);
+                if not IsEmpty(fields) then
+                    Add(data, [n, fields]);
                 fi;
             fi;
         od;

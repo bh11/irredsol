@@ -12,7 +12,7 @@
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IsAvailableIdIrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableIdIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -21,7 +21,7 @@ DECLARE_IRREDSOL_FUNCTION ("IsAvailableIdIrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -31,8 +31,8 @@ DECLARE_IRREDSOL_FUNCTION ("IsAvailableIdAbsolutelyIrreducibleSolvableMatrixGrou
 ##  construct some data which is invariant under conjugation by an element
 ##  of the containing GL
 ##  
-DeclareAttribute ("FingerprintMatrixGroup", IsMatrixGroup);
-DECLARE_IRREDSOL_SYNONYMS ("FingerprintMatrixGroup");
+DeclareAttribute("FingerprintMatrixGroup", IsMatrixGroup);
+DECLARE_IRREDSOL_SYNONYMS("FingerprintMatrixGroup");
 
 
 ############################################################################
@@ -43,7 +43,7 @@ DECLARE_IRREDSOL_SYNONYMS ("FingerprintMatrixGroup");
 ##
 ##  computes a matrix x such that G^x = H or returns fail if no such x exists
 ##
-DeclareGlobalFunction ("ConjugatingMatIrreducibleOrFail");
+DeclareGlobalFunction("ConjugatingMatIrreducibleOrFail");
 
 
 ############################################################################
@@ -58,7 +58,7 @@ DeclareGlobalFunction ("ConjugatingMatIrreducibleOrFail");
 ##  The function works best if d is small. Irreducibility is only requried 
 ##  if ConjugatingMatIrreducibleOrFail is used
 ##
-DeclareGlobalFunction ("ConjugatingMatImprimitiveOrFail");
+DeclareGlobalFunction("ConjugatingMatImprimitiveOrFail");
 
 
 ############################################################################
@@ -69,14 +69,14 @@ DeclareGlobalFunction ("ConjugatingMatImprimitiveOrFail");
 ##  only works for absolutely irreducible groups G. This version
 ##  allows to prescribe a set of absolutely irreducible subgroups
 ##  to which G is compared. This set is described as a subset <inds> of 
-##  IndicesAbsolutelyIrreducibleSolvableMatrixGroups (n, q), where n is the
+##  IndicesAbsolutelyIrreducibleSolvableMatrixGroups(n, q), where n is the
 ##  degree of G and q is the order of the trace field of G. if inds is fail,
 ##  all groups in the IRREDSOL library are considered.
 ##
 ##  WARNING: The result may be wrong if G is not among the groups
 ##  described by <inds>.
 ##
-DeclareGlobalFunction ("RecognitionAISMatrixGroup");
+DeclareGlobalFunction("RecognitionAISMatrixGroup");
 
 
 ############################################################################
@@ -100,7 +100,7 @@ DeclareGlobalFunction ("RecognitionAISMatrixGroup");
 ##  Note that in most cases, the function will be much slower if wantmat
 ##  is set to true.  
 ##
-DECLARE_IRREDSOL_FUNCTION ("RecognitionIrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("RecognitionIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -111,7 +111,7 @@ DECLARE_IRREDSOL_FUNCTION ("RecognitionIrreducibleSolvableMatrixGroup");
 ##  its arguments and returns fail if G is not within the scope of the 
 ##  IRREDSOL library
 ##
-DECLARE_IRREDSOL_FUNCTION ("RecognitionIrreducibleSolvableMatrixGroupNC");
+DECLARE_IRREDSOL_FUNCTION("RecognitionIrreducibleSolvableMatrixGroupNC");
 
 
 ############################################################################
@@ -120,8 +120,8 @@ DECLARE_IRREDSOL_FUNCTION ("RecognitionIrreducibleSolvableMatrixGroupNC");
 ##
 ##  see the IRREDSOL manual
 ##  
-DeclareAttribute ("IdIrreducibleSolvableMatrixGroup", IsMatrixGroup);
-DECLARE_IRREDSOL_SYNONYMS ("IdIrreducibleSolvableMatrixGroup");
+DeclareAttribute("IdIrreducibleSolvableMatrixGroup", IsMatrixGroup);
+DECLARE_IRREDSOL_SYNONYMS("IdIrreducibleSolvableMatrixGroup");
 
 ############################################################################
 ##
@@ -129,7 +129,7 @@ DECLARE_IRREDSOL_SYNONYMS ("IdIrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IdIrreducibleSolvableMatrixGroupIndexMS");
+DECLARE_IRREDSOL_FUNCTION("IdIrreducibleSolvableMatrixGroupIndexMS");
 
 
 ############################################################################
@@ -138,7 +138,7 @@ DECLARE_IRREDSOL_FUNCTION ("IdIrreducibleSolvableMatrixGroupIndexMS");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IndexMSIdIrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("IndexMSIdIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################

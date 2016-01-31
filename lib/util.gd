@@ -12,7 +12,7 @@
 ##
 ##  info class for the library
 ##  
-DeclareInfoClass ("InfoIrredsol");
+DeclareInfoClass("InfoIrredsol");
 
 
 ############################################################################
@@ -21,7 +21,7 @@ DeclareInfoClass ("InfoIrredsol");
 ##
 ##  tests if a bit is set in t
 ##  
-DeclareGlobalFunction ("TestFlag");
+DeclareGlobalFunction("TestFlag");
 
 
 ############################################################################
@@ -31,7 +31,7 @@ DeclareGlobalFunction ("TestFlag");
 ##  given a matrix mat over GF(q), this computes a number which uniquely
 ##  identifies the characteristic polynomial of mat.
 ##  
-DeclareGlobalFunction ("CodeCharacteristicPolynomial");
+DeclareGlobalFunction("CodeCharacteristicPolynomial");
 
 
 ############################################################################
@@ -40,7 +40,7 @@ DeclareGlobalFunction ("CodeCharacteristicPolynomial");
 ##
 ##  computes a d x d matrix over GF(q) represented by the integer n
 ##  
-DeclareGlobalFunction ("FFMatrixByNumber");
+DeclareGlobalFunction("FFMatrixByNumber");
 
 
 ############################################################################
@@ -49,28 +49,28 @@ DeclareGlobalFunction ("FFMatrixByNumber");
 ##
 ##  computes the canonical pcgs wrt. pcgs represented by the integer n
 ##  
-DeclareGlobalFunction ("CanonicalPcgsByNumber");
+DeclareGlobalFunction("CanonicalPcgsByNumber");
 
 
 ############################################################################
 ##
 #F  OrderGroupByCanonicalPcgsByNumber(<pcgs>, <n>)
 ##
-##  computes Order (Group (CanonicalPcgsByNumber(<pcgs>, <n>))) without 
+##  computes Order(Group(CanonicalPcgsByNumber(<pcgs>, <n>))) without 
 ##  actually constructing the canonical pcgs or the group
 ##  
-DeclareGlobalFunction ("OrderGroupByCanonicalPcgsByNumber");
+DeclareGlobalFunction("OrderGroupByCanonicalPcgsByNumber");
 
 
 ############################################################################
 ##
 #F  ExponentsCanonicalPcgsByNumber(<pcgs>, <n>)
 ##
-##  computes the list of exponent vectors (relative to exp) of the 
+##  computes the list of exponent vectors (relative to exp) of the
 ##  elements of CanonicalPcgsByNumber(<pcgs>, <n>)) without actually
 ##  constructing the canonical pcgs itself
 ##  
-DeclareGlobalFunction ("ExponentsCanonicalPcgsByNumber");
+DeclareGlobalFunction("ExponentsCanonicalPcgsByNumber");
 
 
 ############################################################################
@@ -80,7 +80,7 @@ DeclareGlobalFunction ("ExponentsCanonicalPcgsByNumber");
 ##  tests whether famG is the collections family of matrices over the field
 ##  whose family is famF
 ##  
-DeclareGlobalFunction ("IsMatGroupOverFieldFam");
+DeclareGlobalFunction("IsMatGroupOverFieldFam");
 
 
 ############################################################################
@@ -89,7 +89,7 @@ DeclareGlobalFunction ("IsMatGroupOverFieldFam");
 ##
 ##  tests whether q is a prime power, caching new prime powers
 ##  
-DeclareGlobalFunction ("IsPPowerInt");
+DeclareGlobalFunction("IsPPowerInt");
 
 
 ############################################################################

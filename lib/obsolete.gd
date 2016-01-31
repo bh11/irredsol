@@ -12,7 +12,7 @@
 ##
 ##  see the IRREDSOL manual
 ##  
-DeclareGlobalFunction ("IndicesAbsolutelyIrreducibleSolvableMatrixGroups");
+DeclareGlobalFunction("IndicesAbsolutelyIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################
@@ -21,7 +21,7 @@ DeclareGlobalFunction ("IndicesAbsolutelyIrreducibleSolvableMatrixGroups");
 ##
 ##  see the IRREDSOL manual
 ##  
-DeclareGlobalFunction ("AbsolutelyIrreducibleSolvableMatrixGroup");
+DeclareGlobalFunction("AbsolutelyIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -30,7 +30,7 @@ DeclareGlobalFunction ("AbsolutelyIrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##
-DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroup");
+DeclareGlobalFunction("RecognitionAbsolutelyIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -39,7 +39,7 @@ DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##
-DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC");
+DeclareGlobalFunction("RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC");
 
 
 ############################################################################
@@ -48,7 +48,7 @@ DeclareGlobalFunction ("RecognitionAbsolutelyIrreducibleSolvableMatrixGroupNC");
 ##
 ##  see the IRREDSOL manual
 ##  
-DeclareGlobalFunction ("IdAbsolutelyIrreducibleSolvableMatrixGroup");
+DeclareGlobalFunction("IdAbsolutelyIrreducibleSolvableMatrixGroup");
    
 
 ############################################################################
@@ -58,9 +58,9 @@ DeclareGlobalFunction ("IdAbsolutelyIrreducibleSolvableMatrixGroup");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLAE_IRREDSOL_OBSOLETE ("PrimitivePermutationGroupIrreducibleMatrixGroup", 
+DECLAE_IRREDSOL_OBSOLETE("PrimitivePermutationGroupIrreducibleMatrixGroup",
     "PrimitivePermGroupIrreducibleMatrixGroup");
-DECLAE_IRREDSOL_OBSOLETE ("PrimitivePermutationGroupIrreducibleMatrixGroupNC", 
+DECLAE_IRREDSOL_OBSOLETE("PrimitivePermutationGroupIrreducibleMatrixGroupNC",
     "PrimitivePermGroupIrreducibleMatrixGroupNC");
     
 ############################################################################
@@ -69,7 +69,7 @@ DECLAE_IRREDSOL_OBSOLETE ("PrimitivePermutationGroupIrreducibleMatrixGroupNC",
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLAE_IRREDSOL_OBSOLETE ("PrimitiveSolvablePermutationGroup", 
+DECLAE_IRREDSOL_OBSOLETE("PrimitiveSolvablePermutationGroup",
     "PrimitiveSolvablePermGroup");
 
 ###########################################################################
@@ -78,7 +78,7 @@ DECLAE_IRREDSOL_OBSOLETE ("PrimitiveSolvablePermutationGroup",
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLAE_IRREDSOL_OBSOLETE ("IteratorPrimitiveSolvablePermutationGroups", 
+DECLAE_IRREDSOL_OBSOLETE("IteratorPrimitiveSolvablePermutationGroups",
     "IteratorPrimitiveSolvablePermGroups");
 
 ###########################################################################
@@ -87,7 +87,7 @@ DECLAE_IRREDSOL_OBSOLETE ("IteratorPrimitiveSolvablePermutationGroups",
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLAE_IRREDSOL_OBSOLETE ("AllPrimitiveSolvablePermutationGroups", 
+DECLAE_IRREDSOL_OBSOLETE("AllPrimitiveSolvablePermutationGroups",
     "AllPrimitiveSolvablePermGroups");
 
 
@@ -97,7 +97,7 @@ DECLAE_IRREDSOL_OBSOLETE ("AllPrimitiveSolvablePermutationGroups",
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLAE_IRREDSOL_OBSOLETE ("OnePrimitiveSolvablePermutationGroup", 
+DECLAE_IRREDSOL_OBSOLETE("OnePrimitiveSolvablePermutationGroup", 
     "OnePrimitiveSolvablePermGroup");
 
 

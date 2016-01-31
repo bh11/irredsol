@@ -12,7 +12,7 @@
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (Degree, "for matrix group", true, [IsMatrixGroup], 0,
+InstallMethod(Degree, "for matrix group", true, [IsMatrixGroup], 0,
     DegreeOfMatrixGroup);
     
         
@@ -22,12 +22,12 @@ InstallMethod (Degree, "for matrix group", true, [IsMatrixGroup], 0,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (DegreeOfMatrixGroup, "for matrix group with dimension", true, 
+InstallMethod(DegreeOfMatrixGroup, "for matrix group with dimension", true, 
     [IsMatrixGroup and HasDimension], 0,
     Dimension);
 
 
-InstallMethod (DegreeOfMatrixGroup, "for matrix group with dimension", true, 
+InstallMethod(DegreeOfMatrixGroup, "for matrix group with dimension", true, 
     [IsMatrixGroup and HasDimensionOfMatrixGroup], 0,
     DimensionOfMatrixGroup);
 
@@ -38,9 +38,9 @@ InstallMethod (DegreeOfMatrixGroup, "for matrix group with dimension", true,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsIrreducible, "for matrix group", true, [IsMatrixGroup], 0,
-    function (G)
-        return IsIrreducibleMatrixGroup (G, FieldOfMatrixGroup (G));
+InstallMethod(IsIrreducible, "for matrix group", true, [IsMatrixGroup], 0,
+    function(G)
+        return IsIrreducibleMatrixGroup(G, FieldOfMatrixGroup(G));
     end);
     
     
@@ -50,10 +50,10 @@ InstallMethod (IsIrreducible, "for matrix group", true, [IsMatrixGroup], 0,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsIrreducible, "for matrix group and field", IsMatGroupOverFieldFam, 
+InstallMethod(IsIrreducible, "for matrix group and field", IsMatGroupOverFieldFam, 
     [IsMatrixGroup, IsField], 0,
-    function (G, F)
-        return IsIrreducibleMatrixGroup (G, F);
+    function(G, F)
+        return IsIrreducibleMatrixGroup(G, F);
     end);
     
     
@@ -62,9 +62,9 @@ InstallMethod (IsIrreducible, "for matrix group and field", IsMatGroupOverFieldF
 #M  IsIrreducibleMatrixGroup(<G>)
 ##
 ##  
-InstallOtherMethod (IsIrreducibleMatrixGroup, "for matrix group", true, [IsMatrixGroup], 0,
-    function (G)
-        return IsIrreducibleMatrixGroup (G, FieldOfMatrixGroup (G));
+InstallOtherMethod(IsIrreducibleMatrixGroup, "for matrix group", true, [IsMatrixGroup], 0,
+    function(G)
+        return IsIrreducibleMatrixGroup(G, FieldOfMatrixGroup(G));
     end);
 
 
@@ -72,21 +72,21 @@ InstallOtherMethod (IsIrreducibleMatrixGroup, "for matrix group", true, [IsMatri
 ##
 #M  IsIrreducibleMatrixGroup(<G>, <F>)
 ##  
-InstallMethod (IsIrreducibleMatrixGroupOp, "for matrix group and finite field - use MeatAxe",
+InstallMethod(IsIrreducibleMatrixGroupOp, "for matrix group and finite field - use MeatAxe",
     IsMatGroupOverFieldFam, [IsFFEMatrixGroup, IsField and IsFinite], 0,    
-    function (G, F)
+    function(G, F)
 
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        if DegreeOfMatrixGroup (G) = 1 then
+        if DegreeOfMatrixGroup(G) = 1 then
             return true;
-        elif IsTrivial (G) then
+        elif IsTrivial(G) then
             return false;
-        elif IsSubset (F, FieldOfMatrixGroup (G)) then
-            return MTX.IsIrreducible (GModuleByMats (GeneratorsOfGroup (G), F));
+        elif IsSubset(F, FieldOfMatrixGroup(G)) then
+            return MTX.IsIrreducible (GModuleByMats (GeneratorsOfGroup(G), F));
         else
-            Error ("G must be a matrix group over F");
+            Error("G must be a matrix group over F");
         fi;
     end);
     
@@ -95,19 +95,19 @@ InstallMethod (IsIrreducibleMatrixGroupOp, "for matrix group and finite field - 
 ##
 #M  IsIrreducibleMatrixGroup(<G>, <F>)
 ##  
-InstallMethod (IsIrreducibleMatrixGroupOp, "for matrix group and finite field - test attr IsIrreducibleMatrixGroup",
+InstallMethod(IsIrreducibleMatrixGroupOp, "for matrix group and finite field - test attr IsIrreducibleMatrixGroup",
     IsMatGroupOverFieldFam, [IsFFEMatrixGroup and HasIsIrreducibleMatrixGroup, 
         IsField and IsFinite], 0,    
-    function (G, F)
+    function(G, F)
 
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        if IsIrreducibleMatrixGroup (G) then
+        if IsIrreducibleMatrixGroup(G) then
             if F = FieldOfMatrixGroup(G) then
                 return true;
             fi;
-        elif IsSubset (F, FieldOfMatrixGroup (G)) then
+        elif IsSubset(F, FieldOfMatrixGroup(G)) then
             return false;
         fi;
         TryNextMethod();
@@ -118,13 +118,13 @@ InstallMethod (IsIrreducibleMatrixGroupOp, "for matrix group and finite field - 
 ##
 #M  IsIrreducibleMatrixGroup(<G>, <F>)
 ##  
-InstallMethod (IsIrreducibleMatrixGroupOp, "for matrix group and finite field - for absolutely irreducible matrix group",
+InstallMethod(IsIrreducibleMatrixGroupOp, "for matrix group and finite field - for absolutely irreducible matrix group",
     IsMatGroupOverFieldFam, [IsFFEMatrixGroup and IsAbsolutelyIrreducibleMatrixGroup, 
         IsField and IsFinite], RankFilter(HasIsIrreducibleMatrixGroup),    
-    function (G, F)
+    function(G, F)
 
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
         return true;
     end);
@@ -134,9 +134,9 @@ InstallMethod (IsIrreducibleMatrixGroupOp, "for matrix group and finite field - 
 ##
 #M  IsAbsolutelyIrreducible(<G>)
 ##  
-InstallMethod (IsAbsolutelyIrreducible, "for matrix group", true, [IsMatrixGroup], 0,
-    function (G)
-        return IsAbsolutelyIrreducibleMatrixGroup (G);
+InstallMethod(IsAbsolutelyIrreducible, "for matrix group", true, [IsMatrixGroup], 0,
+    function(G)
+        return IsAbsolutelyIrreducibleMatrixGroup(G);
     end);
 
 
@@ -147,19 +147,19 @@ InstallMethod (IsAbsolutelyIrreducible, "for matrix group", true, [IsMatrixGroup
 ##  we use `InstallOtherMethod' because otherwise there will be a warning
 ##  generated by KeyDependentOperation
 ##
-InstallOtherMethod (IsAbsolutelyIrreducibleMatrixGroup, "for mat group over finite field", true,
+InstallOtherMethod(IsAbsolutelyIrreducibleMatrixGroup, "for mat group over finite field", true,
     [IsFFEMatrixGroup], 0,
     
-    function (G)
+    function(G)
     
     local M;
 
-    if DegreeOfMatrixGroup (G) = 1 then
+    if DegreeOfMatrixGroup(G) = 1 then
         return true;
-    elif IsTrivial (G) then
+    elif IsTrivial(G) then
         return false;
     else
-        M := GModuleByMats (GeneratorsOfGroup (G), DefaultFieldOfMatrixGroup (G));
+        M := GModuleByMats (GeneratorsOfGroup(G), DefaultFieldOfMatrixGroup(G));
         return MTX.IsIrreducible (M) and MTX.IsAbsolutelyIrreducible (M);
     fi;
 end);
@@ -171,9 +171,9 @@ end);
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsPrimitive, "for matrix group", true, [IsMatrixGroup], 0,
-    function (G)
-        return IsPrimitiveMatrixGroup (G,  FieldOfMatrixGroup (G));
+InstallMethod(IsPrimitive, "for matrix group", true, [IsMatrixGroup], 0,
+    function(G)
+        return IsPrimitiveMatrixGroup(G,  FieldOfMatrixGroup(G));
     end);
     
     
@@ -184,9 +184,9 @@ InstallMethod (IsPrimitive, "for matrix group", true, [IsMatrixGroup], 0,
 ##  we need an OtherMethod to avoid the warning generated by
 ##  KeyDependentOperation
 ##  
-InstallOtherMethod (IsPrimitiveMatrixGroup, "for matrix group", true, [IsMatrixGroup], 0,
-    function (G)
-        return IsPrimitiveMatrixGroup (G, FieldOfMatrixGroup (G));
+InstallOtherMethod(IsPrimitiveMatrixGroup, "for matrix group", true, [IsMatrixGroup], 0,
+    function(G)
+        return IsPrimitiveMatrixGroup(G, FieldOfMatrixGroup(G));
     end);
 
 
@@ -196,11 +196,11 @@ InstallOtherMethod (IsPrimitiveMatrixGroup, "for matrix group", true, [IsMatrixG
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsPrimitive, "for matrix group over field", 
+InstallMethod(IsPrimitive, "for matrix group over field", 
     IsMatGroupOverFieldFam, [IsMatrixGroup, IsField], 0,
-    function (G, F)
+    function(G, F)
 
-        return IsPrimitiveMatrixGroup (G, F);
+        return IsPrimitiveMatrixGroup(G, F);
     end);
     
 
@@ -210,20 +210,20 @@ InstallMethod (IsPrimitive, "for matrix group over field",
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, construct IsomorphismPcGroup", 
+InstallMethod(IsPrimitiveMatrixGroupOp, "for matrix group over finite field, construct IsomorphismPcGroup", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and IsSolvableGroup, IsField and IsFinite], 0,
 
-    function (G, F)    
+    function(G, F)    
         local iso, inv;
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        iso := IsomorphismPcGroup (G);
+        iso := IsomorphismPcGroup(G);
         inv := InverseGeneralMapping (iso);
         SetIsBijective (inv, true);
         SetIsGroupHomomorphism (inv, true);
-        return SmallBlockDimensionOfRepresentation (ImagesSource (iso), inv, F, DegreeOfMatrixGroup (G)) = DegreeOfMatrixGroup (G);        
+        return SmallBlockDimensionOfRepresentation (ImagesSource (iso), inv, F, DegreeOfMatrixGroup(G)) = DegreeOfMatrixGroup(G);        
     end);
 
 
@@ -233,17 +233,17 @@ InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, co
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, use RepresentationIsomorphism", 
+InstallMethod(IsPrimitiveMatrixGroupOp, "for matrix group over finite field, use RepresentationIsomorphism", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and HasRepresentationIsomorphism, IsField and IsFinite], 
     RankFilter (IsHandledByNiceMonomorphism) + 1, # rank higher than the nice mono. method
 
-    function (G, F)    
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+    function(G, F)    
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
         return SmallBlockDimensionOfRepresentation (
-            Source (RepresentationIsomorphism (G)), RepresentationIsomorphism (G), F, DegreeOfMatrixGroup (G)) = DegreeOfMatrixGroup (G);        
+            Source (RepresentationIsomorphism (G)), RepresentationIsomorphism (G), F, DegreeOfMatrixGroup(G)) = DegreeOfMatrixGroup(G);        
     end);
 
 
@@ -253,22 +253,22 @@ InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, us
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, use nice monomorphism", 
+InstallMethod(IsPrimitiveMatrixGroupOp, "for matrix group over finite field, use nice monomorphism", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and IsHandledByNiceMonomorphism, IsField and IsFinite], 
     0,
 
-    function (G, F)    
+    function(G, F)    
         local iso, inv;
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
         iso := NiceMonomorphism (G);
-        inv := GroupHomomorphismByFunction (NiceObject (G), G, 
-            h -> PreImagesRepresentative (iso, h),
-            g -> ImageElm (iso, g));
+        inv := GroupHomomorphismByFunction(NiceObject (G), G, 
+            h -> PreImagesRepresentative(iso, h),
+            g -> ImageElm(iso, g));
         SetIsBijective (inv, true);
-        return SmallBlockDimensionOfRepresentation (NiceObject (G), inv, F, DegreeOfMatrixGroup (G)) = DegreeOfMatrixGroup (G);        
+        return SmallBlockDimensionOfRepresentation (NiceObject (G), inv, F, DegreeOfMatrixGroup(G)) = DegreeOfMatrixGroup(G);        
     end);
 
 
@@ -278,23 +278,23 @@ InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, us
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, try if IsPrimitive is set", 
+InstallMethod(IsPrimitiveMatrixGroupOp, "for matrix group over finite field, try if IsPrimitive is set", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and HasIsPrimitive, IsField and IsFinite], 
     RankFilter (IsHandledByNiceMonomorphism) + 3, # rank higher than the nice mono. method
 
-    function (G, F)    
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+    function(G, F)    
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
         if IsPrimitive(G) then
-            if FieldOfMatrixGroup (G) = F then
+            if FieldOfMatrixGroup(G) = F then
                 return true;
             fi;
         else
             return false;
         fi;
-        TryNextMethod ();            
+        TryNextMethod();            
     end);
 
 
@@ -308,25 +308,25 @@ InstallMethod (IsPrimitiveMatrixGroupOp, "for matrix group over finite field, tr
 ##  of block dimension k, where k < limit, or k >= limit and G has no
 ##  block system of block dimesnion < limit
 ##  
-InstallGlobalFunction (SmallBlockDimensionOfRepresentation, function (G, hom, F, limit)
+InstallGlobalFunction(SmallBlockDimensionOfRepresentation, function(G, hom, F, limit)
 
     # computes a block dimension smaller than limit, if it exists,
     # or the smallest block dimension otherwise
     local max, min, dim, M, m, cf, i;
             
-    max := AttributeValueNotSet (MaximalSubgroupClassReps, G);
-    min := DegreeOfMatrixGroup (Range (hom));
+    max := AttributeValueNotSet(MaximalSubgroupClassReps, G);
+    min := DegreeOfMatrixGroup(Range (hom));
     for M in max do
-        if not IsTrivial (M) then
-            m := GModuleByMats (List (GeneratorsOfGroup (M), x -> ImageElm (hom, x)), F);
+        if not IsTrivial(M) then
+            m := GModuleByMats (List(GeneratorsOfGroup(M), x -> ImageElm(hom, x)), F);
             if not MTX.IsIrreducible (m) then
-                cf := First (MTX.CompositionFactors (m),
-                    cf -> MTX.Dimension (cf) * IndexNC(G, M) = DegreeOfMatrixGroup (Range (hom)) 
-                            and Length (MTX.Homomorphisms (cf, m)) > 0);
+                cf := First (MTX.CompositionFactors(m),
+                    cf -> MTX.Dimension (cf) * IndexNC(G, M) = DegreeOfMatrixGroup(Range (hom)) 
+                            and Length(MTX.Homomorphisms (cf, m)) > 0);
                 if cf <> fail then
                     dim := SmallBlockDimensionOfRepresentation (M, 
-                        GroupHomomorphismByImagesNC (M, GL(MTX.Dimension (cf), Size (F)),
-                        GeneratorsOfGroup (M), MTX.Generators (cf)),
+                        GroupHomomorphismByImagesNC(M, GL(MTX.Dimension (cf), Size(F)),
+                        GeneratorsOfGroup(M), MTX.Generators (cf)),
                         F, limit);
                     if dim < min then
                         min := dim;
@@ -348,9 +348,9 @@ end);
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimension, "for matrix group", true, [IsMatrixGroup], 0,
-    function (G)
-        return MinimalBlockDimensionOfMatrixGroup (G);
+InstallMethod(MinimalBlockDimension, "for matrix group", true, [IsMatrixGroup], 0,
+    function(G)
+        return MinimalBlockDimensionOfMatrixGroup(G);
     end);
     
 
@@ -360,14 +360,14 @@ InstallMethod (MinimalBlockDimension, "for matrix group", true, [IsMatrixGroup],
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimension, "for matrix group and field", 
+InstallMethod(MinimalBlockDimension, "for matrix group and field", 
     IsMatGroupOverFieldFam, [IsMatrixGroup, IsField], 0,
-    function (G, F)
+    function(G, F)
 
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        return MinimalBlockDimensionOfMatrixGroup (G, F);
+        return MinimalBlockDimensionOfMatrixGroup(G, F);
     end);
 
 
@@ -377,10 +377,10 @@ InstallMethod (MinimalBlockDimension, "for matrix group and field",
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallOtherMethod (MinimalBlockDimensionOfMatrixGroup, "for matrix group", true, 
+InstallOtherMethod(MinimalBlockDimensionOfMatrixGroup, "for matrix group", true, 
     [IsMatrixGroup], 0,
-    function (G)
-        return MinimalBlockDimensionOfMatrixGroup (G, FieldOfMatrixGroup (G));
+    function(G)
+        return MinimalBlockDimensionOfMatrixGroup(G, FieldOfMatrixGroup(G));
     end);
     
     
@@ -390,21 +390,21 @@ InstallOtherMethod (MinimalBlockDimensionOfMatrixGroup, "for matrix group", true
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over finite field", 
+InstallMethod(MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over finite field", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and IsSolvableGroup, IsField and IsFinite], 0,
 
-    function (G, F)    
+    function(G, F)    
         local iso, inv;
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
         
-        if not IsIrreducibleMatrixGroup (G, F) then
-            TryNextMethod ();
+        if not IsIrreducibleMatrixGroup(G, F) then
+            TryNextMethod();
         fi;
         
-        iso := IsomorphismPcGroup (G);
+        iso := IsomorphismPcGroup(G);
         inv := InverseGeneralMapping (iso);
         SetIsBijective (inv, true);
         SetIsGroupHomomorphism (inv, true);
@@ -418,18 +418,18 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over fini
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, 
+InstallMethod(MinimalBlockDimensionOfMatrixGroupOp, 
     "for matrix group over finite field with representation homomorphism", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and HasRepresentationIsomorphism, IsField and IsFinite], 
         RankFilter (IsHandledByNiceMonomorphism) + 1, # rank higher than the nice mono. method
 
-    function (G, F)    
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+    function(G, F)    
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        if not IsIrreducibleMatrixGroup (G, F) then
-            TryNextMethod ();
+        if not IsIrreducibleMatrixGroup(G, F) then
+            TryNextMethod();
         fi;
         return SmallBlockDimensionOfRepresentation (
             Source (RepresentationIsomorphism (G)), RepresentationIsomorphism (G), F, 2) ;        
@@ -442,23 +442,23 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over finite field, use NiceMonomorphism", 
+InstallMethod(MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over finite field, use NiceMonomorphism", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and IsHandledByNiceMonomorphism, IsField and IsFinite], 
     0,
 
-    function (G, F)    
+    function(G, F)    
         local iso, inv;
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        if not IsIrreducibleMatrixGroup (G, F) then
-            TryNextMethod ();
+        if not IsIrreducibleMatrixGroup(G, F) then
+            TryNextMethod();
         fi;
         iso := NiceMonomorphism (G);
-        inv := GroupHomomorphismByFunction (NiceObject (G), G, 
-            h -> PreImagesRepresentative (iso, h),
-            g -> ImageElm (iso, g));
+        inv := GroupHomomorphismByFunction(NiceObject (G), G, 
+            h -> PreImagesRepresentative(iso, h),
+            g -> ImageElm(iso, g));
         SetIsBijective (inv, true);
         return SmallBlockDimensionOfRepresentation (NiceObject (G), inv, F, 2);        
     end);
@@ -470,22 +470,22 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over fini
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, 
+InstallMethod(MinimalBlockDimensionOfMatrixGroupOp, 
     "for matrix group over finite field which has MinimalBlockDimension", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and HasMinimalBlockDimension, IsField and IsFinite], 
         RankFilter (IsHandledByNiceMonomorphism) + 1, # rank higher than the nice mono. method
 
-    function (G, F)    
-        if not IsSubset (F, FieldOfMatrixGroup (G)) then
-            Error ("G must be a matrix group over F");
+    function(G, F)    
+        if not IsSubset(F, FieldOfMatrixGroup(G)) then
+            Error("G must be a matrix group over F");
         fi;
-        if F = FieldOfMatrixGroup (G) then
+        if F = FieldOfMatrixGroup(G) then
             return MinimalBlockDimension (G);
         elif MinimalBlockDimension (G) = 1 then
             return 1;
         fi;
-        TryNextMethod ();
+        TryNextMethod();
     end);
 
 
@@ -495,8 +495,8 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (CharacteristicOfField, "for matrix group", true, [IsMatrixGroup], 0,
-    M -> Characteristic (DefaultFieldOfMatrixGroup (M)));
+InstallMethod(CharacteristicOfField, "for matrix group", true, [IsMatrixGroup], 0,
+    M -> Characteristic (DefaultFieldOfMatrixGroup(M)));
 
 
 ############################################################################
@@ -505,7 +505,7 @@ InstallMethod (CharacteristicOfField, "for matrix group", true, [IsMatrixGroup],
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (Characteristic, "for matrix group", true, [IsMatrixGroup], 0,
+InstallMethod(Characteristic, "for matrix group", true, [IsMatrixGroup], 0,
     CharacteristicOfField);
 
 
@@ -515,23 +515,23 @@ InstallMethod (Characteristic, "for matrix group", true, [IsMatrixGroup], 0,
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (RepresentationIsomorphism, "for mat group handled by nice mono.", true,
+InstallMethod(RepresentationIsomorphism, "for mat group handled by nice mono.", true,
     [IsMatrixGroup and IsHandledByNiceMonomorphism], 0,
-    function (G)
+    function(G)
 
         local nice, H;
         
         nice := NiceMonomorphism (G);
         H := NiceObject(G);
         
-        if IsSolvableGroup (H) then
-            nice := IsomorphismPcGroup (G);
+        if IsSolvableGroup(H) then
+            nice := IsomorphismPcGroup(G);
             H := Range (nice);
         fi;
         
-        return GroupHomomorphismByFunction (H, G, 
-            x -> PreImagesRepresentative (nice, x),
-            x -> ImageElm (nice, x));
+        return GroupHomomorphismByFunction(H, G, 
+            x -> PreImagesRepresentative(nice, x),
+            x -> ImageElm(nice, x));
     end);
     
 
@@ -541,16 +541,16 @@ InstallMethod (RepresentationIsomorphism, "for mat group handled by nice mono.",
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (RepresentationIsomorphism, "solvable group: inverse of IsomorphismPcGroup", true,
+InstallMethod(RepresentationIsomorphism, "solvable group: inverse of IsomorphismPcGroup", true,
     [IsMatrixGroup], 0,
-    function (G)
+    function(G)
 
         local nice;
         
-        nice := IsomorphismPcGroup (G);
-        return GroupHomomorphismByFunction (Range(nice), G, 
-            x -> PreImagesRepresentative (nice, x),
-            x -> ImageElm (nice, x));
+        nice := IsomorphismPcGroup(G);
+        return GroupHomomorphismByFunction(Range(nice), G, 
+            x -> PreImagesRepresentative(nice, x),
+            x -> ImageElm(nice, x));
     end);
     
 
@@ -571,52 +571,52 @@ InstallMethod (RepresentationIsomorphism, "solvable group: inverse of Isomorphis
 ##  stab1: the stabilizer in G of the first block (i. e., the block with basis bases[1])
 ##  min:    true if the block system is a minimal block system amongst the systems returned
 ##
-InstallGlobalFunction (ImprimitivitySystemsForRepresentation, function (G, rep, F, limit)
+InstallGlobalFunction(ImprimitivitySystemsForRepresentation, function(G, rep, F, limit)
 
     local systems, max, M, gens, m, c, cf, hom, subsys, sys, newsys, homBasis, homSpace, bas, newbasis, pos, orb;
     
-    if DegreeOfMatrixGroup (Range (rep))< limit then
-        return     [rec (bases := [IdentityMat (DegreeOfMatrixGroup (Range (rep)), F)], stab1 := G, min := true)];
+    if DegreeOfMatrixGroup(Range (rep))< limit then
+        return     [rec(bases := [IdentityMat (DegreeOfMatrixGroup(Range (rep)), F)], stab1 := G, min := true)];
     fi;
     systems := [];
-    max := AttributeValueNotSet (MaximalSubgroupClassReps, G);
+    max := AttributeValueNotSet(MaximalSubgroupClassReps, G);
     for M in max do
-        if not IsTrivial (M) then # inducing up from the trivial rep gives a reducible representation
-            gens := List (GeneratorsOfGroup (M), x -> ImageElm (rep, x));
+        if not IsTrivial(M) then # inducing up from the trivial rep gives a reducible representation
+            gens := List(GeneratorsOfGroup(M), x -> ImageElm(rep, x));
             m := GModuleByMats (gens, F);
             if not MTX.IsIrreducible (m) then
-                for c in MTX.CollectedFactors (m) do
+                for c in MTX.CollectedFactors(m) do
                     cf := c[1];
                     if MTX.Dimension (cf) * IndexNC(G, M) = Degree (Range (rep)) then
                         homBasis := MTX.Homomorphisms (cf, m);
-                        if Length (homBasis) > 0 then # submodule isomorphic with cf
+                        if Length(homBasis) > 0 then # submodule isomorphic with cf
                             
                             # get imprimitivity systems for cf
                             
-                            hom := GroupHomomorphismByImagesNC (M, GL(MTX.Dimension (cf), Size (F)), 
-                                GeneratorsOfGroup (M), MTX.Generators (cf));    
+                            hom := GroupHomomorphismByImagesNC(M, GL(MTX.Dimension (cf), Size(F)), 
+                                GeneratorsOfGroup(M), MTX.Generators (cf));    
                             subsys := ImprimitivitySystemsForRepresentation (M, hom, F, limit);
-                            Add (subsys, rec(bases := [IdentityMat (MTX.Dimension (cf), F)], stab1 := M,
-                                min := Length (subsys) = 0));
+                            Add(subsys, rec(bases := [IdentityMat (MTX.Dimension (cf), F)], stab1 := M,
+                                min := Length(subsys) = 0));
                             
                             # translate result back
                             
                             homSpace := VectorSpace (F, homBasis, "basis");
-                            Assert (1, Dimension (homSpace) = c[2]);
+                            Assert(1, Dimension (homSpace) = c[2]);
                             for bas in Enumerator (homSpace) do
                                 if bas <> Zero (homSpace) then
                                     for sys in subsys do
-                                        newbasis := List (sys.bases[1]*bas, ShallowCopy);
+                                        newbasis := List(sys.bases[1]*bas, ShallowCopy);
                                         TriangulizeMat (newbasis);
                                         if ForAll (systems, sys -> not newbasis in sys.bases) then
-                                            orb := Orbit (ImagesSet (rep, G), newbasis, OnSubspacesByCanonicalBasis);
-                                            Assert (1, Length (orb) * Length (newbasis) = Degree (Range (rep)));
-                                            Assert (1, Length (orb) = IndexNC(G, sys.stab1));
+                                            orb := Orbit (ImagesSet(rep, G), newbasis, OnSubspacesByCanonicalBasis);
+                                            Assert(1, Length(orb) * Length(newbasis) = Degree (Range (rep)));
+                                            Assert(1, Length(orb) = IndexNC(G, sys.stab1));
                                             if orb[1] <> newbasis then
                                                 pos := Position (orb, newbasis);
                                                 orb{[1, pos]} := orb{[pos, 1]};
                                             fi;
-                                            Add (systems, rec (bases := orb, stab1 := sys.stab1, min := sys.min)); 
+                                            Add(systems, rec(bases := orb, stab1 := sys.stab1, min := sys.min)); 
                                         fi;
                                     od;
                                 fi;
@@ -630,7 +630,7 @@ InstallGlobalFunction (ImprimitivitySystemsForRepresentation, function (G, rep, 
     
     # add trivial system
     
-    Add (systems, rec (bases := [IdentityMat (Degree (Range (rep)), F)], stab1 := G, min := Length (systems) = 0));
+    Add(systems, rec(bases := [IdentityMat (Degree (Range (rep)), F)], stab1 := G, min := Length(systems) = 0));
     return systems;
 end);
 
@@ -641,10 +641,10 @@ end);
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (ImprimitivitySystemsOp, "for matrix group handled by nice mono. and finite field", 
+InstallMethod(ImprimitivitySystemsOp, "for matrix group handled by nice mono. and finite field", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and IsHandledByNiceMonomorphism, IsField and IsFinite], 0, 
-    function (G, F)
+    function(G, F)
         local rep;
         rep := RepresentationIsomorphism (G);
         return ImprimitivitySystemsForRepresentation (Source (rep), rep, F, 0);
@@ -657,10 +657,10 @@ InstallMethod (ImprimitivitySystemsOp, "for matrix group handled by nice mono. a
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (ImprimitivitySystemsOp, "for matrix group handled by nice mono. and finite field", 
+InstallMethod(ImprimitivitySystemsOp, "for matrix group handled by nice mono. and finite field", 
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and IsHandledByNiceMonomorphism, IsField and IsFinite], 0, 
-    function (G, F)
+    function(G, F)
         local rep;
         rep := RepresentationIsomorphism (G);
         return ImprimitivitySystemsForRepresentation (Source (rep), rep, F, 0);
@@ -673,10 +673,10 @@ InstallMethod (ImprimitivitySystemsOp, "for matrix group handled by nice mono. a
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallOtherMethod (ImprimitivitySystems, "for matrix group: use FieldOfMatrixGroup", true,
+InstallOtherMethod(ImprimitivitySystems, "for matrix group: use FieldOfMatrixGroup", true,
     [IsFFEMatrixGroup], 0,
-    function (G)
-        return ImprimitivitySystems (G, FieldOfMatrixGroup (G));
+    function(G)
+        return ImprimitivitySystems (G, FieldOfMatrixGroup(G));
     end);
     
     
@@ -686,20 +686,20 @@ InstallOtherMethod (ImprimitivitySystems, "for matrix group: use FieldOfMatrixGr
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group having imprimitivity systems",
+InstallMethod(MinimalBlockDimensionOfMatrixGroupOp, "for matrix group having imprimitivity systems",
     IsMatGroupOverFieldFam,
     [IsFFEMatrixGroup and HasComputedImprimitivitySystemss, IsField],
     0,
-    function (G, F)
+    function(G, F)
     
         local known, i, sys, d, l;
         
         known := ComputedImprimitivitySystemss (G);
         for i in [1,3..Length(known)-1] do
             if known[i] = F then
-                d := DegreeOfMatrixGroup (G);
+                d := DegreeOfMatrixGroup(G);
                 for sys in known[i+1] do
-                    l := Length (sys.bases[1]);
+                    l := Length(sys.bases[1]);
                     if l < d then
                         d := l;
                     fi;
@@ -707,7 +707,7 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group having im
                 return d;
             fi;
         od;
-        TryNextMethod ();
+        TryNextMethod();
     end);
     
     
@@ -718,48 +718,48 @@ InstallMethod (MinimalBlockDimensionOfMatrixGroupOp, "for matrix group having im
 ##
 ##  see IRREDSOL documentation
 ##  
-InstallMethod (TraceField, "for irreducible matrix group over finite field", true,
+InstallMethod(TraceField, "for irreducible matrix group over finite field", true,
     [IsFFEMatrixGroup and IsFinite], 1,
 
-    function (G)
+    function(G)
 
     local ext, gens, q, q0, module, module2, gens2, c, i, p;
     
-    q := Size (FieldOfMatrixGroup (G));
-    Info (InfoIrredsol, 3, "TraceField: matrix group is over GF(",q,")");
+    q := Size(FieldOfMatrixGroup(G));
+    Info(InfoIrredsol, 3, "TraceField: matrix group is over GF(",q,")");
     
-    if IsTrivial (G) then
-        Info (InfoIrredsol, 4, "TraceField: trivial group case");
-        return FieldOfMatrixGroup (G);
+    if IsTrivial(G) then
+        Info(InfoIrredsol, 4, "TraceField: trivial group case");
+        return FieldOfMatrixGroup(G);
     fi;
     
     # guess a field contained in the smallest field over which module can be realised
     
     
-    q0 := Size ( Field (List ([1..LogInt (Size (G), 2) + 10], i -> TraceMat(PseudoRandom(G)))));
+    q0 := Size( Field (List([1..LogInt(Size(G), 2) + 10], i -> TraceMat(PseudoRandom(G)))));
     
     
     if q = q0 then
-        Info (InfoIrredsol, 3, "TraceField: trace field is GF(", q0, ")");
-        return FieldOfMatrixGroup (G);
+        Info(InfoIrredsol, 3, "TraceField: trace field is GF(", q0, ")");
+        return FieldOfMatrixGroup(G);
     fi;
     
-    Info (InfoIrredsol, 3, "TraceField: trace field contains GF(",q0, ")");
+    Info(InfoIrredsol, 3, "TraceField: trace field contains GF(",q0, ")");
 
-    module := GModuleByMats (GeneratorsOfGroup (G), FieldOfMatrixGroup (G));
+    module := GModuleByMats (GeneratorsOfGroup(G), FieldOfMatrixGroup(G));
     
     if not MTX.IsIrreducible (module) then
-        Info (InfoIrredsol, 3, "TraceField: trace field contains GF(",q0, ")");
+        Info(InfoIrredsol, 3, "TraceField: trace field contains GF(",q0, ")");
         TryNextMethod();
     fi;
     
-    for c in Collected (Factors (LogInt (q, q0))) do
+    for c in Collected (Factors(LogInt(q, q0))) do
         p := c[1];
         for i in [1..c[2]] do
         
-            Info (InfoIrredsol, 1, "TraceField: trying if trace field is GF(",q0, ")");
+            Info(InfoIrredsol, 1, "TraceField: trying if trace field is GF(",q0, ")");
             # compute Galois conjugate of module
-            gens2 := List (MTX.Generators (module), g -> List (g, row -> List (row, a -> a^q0)));    
+            gens2 := List(MTX.Generators (module), g -> List(g, row -> List(row, a -> a^q0)));    
             module2 := GModuleByMats (gens2, MTX.Field (module));
                          
             # If module1 and module2 are conjugate, their traces are the same, and thus
@@ -773,7 +773,7 @@ InstallMethod (TraceField, "for irreducible matrix group over finite field", tru
             # Comm. Alg. 25 (1997), 1703--1711
             
              if MTX.Isomorphism (module, module2) <> fail then
-                Info (InfoIrredsol, 1, "TraceField: trace field is GF(",q0, ")");
+                Info(InfoIrredsol, 1, "TraceField: trace field is GF(",q0, ")");
                 return GF(q0);
             fi;
     
@@ -781,7 +781,7 @@ InstallMethod (TraceField, "for irreducible matrix group over finite field", tru
         od;
     od;
     
-    Info (InfoIrredsol, 1, "TraceField: not rewritable over subfield: trace field is GF(",q0, ")");
+    Info(InfoIrredsol, 1, "TraceField: not rewritable over subfield: trace field is GF(",q0, ")");
     
     return GF(q0);
 end);
@@ -792,20 +792,20 @@ end);
 ##
 #M  TraceField(<G>)
 ##
-InstallMethod (TraceField, "generic method for finite matrix groups via conjugacy classes", true,
+InstallMethod(TraceField, "generic method for finite matrix groups via conjugacy classes", true,
     [IsMatrixGroup and IsFinite], 0,
-    function (G)
+    function(G)
     
         local F, rep;
         
-        F := FieldOfMatrixGroup (G);
+        F := FieldOfMatrixGroup(G);
         if IsPrimeField (F) then
             return F;
-        elif F = Field (List (GeneratorsOfGroup (G), TraceMat)) then
+        elif F = Field (List(GeneratorsOfGroup(G), TraceMat)) then
             return F;
         else
             rep := RepresentationIsomorphism (G);
-            return Field (List (ConjugacyClasses (Source (rep)), cl -> TraceMat(ImageElm (rep, Representative (cl)))));
+            return Field (List(ConjugacyClasses (Source (rep)), cl -> TraceMat(ImageElm(rep, Representative(cl)))));
         fi;
     end);
     
@@ -817,18 +817,18 @@ RedispatchOnCondition (TraceField, true, [IsMatrixGroup], [IsFinite], 0);
 ##
 #M  SplittingField(<G>)
 ##
-InstallMethod (SplittingField, "use MeatAxe", true,
+InstallMethod(SplittingField, "use MeatAxe", true,
     [IsFFEMatrixGroup], 0,
-    function (G)
+    function(G)
     
         local F, module;
         
-        F := FieldOfMatrixGroup (G);
-        module := GModuleByMats (GeneratorsOfGroup (G), F);
+        F := FieldOfMatrixGroup(G);
+        module := GModuleByMats (GeneratorsOfGroup(G), F);
         if MTX.IsIrreducible (module) then
             return GF(Characteristic (F)^MTX.DegreeSplittingField (module));
         else
-            Error ("G must be irreducible over FieldOfMatrixGroup (G)");
+            Error("G must be irreducible over FieldOfMatrixGroup(G)");
         fi;
     end);
     
@@ -844,22 +844,22 @@ InstallMethod (SplittingField, "use MeatAxe", true,
 ##  S. P. Glasby, R. B. Howlett, Writing representations over mnimal fields,
 ##  Comm. Alg. 25 (1997), 1703--1711
 ##
-InstallMethod (ConjugatingMatTraceField, "for irreducible FFE matrix group",     
+InstallMethod(ConjugatingMatTraceField, "for irreducible FFE matrix group",     
     true,
     [IsFFEMatrixGroup], 0,
     
-    function (G)
+    function(G)
     
         local ext, q, q1, t, C, CC, D, Y, A, i, j, mu, nu, 
             basis, moduleG, module, module2, module3, absirred;
 
-        if Length (GeneratorsOfGroup (G)) = 0 or TraceField(G) = FieldOfMatrixGroup (G) then
+        if Length(GeneratorsOfGroup(G)) = 0 or TraceField(G) = FieldOfMatrixGroup(G) then
             return One(G);
         fi;
 
-        q := Size (TraceField (G));
+        q := Size(TraceField (G));
 
-        moduleG := GModuleByMats (GeneratorsOfGroup (G), FieldOfMatrixGroup (G));
+        moduleG := GModuleByMats (GeneratorsOfGroup(G), FieldOfMatrixGroup(G));
 
         # reduce to the absolutely irreducible case
         
@@ -870,15 +870,15 @@ InstallMethod (ConjugatingMatTraceField, "for irreducible FFE matrix group",
         absirred := MTX.IsAbsolutelyIrreducible (moduleG);
         if absirred then
             module := moduleG;
-            ext := FieldOfMatrixGroup (G);
+            ext := FieldOfMatrixGroup(G);
         else
             ext := GF(CharacteristicOfField (G)^MTX.DegreeSplittingField (moduleG));
-            module := GModuleByMats (GeneratorsOfGroup (G), ext);
+            module := GModuleByMats (GeneratorsOfGroup(G), ext);
             repeat
                 basis := MTX.ProperSubmoduleBasis (module);
                 module := MTX.InducedActionSubmodule (module, basis);
             until MTX.IsIrreducible (module);
-            Assert (1, MTX.IsAbsolutelyIrreducible (module));
+            Assert(1, MTX.IsAbsolutelyIrreducible (module));
         fi;
         
         # moduleG can be rewritten over TraceField(G) but over no proper subfield
@@ -890,61 +890,61 @@ InstallMethod (ConjugatingMatTraceField, "for irreducible FFE matrix group",
         # Thus, taking q1-th powers is a generator of Gal (MTX.Field(module)/GF(q1))
         
         q1 := q^(MTX.Dimension (moduleG)/MTX.Dimension(module));
-        t := LogInt (Size (ext), q1);
+        t := LogInt(Size(ext), q1);
     
-        module2 := GModuleByMats (List (MTX.Generators (module), 
-            A -> List (A, row -> List (row, x -> x^q1))), ext);
+        module2 := GModuleByMats (List(MTX.Generators (module), 
+            A -> List(A, row -> List(row, x -> x^q1))), ext);
     
         C := MTX.Isomorphism (module, module2);
     
         if C = fail then
-            Error ("panic: cannot rewrite matrix group over trace field!");
+            Error("panic: cannot rewrite matrix group over trace field!");
         fi;
     
         CC := C;
         D := C;
         for i in [1..t-1] do
-            CC := List (CC, row -> List (row, x -> x^q1));
+            CC := List(CC, row -> List(row, x -> x^q1));
             D := D*CC;
         od;
     
         mu := D[1][1];
 
         repeat
-            nu := Random (ext);
-        until Norm (ext, GF(q1), nu) = mu;
+            nu := Random(ext);
+        until Norm(ext, GF(q1), nu) = mu;
     
         C := nu^-1 * C;
     
         repeat 
-            Y := RandomMat (MTX.Dimension (module), MTX.Dimension (module), ext);
+            Y := RandomMat(MTX.Dimension(module), MTX.Dimension(module), ext);
             A := Y;
             for i in [2..t] do
-                A := Y + C * List (A, row -> List (row, x -> x^q1));
+                A := Y + C * List(A, row -> List(row, x -> x^q1));
             od;
-        until Length (NullspaceMat (A)) = 0;
+        until Length(NullspaceMat(A)) = 0;
     
-        Assert (1, ForAll (MTX.Generators (module), g -> IsSubset (GF(q1), Field (Flat (g^A)))));
+        Assert(1, ForAll(MTX.Generators(module), g -> IsSubset(GF(q1), Field(Flat(g^A)))));
         
         # now we have a solution for the absolutely irreducible case
         
         if absirred then
-            MakeImmutable (A);
-            ConvertToMatrixRep (A, ext);
+            MakeImmutable(A);
+            ConvertToMatrixRep(A, ext);
             return A;
         fi;
         
-        basis := CanonicalBasis (AsVectorSpace (GF(q), GF(q1)));
+        basis := CanonicalBasis(AsVectorSpace(GF(q), GF(q1)));
         
-        module3 := GModuleByMats (List (MTX.Generators (module), x -> BlownUpMat (basis, x^A)), MTX.Field(moduleG));
+        module3 := GModuleByMats(List(MTX.Generators(module), x -> BlownUpMat(basis, x^A)), MTX.Field(moduleG));
         
-        A := Immutable(MTX.Isomorphism (moduleG, module3));
+        A := Immutable(MTX.Isomorphism(moduleG, module3));
         
         if A = fail then
-            Error ("could not find conjugating matrix");
+            Error("could not find conjugating matrix");
         fi;
-        Assert (1, ForAll (GeneratorsOfGroup(G), g -> IsSubset (GF(q), Field (Flat (g^A)))));
-        ConvertToMatrixRep (A, FieldOfMatrixGroup (G));
+        Assert(1, ForAll(GeneratorsOfGroup(G), g -> IsSubset(GF(q), Field(Flat(g^A)))));
+        ConvertToMatrixRep(A, FieldOfMatrixGroup(G));
         
         return A;
         

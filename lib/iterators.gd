@@ -17,7 +17,7 @@
 ##  To ignore one of the parameters orders, blockdims, max, set it to fail
 ##  If <indices> is fail, all groups are considered.
 ##  
-DECLARE_IRREDSOL_FUNCTION ("SelectionIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("SelectionIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################
@@ -30,7 +30,7 @@ DECLARE_IRREDSOL_FUNCTION ("SelectionIrreducibleSolvableMatrixGroups");
 ##  false, the non-maximal ones are returned. 
 ##  To ignore one of the parameters blockdims, max, set it to fail
 ##  
-DECLARE_IRREDSOL_FUNCTION ("OrdersAbsolutelyIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("OrdersAbsolutelyIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################
@@ -50,7 +50,7 @@ DECLARE_IRREDSOL_FUNCTION ("OrdersAbsolutelyIrreducibleSolvableMatrixGroups");
 ##  are returned in the record entry functions,
 ##  the following entries in argl are in the record entry values.
 ##
-DeclareGlobalFunction ("CheckAndExtractArguments");
+DeclareGlobalFunction("CheckAndExtractArguments");
 
 
 ############################################################################
@@ -59,7 +59,7 @@ DeclareGlobalFunction ("CheckAndExtractArguments");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IteratorIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("IteratorIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################
@@ -68,7 +68,7 @@ DECLARE_IRREDSOL_FUNCTION ("IteratorIrreducibleSolvableMatrixGroups");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("OneIrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("OneIrreducibleSolvableMatrixGroup");
 
 
 ############################################################################
@@ -77,7 +77,7 @@ DECLARE_IRREDSOL_FUNCTION ("OneIrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("AllIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("AllIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################

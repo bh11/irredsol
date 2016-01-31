@@ -13,9 +13,9 @@
 ##  tests if the i-th bit is set in binary representation the nonnegative 
 ##  integer n
 ##  
-InstallGlobalFunction (TestFlag,
-    function (n, i)
-        return QuoInt (n, 2^i) mod 2 = 1;
+InstallGlobalFunction(TestFlag,
+    function(n, i)
+        return QuoInt(n, 2^i) mod 2 = 1;
     end);
     
 
@@ -26,17 +26,17 @@ InstallGlobalFunction (TestFlag,
 ##  given a matrix mat over GF(q), this computes a number which uniquely
 ##  identifies the characteristic polynomial of mat.
 ##  
-InstallGlobalFunction (CodeCharacteristicPolynomial,
-    function (mat, q)
+InstallGlobalFunction(CodeCharacteristicPolynomial,
+    function(mat, q)
 
         local cf, z, sum, c;
 
         z := Z(q);
-        if Length (mat) = 2 then
+        if Length(mat) = 2 then
             cf := [ mat[1][1]*mat[2][2] - mat[1][2]*mat[2][1],
                     - mat[1][1] - mat[2][2],
                     z^0];
-        elif Length (mat) = 3 then
+        elif Length(mat) = 3 then
             cf := [ - mat[1][1]*mat[2][2]*mat[3][3] - mat[1][2]*mat[2][3]*mat[3][1] - mat[1][3]*mat[2][1]*mat[3][2]
                     + mat[1][1]*mat[2][3]*mat[3][2] + mat[2][2]*mat[1][3]*mat[3][1] + mat[3][3]*mat[2][1]*mat[1][2],
                     mat[1][1]*mat[2][2] + mat[2][2]*mat[3][3] + mat[1][1]*mat[3][3]
@@ -44,7 +44,7 @@ InstallGlobalFunction (CodeCharacteristicPolynomial,
                     - mat[1][1] - mat[2][2] - mat[3][3],
                     z^0];
         else
-            cf := CoefficientsOfUnivariatePolynomial (CharacteristicPolynomial (mat, 1));
+            cf := CoefficientsOfUnivariatePolynomial(CharacteristicPolynomial(mat, 1));
         fi;
         z := Z(q);
         sum := 0;
@@ -52,7 +52,7 @@ InstallGlobalFunction (CodeCharacteristicPolynomial,
             if c = 0*z then
                 sum := sum * q;
             else 
-                sum := sum * q + LogFFE (c, z) + 1;
+                sum := sum * q + LogFFE(c, z) + 1;
             fi;
         od;
 
@@ -66,24 +66,24 @@ InstallGlobalFunction (CodeCharacteristicPolynomial,
 ##
 ##  computes a d x d matrix over GF(q) represented by the integer n
 ##  
-InstallGlobalFunction (FFMatrixByNumber,
-    function (n, d, q)
+InstallGlobalFunction(FFMatrixByNumber,
+    function(n, d, q)
     
         local z, m, i, j, k;
         
         z := Z(q);
-        m := NullMat (d,d, GF(q));
+        m := NullMat(d,d, GF(q));
     
         for i in [d, d-1..1] do
             for j in [d, d-1..1] do
-                k := RemInt (n, q);
-                n := QuoInt (n, q);
+                k := RemInt(n, q);
+                n := QuoInt(n, q);
                 if k > 0 then
                     m[i][j] := z^(k-1);
                 fi;
             od;
         od;
-        ConvertToMatrixRep (m, q);
+        ConvertToMatrixRep(m, q);
         return m;
     end);
     
@@ -94,15 +94,15 @@ InstallGlobalFunction (FFMatrixByNumber,
 ##
 ##  computes the canonical pcgs wrt. pcgs represented by the integer n
 ##  
-InstallGlobalFunction (CanonicalPcgsByNumber,
-    function (pcgs, n)
+InstallGlobalFunction(CanonicalPcgsByNumber,
+    function(pcgs, n)
     
         local gens, cpcgs;
         
-        gens := List (ExponentsCanonicalPcgsByNumber (RelativeOrders (pcgs), n), 
-            exp -> PcElementByExponents (pcgs, exp));
-        cpcgs := InducedPcgsByPcSequenceNC (pcgs, gens);
-        SetIsCanonicalPcgs (cpcgs, true);
+        gens := List(ExponentsCanonicalPcgsByNumber(RelativeOrders(pcgs), n), 
+            exp -> PcElementByExponents(pcgs, exp));
+        cpcgs := InducedPcgsByPcSequenceNC(pcgs, gens);
+        SetIsCanonicalPcgs(cpcgs, true);
         return cpcgs;
     end);
 
@@ -111,22 +111,22 @@ InstallGlobalFunction (CanonicalPcgsByNumber,
 ##
 #F  OrderGroupByCanonicalPcgsByNumber(<pcgs>, <n>)
 ##
-##  computes Order (Group (CanonicalPcgsByNumber(<pcgs>, <n>))) without 
+##  computes Order(Group(CanonicalPcgsByNumber(<pcgs>, <n>))) without 
 ##  actually constructing the canonical pcgs or the group
 ##  
-InstallGlobalFunction (OrderGroupByCanonicalPcgsByNumber,
-    function (pcgs, n)
+InstallGlobalFunction(OrderGroupByCanonicalPcgsByNumber,
+    function(pcgs, n)
     
         local ros, order, j;
         
         order := 1;
-        ros := RelativeOrders (pcgs);
-        n := RemInt (n, 2^Length (ros));
+        ros := RelativeOrders(pcgs);
+        n := RemInt(n, 2^Length(ros));
         for j in [1..Length(ros)] do
-            if RemInt (n, 2) > 0 then
+            if RemInt(n, 2) > 0 then
                 order := order * ros[j];
             fi;
-            n := QuoInt (n, 2);
+            n := QuoInt(n, 2);
         od;
         return order;
     end);
@@ -141,31 +141,31 @@ InstallGlobalFunction (OrderGroupByCanonicalPcgsByNumber,
 ##  constructing the canonical pcgs itself - it is enough to know the 
 ##  relative orders of the pc elements
 ##  
-InstallGlobalFunction (ExponentsCanonicalPcgsByNumber,
-    function (ros, n)
+InstallGlobalFunction(ExponentsCanonicalPcgsByNumber,
+    function(ros, n)
     
         local depths, len, d, exps, exp, j, cpcgs;
         depths := [];
         len := Length(ros);
         for j in [1..len] do
-            d := RemInt (n, 2);
-            n := QuoInt (n, 2);
+            d := RemInt(n, 2);
+            n := QuoInt(n, 2);
             if d > 0 then
-                Add (depths, j);
+                Add(depths, j);
             fi;
         od;
     
         exps := [];
         for d in depths do
-            exp := ListWithIdenticalEntries (len, 0);
+            exp := ListWithIdenticalEntries(len, 0);
             exp[d] := 1;
             for j in [d+1..len] do
                 if not j in depths then
-                    exp[j] := RemInt (n, ros[j]);
-                    n := QuoInt (n, ros[j]);
+                    exp[j] := RemInt(n, ros[j]);
+                    n := QuoInt(n, ros[j]);
                 fi;
             od;
-            Add (exps, exp);
+            Add(exps, exp);
         od;
         
         return exps;
@@ -179,8 +179,8 @@ InstallGlobalFunction (ExponentsCanonicalPcgsByNumber,
 ##  tests whether famG is the collections family of matrices over the field
 ##  whose family is famF
 ##  
-InstallGlobalFunction (IsMatGroupOverFieldFam, function (famG, famF)
-    return CollectionsFamily (CollectionsFamily (famF)) = famG;
+InstallGlobalFunction(IsMatGroupOverFieldFam, function(famG, famF)
+    return CollectionsFamily(CollectionsFamily(famF)) = famG;
 end);
 
 
@@ -207,16 +207,16 @@ IRREDSOL_DATA.PRIME_POWERS :=
 ##
 ##  tests whether q is a positive prime power, caching new prime powers
 ##  
-InstallGlobalFunction (IsPPowerInt, 
-    function (q)
-        if not IsPosInt (q) then
+InstallGlobalFunction(IsPPowerInt, 
+    function(q)
+        if not IsPosInt(q) then
             return false;
-        elif IsPrimeInt (q) then
+        elif IsPrimeInt(q) then
             return true;
         elif q in IRREDSOL_DATA.PRIME_POWERS then
             return true;
         elif IsPrimePowerInt(q) then
-            AddSet (IRREDSOL_DATA.PRIME_POWERS, q);
+            AddSet(IRREDSOL_DATA.PRIME_POWERS, q);
             return true;
         else
             return false;

@@ -13,7 +13,7 @@
 ##  Data structures for caching the groups and fingerprints in the library,
 ##  the actual data will be loaded when required.
 ##  
-BindGlobal ("IRREDSOL_DATA", rec(
+BindGlobal("IRREDSOL_DATA", rec(
     GROUPS := [],             # group descriptions
     GUARDIANS := [],          # guardian data, each group in the library 
                               # is a subgroup of a guardian
@@ -40,11 +40,11 @@ BindGlobal ("IRREDSOL_DATA", rec(
 ##  permutation, orb is the orbit of k under perm, min is the smallest
 ##  integer in orb, and <k>^(<pi>^<pow>=<min>, such that [<n>, <q>, <d>, <min>]
 ##  is a valid id for the group obtained by rewriting
-##  AbsolutelyIrreducibleSolvableMatrixGroup (n/d, q^d, k) as a matrix group
+##  AbsolutelyIrreducibleSolvableMatrixGroup(n/d, q^d, k) as a matrix group
 ##  over F_p^n. The result is meaningless if 
-##  AbsolutelyIrreducibleSolvableMatrixGroup (n/d, q^d, k) does not exist
+##  AbsolutelyIrreducibleSolvableMatrixGroup(n/d, q^d, k) does not exist
 ##
-DECLARE_IRREDSOL_FUNCTION ("PermCanonicalIndexIrreducibleSolvableMatrixGroup"); 
+DECLARE_IRREDSOL_FUNCTION("PermCanonicalIndexIrreducibleSolvableMatrixGroup"); 
 
 
 ############################################################################
@@ -53,7 +53,7 @@ DECLARE_IRREDSOL_FUNCTION ("PermCanonicalIndexIrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IndicesIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("IndicesIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################
@@ -62,7 +62,7 @@ DECLARE_IRREDSOL_FUNCTION ("IndicesIrreducibleSolvableMatrixGroups");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IrreducibleSolvableMatrixGroup");
+DECLARE_IRREDSOL_FUNCTION("IrreducibleSolvableMatrixGroup");
   
 
 ############################################################################
@@ -71,7 +71,7 @@ DECLARE_IRREDSOL_FUNCTION ("IrreducibleSolvableMatrixGroup");
 ##
 ##  see the IRREDSOL manual
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups");
+DECLARE_IRREDSOL_FUNCTION("IndicesMaximalAbsolutelyIrreducibleSolvableMatrixGroups");
 
 
 ############################################################################

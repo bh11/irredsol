@@ -12,7 +12,7 @@
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IsAvailableAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableAbsolutelyIrreducibleSolvableGroupData");
 
 
 ############################################################################
@@ -21,7 +21,7 @@ DECLARE_IRREDSOL_FUNCTION ("IsAvailableAbsolutelyIrreducibleSolvableGroupData");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("IsAvailableIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("IsAvailableIrreducibleSolvableGroupData");
 
 
 ############################################################################
@@ -30,7 +30,7 @@ DECLARE_IRREDSOL_FUNCTION ("IsAvailableIrreducibleSolvableGroupData");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("TryLoadAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolvableGroupData");
 
 
 ############################################################################
@@ -39,7 +39,7 @@ DECLARE_IRREDSOL_FUNCTION ("TryLoadAbsolutelyIrreducibleSolvableGroupData");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("LoadAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolvableGroupData");
 
 
 ############################################################################
@@ -48,7 +48,7 @@ DECLARE_IRREDSOL_FUNCTION ("LoadAbsolutelyIrreducibleSolvableGroupData");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("LoadedAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolvableGroupData");
 
 
 ############################################################################
@@ -57,7 +57,7 @@ DECLARE_IRREDSOL_FUNCTION ("LoadedAbsolutelyIrreducibleSolvableGroupData");
 ##
 ##  see IRREDSOL documentation
 ##  
-DECLARE_IRREDSOL_FUNCTION ("UnloadAbsolutelyIrreducibleSolvableGroupData");
+DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolvableGroupData");
 
 
 ############################################################################
