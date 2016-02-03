@@ -11,6 +11,14 @@
 
 % input GAP macro file
 \input ../../../doc/gapmacro.tex
+%\batchmode
+
+\def\letter#1{%
+  \edef\tempa{LeTtEr#1}%
+  \nameddest{\tempa}%
+  \setbookmark{\tempa}{#1}%
+  \bigskip{\secfont #1}\par\nobreak\smallskip\nobreak}
+
 
 \citebookstrue
 \biblitemtrue
