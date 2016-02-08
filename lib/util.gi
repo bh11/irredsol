@@ -46,7 +46,7 @@ InstallGlobalFunction(CodeCharacteristicPolynomial,
         else
             cf := CoefficientsOfUnivariatePolynomial(CharacteristicPolynomial(mat, 1));
         fi;
-        z := Z(q);
+
         sum := 0;
         for c in cf do
             if c = 0*z then
