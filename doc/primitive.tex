@@ -313,7 +313,9 @@ gap> IdPrimitiveSolubleGroup(G);
 \>RecognitionPrimitiveSolvableGroup(<G>,<wantiso>) F
 
 This function returns a record <r> which identifies the primitive soluble group <G>.
-The component `id' is always present and contains the id of
+The component `id' is always present and contains the id of <G>. if <wantiso> is `true', then
+the component `iso' is bound to an isomorphism from <G> into a primitive pc group.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Obsolete functions}
 
