@@ -573,7 +573,7 @@ InstallMethod(RepresentationIsomorphism, "soluble group: inverse of IsomorphismP
 ##
 InstallGlobalFunction(ImprimitivitySystemsForRepresentation, function(G, rep, F, limit)
 
-    local systems, max, M, gens, m, c, cf, hom, subsys, sys, newsys, homBasis, homSpace, bas, newbasis, pos, orb;
+    local systems, max, M, gens, m, c, cf, hom, subsys, sys, newsys, homBasis, homSpace, bas, bas2, newbasis, pos, orb;
     
     if DegreeOfMatrixGroup(Range (rep))< limit then
         return     [rec(bases := [IdentityMat (DegreeOfMatrixGroup(Range (rep)), F)], stab1 := G, min := true)];
@@ -601,25 +601,23 @@ InstallGlobalFunction(ImprimitivitySystemsForRepresentation, function(G, rep, F,
                             
                             # translate result back
                             
-                            homSpace := VectorSpace (F, homBasis, "basis");
-                            Assert(1, Dimension (homSpace) = c[2]);
-                            for bas in Enumerator (homSpace) do
-                                if bas <> Zero (homSpace) then
-                                    for sys in subsys do
-                                        newbasis := List(sys.bases[1]*bas, ShallowCopy);
-                                        TriangulizeMat (newbasis);
-                                        if ForAll (systems, sys -> not newbasis in sys.bases) then
-                                            orb := Orbit (ImagesSet(rep, G), newbasis, OnSubspacesByCanonicalBasis);
-                                            Assert(1, Length(orb) * Length(newbasis) = Degree (Range (rep)));
-                                            Assert(1, Length(orb) = IndexNC(G, sys.stab1));
-                                            if orb[1] <> newbasis then
-                                                pos := Position (orb, newbasis);
-                                                orb{[1, pos]} := orb{[pos, 1]};
-                                            fi;
-                                            Add(systems, rec(bases := orb, stab1 := sys.stab1, min := sys.min)); 
+                            homSpace := VectorSpace(F, homBasis{[2..Length(homBasis)]}, 0*homBasis[1], "basis");
+                            for bas2 in Enumerator(homSpace) do
+                                bas := homBasis[1] + bas2;
+                                  for sys in subsys do
+                                    newbasis := List(sys.bases[1]*bas, ShallowCopy);
+                                    TriangulizeMat (newbasis);
+                                    if ForAll (systems, sys -> not newbasis in sys.bases) then
+                                        orb := Orbit (ImagesSet(rep, G), newbasis, OnSubspacesByCanonicalBasis);
+                                        Assert(1, Length(orb) * Length(newbasis) = Degree (Range (rep)));
+                                        Assert(1, Length(orb) = IndexNC(G, sys.stab1));
+                                        if orb[1] <> newbasis then
+                                            pos := Position (orb, newbasis);
+                                            orb{[1, pos]} := orb{[pos, 1]};
                                         fi;
-                                    od;
-                                fi;
+                                        Add(systems, rec(bases := orb, stab1 := sys.stab1, min := sys.min)); 
+                                    fi;
+                                od;
                             od;
                         fi;
                     fi;
