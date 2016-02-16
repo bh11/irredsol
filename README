@@ -1,29 +1,30 @@
                         The GAP package 
                            IRREDSOL
-                          Version 1.2
+                          Version 1.3
 
 IRREDSOL is a GAP package which provides a library of all irreducible 
 soluble subgroups of GL(n, q), up to conjugacy, where n is a positive
-integer and q a prime power satisfying q^n <= 1000000, and a library
-of all primitive soluble groups of degree at most 1000000.
+integer and q a prime power satisfying q^n <= 2 000 000, and a library
+of all primitive soluble groups of degree at most 2 000 000.
 
 This version of IRREDSOL requires at least GAP 4.5.
 
 In order to install IRREDSOL, you have to get the package archive file 
-`irredsol-1r2n4.tar.gz', or any other archive format suitable for your
+`irredsol-1r3n0.tar.gz', or any other archive format suitable for your
 system. It is available for download from
 
 http://www.gap-system.org/Packages/irredsol.html
 
-To install IRREDSOL, move the package archive file into the `pkg' 
+To install IRREDSOL, move the package archive file into the 'pkg'
 directory in which you plan to install IRREDSOL. Usually, this will be 
-the directory `pkg' in the GAP directory. 
+the directory 'pkg' in the GAP directory.
 
 If you already have a previous version of IRREDSOL, that is, there is a 
-directory `irredsol' in the `pkg' directory, delete this directory first 
+directory whose name starts with 'irredsol' in the 'pkg' directory, you
+may delete this directory.
 (or move it outside the pkg directory).
 
-You should now have a directory `irredsol' in the `pkg' directory.
+You should now have a directory `irredsol-1r3n0' in the `pkg' directory.
 
 To load the IRREDSOL package manually, start GAP and type
 
