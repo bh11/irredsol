@@ -1,5 +1,7 @@
 SHELL=/bin/bash
-VERSION=dev
+VERSION=
+DATE=$(shell echo `date "+%d/%m/%Y"`)
+
 libfiles=access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
    recognize.gd recognize.gi recognizeprim.gd recognizeprim.gi \
@@ -16,6 +18,16 @@ testfiles=test.tst
 tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
+
+default: versions manual tar
+
+versions:
+	( \
+        for file in README index.html PackageInfo.g doc/manual.tex; \
+            do sed -e "s/IRREDSOL_VERSION/$(VERSION)/g" -e "s-IRREDSOL_DATE-$(DATE)-" $$file.in > $$file; \
+        done \
+	)
+
 
 manual.pdf:
 	( \
