@@ -1,6 +1,7 @@
 SHELL=/bin/bash
-VERSION=
+VERSION=1.dev
 DATE=$(shell echo `date "+%d/%m/%Y"`)
+GAPROOT=../..
 
 libfiles=access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
@@ -19,7 +20,9 @@ tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
 
-default: versions manual tar
+default: versions manual
+
+release: versions manual tar
 
 versions:
 	( \
@@ -40,11 +43,9 @@ manual.pdf:
 
 manual.html:
 	( \
-			rm htm/CHAP???.htm; \
-			rm htm/biblio.htm; \
-			rm htm/theindex.htm; \
-			rm htm/chapters.htm; \
-			perl ../../etc/convert.pl -n IRREDSOL -c -i doc htm; \
+			rm -f htm/*.htm; \
+			mkdir -p htm; \
+			perl $(GAPROOT)/etc/convert.pl -n IRREDSOL -c -i doc htm; \
 			chmod -R a+r htm \
 	)
 
