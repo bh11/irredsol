@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % input GAP macro file
-\input ../../../doc/gapmacro.tex
+\input GAPROOT/doc/gapmacro.tex
 %\batchmode
 
 \def\letter#1{%
@@ -33,8 +33,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \BeginningOfBook{irredsol}
-  \UseReferences{../../../doc/ref}
-  \UseReferences{../../crisp/doc}
+  \UseReferences{GAPROOT/doc/ref}
+  \UseReferences{GAPROOT/pkg/crisp/doc}
 
   \TitlePage{\unskip{
     % \def\centerline#1{\hbox to \hsize{\hfill #1\hskip 1 cm}}

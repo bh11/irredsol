@@ -1,7 +1,13 @@
 SHELL=/bin/bash
-VERSION=1.dev
+VERSION=dev
 DATE=$(shell echo `date "+%d/%m/%Y"`)
 GAPROOT=../..
+
+ifeq ("$(shell tmp=$(GAPROOT); echo $${tmp:0:1})", "/")
+	TEXROOT="$(GAPROOT)"
+else 
+	TEXROOT="../$(GAPROOT)"
+endif 
 
 libfiles=access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
@@ -20,79 +26,77 @@ tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
 
-default: versions manual
+default:	 version manual
 
-release: versions manual tar
+dist: testver version manual tar
 
-versions:
-	( \
-        for file in README index.html PackageInfo.g doc/manual.tex; \
-            do sed -e "s/IRREDSOL_VERSION/$(VERSION)/g" -e "s-IRREDSOL_DATE-$(DATE)-" $$file.in > $$file; \
-        done \
-	)
+testver:
+	if [ "$(tarfile)" == "irredsol/irredsol-dev.tar" ]; \
+		then echo "Please define VERSION in make call"; \
+        exit 1; \
+	fi
 
+version:
+	for file in README index.html PackageInfo.g doc/manual.tex; \
+	do sed -e "s/IRREDSOL_VERSION/$(VERSION)/g" \
+		-e "s-IRREDSOL_DATE-$(DATE)-"  \
+		-e "s-GAPROOT-$(TEXROOT)-" \
+		$$file.in \
+		> $$file; \
+	done
 
 manual.pdf:
-	( \
-			cd doc; \
-			pdftex manual; \
-			makeindex -s manual.ist manual; \
-			pdftex manual; \
-			pdftex manual \
-	)
+	cd doc; \
+	pdftex manual; \
+	makeindex -s manual.ist manual; \
+	bibtex manual; \
+	pdftex manual; \
+	pdftex manual
 
 manual.html:
-	( \
-			rm -f htm/*.htm; \
-			mkdir -p htm; \
-			perl $(GAPROOT)/etc/convert.pl -n IRREDSOL -c -i doc htm; \
-			chmod -R a+r htm \
-	)
+	mkdir -p htm; \
+	rm -f htm/CHAP00?.htm; \
+	perl $(GAPROOT)/etc/convert.pl -n IRREDSOL -c -i doc htm; \
+	chmod -R a+r htm \
 
 manual: manual.pdf manual.html
 
-tar: manual
-	( \
-		if [ "$(tarfile)" = "irredsol/irredsol-.tar" ]; then\
-		   echo "Version number expected"; \
-		   exit; \
-		fi; \
-		export COPY_EXTENDED_ATTRIBUTES_DISABLE=1; \
-		export COPYFILE_DISABLE=1; \
-		cd ../; \
-		rm -f $(tarfile); \
-		rm -f $(tarfile).bz2; \
-		chmod -R a+rX irredsol; \
-		tar -c $(taropts) $(tarfile) irredsol/PackageInfo.g; \
-		tar -r $(taropts) $(tarfile) irredsol/init.g; \
-		tar -r $(taropts) $(tarfile) irredsol/read.g; \
-		for file in $(libfiles); \
-		   do tar -r $(taropts) $(tarfile) irredsol/lib/$$file; \
-		done; \
-		for file in $(docfiles); \
-		   do tar -r $(taropts) $(tarfile) irredsol/doc/$$file; \
-		done; \
-		for ext in $(manexts); \
-		   do tar -r $(taropts) $(tarfile) irredsol/doc/manual$$ext; \
-		done; \
-		for file in $(testfiles); \
-		   do tar -r $(taropts) $(tarfile) irredsol/tst/$$file; \
-		done; \
-		for file in irredsol/htm/*.htm; \
-		   do tar -r $(taropts) $(tarfile) $$file; \
-		done; \
-		for file in irredsol/data/*.grp; \
-		   do tar -r $(taropts) $(tarfile) $$file; \
-		done; \
-		for file in irredsol/fp/*.idx; \
-		   do tar -r $(taropts) $(tarfile) $$file; \
-		done; \
-		for file in irredsol/fp/*.fp; \
-		   do tar -r $(taropts) $(tarfile) $$file; \
-		done; \
-		tar -r $(taropts) $(tarfile) irredsol/README; \
-		tar -r $(taropts) $(tarfile) irredsol/LICENSE; \
-		bzip2 $(tarfile) \
-	)
+tar: version
+	export COPY_EXTENDED_ATTRIBUTES_DISABLE=1; \
+	export COPYFILE_DISABLE=1; \
+	cd ../; \
+	rm -f $(tarfile); \
+	rm -f $(tarfile).bz2; \
+	chmod -R a+rX irredsol; \
+	tar -c $(taropts) $(tarfile) irredsol/PackageInfo.g; \
+	tar -r $(taropts) $(tarfile) irredsol/init.g; \
+	tar -r $(taropts) $(tarfile) irredsol/read.g; \
+	for file in $(libfiles); \
+		do tar -r $(taropts) $(tarfile) irredsol/lib/$$file; \
+	done; \
+	for file in $(docfiles); \
+		do tar -r $(taropts) $(tarfile) irredsol/doc/$$file; \
+	done; \
+	for ext in $(manexts); \
+		do tar -r $(taropts) $(tarfile) irredsol/doc/manual$$ext; \
+	done; \
+	for file in $(testfiles); \
+		do tar -r $(taropts) $(tarfile) irredsol/tst/$$file; \
+	done; \
+	for file in irredsol/htm/*.htm; \
+		do tar -r $(taropts) $(tarfile) $$file; \
+	done; \
+	for file in irredsol/data/*.grp; \
+		do tar -r $(taropts) $(tarfile) $$file; \
+	done; \
+	for file in irredsol/fp/*.idx; \
+		do tar -r $(taropts) $(tarfile) $$file; \
+	done; \
+	for file in irredsol/fp/*.fp; \
+		do tar -r $(taropts) $(tarfile) $$file; \
+	done; \
+	tar -r $(taropts) $(tarfile) irredsol/README; \
+	tar -r $(taropts) $(tarfile) irredsol/LICENSE; \
+	bzip2 $(tarfile)
 
 
