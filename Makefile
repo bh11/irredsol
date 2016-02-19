@@ -2,12 +2,20 @@ SHELL=/bin/bash
 VERSION=dev
 DATE=$(shell echo `date "+%d/%m/%Y"`)
 GAPROOT=../..
+PKGROOT=..
 
 ifeq ("$(shell tmp=$(GAPROOT); echo $${tmp:0:1})", "/")
 	TEXROOT="$(GAPROOT)"
 else 
 	TEXROOT="../$(GAPROOT)"
 endif 
+
+ifeq ("$(shell tmp=$(PKGROOT); echo $${tmp:0:1})", "/")
+	TEXPKGROOT="$(PKGROOT)"
+else 
+	TEXPKGROOT ="../$(PKGROOT)"
+endif 
+
 
 libfiles=access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    loading.gd loading.gi matmeths.gd matmeths.gi primitive.gd primitive.gi \
@@ -26,7 +34,7 @@ tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
 
-default:	 version manual
+default: version manual
 
 dist: testver version manual tar
 
@@ -37,12 +45,17 @@ testver:
 	fi
 
 version:
-	for file in README index.html PackageInfo.g doc/manual.tex; \
-	do sed -e "s/IRREDSOL_VERSION/$(VERSION)/g" \
+	for file in README.in index.in.html PackageInfo.in.g doc/manual.in.tex; \
+	do \
+		outfile=$${file%.in*}$${file#*.in}; \
+		rm -f $$outfile; \
+		sed -e "s/IRREDSOL_VERSION/$(VERSION)/g" \
 		-e "s-IRREDSOL_DATE-$(DATE)-"  \
 		-e "s-GAPROOT-$(TEXROOT)-" \
-		$$file.in \
-		> $$file; \
+		-e "s-PKGROOT-$(TEXPKGROOT)-" \
+			$$file \
+			> $$outfile; \
+		chmod a-w $$outfile; \
 	done
 
 manual.pdf:
