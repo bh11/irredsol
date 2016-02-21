@@ -66,8 +66,8 @@ PackageWWWHome := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/index.html",
 PackageDoc := rec(
   BookName := "irredsol",
   # format/extension can be one of .zoo, .tar.gz, .tar.bz2, -win.zip
-  ArchiveURLSubset := ["doc", "html"],
-  HTMLStart := "html/chapters.htm",
+  ArchiveURLSubset := ["doc", "htm"],
+  HTMLStart := "htm/chapters.htm",
   PDFFile := "doc/manual.pdf",
   # the path to the .six file used by GAP's help system
   SixFile := "doc/manual.six",
@@ -102,7 +102,12 @@ Keywords := ["linear group", "matrix group", "irreducible matrix group",
    "soluble group", "soluble group",
    "library", "data base",
    "matrix group recognition", "conjugacy of matrix groups",
-   "finite field", "trace field"]
+   "finite field", "trace field"],
+
+SourceRepository := rec(Type := "git",
+                        URL := "https://github.com/bh11/irredsol.git"),
+
+IssueTrackerURL := "https://github.com/bh11/irredsol/issues"
 
 ));
 
