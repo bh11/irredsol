@@ -124,3 +124,14 @@ testall:
 testrenormalise:
 	echo 'Read("tst/renormalise.g");quit;' | gap $(TESTOPTS)
 
+coverage:
+	mkdir -p private/coverage
+	echo 'Read("tst/in.g");quit;' \
+		| gap $(TESTOPTS) --cover private/coverage/cover.gz >/dev/null
+	echo 'LoadPackage("profiling", "", false); \
+		OutputAnnotatedCodeCoverageFiles("private/coverage/cover.gz", \
+			Filename(DirectoriesPackageLibrary("crisp"), ""), \
+			"private/coverage");' \
+		| gap -b -q -A; \
+	open private/coverage/index.html
+	
