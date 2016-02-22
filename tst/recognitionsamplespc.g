@@ -66,7 +66,7 @@ RecognizeRandomPrimitivePcGroup := function (n, p, full)
     G :=  RandomPrimitiveSolvablePcGroup (n, p, d, k);
     info := RecognitionPrimitiveSolvableGroup (G, full);
     if info.id <> [n, p, d, k] then
-        Error ("wrong id");
+        Error ("wrong id ", i);
     fi;
 end;
 

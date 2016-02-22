@@ -94,7 +94,7 @@ AvailabilityTest := ReturnTrue,
 
 Autoload := true,
 
-TestFile := "tst/test.tst",
+TestFile := "tst/testall.g",
 
 # Keywords := ["Smith normal form", "p-adic", "rational matrix inversion"]
 Keywords := ["linear group", "matrix group", "irreducible matrix group",

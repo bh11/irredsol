@@ -1,4 +1,4 @@
-gap> START_TEST("irredsol");
+gap> START_TEST("access");
 gap> LoadPackage ("irredsol", "", false);
 true
 gap> SetInfoLevel (InfoIrredsol, 0);
@@ -62,64 +62,5 @@ gap> all := AllIrreducibleSolvableMatrixGroups (Degree, 4, Field , GF(3), Minima
 gap> Collected (List (all, Size)) ;
 [ [ 16, 3 ], [ 32, 5 ], [ 64, 4 ], [ 96, 1 ], [ 128, 1 ], [ 192, 3 ], 
   [ 384, 1 ] ]
-gap> TestRandomIrreducibleSolvableMatrixGroup := function (n, q, d, k, e)
-> 
->    local x, y, G, repG, H1, H, gens, M, rep, info;
-> 
->    G := IrreducibleSolvableMatrixGroup (n, q, d, k);
->    repG := RepresentationIsomorphism (G);
->    
->    H1 := Source (repG);
->    
->    H := TrivialSubgroup (H1);
->    gens := [];
->    while Size (H) < Size (H1) do
->       x := Random (H1);
->       if not x in H then
->          H := ClosureSubgroupNC (H, x);
->          Add (gens, x);
->       fi;
->    od;
->    
->    y := RandomInvertibleMat (n, GF(q^e));
->    
->    M := GroupWithGenerators (List (gens, x -> ImageElm (repG, x)^y));
->    SetSize (M, Size (G));
->    SetIsSolvableGroup (M, true);
->    SetIdIrreducibleSolvableMatrixGroup (M, IdIrreducibleSolvableMatrixGroup (G));
->    rep := GroupGeneralMappingByImages (H1, M, gens, GeneratorsOfGroup (M));
->    SetIsGroupHomomorphism (rep, true);
->    SetIsSingleValued (rep, true);
->    SetIsBijective (rep, true);
->    SetRepresentationIsomorphism (M, rep);
->    info := RecognitionIrreducibleSolvableMatrixGroup (M, true, true, true); 
->    if ForAny (GeneratorsOfGroup (Source (rep)), 
->        g -> ImageElm (rep, g) ^info.mat <> ImageElm (RepresentationIsomorphism(info.group), ImageElm (info.iso, g))) then
->            Error ("wrong conjugating matrix");
->    fi;
-> end;;
-gap> inds := [ 1168, 1224, 1229, 1231, 1237, 1242, 1247, 1249, 1513, 1515, 1517, 1519,  1533 ];;
-gap> for i in inds do
->    TestRandomIrreducibleSolvableMatrixGroup (8, 3, 2, i, 3);
-> od;
-gap> inds := [ 6081, 6082, 6083, 6084, 6085, 6086, 6087, 6088 ];;
-gap> for i in inds do
->    TestRandomIrreducibleSolvableMatrixGroup (8, 3, 1, i, 3);
-> od;
-gap> inds := [ 1513, 1514, 1515 ];;
-gap> for i in inds do
->    TestRandomIrreducibleSolvableMatrixGroup (6, 5, 1, i, 4);
-> od;
-gap> inds := [ 1..6 ];;
-gap> for i in inds do
->    TestRandomIrreducibleSolvableMatrixGroup (4, 3, 4, i, 3);
-> od;
-gap> G1:=Group([ [ [ Z(7), 0*Z(7) ], [ 0*Z(7), Z(7) ] ], [ [ Z(7)^0, Z(7)^0 ], [ Z(7)^5, Z(7)^3 ] ], 
-> [ [ Z(7)^4, 0*Z(7) ], [ Z(7)^4, Z(7)^2 ] ]]);;
-gap> IdIrreducibleSolvableMatrixGroup(G1);
-[ 2, 7, 1, 20 ]
-gap> G2:=Group([ [ [ Z(7), Z(7)^5 ], [ Z(7), Z(7)^0 ] ],[ [ Z(7), Z(7)^3 ], [Z(7), Z(7)^4 ] ] ]);;
-gap> IdIrreducibleSolvableMatrixGroup(G2);
-[ 2, 7, 1, 21 ]
-gap> STOP_TEST("test.tst", 0);
+gap> STOP_TEST("access", 2180000);
 GAP4stones: 0

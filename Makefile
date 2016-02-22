@@ -3,6 +3,7 @@ VERSION=dev
 DATE=$(shell echo `date "+%d/%m/%Y"`)
 GAPROOT=../..
 PKGROOT=..
+TESTOPTS=-b -m 100m -o 1g -A -q -x 80
 
 ifeq ("$(shell tmp=$(GAPROOT); echo $${tmp:0:1})", "/")
 	TEXROOT="$(GAPROOT)"
@@ -28,7 +29,7 @@ docfiles=manual.tex copyright.tex overview.tex access.tex matgroups.tex \
 manexts=.bbl .ind .idx .six .pdf .ist .toc \
     .example-2.tst .example-3.tst .example-4.tst .example-5.tst
 
-testfiles=test.tst
+testfiles=testall.g # we wrap *.tst as well
 
 tarfile=irredsol/irredsol-$(VERSION).tar
 
@@ -96,6 +97,9 @@ tar: version
 	for file in $(testfiles); \
 		do tar -r $(taropts) $(tarfile) irredsol/tst/$$file; \
 	done; \
+	for file in irredsol/tst/*.tst; \
+		do tar -r $(taropts) $(tarfile) $$file; \
+	done; \
 	for file in irredsol/htm/*.htm; \
 		do tar -r $(taropts) $(tarfile) $$file; \
 	done; \
@@ -112,4 +116,11 @@ tar: version
 	tar -r $(taropts) $(tarfile) irredsol/LICENSE; \
 	bzip2 $(tarfile)
 
+testinstall:
+teststandard:
+testall:
+	echo 'Read("tst/testall.g");quit;' | gap $(TESTOPTS)
+
+testrenormalise:
+	echo 'Read("tst/renormalise.g");quit;' | gap $(TESTOPTS)
 
