@@ -31,6 +31,9 @@ manexts=.bbl .ind .idx .six .pdf .ist .toc \
 
 testfiles=testall.g # we wrap *.tst as well
 
+version_in=README.in index.in.html PackageInfo.in.g doc/manual.in.tex
+
+
 tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
@@ -46,14 +49,14 @@ testver:
 	fi
 
 version:
-	for file in README.in index.in.html PackageInfo.in.g doc/manual.in.tex; \
+	for file in $(version_in); \
 	do \
 		outfile=$${file%.in*}$${file#*.in}; \
 		rm -f $$outfile; \
-		sed -e "s/IRREDSOL_VERSION/$(VERSION)/g" \
-		-e "s-IRREDSOL_DATE-$(DATE)-"  \
-		-e "s-GAPROOT-$(TEXROOT)-" \
-		-e "s-PKGROOT-$(TEXPKGROOT)-" \
+		sed -e "s%IRREDSOL_VERSION%$(VERSION)%g" \
+		-e "s%IRREDSOL_DATE%$(DATE)%"  \
+		-e "s%GAPROOT%$(TEXROOT)%" \
+		-e "s%PKGROOT%$(TEXPKGROOT)%" \
 			$$file \
 			> $$outfile; \
 		chmod a-w $$outfile; \
@@ -82,6 +85,12 @@ tar: version
 	rm -f $(tarfile); \
 	rm -f $(tarfile).bz2; \
 	chmod -R a+rX irredsol; \
+	chmod -R go-w irredsol; \
+	for file in $(version_in); \
+	do \
+		outfile=$${file%.in*}$${file#*.in}; \
+		chmod +w irredsol/$$outfile; \
+	done; \
 	tar -c $(taropts) $(tarfile) irredsol/PackageInfo.g; \
 	tar -r $(taropts) $(tarfile) irredsol/init.g; \
 	tar -r $(taropts) $(tarfile) irredsol/read.g; \
@@ -114,7 +123,12 @@ tar: version
 	done; \
 	tar -r $(taropts) $(tarfile) irredsol/README; \
 	tar -r $(taropts) $(tarfile) irredsol/LICENSE; \
-	bzip2 $(tarfile)
+	bzip2 $(tarfile); \
+	for file in $(version_in); \
+	do \
+		outfile=$${file%.in*}$${file#*.in}; \
+		chmod -w irredsol/$$outfile; \
+	done; 
 
 testinstall:
 teststandard:
