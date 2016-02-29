@@ -31,16 +31,16 @@ manexts=.bbl .ind .idx .six .pdf .ist .toc \
 
 testfiles=testall.g # we wrap *.tst as well
 
-version_in=README.in index.in.html PackageInfo.in.g doc/manual.in.tex
+update_files=README.in index.in.html PackageInfo.in.g doc/manual.in.tex
 
 
 tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
 
-default: version manual
+default: update_in manual
 
-dist: testver version manual tar
+dist: testver update_in manual tar
 
 testver:
 	if [ "$(tarfile)" == "irredsol/irredsol-dev.tar" ]; \
@@ -48,8 +48,8 @@ testver:
         exit 1; \
 	fi
 
-version:
-	for file in $(version_in); \
+update_in:
+	for file in $(update_files); \
 	do \
 		outfile=$${file%.in*}$${file#*.in}; \
 		rm -f $$outfile; \
@@ -62,7 +62,7 @@ version:
 		chmod a-w $$outfile; \
 	done
 
-manual.pdf:
+manual.pdf: update_in
 	cd doc; \
 	pdftex manual; \
 	makeindex -s manual.ist manual; \
@@ -78,7 +78,7 @@ manual.html:
 
 manual: manual.pdf manual.html
 
-tar: version
+tar: update_in
 	export COPY_EXTENDED_ATTRIBUTES_DISABLE=1; \
 	export COPYFILE_DISABLE=1; \
 	cd ../; \
@@ -86,7 +86,7 @@ tar: version
 	rm -f $(tarfile).bz2; \
 	chmod -R a+rX irredsol; \
 	chmod -R go-w irredsol; \
-	for file in $(version_in); \
+	for file in $(update_files); \
 	do \
 		outfile=$${file%.in*}$${file#*.in}; \
 		chmod +w irredsol/$$outfile; \
@@ -124,7 +124,7 @@ tar: version
 	tar -r $(taropts) $(tarfile) irredsol/README; \
 	tar -r $(taropts) $(tarfile) irredsol/LICENSE; \
 	bzip2 $(tarfile); \
-	for file in $(version_in); \
+	for file in $(update_files); \
 	do \
 		outfile=$${file%.in*}$${file#*.in}; \
 		chmod -w irredsol/$$outfile; \
