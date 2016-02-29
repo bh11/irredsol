@@ -1,4 +1,4 @@
-%!TEX root = manual.tex
+%!TEX root = manual.in.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %%  recognition.tex        IRREDSOL documentation           Burkhard Höfling
@@ -50,7 +50,7 @@ This function returns `true' if `IdIrreducibleSolubleMatrixGroup' (see
 If the matrix group <G> is soluble and irreducible over $F
 = `FieldOfMatrixGroup'(<G>)$, (see "ref:FieldOfMatrixGroup" in the {\GAP} reference manual), and a conjugate in
 $GL(<n>, <F>)$ of $<G>$ belongs to the data base of  irreducible soluble groups in
-{\IRREDSOL}, this function returns a list `[<n>, <q>, <d>, <k>]' such that <G> is
+{\IRREDSOL}, this function returns a list `['<n>, <q>, <d>, <k>`]' such that <G> is
 conjugate to  `IrreducibleSolubleMatrixGroup'(<n>, <q>, <d>, <k>) (see
 "IrreducibleSolubleMatrixGroup").
 
@@ -93,7 +93,7 @@ They return a record which has the following entries:
 `group' (present if `wantgroup' is `true') & the group <H> 
 
 `iso' (present if `wantiso' is `true') & a group isomorphism from the source of
-    `RepresentationIsomorphism(<G>)' to the source of `RepresentationIsomorphism(<H>)'.
+    `RepresentationIsomorphism'(<G>) to the source of `RepresentationIsomorphism'(<H>).
     
 \enditems
 Note that in most cases, `Recog\-nition\-Irreducible\-Soluble\-Matrix\-Group' and 
@@ -140,7 +140,7 @@ functions
 `RecognitionIrreducibleSolubleMatrixGroup' ("RecognitionIrreducibleSolubleMatrixGroup"), or
 `Recognition\-Irre\-du\-ci\-bleSolubleMatrixGroupNC' ("RecognitionIrreducibleSolubleMatrixGroupNC").
 
-Note that the ids returned by the functions for absolutely irreducible groups was a triple `[<n>, <d>, <k>]', while the replacement functions use ids of the form `[<n>, <d>, <d>, <k>]', where $<d> = 1$ in the absolutely irreducible case.
+Note that the ids returned by the functions for absolutely irreducible groups was a triple `['<n>, <d>, <k>`]', while the replacement functions use ids of the form `['<n>, <d>, <d>, <k>`]', where $<d> = 1$ in the absolutely irreducible case.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

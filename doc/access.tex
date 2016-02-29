@@ -1,4 +1,4 @@
-%!TEX root = manual.tex
+%!TEX root = manual.in.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %%  access.tex            IRREDSOL documentation            Burkhard Höfling
@@ -133,8 +133,8 @@ function returns a set of integers parametrising those subgroups of $GL(n, q)$ i
 {\IRREDSOL} library that are maximal among the absolutely irreducible soluble subgroups with  trace field~$\F_q $ and that are maximal with
 respect to being soluble. An error is raised if the relevant
 data is not available (see "IsAvailableAbsolutelyIrreducibleSolubleGroupData" for information 
-how to check this first). An integer <k> in the list return corresponds to `IrreducibleSolubleMatrixGroup(<n>, <q>, 1, <k>)', which is the same group as
-`AbsolutelyIrreducibleSolubleMatrixGroup(<n>, <q>, <k>)'
+how to check this first). An integer <k> in the list return corresponds to `IrreducibleSolubleMatrixGroup'(<n>, <q>, 1, <k>), which is the same group as
+`AbsolutelyIrreducibleSolubleMatrixGroup'(<n>, <q>, <k>).
 
 \beginexample
 gap> inds := IndicesMaximalAbsolutelyIrreducibleSolubleMatrixGroups(2,3);
@@ -149,7 +149,7 @@ true
 @{`IndicesAbsolutelyIrreducible\\Soluble\\MatrixGroups'} F
 \>AbsolutelyIrreducibleSolubleMatrixGroup(<n>, <q>,  <k>) F
 
-These functions are deprecated.  Please use `IndicesIrreducibleSolubleMatrixGroups(<n>, <q>, 1)' and `IrreducibleSolubleMatrixGroup(<n>, <q>, 1, <k>)' instead.
+These functions are deprecated.  Please use `IndicesIrreducibleSolubleMatrixGroups'(<n>, <q>, 1) and `IrreducibleSolubleMatrixGroup'(<n>, <q>, 1, <k>) instead.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -176,9 +176,9 @@ groups <G> in the {\IRREDSOL} library for which the return value of $<func_i>(G)
 must be {\GAP} functions which take a matrix group as their only argument and
 return a value, and <arg_1>, <arg_2>,
 \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list
-`[<arg_i>]'. The functions `DegreeOfMatrixGroup' and `FieldOfMatrixGroup' (or their equivalents, see below) must be among the <func_i>. 
+`['<arg_i>`]'. The functions `DegreeOfMatrixGroup' and `FieldOfMatrixGroup' (or their equivalents, see below) must be among the <func_i>. 
 `TraceField'). Note that all groups in the data library have the property that 
-$`TraceField(<G>)' = `FieldOfMatrixGroup'(<G>)$; see Section~"Design of the group library" 
+$`TraceField'(<G>) = `FieldOfMatrixGroup'(<G>)$; see Section~"Design of the group library" 
 for details. 
 
 Note that there is also a function `IteratorIrreducibleSolubleMatrixGroups' (see
@@ -247,9 +247,9 @@ This function returns a matrix group <G> from the {\IRREDSOL} library such that
 $<func_i>(G)$ lies in <arg_i>, or `fail' if no such group exists. The arguments <func_1>,
 <func_2>, \dots, must be {\GAP} functions taking one argument and returning a value, and
 <arg_1>, <arg_2>, \dots,  must be lists. If <arg_i> is not a list, <arg_i> is replaced by
-the list `[<arg_i>]'. The functions `DegreeOfMatrixGroup' and `FieldOfMatrixGroup' (or their equivalents, see below) must be among the <func_i>. 
+the list `['<arg_i>`]'. The functions `DegreeOfMatrixGroup' and `FieldOfMatrixGroup' (or their equivalents, see below) must be among the <func_i>. 
  Note that all groups in the data library have the property that 
-$`TraceField(<G>)' = `FieldOfMatrixGroup'(<G>)$; see Section~"Design of the group library" 
+$`TraceField'(<G>) = `FieldOfMatrixGroup'(<G>)$; see Section~"Design of the group library" 
 for details. 
 The groups passed to the <func_i> and the groups returned have the attributes and properties described in 
 Chapter~"Additional functionality for matrix groups" set to their appropriate values.
@@ -266,7 +266,7 @@ This function returns an iterator which runs through the list of all matrix grou
 in the  {\IRREDSOL} library such that
 $<func_i>(G)$ lies in <arg_i>. The arguments <func_1>, <func_2>, \dots,
 must be {\GAP} functions taking one argument and returning a value, and <arg_1>, <arg_2>, \dots, 
-must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list `[<arg_i>]'.
+must be lists. If <arg_i> is not a list, <arg_i> is replaced by the list `['<arg_i>`]'.
 The functions `DegreeOfMatrixGroup' and `FieldOfMatrixGroup' (or their equivalents, see below) must be among the <func_i>. 
 
 

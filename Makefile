@@ -55,8 +55,8 @@ update_in:
 		rm -f $$outfile; \
 		sed -e "s%IRREDSOL_VERSION%$(VERSION)%g" \
 		-e "s%IRREDSOL_DATE%$(DATE)%"  \
-		-e "s%GAPROOT%$(TEXROOT)%" \
-		-e "s%PKGROOT%$(TEXPKGROOT)%" \
+		-e "s%\\\\GAPROOT%$(TEXROOT)%" \
+		-e "s%\\\\PKGROOT%$(TEXPKGROOT)%" \
 			$$file \
 			> $$outfile; \
 		chmod a-w $$outfile; \

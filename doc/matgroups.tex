@@ -1,4 +1,4 @@
-%!TEX root = manual.tex
+%!TEX root = manual.in.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %%  matgroups.tex         IRREDSOL documentation            Burkhard Höfling
@@ -41,7 +41,7 @@ This is a field containing all matrix entries of the elements of~<G>. See also
 
 \>SplittingField(<G>) A
 
-Let <G> be an irreducible subgroup of $GL(n, F)$, where $F =  `FieldOfMatrixGroup(<G>)'$
+Let <G> be an irreducible subgroup of $GL(n, F)$, where $F =  `FieldOfMatrixGroup'(<G>)$
 is a finite field. This attribute stores the splitting field <E> for <G>, that is,
 the (unique) smallest field $E$ containing $F$ such 
 that the natural $E G$-module $E^n$ is the direct sum of absolutely irreducible $E G$-
@@ -167,7 +167,7 @@ false
 
 This function returns the list of all imprimitivity systems of the 
 irreducible matrix group <G> over the field <F>. If <F> is not given, 
-`FieldOfMatrixGroup(<G>)' is used. 
+`FieldOfMatrixGroup'(<G>) is used. 
 Each imprimitivity system is given by a record with the following entries:
 
 \beginitems

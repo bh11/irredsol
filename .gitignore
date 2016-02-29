@@ -21,3 +21,17 @@ PackageInfo.g
 index.html
 README
 *.bz2
+doc/manual.in.aux
+doc/manual.in.example-2.tst
+doc/manual.in.example-3.tst
+doc/manual.in.example-4.tst
+doc/manual.in.example-5.tst
+doc/manual.in.idx
+doc/manual.in.lab
+doc/manual.in.log
+doc/manual.in.pdf
+doc/manual.in.six
+doc/manual.in.synctex.gz
+doc/manual.in.toc
+doc/manual.in.ilg
+doc/manual.in.ind
