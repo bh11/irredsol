@@ -10,6 +10,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Recognition of matrix groups}
 
+\index{recognition!of matrix groups}
+\index{identification!of matrix groups}
+
 This chapter describes some functions which, given an irreducible matrix 
 group, identify a group in the {\IRREDSOL} library which is conjugate
 to that group, see Section~"Identification of irreducible groups".
@@ -21,7 +24,7 @@ functions which allow to load and unload the recognition data in the
 {\IRREDSOL} package manually.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Identification of irreducible groups}
+\Section{Identification of irreducible groups}\null
 
 \>`IsAvailableIdIrreducibleSolubleMatrixGroup(<G>)'%
 {IsAvailableIdIrreducibleSolubleMatrixGroup}%
@@ -144,7 +147,9 @@ Note that the ids returned by the functions for absolutely irreducible groups wa
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Compatibility with other data libraries}
+\Section{Compatibility with other data libraries}\null
+
+\index{compatibility!with other data libraries}
 
 A library of irreducible soluble subgroups of $GL(n, p)$, where $p$ is a 
 prime and $p^n \leq 255$ already exists in {\GAP}, see Section "ref:Irreducible Solvable Matrix Groups" in the {\GAP} reference manual. The following functions
@@ -193,7 +198,10 @@ true
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Loading and unloading recognition data manually}
+\Section{Loading and unloading recognition data manually}\null
+
+\index{loading!of recognition data}
+\index{unloading!of recognition data}
 
 The data required by the {\IRREDSOL} library is loaded into {\GAP}'s workspace automatically whenever required, but is never unloaded automatically. The functions described in this
 and the previous section describe how to load and unload this data manually. 

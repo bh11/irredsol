@@ -21,7 +21,9 @@ manually (see Section~"Loading and unloading group data manually").
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Design of the group library}
+\Section{Design of the group library}\null
+
+\index{IRREDSOL!database design}
 
 To avoid redundancy, the package {\IRREDSOL} does not actually store 
 lists of irreducible subgroups of $GL(<n>, <q>)$ but
@@ -63,7 +65,9 @@ $G_1^\*$ and $G_2^\*$ of $GL(n/d, q^d)$, then $G_1$ and $G_2$ are conjugate if, 
 Note that all of the arguments above apply to nonsoluble groups as well.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Low level access functions}
+\Section{Low level access functions}\null
+
+\index{IRREDSOL!accessing low level data}
 
 The access functions described in this section allow
 to check for the availability of data and to construct
@@ -153,7 +157,11 @@ These functions are deprecated.  Please use `IndicesIrreducibleSolubleMatrixGrou
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Finding matrix groups with given properties}
+\Section{Finding matrix groups with given properties}\null
+
+\index{find!matrix group}
+\index{matrix group!with given properties}
+
 
 This section describes three functions
 (`AllIrreducibleSolubleMatrixGroups',
@@ -286,7 +294,10 @@ To use this function efficiently, please see the comments in
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Loading and unloading group data manually}
+\Section{Loading and unloading group data manually}\null
+
+\index{loading!of group data}
+\index{unloading!of group data}
 
 The data required by the {\IRREDSOL} library is loaded into {\GAP}'s workspace automatically whenever required, but is never unloaded automatically. The functions described in this
 and the following section describe how to load and unload this data manually. 

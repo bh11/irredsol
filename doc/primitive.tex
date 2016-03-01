@@ -10,6 +10,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{Primitive soluble groups}
 
+\index{primitive soluble groups}
+\index{soluble primitive groups}
+\index{group!primitive soluble}
+\index{permutation group!primitive soluble}
+
 An abstract finite group <G> is called {\it primitive} if it has a maximal 
 subgroup <M> with trivial core. Note that the permutation action of <G> on the 
 cosets of <M> is faithful and primitive. Conversely, if <G> is a primitive 
@@ -33,7 +38,7 @@ $<p>^<n>$ and the conjugacy classes of irreducible soluble subgroups of $GL(n, p
 
 The {\IRREDSOL} package provides functions for translating between primitive soluble 
 groups and irreducible soluble matrix groups, which are
-described in Section~"Translating between irreducible soluble matrix groups 
+described in Section~"Converting between irreducible soluble matrix groups 
 and primitive soluble groups". Moreover, there are functions for finding
 primitive soluble groups with given properties, see Sections~"Finding primitive 
 pc groups
@@ -41,8 +46,8 @@ with given properties" and "Finding primitive soluble permutation groups
 with given properties".
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Translating between irreducible soluble matrix groups and primitive
-soluble groups}
+\Section{Converting between irreducible soluble matrix groups and primitive
+soluble groups}\null
 
 \>PrimitivePcGroup(<n>,<p>,<d>,<k>) F
 \>PrimitiveSolublePermGroup(<n>,<p>,<d>,<k>) F
@@ -121,7 +126,10 @@ Group([ <an immutable 2x2 matrix over GF2>,
 \endexample
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Finding primitive pc groups with given properties}
+\Section{Finding primitive pc groups with given properties}\null
+
+\index{find!primitive pc group}
+\index{primitive pc group!with given properties}
 
 \>AllPrimitivePcGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 
@@ -198,8 +206,10 @@ This may save some memory.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Section{Finding primitive soluble permutation groups with given
-properties}
+properties}\null
 
+\index{find!primitive permutation group}
+\index{primitive permutation group!with given properties}
 
 \>AllPrimitiveSolublePermGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
 \>AllPrimitiveSolvablePermGroups(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots) F
@@ -285,7 +295,16 @@ compute all relevant permutation groups at the same time.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Recognizing primitive soluble groups}
+\Section{Recognising primitive soluble groups}\null
+
+\index{identification!of primitive pc group}
+\index{identification!of primitive permutation group}
+\index{recognition!of primitive pc group}
+\index{recognition!of primitive permutation group}
+\index{primitive pc group!identification}
+\index{primitive permutation group!identification}
+\index{primitive pc group!recognition}
+\index{primitive permutation group!recognition}
 
 \>IdPrimitiveSolubleGroup(<G>) F
 \>IdPrimitiveSolubleGroupNC(<G>) F
@@ -317,7 +336,9 @@ The component `id' is always present and contains the id of <G>. if <wantiso> is
 the component `iso' is bound to an isomorphism from <G> into a primitive pc group.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Obsolete functions}
+\Section{Obsolete functions}\null
+
+\index{obsolete functions!for primitive soluble permutation groups}
 
 \>PrimitiveSolublePermutationGroup(<n>,<q>,<d>,<k>) F
 \>PrimitiveSolvablePermutationGroup(<n>,<q>,<d>,<k>) F
