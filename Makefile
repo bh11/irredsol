@@ -26,7 +26,7 @@ libfiles=access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
 docfiles=manual.tex copyright.tex overview.tex access.tex matgroups.tex \
     primitive.tex recognition.tex
     
-manexts=.bbl .ind .idx .six .pdf .ist .toc \
+manexts=.bbl .ind .idx .six .pdf .mst .toc \
     .example-2.tst .example-3.tst .example-4.tst .example-5.tst
 
 testfiles=testall.g # we wrap *.tst as well
@@ -65,7 +65,7 @@ update_in:
 manual.pdf: update_in
 	cd doc; \
 	pdftex manual; \
-	makeindex -s manual.ist manual; \
+	makeindex -s manual.mst manual; \
 	bibtex manual; \
 	pdftex manual; \
 	pdftex manual
