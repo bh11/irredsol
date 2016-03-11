@@ -73,6 +73,352 @@ end);
 
 ############################################################################
 ##
+#F  ConjugatingMatIrreducibleRepOrFail(repG, repH, q, linonly, maxcost, limit_CMIROF)
+##
+##  computes a record x such that G^x.iso = H and (G^homG)^x.mat = H^homH.
+##  If no such matrix exists, the function returns fail.
+##
+##  maxcost and limit_CMIROF specify when the function will abort the search, returning
+##  the string "too expensive".
+##
+##  This works like the GAP function Morphium but only looks for linear
+##  isomorphisms.
+##
+InstallGlobalFunction(ConjugatingMatIrreducibleRepOrFail,
+    function(repG, repH, q, maxcost, limit_CMIROF)
+
+    local EncodedPrimeDecomposition, G, H, ccl, cl, hsize, hstep, ids, id, primes,
+        fac, gens, genspos, imglist, g, i, j, k, len,
+        cost, weight, mingens, mincost, mingenspos, totalcost, pos, d, ind, imgs, hom, count,
+        sizes, D, proj, homG, homH, group, cent, C, centsize, imgreps, matrep, orb, S, occ, cpH,
+        moduleG, moduleH, dirr, mat;
+    
+    EncodedPrimeDecomposition := function(n, primes)
+
+        local res, i, p;
+        
+        res := 0;
+        
+        for i in [1..Length(primes)] do
+            res := res * (primes[i][2]+1);
+            p := primes[i][1];
+            while n mod p = 0 do
+                n := n / p;
+                res := res + 1;
+            od;
+        od;
+        if n <> 1 then 
+            Error("cannot encode integer n");
+        fi;
+        return res;
+    end;
+
+    G := repG.group;
+    H := repH.group;
+    primes := Collected(RelativeOrders(InducedPcgsWrtFamilyPcgs(G)));
+    fac := Sum(primes, p -> p[2]);
+    if not IsBound(repG.classes) then
+        repG.classes := AttributeValueNotSet(ConjugacyClasses, G);
+    fi;
+    ccl := repG.classes;
+    hsize := NextPrimeInt(2*Length(ccl));
+    hstep := NextPrimeInt(RootInt(hsize));
+    ids := EmptyPlist(hsize);
+    occ := EmptyPlist(hsize);
+    cost := EmptyPlist(hsize);
+    len := 0;
+    for i in [1..Length(ccl)] do
+        cl := ccl[i];
+        id := [Size(cl), Order(Representative(cl)), 
+            CodeCharacteristicPolynomial(ImageElm(repG.rep, Representative(cl)), q)];
+        pos :=((id[3] * fac + EncodedPrimeDecomposition(id[1], primes)) * fac
+                + EncodedPrimeDecomposition(id[2], primes)) mod hsize + 1;
+        while IsBound(ids[pos]) and ids[pos]<>id do
+            pos := pos + hstep;
+            if pos > hsize then
+                pos := pos - hsize;
+            fi;
+        od;
+        if IsBound(ids[pos]) then
+            Add(occ[pos], i);
+        else
+            ids[pos] := id;
+            occ[pos] := [i];
+        fi;
+    od;
+    
+    for i in [1..Length(ids)] do
+        if IsBound(ids[i]) then
+            cost[i] := ids[i][1]*Length(occ[i]);
+        fi;
+    od;
+    
+    
+    gens := ShallowCopy(MinimalGeneratingSet(G));
+    Info(InfoMorph, 1, "ConjugatingMat: MinimalGeneratingSet has ", Length(gens), " generators");
+    
+    mincost := 1;
+    mingenspos := [];
+    
+    for i in [1..Length(gens)] do
+        g := gens[i];
+        id := [Size(ConjugacyClass(G, g)), Order(g), 
+            CodeCharacteristicPolynomial(ImageElm(repG.rep, g), q)];
+        pos :=((id[3] * fac + EncodedPrimeDecomposition(id[1], primes)) * fac
+                + EncodedPrimeDecomposition(id[2], primes)) mod hsize + 1;
+        while IsBound(ids[pos]) and ids[pos]<>id do
+            pos := pos + hstep;
+            if pos > hsize then
+                pos := pos - hsize;
+            fi;
+        od;
+        mincost := mincost + cost[pos];
+        Add(mingenspos, pos);
+    od;
+    mingens := gens;
+
+    Info(InfoMorph, 1, "ConjugatingMat: cost of minimal generating system is ", mincost);
+    
+    # try to find better generators
+    
+    if mincost > maxcost or mincost > 100 then
+        weight := EmptyPlist(hsize);
+        weight[1] := 0;
+        for i in [2..Length(ids)] do
+            if IsBound(cost[i]) then
+                weight[i] := weight[i-1] + QuoInt(Size(G), cost[i]);
+            else
+                weight[i] := weight[i-1];
+            fi;
+        od;
+
+        for i in [1..LogInt(Size(G),2)*Length(MinimalGeneratingSet(G))] do
+            gens := [];
+            S := TrivialSubgroup(G);
+            totalcost := 1;
+            genspos := [];
+            repeat
+                if Random([1..10]) = 1 then
+                    g := Random(G);
+                    id := [Size(ConjugacyClass(G, g)), Order(g), 
+                        CodeCharacteristicPolynomial(ImageElm(repG.rep, g), q)];
+                    pos :=((id[3] * fac + EncodedPrimeDecomposition(id[1], primes)) * fac
+                            + EncodedPrimeDecomposition(id[2], primes)) mod hsize + 1;
+                    while IsBound(ids[pos]) and ids[pos]<>id do
+                        pos := pos + hstep;
+                        if pos > hsize then
+                            pos := pos - hsize;
+                        fi;
+                    od;
+                else
+                    k := Random(1, weight[Length(weight)]);
+                    pos := PositionSorted(weight, k);
+                    g := Random(ccl[Random(occ[pos])]);
+                fi;
+                if not g in S then
+                    Add(gens, g);
+                    Add(genspos, pos);
+                    totalcost := totalcost + cost[pos];
+                    S := ClosureGroup(S, g);
+                    #remove for redundant generators - we need not check g
+                    j := 1;
+                    repeat
+                        while j < Length(gens) and Size(Subgroup(S, gens{Difference([1..Length(gens)], [j])})) < Size(S) do
+                            j := j + 1;
+                        od;
+                        if j < Length(gens) then
+                            totalcost := totalcost-cost[genspos[j]];
+                            Remove(gens, j);
+                            Remove(genspos, j);
+                        fi;
+                    until j >= Length(gens);
+                    if totalcost > mincost then
+                        break;
+                    fi;
+                fi;
+            until Size(S) = Size(G);
+            
+            if totalcost < mincost then
+                mingens := gens;
+                mincost := totalcost;
+                mingenspos := genspos;
+                Info(InfoMorph, 2, "ConjugatingMat: found better generating system of cost ", mincost, " after ", i, " attempts");
+            else
+                Info(InfoMorph, 3, "ConjugatingMat: found generating system of cost ", totalcost);
+            fi;
+        od;
+    fi;
+    
+    if mincost > maxcost then
+        Info(InfoMorph, 1, "ConjugatingMat: too expoensive");
+        return "too expensive";
+    fi;
+    Info(InfoMorph, 1, "ConjugatingMat: using generating system of cost ", mincost);
+    
+    if not IsBound(repH.classes) then
+        repH.classes := AttributeValueNotSet(ConjugacyClasses, H);
+    fi;
+    ccl := repH.classes;
+
+    # compute set of possible generator images
+    
+    imglist := [];
+    cpH := [];
+
+    # sort, most expensive first (one representative will be picked), then ascending cost
+    SortParallel(mingenspos, mingens, function(i, j) return cost[i] > cost[j]; end);
+
+    for i in [1..Length(mingens)] do
+        id := ids[mingenspos[i]];
+        imglist[i] := [];
+        count := Length(occ[mingenspos[i]]);
+        for j in [1..Length(ccl)] do
+            cl := ccl[j];
+            if Size(cl) = id[1] and Order(Representative(cl)) = id[2] then
+                if not IsBound(cpH[j]) then
+                    cpH[j] := CodeCharacteristicPolynomial(ImageElm(repH.rep, Representative(cl)), q);
+                fi;
+                if cpH[j] = id[3] then
+                    if i = 1 then
+                        Add(imglist[i], Representative(cl));
+                    else
+                        Append(imglist[i], AttributeValueNotSet(AsList, cl));
+                    fi;
+                    count := count - 1;
+                    
+                    # if H contains more such conjugacy classes, the groups cannot be
+                    # isomorphic so it doesn't matter if we miss some possible images
+                    if count = 0 then 
+                        break; 
+                    fi;
+                fi;
+            fi;
+        od;
+        if IsEmpty(imglist[i]) then
+            Info(InfoMorph, 1, "ConjugatingMat: no suitable image ccl found, reps cannot be conjugate");
+            return fail;
+        fi;
+    od;
+
+    gens := List(mingens, g -> ImageElm(repG.rep, g));
+
+    dirr := Length(mingens) + 1;
+
+    moduleG := List([1..Length(mingens)], d -> GModuleByMats(gens{[1..d]}, GF(q)));
+    repeat
+        dirr := dirr - 1;
+    until dirr = 0 or not MTX.IsIrreducible(moduleG[dirr]);
+    
+    dirr := dirr + 1;
+    
+    if dirr > Length(mingens) then
+        Error("repG must be irreducible");
+    fi;
+
+    sizes := List([1..Length(mingens)], d -> Size(Group(mingens{[1..d]})));
+
+    D := DirectProduct(G, H);
+    homG := Embedding(D, 1);
+    homH := Embedding(D, 2);
+    proj := Projection(D, 2);
+    
+    gens := List(mingens, g -> ImageElm(homG, g));
+
+    C := G;
+    centsize := [Size(G)];
+    for g in mingens do
+        C := Centralizer(C, g);
+        Add (centsize, Size(C));
+    od;
+
+    # do a backtrack search through the possible images
+    d := 1;
+    ind := [0];
+    imgs := [];
+    group := [];
+    cent := [H];
+    matrep := [];
+    imgreps := [imglist[1]];
+    count := 0;
+    repeat
+        count := count + 1;
+        ind[d] := ind[d] + 1;
+        if count > limit_CMIROF then
+            Info(InfoMorph, 1, "ConjugatingMat: exceeded limit  ", limit_CMIROF, " attempts");
+            return "too expensive";
+        elif count mod 1000 = 0 then
+            Info(InfoMorph, 2, "count: ", count, " trying indices: ", ind{[1..d]},
+                ", lengths: ", List([1..d], t -> Length(imgreps[t])));
+        else
+            Info(InfoMorph, 3, "step: ", ind{[1..d]});
+        fi;
+            
+        imgs[d] := imgreps[d][ind[d]];
+        matrep[d] := fail;
+
+        if d = 1 then
+            group[d] := Group(gens[d]*ImageElm(homH, imgs[d]));
+        else
+            group[d] := ClosureGroup(group[d-1], gens[d]*ImageElm(homH, imgs[d]));
+        fi;
+        if d = 1 or Size(group[d]) = sizes[d] then
+        
+            # map from gens to imgs is an isomorphism
+            
+            if d >= dirr then
+                i := d;
+                while i > 0 and matrep[i] = fail do
+                    matrep[i] := ImageElm(repH.rep, imgs[i]);
+                    i := i - 1;
+                od;
+                moduleH := GModuleByMats(matrep{[1..d]}, GF(q));
+                mat :=  MTX.IsomorphismIrred(moduleG[d], moduleH);
+            else
+                mat := true;
+            fi;
+            if mat <> fail then
+                if d < Length(gens) then
+                    d := d + 1;
+                    ind[d] := 0;
+                    cent[d] := Centralizer(cent[d-1], imgs[d-1]);
+                    if Size(cent[d]) = centsize[d] then
+                        orb := OrbitsDomain(cent[d], imglist[d], OnPoints);
+                        Info(InfoMorph, 3, "ConjugatingMat: ", Length(orb), " orbits found");
+                        orb := Filtered (orb, o -> Length(o)=centsize[d]/centsize[d+1]);
+                        imgreps[d] := List (orb, o -> o[1]);
+                        Info(InfoMorph, 3, "ConjugatingMat: depth ", d, ": ",
+                            Length(orb), " orbits of expected length found");
+                    else
+                        Info(InfoMorph, 3, "ConjugatingMat: centraliser sizes don't match");
+                        imgreps[d] := [];
+                    fi;
+                else
+                    hom := GroupGeneralMappingByImagesNC(G, H,
+                        List(gens, g -> PreImagesRepresentative(homG, g)), imgs);
+                    if not IsGroupHomomorphism(hom) or not IsBijective(hom) then
+                        Error("hom is not an isomophism");
+                    fi;
+                    Info(InfoMorph, 1, "ConjugatingMat: found after ", count, " attempts");
+                    Info(InfoMorph, 2, "ConjugatingMat: found indices ", ind);
+                    return rec(iso :=hom, mat := mat);
+                fi;
+            else
+                Info(InfoMorph, 3, "step: ", ind{[1..d]}, " linearity fails");
+            fi;
+        fi;
+        while d > 0 and ind[d] = Length(imgreps[d]) do
+            d := d - 1;
+        od;
+    until d = 0;
+    Info(InfoMorph, 1, "ConjugatingMat: reps cannot be conjugate,  ", count, " attempts");
+        
+    return fail;
+end);
+
+
+
+############################################################################
+##
 #F  ConjugatingMatIrreducibleOrFail(G, H, F)
 ##
 ##  G and H must be irreducible matrix groups over the finite field F
@@ -86,259 +432,18 @@ end);
 ##
 InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function(G, H, F)
     
-    local q, isoG, preG, isoH, preH, ccl, cl, ids, id, gens, genspos, imglist, g, i, j, k, len, 
-        cost, weight, mingens, mincost, mingenspos, totalcost, pos, d, ind, imgs, hom, count,
-        sizes, D, projG, projH, homG, homH, group, S, occ, cpH,
-        imglistrep, moduleG, moduleH, dirr, mat;
+    local q, repG, repH;
     
     q := Size(F);
-    isoG := RepresentationIsomorphism(G);
-    preG := Source(isoG);
-    isoH := RepresentationIsomorphism(H);
-    preH := Source(isoH);
-    ccl := ConjugacyClasses(preG);
-    ids := [];
-    occ := [];
-    len := 0;
-    for i in [1..Length(ccl)] do
-        cl := ccl[i];
-        id := [Size(cl), Order(Representative(cl)), 
-            CodeCharacteristicPolynomial(ImageElm(isoG, Representative(cl)), q)];
-        pos := PositionSorted(ids, id);
-        if pos > len then
-            ids[pos] := id;
-            occ[pos] := [i];
-            len := len + 1;
-        elif ids[pos] <> id then
-            CopyListEntries( ids, pos, 1, ids, pos + 1, 1, len - pos + 1 );
-            CopyListEntries( occ, pos, 1, occ, pos + 1, 1, len - pos + 1 );
-            ids[pos] := id;
-            occ[pos] := [i];
-            len := len + 1;
-        else
-            Add(occ[pos], i);
-        fi;
-    od;
-    
-    cost := [];
-    for i in [2..Length(ids)] do
-        cost[i] := ids[i][1]*Length(occ[i]);
-    od;
-    
-    
-    gens := ShallowCopy(MinimalGeneratingSet(preG));
-    Info(InfoMorph, 1, "MinimalGeneratingSet has ", Length(gens), " generators");
-    
-    mincost := 1;
-    mingenspos := [];
-    
-    for i in [1..Length(gens)] do
-        g := gens[i];
-        id := [Size(ConjugacyClass(preG, g)), Order(g),
-            CodeCharacteristicPolynomial(ImageElm(isoG, g), q)];
-        pos := PositionSorted(ids, id);
-        mincost := mincost * cost[pos];
-        Add(mingenspos, pos);
-    od;
-    mingens := gens;
+    repG := rec(rep := RepresentationIsomorphism(G),
+        group := Source(~.rep),
+        classes := ConjugacyClasses(~.group));
 
-    Info(InfoMorph, 1, "ConjugatingMatIrreducibleOrFail: cost of minimal generating system is ", mincost);
-    
-    # try to find better generators
-    
-    if mincost > 100*Size(preG) then 
-        weight := [0];
-        for i in [2..Length(ids)] do
-            weight[i] := weight[i-1] + QuoInt(Size(preG), cost[i]);
-        od;
+    repH := rec(rep := RepresentationIsomorphism(H),
+        group := Source(~.rep),
+        classes := ConjugacyClasses(~.group));
 
-        for i in [1..7*Length(MinimalGeneratingSet(preG))] do
-            gens := [];
-            S := TrivialSubgroup(preG);
-            totalcost := 1;
-            genspos := [];
-            repeat
-                if Random([1..10]) = 1 then
-                    g := Random(preG);
-                    id := [Size(ConjugacyClass(preG, g)), Order(g),
-                        CodeCharacteristicPolynomial(ImageElm(isoG, g), q)];
-                    pos := PositionSorted(ids, id);
-                else
-                    k := Random(0, weight[Length(weight)]);
-                    pos := PositionSorted(weight, k);
-                    g := Random(ccl[Random(occ[pos])]);
-                fi;
-                if not g in S then
-                    totalcost := totalcost * cost[pos];
-                    Add(gens, g);
-                    Add(genspos, pos);
-                    S := ClosureGroup(S, g);
-                    #remove for redundant generators - we need not check g
-                    j := 1;
-                    repeat
-                        while j < Length(gens) and Size(Subgroup(S, gens{Difference([1..Length(gens)], [j])})) < Size(S) do
-                            j := j + 1;
-                        od;
-                        if j < Length(gens) then
-                            totalcost := totalcost/cost[genspos[j]];
-                            Remove(gens, j);
-                            Remove(genspos, j);
-                        fi;
-                    until j >= Length(gens);
-                    if totalcost > mincost then
-                        break;
-                    fi;
-                fi;
-            until Size(S) = Size(preG);
-            
-            if totalcost < mincost then
-                mingens := gens;
-                mincost := totalcost;
-                mingenspos := genspos;
-                Info(InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: found better generating system of cost ", mincost, " after ", i, " steps");
-            else
-                Info(InfoMorph, 3, "ConjugatingMatIrreducibleOrFail: found generating system of cost ", totalcost);
-            fi;
-        od;
-    fi;
-    
-    Info(InfoMorph, 1, "ConjugatingMatIrreducibleOrFail: using generating system of cost ", mincost);
-    
-    ccl := ConjugacyClasses(preH);
-
-    # compute set of possible generator images
-    
-    imglist := [];
-    cpH := [];
-    
-    SortParallel(mingenspos, mingens, function(i, j) return cost[i] > cost[j]; end);
-    
-    for i in [1..Length(mingens)] do
-        id := ids[mingenspos[i]];
-        imglist[i] := [];
-        count := Length(occ[mingenspos[i]]);
-        for j in [1..Length(ccl)] do
-            cl := ccl[j];
-            if Size(cl) = id[1] and Order(Representative(cl)) = id[2] then
-                if not IsBound(cpH[j]) then
-                    cpH[j] := CodeCharacteristicPolynomial(ImageElm(isoH, Representative(cl)), q);
-                fi;
-                if cpH[j] = id[3] then
-                    if i = 1 then
-                        Add(imglist[i], Representative(cl));
-                    else
-                        Append(imglist[i], AttributeValueNotSet(AsList, cl));
-                    fi;
-                    count := count - 1;
-                    # we assume that repG and repH have the same fingerprint, so that we know how many classes to expect
-                    # if this fails, it doesn't matter if we miss some possible images, since the groups 
-                    # will be nonisomorphic anyway
-                    if count = 0 then 
-                        break; 
-                    fi;
-                fi;
-            fi;
-        od;
-        if count > 0 then
-            Info(InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: conjugacy clases don't match - groups cannot be conjugate");
-            
-            Error("Breakpoint");
-            return fail;
-        fi;
-        Assert(0, i = 1 or Length(imglist[i]) = cost[mingenspos[i]]);
-    od;
-    
-    
-    Info(InfoMorph, 2, "image lists have lengths ", List(imglist, Length));
-    
-
-    gens := List(mingens, g -> ImageElm(isoG, g));
-    
-    dirr := Length(mingens) + 1;
-    moduleG := List([1..Length(mingens)], d -> GModuleByMats(gens{[1..d]}, GF(q)));
-    repeat
-        dirr := dirr - 1;
-    until dirr = 0 or not MTX.IsIrreducible(moduleG[dirr]);
-    
-    dirr := dirr + 1;
-    
-    if dirr > Length(mingens) then
-        Error("repG must be irreducible");
-    fi;
-    imglistrep := List([1..Length(mingens)], 
-        d -> List(imglist[d], g -> ImageElm(isoH, g)));
-    
-    sizes := List([1..Length(mingens)], d -> Size(Group(mingens{[1..d]})));
-
-    D := DirectProduct(preG, preH);
-    homG := Embedding(D, 1);
-    homH := Embedding(D, 2);
-    projG := Projection(D, 1);
-    projH := Projection(D, 2);
-    
-    gens := List(mingens, g -> ImageElm(homG, g));
-    
-    for i in [1..Length(gens)] do
-        imglist[i] := List(imglist[i], h -> ImageElm(homH, h));
-    od;
-
-    # do a backtrack search through the possible images
-    d := 1;
-    ind := [0];
-    imgs := [];
-    group := [];
-    count := 0;
-    repeat
-        count := count + 1;
-        ind[d] := ind[d] + 1;
-        if count mod 1000 = 0 then
-            Info(InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: count = ", count, " trying indices: ", ind{[1..d]});
-        else
-            Info(InfoMorph, 3, "ConjugatingMatIrreducibleOrFail: count = ", count, " trying indices: ", ind{[1..d]});
-        fi;
-            
-        imgs[d] := imglist[d][ind[d]];
-        if d = 1 then
-            group[d] := Group(gens[d]*imgs[d]);
-        else
-            group[d] := ClosureGroup(group[d-1], gens[d]*imgs[d]);
-        fi;
-        if d = 1 or Size(group[d]) = sizes[d] and Size(ImagesSet(projH, group[d])) = sizes[d] then 
-        
-            # map from gens to imgs is an isomorphism
-            
-            if d >= dirr then
-                moduleH := GModuleByMats(List([1..d], i -> imglistrep[i][ind[i]]), GF(q));
-                mat := MTX.Isomorphism(moduleG[d], moduleH);
-            else
-                mat := true;
-            fi;
-            if mat <> fail then
-                if d < Length(gens) then
-                    d := d + 1;
-                    ind[d] := 0;
-                else
-                    hom := GroupGeneralMappingByImagesNC(preG, preH,
-                        List(gens, g -> ImageElm(projG, g)), 
-                        List(imgs, h -> ImageElm(projH, h)));
-                    if not IsGroupHomomorphism(hom) or not IsBijective(hom) then
-                        Error("hom is not an isomophism");
-                    fi;
-                    Info(InfoMorph, 1, "ConjugatingMatIrreducibleOrFail: found after ", count, " attempts");
-                    Info(InfoMorph, 2, "ConjugatingMatIrreducibleOrFail: found indices ", ind);
-                    return rec(mat := mat, iso := hom);
-                fi;
-            else
-                Info(InfoMorph, 3, "step: ", ind{[1..d]}, " linearity fails");
-            fi;
-        fi;
-        while d > 0 and ind[d] = Length(imglist[d]) do
-            d := d - 1;
-        od;
-    until d = 0;
-    Info(InfoMorph, 1, "ConjugatingMatIrreducibleOrFail:: reps cannot be conjugate,  ", count, " attempts");
-        
-    return fail;
+    return ConjugatingMatIrreducibleRepOrFail(repG, repH, q, infinity, infinity);
 end);
 
 

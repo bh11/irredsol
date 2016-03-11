@@ -37,11 +37,13 @@ DECLARE_IRREDSOL_SYNONYMS_ATTR("FingerprintMatrixGroup");
 
 ############################################################################
 ##
+#F  ConjugatingMatIrreducibleRepOrFail(repG, repH, q, linonly, maxcost, limit)
+##
+DeclareGlobalFunction("ConjugatingMatIrreducibleRepOrFail");
+
+############################################################################
+##
 #F  ConjugatingMatIrreducibleOrFail(G, H, F)
-##
-##  G and H must be irreducible matrix groups over the finite field F
-##
-##  computes a matrix x such that G^x = H or returns fail if no such x exists
 ##
 DeclareGlobalFunction("ConjugatingMatIrreducibleOrFail");
 
