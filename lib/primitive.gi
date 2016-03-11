@@ -311,7 +311,7 @@ InstallGlobalFunction(IrreducibleMatrixGroupPrimitiveSolubleGroupNC,
         H := Group(mats);
         SetSize(H, Size(G)/Size(N));
         GmodN := PcGroupWithPcgs(pcgsGmodN);
-        hom := GroupGeneralMappingByImages(GmodN, H, FamilyPcgs(GmodN), mats);
+        hom := GroupGeneralMappingByImagesNC(GmodN, H, FamilyPcgs(GmodN), mats);
         SetIsGroupHomomorphism(hom, true);
         SetIsBijective(hom, true);
         SetRepresentationIsomorphism(H, hom);

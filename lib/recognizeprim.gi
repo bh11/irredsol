@@ -101,7 +101,7 @@ InstallGlobalFunction(RecognitionPrimitiveSolubleGroup,
         fi;
         
         SetSize(H, Size(C));
-        hom := GroupGeneralMappingByImages(CC, H, Pcgs(CC), mats);
+        hom := GroupGeneralMappingByImagesNC(CC, H, Pcgs(CC), mats);
         SetIsGroupHomomorphism(hom, true);
         SetIsBijective(hom, true);
         SetRepresentationIsomorphism(H, hom);
