@@ -151,7 +151,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function(G, H, F)
         for i in [2..Length(ids)] do
             weight[i] := weight[i-1] + QuoInt(Size(preG), cost[i]);
         od;
-            
+
         for i in [1..7*Length(MinimalGeneratingSet(preG))] do
             gens := [];
             S := TrivialSubgroup(preG);
@@ -318,7 +318,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function(G, H, F)
                     d := d + 1;
                     ind[d] := 0;
                 else
-                    hom := GroupGeneralMappingByImages(preG, preH,
+                    hom := GroupGeneralMappingByImagesNC(preG, preH,
                         List(gens, g -> ImageElm(projG, g)), 
                         List(imgs, h -> ImageElm(projH, h)));
                     if not IsGroupHomomorphism(hom) or not IsBijective(hom) then
@@ -743,7 +743,7 @@ InstallGlobalFunction(RecognitionIrreducibleSolubleMatrixGroupNC,
             
             # construct representation isomorphism for H
             
-            repH := GroupGeneralMappingByImages (Source (repG), H, 
+            repH := GroupGeneralMappingByImagesNC (Source (repG), H,
                     GeneratorsOfGroup(Source(repG)),
                     MTX.Generators (module));
             SetIsGroupHomomorphism (repH, true);
@@ -804,7 +804,7 @@ InstallGlobalFunction(RecognitionIrreducibleSolubleMatrixGroupNC,
                     
                     # construct representation isomorphism for H
                     
-                    repH := GroupGeneralMappingByImages (Source (repG), H, 
+                    repH := GroupGeneralMappingByImagesNC (Source (repG), H,
                             GeneratorsOfGroup(Source(repG)),
                             MTX.Generators (module));
                     SetIsGroupHomomorphism (repH, true);

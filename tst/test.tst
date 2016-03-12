@@ -87,7 +87,7 @@ gap> TestRandomIrreducibleSolvableMatrixGroup := function (n, q, d, k, e)
 >    SetSize (M, Size (G));
 >    SetIsSolvableGroup (M, true);
 >    SetIdIrreducibleSolvableMatrixGroup (M, IdIrreducibleSolvableMatrixGroup (G));
->    rep := GroupGeneralMappingByImages (H1, M, gens, GeneratorsOfGroup (M));
+>    rep := GroupGeneralMappingByImagesNC (H1, M, gens, GeneratorsOfGroup (M));
 >    SetIsGroupHomomorphism (rep, true);
 >    SetIsSingleValued (rep, true);
 >    SetIsBijective (rep, true);

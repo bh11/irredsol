@@ -98,5 +98,16 @@ fi;
 
 ############################################################################
 ##
+#F  GroupGeneralMappingByImagesNC
+##
+##  replacement for GAP 4.6 function
+##  
+if not IsBound(GroupGeneralMappingByImagesNC) then
+    BindGlobal("GroupGeneralMappingByImagesNC", GroupGeneralMappingByImages);
+fi;
+
+
+############################################################################
+##
 #E
 ##
