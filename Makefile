@@ -24,7 +24,7 @@ libfiles=access.gd access.gi iterators.gd iterators.gi loadfp.gd loadfp.gi \
    util.g util.gd util.gi obsolete.gd obsolete.gi
 
 docfiles=manual.tex copyright.tex overview.tex access.tex matgroups.tex \
-    primitive.tex recognition.tex
+    primitive.tex recognition.tex versions.tex
     
 manexts=.bbl .ind .idx .six .pdf .mst .toc \
     .example-2.tst .example-3.tst .example-4.tst .example-5.tst
