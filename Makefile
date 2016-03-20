@@ -29,7 +29,7 @@ docfiles=manual.tex copyright.tex overview.tex access.tex matgroups.tex \
 manexts=.bbl .ind .idx .six .pdf .mst .toc \
     .example-2.tst .example-3.tst .example-4.tst .example-5.tst
 
-testfiles=testall.g # we wrap *.tst as well
+testfiles=testall.g randomirred.g # we wrap *.tst as well
 
 update_files=README.in index.in.html PackageInfo.in.g doc/manual.in.tex
 
