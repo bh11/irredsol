@@ -26,6 +26,13 @@ DECLARE_IRREDSOL_FUNCTION("IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup"
 
 ############################################################################
 ##
+#F  FingerprintDerivedSeries(<n>)
+##
+DeclareAttribute("FingerprintDerivedSeries", IsGroup);
+
+
+############################################################################
+##
 #A  FingerprintMatrixGroup(<G>)
 ##
 ##  construct some data which is invariant under conjugation by an element
@@ -40,6 +47,7 @@ DECLARE_IRREDSOL_SYNONYMS_ATTR("FingerprintMatrixGroup");
 #F  ConjugatingMatIrreducibleRepOrFail(repG, repH, q, linonly, maxcost, limit)
 ##
 DeclareGlobalFunction("ConjugatingMatIrreducibleRepOrFail");
+
 
 ############################################################################
 ##

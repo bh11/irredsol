@@ -38,33 +38,109 @@ InstallGlobalFunction(IsAvailableIdAbsolutelyIrreducibleSolubleMatrixGroup,
 
 ############################################################################
 ##
+#F  FingerprintDerivedSeries(<n>)
+##
+InstallMethod(FingerprintDerivedSeries, "generic method for finite group", true,
+    [IsGroup and IsFinite], 0,
+    function(G)
+        local EncodedPrimePower, EncodedAbInv, primes, max, der;
+
+
+        EncodedPrimePower := function(n, primes)
+
+            local res, i, p;
+            
+            res := -1; # count p^1 as zero
+
+            i := 1;
+            while n mod primes[i][1] <> 0 do
+                 res := res + primes[i][2];
+                 i := i + 1;
+            od;
+            p := primes[i][1];
+            repeat
+                    n := n / p;
+                    res := res + 1;
+            until n mod p <> 0;
+
+            if n <> 1 then 
+                Error("cannot encode prime power n");
+            fi;
+            return res;
+        end;
+
+        EncodedAbInv := function (inv, primes, max)
+
+            local i, res;
+            res := EncodedPrimePower(inv[1], primes);
+            for i in [2..Length(inv)] do
+                res := res * max + EncodedPrimePower(inv[i], primes);
+            od;
+            return res;
+        end;
+
+        primes := Collected(FactorsInt(Size(G)));
+        max := Sum(primes, p -> p[2]);
+        der := DerivedSeries(G);
+        return List(der{[1..Length(der)-1]}, N -> EncodedAbInv(AbelianInvariants(N), primes, max));
+    end);
+
+RedispatchOnCondition(FingerprintDerivedSeries, true,
+    [IsGroup], [IsFinite], 0);
+
+
+############################################################################
+##
 #M  FingerprintMatrixGroup(<G>)
 ##  
 InstallMethod(FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
     [IsMatrixGroup and CategoryCollections(IsFFECollColl)], 0,
     function(G)
 
-    local ids, len, cl, id, pos, rep, i, g, q;
+    local EncodedPrimeDecomposition, primes, max, ids, len, cl, id, pos, rep, i, g, q;
     
+    EncodedPrimeDecomposition := function(n, primes)
+
+        local res, i, p;
+        
+        res := 0;
+        
+        for i in [1..Length(primes)] do
+            res := res * (primes[i][2]+1);
+            p := primes[i][1];
+            while n mod p = 0 do
+                n := n / p;
+                res := res + 1;
+            od;
+        od;
+        if n <> 1 then 
+            Error("cannot encode integer n");
+        fi;
+        return res;
+    end;
+
+    primes := Collected(FactorsInt(Size(G)));
+    max := Product(primes, p -> p[2]+1);
     q := Size(TraceField(G));
     rep := RepresentationIsomorphism(G);
     ids := [];
     len := 0;
     for cl in AttributeValueNotSet(ConjugacyClasses, Source(rep)) do
         g := Representative(cl);
-        if g <> g^0 then
-            id := [Size(cl), Order(g), CodeCharacteristicPolynomial(ImageElm(rep, g), q), 1];
-            pos := PositionSorted(ids, id);
-            if pos > len then
-                ids[pos] := id;
-                len := len + 1;
-            elif ids[pos]{[1,2,3]} <> id{[1,2,3]} then
-                CopyListEntries( ids, pos, 1, ids, pos + 1, 1, len - pos + 1 );
-                ids[pos] := id;
-                len := len + 1;
-            else
-                ids[pos][4] := ids[pos][4] + 1;
-            fi;
+        id := [EncodedPrimeDecomposition(Size(cl), primes)
+                + max * (EncodedPrimeDecomposition(Order(g), primes)
+                        + max * CodeCharacteristicPolynomial(ImageElm(rep, g), q)),
+                1];
+        pos := PositionSorted(ids, id);
+        if pos > len then
+            ids[pos] := id;
+            len := len + 1;
+        elif ids[pos][1] <> id[1] then
+            CopyListEntries( ids, pos, 1, ids, pos + 1, 1, len - pos + 1 );
+            ids[pos] := id;
+            len := len + 1;
+        else
+            ids[pos][2] := ids[pos][2] + 1;
         fi;
     od;
     return ids;
@@ -115,7 +191,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleRepOrFail,
 
     G := repG.group;
     H := repH.group;
-    primes := Collected(RelativeOrders(InducedPcgsWrtFamilyPcgs(G)));
+    primes := Collected(FactorsInt(Size(G)));
     fac := Sum(primes, p -> p[2]);
     if not IsBound(repG.classes) then
         repG.classes := AttributeValueNotSet(ConjugacyClasses, G);
@@ -549,7 +625,7 @@ end);
 InstallGlobalFunction(RecognitionAISMatrixGroup,
     function(G, inds, wantmat, wantgroup, wantiso)
     
-        local allinds, n, q, order, info, fppos, fpinfo, elminds, pos, t, tinv, 
+        local allinds, newinds, n, q, order, info, fppos, fpinfo, elminds, pos, t, tinv,
             F, H, systems, rep, i, x;
         
         F := TraceField(G);
@@ -582,6 +658,26 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
                     
                     fpinfo := IRREDSOL_DATA.FP[n][q][fppos];        # fingerprint info
 
+                    if Length(fpinfo)=2 then # new format using FingerprintDerivedSubgroup
+                        if IsBound(fpinfo[1]) then
+                            pos := PositionSorted(fpinfo[1],
+                                FingerprintDerivedSeries(Source(RepresentationIsomorphism(G))));
+                            if pos = fail then
+                                Error("panic: FingerprintDerivedSeries not in database");
+                            fi;
+                        else
+                            pos := 1;
+                        fi;
+                        fpinfo := fpinfo[2][pos];
+                        if IsInt(fpinfo) then
+                            fpinfo := [[], [[]], [fpinfo]];
+                        fi;
+                    fi;
+
+                    if Length(fpinfo) <> 3 then
+                        Error("panic: error in fingerprint database");
+                    fi;
+
                     Info(InfoIrredsol, 1, "computing fingerprint of group");
                     
                     # which distingushing elements are in G?
@@ -601,16 +697,20 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
                     pos := PositionSet(fpinfo[2], elminds);
                     
                     if pos = fail then
-                        Error("panic: fingerprint not found in database");
+                        Error("panic: FingerprintMatrixGroup not found in database");
                     fi;
-                    
+
+                    newinds := fpinfo[3][pos];
+                    if IsInt(newinds) then
+                        newinds := [newinds];
+                    fi;
                     if allinds then
-                        if not IsSubset(inds, fpinfo[3][pos]) then
+                        if not IsSubset(inds, newinds) then
                             Error("panic: fingerprint indices do not match the IRREDSOL library indices");
                         fi;
-                        inds := fpinfo[3][pos];
+                        inds := newinds;
                     else
-                        inds := Intersection(inds, fpinfo[3][pos]);
+                        inds := Intersection(inds, newinds);
                     fi;
                     
                     Info(InfoIrredsol, 1, Length(inds), 
