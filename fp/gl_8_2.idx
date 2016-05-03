@@ -1,20 +1,14 @@
 ############################################################################
 ##
-##  gl_8_2.idx                   IRREDSOL                  Burkhard Hoefling
+##  gl_8_2.idx                   IRREDSOL                  Burkhard Höfling
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
 
 ############################################################################
 ##
-#V  IRREDSOL_DATA.FP_INDEX
-##
-IRREDSOL_DATA.FP_INDEX[8][2] := 
-[ [ 72, 200, 216, 400, 432, 600, 648, 1296, 1800, 1944, 2592, 3600, 3888, 5184, 15552 ], 
-  [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ];
+IRREDSOL_DATA.FP_INDEX[8][2] := [ [ 72, 200, 216, 400, 432, 600, 648, 1296, 1800, 1944, 2592, 3600, 3888, 5184, 15552 ], [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ];
 
 
 ############################################################################
