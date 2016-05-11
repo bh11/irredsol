@@ -127,7 +127,8 @@ InstallGlobalFunction(TryLoadAbsolutelyIrreducibleSolubleGroupData,
                 G := PcGroupCode(guardianDesc[3], guardianDesc[2]);
                 H := Group(guardianDesc[1]);
                 SetSize(H, Size(G));
-                hom := GroupHomomorphismByImagesNC(G, H, FamilyPcgs(G), guardianDesc[1]);
+                hom := GroupGeneralMappingByImagesNC(G, H, FamilyPcgs(G), guardianDesc[1]);
+                SetIsGroupHomomorphism(hom, true);
                 SetIsBijective(hom, true);
                 guardianDesc[3] := hom;
                 if TestFlag(guardianDesc[5], 0) then

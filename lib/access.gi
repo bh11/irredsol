@@ -202,8 +202,9 @@ InstallGlobalFunction(IrreducibleSolubleMatrixGroup,
             grp := GroupWithGenerators(gens, IdentityMat(n0, GF(q0)));
             SetSize( grp, Product(RelativeOrders(pcgs)) );
             
-            hom := GroupHomomorphismByImagesNC(GroupOfPcgs(pcgs), grp,
+            hom := GroupGeneralMappingByImagesNC(GroupOfPcgs(pcgs), grp,
                 pcgs, gens);
+            SetIsGroupHomomorphism(hom, true);
             SetIsBijective(hom, true);
                 
             # look up minimal block dimension
