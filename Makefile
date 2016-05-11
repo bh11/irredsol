@@ -133,10 +133,10 @@ tar: update_in
 testinstall:
 teststandard:
 testall:
-	echo 'Read("tst/testall.g");quit;' | gap $(TESTOPTS)
+	gap $(TESTOPTS) tst/testall.g
 
 testrenormalise:
-	echo 'Read("tst/renormalise.g");quit;' | gap $(TESTOPTS)
+	gap $(TESTOPTS) tst/renormalise.g
 
 coverage:
 	mkdir -p private/coverage

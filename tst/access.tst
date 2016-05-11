@@ -62,5 +62,5 @@ gap> all := AllIrreducibleSolvableMatrixGroups (Degree, 4, Field , GF(3), Minima
 gap> Collected (List (all, Size)) ;
 [ [ 16, 3 ], [ 32, 5 ], [ 64, 4 ], [ 96, 1 ], [ 128, 1 ], [ 192, 3 ], 
   [ 384, 1 ] ]
-gap> STOP_TEST("access", 2480000);
+gap> STOP_TEST("access", 2200000);
 GAP4stones: 0
