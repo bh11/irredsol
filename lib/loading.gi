@@ -2,7 +2,7 @@
 ##
 ##  loading.gi                    IRREDSOL                  Burkhard Höfling
 ##
-##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
+##  Copyright © 2003–2016 Burkhard Höfling
 ##
 
     
