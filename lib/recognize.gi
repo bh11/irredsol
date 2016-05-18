@@ -97,7 +97,8 @@ InstallMethod(FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
     [IsMatrixGroup and CategoryCollections(IsFFECollColl)], 0,
     function(G)
 
-    local EncodedPrimeDecomposition, primes, max, ids, len, cl, id, pos, rep, i, g, q;
+    local EncodedPrimeDecomposition, primes, max, ids, len, ccl, cl, id, pos, rep, i, g, q,
+        hsize, hstep, counts, fppoly;
     
     EncodedPrimeDecomposition := function(n, primes)
 
@@ -123,27 +124,43 @@ InstallMethod(FingerprintMatrixGroup, "for irreducible FFE matrix group", true,
     max := Product(primes, p -> p[2]+1);
     q := Size(TraceField(G));
     rep := RepresentationIsomorphism(G);
-    ids := [];
+    ccl := AttributeValueNotSet(ConjugacyClasses, Source(rep));
+    hsize := NextPrimeInt(2*Length(ccl));
+    hstep := NextPrimeInt(RootInt(hsize));
+    ids := EmptyPlist(hsize);
+    counts := EmptyPlist(hsize);
     len := 0;
-    for cl in AttributeValueNotSet(ConjugacyClasses, Source(rep)) do
+    for cl in ccl do
         g := Representative(cl);
-        id := [EncodedPrimeDecomposition(Size(cl), primes)
+        id := EncodedPrimeDecomposition(Size(cl), primes)
                 + max * (EncodedPrimeDecomposition(Order(g), primes)
-                        + max * CodeCharacteristicPolynomial(ImageElm(rep, g), q)),
-                1];
-        pos := PositionSorted(ids, id);
-        if pos > len then
-            ids[pos] := id;
-            len := len + 1;
-        elif ids[pos][1] <> id[1] then
-            CopyListEntries( ids, pos, 1, ids, pos + 1, 1, len - pos + 1 );
-            ids[pos] := id;
-            len := len + 1;
+                        + max * CodeCharacteristicPolynomial(ImageElm(rep, g), q));
+        pos := id mod hsize + 1;
+        while IsBound(ids[pos]) and ids[pos] <> id do
+            pos := pos + hstep;
+            if pos > hsize then
+                pos := pos - hsize;
+            fi;
+        od;
+        if IsBound(ids[pos]) then
+            counts[pos] := counts[pos] + 1;
         else
-            ids[pos][2] := ids[pos][2] + 1;
+            ids[pos] := id;
+            counts[pos] := 1;
         fi;
     od;
-    return ids;
+    fppoly := [];
+    for id in AsSet(ids) do
+        pos := id mod hsize + 1; 
+        while IsBound(ids[pos]) and ids[pos] <> id do
+            pos := pos + hstep;
+            if pos > hsize then
+                pos := pos - hsize;
+            fi;
+        od;
+        Add(fppoly, [id, counts[pos]]);
+    od;
+    return fppoly;
 end);
 
 
