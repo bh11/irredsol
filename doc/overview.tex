@@ -16,7 +16,7 @@ soluble subgroups of matrix groups over finite fields and a corresponding librar
 
 Currently, {\IRREDSOL} contains all subgroups, up to conjugacy, of $GL(n, q)$, 
 where $n$ is a positive integer and $q$
-is a prime power satisfying  $q^n \< 2^{24} - 1 = 16\,777\,215$. The underlying data base consists of 
+is a prime power satisfying  $q^n \leq 2^{24} - 1 = 16\,777\,215$. The underlying data base consists of 
 $ 921\,371$ absolutely irreducible groups of degree $n > 1$ amounting to $1\,089\,136$ irreducible groups of degree~$n>1$. See Section~"Design of the group library" for details.
 
 The groups in the {\IRREDSOL} 
@@ -52,14 +52,15 @@ All of these groups are,  of course, also part of the {\IRREDSOL} data base, and
 {\GAP} library in {\IRREDSOL} and viceversa. See
 Section~"Compatibility with other data libraries".
 
-The groups in the {\IRREDSOL} data base were constructed using the methods
-described by Bettina Eick and the author in \cite{EH}, where the 
+The groups in the {\IRREDSOL} data base were constructed using the Aschbacher 
+classification~\cite{Asc} of maximal subgroups of linear groups. Further details can be found 
+in~\cite{EH}, where the 
 construction of all irreducible soluble subgroups of $GL(n, q)$ with $q^n \< 3^8$
 is described.
 
-For a historic account of the classification of irreducible matrix groups and
+For a historical account of the classification of irreducible matrix groups and
 primitive permutation groups, the reader is referred to \cite{Sho} and, 
-for recent developments, to~\cite{EH}.
+for more recent developments, to~\cite{EH}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
