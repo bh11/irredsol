@@ -19,13 +19,13 @@ Version := "IRREDSOL_VERSION",
 ##  Release date of the current version in dd/mm/yyyy format.
 Date := "IRREDSOL_DATE",
 
-BannerString := Concatenation("\
+BannerString := "\
 ----------------------------------------------------------------------\n\
-                          IRREDSOL Version ", ~.Version, "\n\
+                          IRREDSOL Version IRREDSOL_VERSION\n\
   A library of irreducible soluble linear groups over finite fields\n\
                 and of finite primivite soluble groups\n\
                          by Burkhard Höfling\n\
-----------------------------------------------------------------------\n"),
+----------------------------------------------------------------------\n",
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive

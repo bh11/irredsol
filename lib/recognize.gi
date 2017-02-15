@@ -528,13 +528,13 @@ InstallGlobalFunction(ConjugatingMatIrreducibleOrFail, function(G, H, F)
     local q, repG, repH;
     
     q := Size(F);
-    repG := rec(rep := RepresentationIsomorphism(G),
-        group := Source(~.rep),
-        classes := ConjugacyClasses(~.group));
+    repG := rec(rep := RepresentationIsomorphism(G));
+    repG.group := Source(repG.rep);
+    repG.classes := ConjugacyClasses(repG.group);
 
-    repH := rec(rep := RepresentationIsomorphism(H),
-        group := Source(~.rep),
-        classes := ConjugacyClasses(~.group));
+    repH := rec(rep := RepresentationIsomorphism(H));
+    repH.group := Source(repH.rep);
+    repH.classes := ConjugacyClasses(repH.group);
 
     return ConjugatingMatIrreducibleRepOrFail(repG, repH, q, infinity, infinity);
 end);

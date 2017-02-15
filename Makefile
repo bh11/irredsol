@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-VERSION=dev
+VERSION=1.4.dev
 DATE=$(shell echo `date "+%d/%m/%Y"`)
 GAPROOT=../..
 PKGROOT=..
