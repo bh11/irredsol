@@ -58,8 +58,8 @@ PackageInfoURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
 AbstractHTML := "The <span class=\"pkgname\">GAP</span> package <span \
 class=\"pkgname\">IRREDSOL</span> provides a library of all \
 irreducible soluble subgroups of <i>GL(n,q)</i>, up to conjugacy, \
-for <i>q<sup>n</sup></i> up to 2000000, \
-and a library of the primitive soluble groups of degree up to 2000000.",
+for <i>q<sup>n</sup></i> up to 2^24-1, \
+and a library of the primitive soluble groups of degree up to 2^24-1.",
 
 PackageWWWHome := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/index.html",
                   

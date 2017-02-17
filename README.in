@@ -4,8 +4,8 @@
 
 IRREDSOL is a GAP package which provides a library of all irreducible 
 soluble subgroups of GL(n, q), up to conjugacy, where n is a positive
-integer and q a prime power satisfying q^n <= 2 000 000, and a library
-of all primitive soluble groups of degree at most 2 000 000.
+integer and q a prime power satisfying q^n <= 2^24-1, and a library
+of all primitive soluble groups of degree at most 2^24-1.
 
 This version of IRREDSOL requires at least GAP 4.5.
 
