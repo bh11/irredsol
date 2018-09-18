@@ -73,7 +73,7 @@ manual.pdf: update_in
 manual.html:
 	mkdir -p htm; \
 	rm -f htm/CHAP00?.htm; \
-	perl $(GAPROOT)/etc/convert.pl -n IRREDSOL -c -i doc htm; \
+	perl $(GAPROOT)/etc/convert.pl -n IRREDSOL -c -i -u doc htm; \
 	chmod -R a+r htm \
 
 manual: manual.pdf manual.html
