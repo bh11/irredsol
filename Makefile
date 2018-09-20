@@ -38,7 +38,7 @@ tarfile=irredsol/irredsol-$(VERSION).tar
 
 taropts=-s /irredsol/irredsol-$(VERSION)/ -f
 
-default: update_in manual
+default: update_in
 
 dist: testver update_in manual tar
 
