@@ -135,9 +135,6 @@ teststandard:
 testall:
 	gap $(TESTOPTS) tst/testall.g
 
-testrenormalise:
-	gap $(TESTOPTS) tst/renormalise.g
-
 coverage:
 	mkdir -p private/coverage
 	echo 'Read("tst/in.g");quit;' \
