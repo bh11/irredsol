@@ -5,4 +5,3 @@ gap> for i in inds do
 >    TestRandomIrreducibleSolvableMatrixGroup (8, 3, 2, i, 3);
 > od;
 gap> STOP_TEST("recog1", 363680000);
-GAP4stones: 0
