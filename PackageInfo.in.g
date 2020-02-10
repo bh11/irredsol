@@ -19,6 +19,9 @@ Version := "IRREDSOL_VERSION",
 ##  Release date of the current version in dd/mm/yyyy format.
 Date := "IRREDSOL_DATE",
 
+##  Machine readable license information (as an SPDX identifier)
+License := "BSD-2-Clause",
+
 BannerString := "\
 ----------------------------------------------------------------------\n\
                           IRREDSOL Version IRREDSOL_VERSION\n\
