@@ -13,7 +13,7 @@ In order to install IRREDSOL, you have to get the package archive file
 'irredsol-IRREDSOL_VERSION.tar.gz', or any other archive format suitable for your
 system. It is available for download from
 
-http://www.gap-system.org/Packages/irredsol.html
+https://www.gap-system.org/Packages/irredsol.html
 
 To install IRREDSOL, move the package archive file into the 'pkg'
 directory in which you plan to install IRREDSOL. Usually, this will be 
