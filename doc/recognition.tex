@@ -49,7 +49,7 @@ This function returns `true' if `IdIrreducibleSolubleMatrixGroup' (see
 \>IdIrreducibleSolvableMatrixGroup(<G>) A
 
 If the matrix group <G> is soluble and irreducible over $F
-= `FieldOfMatrixGroup'(<G>)$, (see "ref:FieldOfMatrixGroup" in the {\GAP} reference manual), and a conjugate in
+= `FieldOfMatrixGroup'(<G>)$, (see "ref:FieldOfMatrixGroup"), and a conjugate in
 $GL(<n>, <F>)$ of $<G>$ belongs to the data base of  irreducible soluble groups in
 {\IRREDSOL}, this function returns a list `['<n>, <q>, <d>, <k>`]' such that <G> is
 conjugate to  `IrreducibleSolubleMatrixGroup'(<n>, <q>, <d>, <k>) (see
@@ -102,7 +102,8 @@ Note that in most cases, `Recog\-nition\-Irreducible\-Soluble\-Matrix\-Group' an
 much slower if <wantmat> is set to true.   
 
 `RecognitionIrreducibleSolubleMatrixGroupNC' does not check its arguments. If
-the group <G> is beyond the scope of the {\IRREDSOL} library (see "IsAvailableIdIrreducibleSolubleMatrixGroup"), `RecognitionIrreducibleSolubleMatrixGroupNC' returns `fail', while `RecognitionIrreducibleSolubleMatrixGroup' raises an error.
+the group <G> is beyond the scope of the {\IRREDSOL} library (see "IsAvailableIdIrreducibleSolubleMatrixGroup"), 
+`RecognitionIrreducibleSolubleMatrixGroupNC' returns `fail', while `RecognitionIrreducibleSolubleMatrixGroup' raises an error.
 
 \beginexample
 gap> G := IrreducibleSolubleMatrixGroup(6, 2, 3, 5) ^
@@ -150,14 +151,14 @@ Note that the ids returned by the functions for absolutely irreducible groups wa
 \index{compatibility!with other data libraries}
 
 A library of irreducible soluble subgroups of $GL(n, p)$, where $p$ is a 
-prime and $p^n \leq 255$ already exists in {\GAP}, see Section "ref:Irreducible Solvable Matrix Groups" in the {\GAP} reference manual. The following functions
+prime and $p^n \leq 255$ already exists in {\GAP}, see {\PrimGrp} reference manual "primgrp:Irreducible Solvable Matrix Groups". The following functions
 allow one to translate between between that library and the {\IRREDSOL} library. 
 
 
 \>IdIrreducibleSolubleMatrixGroupIndexMS(<n>, <p>, <k>) F
 
 This function returns the id (see "IdIrreducibleSolubleMatrixGroup") of <G>, 
-where <G> is `IrreducibleSolubleGroupMS'(<n>, <p>, <k>) (see "ref:IrreducibleSolvableGroupMS" in the {\GAP} reference manual).
+where <G> is `IrreducibleSolubleGroupMS'(<n>, <p>, <k>) (see {\PrimGrp} reference manual "primgrp:`IrreducibleSolvableGroupMS'") .
 
 \beginexample
 gap> IdIrreducibleSolubleMatrixGroupIndexMS(6, 2, 5);
@@ -177,7 +178,7 @@ true
 \>IndexMSIdIrreducibleSolubleMatrixGroup(<n>, <q>, <d>, <k>) F
 
 This function returns a triple [<n>, <p>, <l>] such that
-`IrreducibleSolubleGroupMS'(<n>, <p>, <l>) (see "ref:IrreducibleSolvableGroupMS" in the {\GAP} reference manual) is conjugate to
+`IrreducibleSolubleGroupMS'(<n>, <p>, <l>) (see {\PrimGrp}  reference manual  "primgrp:`IrreducibleSolvableGroupMS'") is conjugate to
 `IrreducibleSolubleMatrixGroup'(<n>, <q>, <d>, <k>) (see "IrreducibleSolubleMatrixGroup").
 
 \beginexample

@@ -70,9 +70,8 @@ with the same arguments.
 For a given irreducible soluble matrix group <G> over a prime field, this function
 returns a primitive pc group <H> which is the split extension of <G> with its natural
 underlying vector space~<V>. The `NC' version does not check whether <G> is over a prime field, 
-or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle" 
-in the {\GAP} reference manual, corresponding to~<V>. If the package {\CRISP} is loaded, 
-then the attribute `SocleComplement' (see "crisp:SocleComplement" in the {\CRISP} manual) is set to a subgroup of 
+or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle"), corresponding to~<V>. If the package {\CRISP} is loaded, 
+then the attribute `SocleComplement' (see {\CRISP} reference manual "crisp:SocleComplement") is set to a subgroup of 
 <H> isomorphic with <G>.
 
 \beginexample
@@ -91,8 +90,7 @@ gap> PrimitivePcGroupIrreducibleMatrixGroup(
 For a given irreducible soluble matrix group <G> over a prime field, this function
 returns a primitive permutation group~<H>, representing the affine action of <G> on its natural
 vector space~<V>. The `NC' version does not check whether <G> is over a prime field, 
-or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle" 
-in the {\GAP} reference manual, corresponding to~<V>. If the package {\CRISP} is loaded, 
+or whether <G> is irreducible. The group <H> has an attribute `Socle' (see "ref:Socle"), corresponding to~<V>. If the package {\CRISP} is loaded, 
 then the attribute `SocleComplement' (see "crisp:SocleComplement" in the {\CRISP} manual) is set to a subgroup of 
 <H> isomorphic with <G>.
 
@@ -197,7 +195,7 @@ is functionally equivalent to
 
 `Iterator'(`AllPrimitivePcGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots))
 
-(see "ref:Iterators" in the {\GAP} reference manual for details) but does not 
+(see "ref:Iterators" for details) but does not 
 compute all relevant pc groups at the same time. 
 This may save some memory. 
 
@@ -288,7 +286,7 @@ is functionally equivalent to
 
 `Iterator'(`AllPrimitiveSolublePermGroups'(<func_1>, <arg_1>, <func_2>, <arg_2>, \dots))
 
-(see "ref:Iterators" in the {\GAP} reference manual for details) but does not 
+(see "ref:Iterators" for details) but does not 
 compute all relevant permutation groups at the same time. 
 
 
