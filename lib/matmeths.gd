@@ -51,13 +51,28 @@ DeclareOperation("IsPrimitive", [IsMatrixGroup, IsField]);
 
 ############################################################################
 ##
+#A  DegreeOfMatrixGroup(<G>)
+##
+##  see IRREDSOL documentation
+##  
+IRREDSOL_tmp := InfoLevel(InfoDebug);
+SetInfoLevel(InfoDebug, 0); # suppress DeclareSynonym warning
+
+DeclareSynonymAttr("DegreeOfMatrixGroup", DimensionOfMatrixGroup);
+DECLARE_IRREDSOL_SYNONYMS_ATTR("DegreeOfMatrixGroup");
+
+SetInfoLevel(InfoDebug,IRREDSOL_tmp);
+
+
+############################################################################
+##
 #A  MinimalBlockDimensionOfMatrixGroup(<G>)
 #A  MinimalBlockDimensionOfMatrixGroup(<G>, <F>)
 #O  MinimalBlockDimension(<G>, <F>)
 ##
 ##  see IRREDSOL documentation
 ##  
-##  MinimalBlockDImension(<G>) is an attribute declared in the GAP library
+##  MinimalBlockDImension(<G>) is an attribute declared in the primgrps library
 ##
 DeclareAttribute("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup);
 KeyDependentOperation("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
