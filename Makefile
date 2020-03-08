@@ -31,7 +31,7 @@ manexts=.bbl .ind .idx .six .pdf .mst .toc \
 
 testfiles=testall.g randomirred.g # we wrap *.tst as well
 
-update_files=README.in index.in.html PackageInfo.in.g doc/manual.in.tex
+update_files=README.in.txt index.in.html PackageInfo.in.g doc/manual.in.tex
 
 
 tarfile=irredsol/irredsol-$(VERSION).tar
@@ -123,8 +123,8 @@ tar: update_in
 	for file in irredsol/fp/*.fp; \
 		do tar -r $(taropts) $(tarfile) $$file; \
 	done; \
-	tar -r $(taropts) $(tarfile) irredsol/README; \
-	tar -r $(taropts) $(tarfile) irredsol/LICENSE; \
+	tar -r $(taropts) $(tarfile) irredsol/README.txt; \
+	tar -r $(taropts) $(tarfile) irredsol/LICENSE.txt; \
 	bzip2 $(tarfile); \
 	for file in $(update_files); \
 	do \
