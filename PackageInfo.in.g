@@ -33,7 +33,7 @@ BannerString := "\
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/irredsol-IRREDSOL_VERSION",
+ArchiveURL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/irredsol-IRREDSOL_VERSION",
 
 ArchiveFormats := ".tar.bz2", # the others are generated automatically
 
@@ -55,8 +55,8 @@ Status := "accepted",
 CommunicatedBy := "Gerhard Hiss (Aachen)",
 AcceptDate := "08/2006",
 
-README_URL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/README",
-PackageInfoURL := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/PackageInfo.g",
+README_URL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/README",
+PackageInfoURL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/PackageInfo.g",
 
 AbstractHTML := "The <span class=\"pkgname\">GAP</span> package <span \
 class=\"pkgname\">IRREDSOL</span> provides a library of all \

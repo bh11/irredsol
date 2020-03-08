@@ -37,3 +37,5 @@ doc/manual.in.ilg
 doc/manual.in.ind
 IrredSolConst
 doc/summary.log
+PackageInfo.g.txt
+README.txt

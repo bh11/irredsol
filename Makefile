@@ -40,6 +40,8 @@ taropts=-s /irredsol/irredsol-$(VERSION)/ -f
 
 default: update_in
 
+release: dist
+
 dist: testver update_in manual tar
 
 testver:
