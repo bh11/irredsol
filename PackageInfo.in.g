@@ -56,7 +56,7 @@ CommunicatedBy := "Gerhard Hiss (Aachen)",
 AcceptDate := "08/2006",
 
 README_URL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/README.txt",
-PackageInfoURL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/PackageInfo.g",
+PackageInfoURL := "https://github.com/bh11/irredsol/releases/latest/download/PackageInfo.g",
 
 AbstractHTML := "The <span class=\"pkgname\">GAP</span> package <span \
 class=\"pkgname\">IRREDSOL</span> provides a library of all \
