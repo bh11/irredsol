@@ -55,13 +55,12 @@ DeclareOperation("IsPrimitive", [IsMatrixGroup, IsField]);
 ##
 ##  see IRREDSOL documentation
 ##  
-IRREDSOL_tmp := InfoLevel(InfoDebug);
-SetInfoLevel(InfoDebug, 0); # suppress DeclareSynonym warning
-
-DeclareSynonymAttr("DegreeOfMatrixGroup", DimensionOfMatrixGroup);
+if not IsBound(DegreeOfMatrixGroup) then
+    # DegreeOfMatrixGroup is also declared identically in primgrp, so to
+    # avoid warnings we only define it if necessary
+    DeclareSynonymAttr("DegreeOfMatrixGroup", DimensionOfMatrixGroup);
+fi;
 DECLARE_IRREDSOL_SYNONYMS_ATTR("DegreeOfMatrixGroup");
-
-SetInfoLevel(InfoDebug,IRREDSOL_tmp);
 
 
 ############################################################################
