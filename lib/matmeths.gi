@@ -27,11 +27,6 @@ InstallMethod(DegreeOfMatrixGroup, "for matrix group with dimension", true,
     Dimension);
 
 
-InstallMethod(DegreeOfMatrixGroup, "for matrix group with dimension", true, 
-    [IsMatrixGroup and HasDimensionOfMatrixGroup], 0,
-    DimensionOfMatrixGroup);
-
-
 ############################################################################
 ##
 #M  IsIrreducible(<G>)
