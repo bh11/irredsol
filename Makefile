@@ -1,6 +1,7 @@
 SHELL=/bin/bash
 VERSION=1.4.dev
 DATE=$(shell echo `date "+%d/%m/%Y"`)
+YEAR=$(shell echo `date "+%Y"`)
 GAPROOT=../..
 PKGROOT=..
 TESTOPTS=-b -m 100m -o 1g -A -q -x 80
@@ -31,7 +32,7 @@ manexts=.bbl .ind .idx .six .pdf .mst .toc \
 
 testfiles=testall.g randomirred.g # we wrap *.tst as well
 
-update_files=README.in.txt index.in.html PackageInfo.in.g doc/manual.in.tex
+update_files=README.in.txt index.in.html PackageInfo.in.g doc/manual.in.tex LICENSE.in.txt
 
 
 tarfile=irredsol/irredsol-$(VERSION).tar
@@ -57,6 +58,7 @@ update_in:
 		rm -f $$outfile; \
 		sed -e "s%IRREDSOL_VERSION%$(VERSION)%g" \
 		-e "s%IRREDSOL_DATE%$(DATE)%"  \
+		-e "s%IRREDSOL_YEAR%$(YEAR)%"  \
 		-e "s%\\\\GAPROOT%$(TEXROOT)%" \
 		-e "s%\\\\PKGROOT%$(TEXPKGROOT)%" \
 			$$file \
