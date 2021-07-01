@@ -1,0 +1,30 @@
+# check for staged changes
+# pull git repo
+# push changes to git repo
+
+make tar VERSION= …
+
+open https://github.com/bh11/irredsol/releases
+
+create new release + new tag
+
+# upload tar.bz2
+# upload LICENSE.txt
+# upload packageinfo.g
+# upload README.txt
+
+# connect to TU BS via VPN
+
+# open cyberduck 
+# go to sftp://icm2.rz.tu-bs.de/var/www/html/~bhoeflin
+
+# upload tar.bz2
+# upload LICENSE.txt
+# upload packageinfo.g
+# upload README.txt
+# upload index.html
+# upload htm/
+
+
+
+
