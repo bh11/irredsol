@@ -33,7 +33,7 @@ BannerString := "\
 ##  the format extension(s), like '.zoo', which are given next.
 ##  The archive file name *must be changed* with each version of the archive
 ##  (and probably somehow contain the package name and version).
-ArchiveURL := "https://github.com/bh11/irredsol/releases/latest/download/irredsol-IRREDSOL_VERSION",
+ArchiveURL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/irredsol-IRREDSOL_VERSION",
 
 ArchiveFormats := ".tar.bz2", # the others are generated automatically
 
