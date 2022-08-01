@@ -78,7 +78,11 @@ manual.html:
 	mkdir -p htm; \
 	rm -f htm/CHAP00?.htm; \
 	perl $(GAPROOT)/etc/convert.pl -n IRREDSOL -c -i -u doc htm; \
-	chmod -R a+r htm \
+	chmod -R a+r htm
+	# Work around an old bug in the old GAP documentation system which
+	# prevents it from opening HTML versions of appendices in a web browser.
+	# For details, see <https://github.com/gap-system/gap/issues/4430>.
+	ln -sf CHAP00A.htm htm/CHAP006.htm
 
 manual: manual.pdf manual.html
 
