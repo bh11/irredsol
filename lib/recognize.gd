@@ -65,7 +65,7 @@ DeclareGlobalFunction("ConjugatingMatIrreducibleOrFail");
 ##
 ##  computes a matrix x such that G^x = H or returns fail if no such x exists
 ##
-##  The function works best if d is small. Irreducibility is only requried 
+##  The function works best if d is small. Irreducibility is only required 
 ##  if ConjugatingMatIrreducibleOrFail is used
 ##
 DeclareGlobalFunction("ConjugatingMatImprimitiveOrFail");

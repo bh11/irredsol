@@ -550,7 +550,7 @@ end);
 ##  computes record x with a single component x.mat such that G^x.mat = H 
 ##  or returns fail if no such x.mat exists
 ##
-##  The function works best if d is small. Irreducibility is only requried 
+##  The function works best if d is small. Irreducibility is only required 
 ##  if ConjugatingMatIrreducibleOrFail is used
 ##
 InstallGlobalFunction(ConjugatingMatImprimitiveOrFail, function(G, H, d, F)
@@ -697,7 +697,7 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
 
                     Info(InfoIrredsol, 1, "computing fingerprint of group");
                     
-                    # which distingushing elements are in G?
+                    # which distinguishing elements are in G?
                     
                     if IsEmpty(fpinfo[1]) then
                         Info(InfoIrredsol, 1, "all groups have the same fingerprint");

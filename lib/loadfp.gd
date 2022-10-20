@@ -68,7 +68,7 @@ DECLARE_IRREDSOL_FUNCTION("TryLoadAbsolutelyIrreducibleSolubleGroupFingerprintDa
 ##  list with three elements, the first being the group order (i.e., <o>), 
 ##  The second is a set of integers from [1..Length(elms)], indicating 
 ##  which entries in elms occur in F. The third is a list of the indices
-##  of the gropus having that fingerprint F.
+##  of the groups having that fingerprint F.
 ##  
 DECLARE_IRREDSOL_FUNCTION("LoadAbsolutelyIrreducibleSolubleGroupFingerprintData");
 

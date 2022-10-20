@@ -11,7 +11,7 @@
 #F  SelectionIrreducibleSolubleMatrixGroups(n, q, d, indices, orders, blockdims, max)
 ##
 ##  selects the subset of <indices> corresponding to those irreducible 
-##  matrix gropus whose orders are in <orders>, whose minimal block dims are in 
+##  matrix groups whose orders are in <orders>, whose minimal block dims are in 
 ##  <blockdims>. if max is true and d = 1, only the maximal soluble groups are returned,
 ##  if max is false, the non-maximal ones are returned. 
 ##  To ignore one of the parameters orders, blockdims, max, set it to fail

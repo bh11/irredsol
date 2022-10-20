@@ -116,7 +116,7 @@ DECLARE_IRREDSOL_SYNONYMS("IsMaximalAbsolutelyIrreducibleSolubleMatrixGroup");
 ##  G is a group, F a field, hom a homomorphism G -> GL(n, F), limit an integer
 ##  The function returns an integer k such that Im hom has a block system 
 ##  of block dimension k, where k < limit, or k >= limit and G has no
-##  block system of block dimesnion < limit
+##  block system of block dimension < limit
 ##  
 DeclareGlobalFunction("SmallBlockDimensionOfRepresentation");
 
