@@ -301,7 +301,7 @@ InstallMethod(IsPrimitiveMatrixGroupOp, "for matrix group over finite field, try
 ##  field such that Image(hom, G) is irreducible over F. limit is an integer
 ##  The function returns an integer k such that Im hom has a block system 
 ##  of block dimension k, where k < limit, or k >= limit and G has no
-##  block system of block dimesnion < limit
+##  block system of block dimension < limit
 ##  
 InstallGlobalFunction(SmallBlockDimensionOfRepresentation, function(G, hom, F, limit)
 

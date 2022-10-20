@@ -133,7 +133,7 @@ InstallGlobalFunction(IrreducibleSolubleMatrixGroup,
 
             perm := IRREDSOL_DATA.GAL_PERM[n][q]^LogInt(q0, p);
                             
-            # check if k is a valid paramter, i. e., least in orbit
+            # check if k is a valid parameter, i. e., least in orbit
 
             l := k^perm; 
             while l <> k do
