@@ -5,4 +5,4 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-IRREDSOL_DATA.FP_INDEX[11][3] := [ [ 22528, 112640 ], [ 1, 1 ] ];
+IRREDSOL_DATA.FP_INDEX[11][3] := [ [ 22528,112640 ],[ 1,1 ] ];

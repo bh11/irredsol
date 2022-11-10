@@ -2,22 +2,22 @@
 ##
 ##  gl_4_2.grp                   IRREDSOL                  Burkhard Hoefling
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling,
+##  Institut fuer Geometrie,Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig,Germany
 ##
 
 IRREDSOL_DATA.GUARDIANS[4][2] := [
-[ [ 8580, 33841, 50209, 33842, 51233 ], 72, 1057721522216451, 2, 1 ],
-[ [ 31025, 8557, 46625, 5083 ], 60, 309223985736467, 4, 1 ],
+[ [ 8580,33841,50209,33842,51233 ],72,1057721522216451,2,1 ],
+[ [ 31025,8557,46625,5083 ],60,309223985736467,4,1 ],
 ];
 
 IRREDSOL_DATA.GROUPS[4][2] := [
-[ 1, 31 ],
-[ 1, 91 ],
-[ 1, 123 ],
-[ 2, 15 ],
-[ 2, 13 ],
+[ 1,31 ],
+[ 1,91 ],
+[ 1,123 ],
+[ 2,15 ],
+[ 2,13 ],
 ];
 
 IRREDSOL_DATA.GAL_PERM[4][2] := ();

@@ -2,17 +2,17 @@
 ##
 ##  gl_2_2.grp                   IRREDSOL                  Burkhard Hoefling
 ##
-##  Copyright (C) 2003-2005 by Burkhard Hoefling, 
-##  Institut fuer Geometrie, Algebra und Diskrete Mathematik
-##  Technische Universitaet Braunschweig, Germany
+##  Copyright (C) 2003-2005 by Burkhard Hoefling,
+##  Institut fuer Geometrie,Algebra und Diskrete Mathematik
+##  Technische Universitaet Braunschweig,Germany
 ##
 
 IRREDSOL_DATA.GUARDIANS[2][2] := [
-[ [ 13, 7 ], 6, 25, 2, 1 ],
+[ [ 13,7 ],6,25,2,1 ],
 ];
 
 IRREDSOL_DATA.GROUPS[2][2] := [
-[ 1, 3 ],
+[ 1,3 ],
 ];
 
 IRREDSOL_DATA.GAL_PERM[2][2] := ();

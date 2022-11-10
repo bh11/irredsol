@@ -5,4 +5,4 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-IRREDSOL_DATA.FP_INDEX[5][5] := [ [ 160, 320, 640, 1280, 2560, 5120, 10240 ], [ 1, 1, 1, 1, 1, 1, 1 ] ];
+IRREDSOL_DATA.FP_INDEX[5][5] := [ [ 160,320,640,1280,2560,5120,10240 ],[ 1,1,1,1,1,1,1 ] ];
