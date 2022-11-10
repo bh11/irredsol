@@ -178,9 +178,3 @@ DeclareAttribute("SplittingField", IsMatrixGroup);
 ##  trace field of G.
 ##  
 DeclareAttribute("ConjugatingMatTraceField", IsMatrixGroup);
-
-
-############################################################################
-##
-#E
-##

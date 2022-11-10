@@ -601,14 +601,3 @@ InstallGlobalFunction(OnePrimitiveSolublePermGroup,
             return NextIterator(iter);
         fi;
     end);
-
-
-############################################################################
-##
-#E
-##
-            
-        
-        
-
-    

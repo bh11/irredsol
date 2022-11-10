@@ -134,11 +134,3 @@ InstallGlobalFunction(RecognitionPrimitiveSolubleGroup,
         fi;
         return info;
     end);
-             
-
-############################################################################
-##
-#E
-##
-
-    

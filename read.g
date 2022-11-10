@@ -16,9 +16,3 @@ IRREDSOL_Read("lib/primitive.gi");
 IRREDSOL_Read("lib/recognizeprim.gi");
 IRREDSOL_Read("lib/util.gi");
 IRREDSOL_Read("lib/obsolete.gi");
-
-
-############################################################################
-##
-#E
-##

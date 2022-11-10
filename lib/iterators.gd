@@ -78,9 +78,3 @@ DECLARE_IRREDSOL_FUNCTION("OneIrreducibleSolubleMatrixGroup");
 ##  see the IRREDSOL manual
 ##  
 DECLARE_IRREDSOL_FUNCTION("AllIrreducibleSolubleMatrixGroups");
-
-
-############################################################################
-##
-#E
-##  

@@ -23,9 +23,3 @@ DECLARE_IRREDSOL_FUNCTION("RecognitionPrimitiveSolubleGroup");
 DeclareAttribute("IdPrimitiveSolubleGroup", IsGroup);
 DECLARE_IRREDSOL_SYNONYMS_ATTR("IdPrimitiveSolubleGroup");
 DECLARE_IRREDSOL_FUNCTION("IdPrimitiveSolubleGroupNC");
-
-
-############################################################################
-##
-#E
-##

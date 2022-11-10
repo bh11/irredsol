@@ -575,10 +575,3 @@ InstallGlobalFunction(AllIrreducibleSolubleMatrixGroups,
         od;
         return l;
     end);
-        
-
-############################################################################
-##
-#E
-##  
-

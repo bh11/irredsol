@@ -88,9 +88,3 @@ InstallGlobalFunction("IdAbsolutelyIrreducibleSolubleMatrixGroup",
         fi;
         return r{[1,2,4]};
     end);
-    
-
-############################################################################
-##
-#E
-##

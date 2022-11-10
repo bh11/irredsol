@@ -1240,9 +1240,3 @@ InstallGlobalFunction(IndexMSIdIrreducibleSolubleMatrixGroup,
             Error("n, p, d, k must be integers, n > 1, p must be a prime, and d must divide n");
         fi;
     end);
-
-
-############################################################################
-##
-#E
-##

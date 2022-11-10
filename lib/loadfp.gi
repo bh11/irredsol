@@ -275,11 +275,3 @@ InstallGlobalFunction(LoadedAbsolutelyIrreducibleSolubleGroupFingerprints,
         od;
         return data;
     end);
-                        
-
-
-
-###########################################################################
-##
-#E
-##

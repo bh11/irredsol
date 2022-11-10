@@ -142,10 +142,3 @@ DECLARE_IRREDSOL_FUNCTION("AllPrimitiveSolublePermGroups");
 ##  see IRREDSOL documentation
 ##  
 DECLARE_IRREDSOL_FUNCTION("OnePrimitiveSolublePermGroup");
-
-
-
-############################################################################
-##
-#E
-##

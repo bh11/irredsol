@@ -90,9 +90,3 @@ DeclareGlobalFunction("IsMatGroupOverFieldFam");
 ##  tests whether q is a prime power, caching new prime powers
 ##  
 DeclareGlobalFunction("IsPPowerInt");
-
-
-############################################################################
-##
-#E
-##

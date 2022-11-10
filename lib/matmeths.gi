@@ -941,10 +941,4 @@ InstallMethod(ConjugatingMatTraceField, "for irreducible FFE matrix group",
         
         return A;
         
-    end);    
-
-
-############################################################################
-##
-#E
-##
+    end);

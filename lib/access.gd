@@ -72,9 +72,3 @@ DECLARE_IRREDSOL_FUNCTION("IrreducibleSolubleMatrixGroup");
 ##  see the IRREDSOL manual
 ##  
 DECLARE_IRREDSOL_FUNCTION("IndicesMaximalAbsolutelyIrreducibleSolubleMatrixGroups");
-
-
-############################################################################
-##
-#E
-##

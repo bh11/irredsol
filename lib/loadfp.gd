@@ -98,9 +98,3 @@ DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolubleGroupFingerprints")
 ##  see IRREDSOL documentation
 ##  
 DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolubleGroupFingerprints");
-
-
-###########################################################################
-##
-#E
-##

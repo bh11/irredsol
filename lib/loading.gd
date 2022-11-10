@@ -58,9 +58,3 @@ DECLARE_IRREDSOL_FUNCTION("LoadedAbsolutelyIrreducibleSolubleGroupData");
 ##  see IRREDSOL documentation
 ##  
 DECLARE_IRREDSOL_FUNCTION("UnloadAbsolutelyIrreducibleSolubleGroupData");
-
-
-############################################################################
-##
-#E
-##

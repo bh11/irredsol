@@ -7,8 +7,3 @@
 LoadPackage("irredsol", "", false);
 TestDirectory(DirectoriesPackageLibrary("irredsol", "tst"),
     rec(exitGAP := true));
-
-############################################################################
-##
-#E
-##

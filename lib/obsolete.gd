@@ -103,10 +103,3 @@ DECLAE_IRREDSOL_OBSOLETE("AllPrimitiveSolublePermutationGroups",
 ##  
 DECLAE_IRREDSOL_OBSOLETE("OnePrimitiveSolublePermutationGroup", 
     "OnePrimitiveSolublePermGroup");
-
-
-
-############################################################################
-##
-#E
-##

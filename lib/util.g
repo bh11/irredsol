@@ -105,10 +105,3 @@ fi;
 if not IsBound(GroupGeneralMappingByImagesNC) then
     BindGlobal("GroupGeneralMappingByImagesNC", GroupGeneralMappingByImages);
 fi;
-
-
-
-############################################################################
-##
-#E
-##

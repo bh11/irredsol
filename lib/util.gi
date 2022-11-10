@@ -222,9 +222,3 @@ InstallGlobalFunction(IsPPowerInt,
             return false;
         fi;
     end);
-
-
-############################################################################
-##
-#E
-##

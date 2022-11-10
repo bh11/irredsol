@@ -38,9 +38,3 @@ IRREDSOL_DATA.GROUPS[2][32] := [
 #V  IRREDSOL_DATA.GAL_PERM
 ##
 IRREDSOL_DATA.GAL_PERM[2][32] := ();
-
-
-############################################################################
-##
-#E
-##

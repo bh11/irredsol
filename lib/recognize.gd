@@ -150,9 +150,3 @@ DECLARE_IRREDSOL_FUNCTION("IdIrreducibleSolubleMatrixGroupIndexMS");
 ##  see the IRREDSOL manual
 ##  
 DECLARE_IRREDSOL_FUNCTION("IndexMSIdIrreducibleSolubleMatrixGroup");
-
-
-############################################################################
-##
-#E
-##

@@ -297,10 +297,3 @@ InstallGlobalFunction(IsAvailableIrreducibleSolubleGroupData,
         od;
         return true;
     end);
-    
-    
-############################################################################
-##
-#E
-##
-

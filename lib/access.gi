@@ -250,9 +250,3 @@ InstallGlobalFunction(IndicesMaximalAbsolutelyIrreducibleSolubleMatrixGroups,
             return IRREDSOL_DATA.MAX[n][q];
         fi;
     end);
-
-
-############################################################################
-##
-#E
-##

@@ -21,9 +21,3 @@ IRREDSOL_Read("lib/recognize.gd");
 IRREDSOL_Read("lib/primitive.gd");
 IRREDSOL_Read("lib/recognizeprim.gd");
 IRREDSOL_Read("lib/obsolete.gd");
-
-
-############################################################################
-##
-#E
-##
