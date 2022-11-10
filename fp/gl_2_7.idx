@@ -5,4 +5,4 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-IRREDSOL_DATA.FP_INDEX[2][7] := [ [ 8,12,16,24,36,48,72 ],[ 1,1,1,1,1,1,1 ] ];
+IRREDSOL_DATA.FP_INDEX[2][7] := [[8,12,16,24,36,48,72],[1,1,1,1,1,1,1]];

@@ -5,4 +5,4 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-IRREDSOL_DATA.FP_INDEX[3][83] := [ [ 24,984,10086,20172,40344,413526,827052,1654104 ],[ 1,1,1,1,1,1,1,1 ] ];
+IRREDSOL_DATA.FP_INDEX[3][83] := [[24,984,10086,20172,40344,413526,827052,1654104],[1,1,1,1,1,1,1,1]];
