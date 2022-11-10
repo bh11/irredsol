@@ -5,11 +5,6 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-
-############################################################################
-##
-#V  IRREDSOL_DATA.GUARDIANS
-##
 IRREDSOL_DATA.GUARDIANS[22][2] := [
 [
 [ 
@@ -127,11 +122,6 @@ IRREDSOL_DATA.GUARDIANS[22][2] := [
 0066683595550871383733734219895131, 22, 1],
 ];
 
-
-############################################################################
-##
-#V  IRREDSOL_DATA.GROUPS
-##
 IRREDSOL_DATA.GROUPS[22][2] := [
 [1, 33554431],
 [1, 33554430],
@@ -190,9 +180,4 @@ IRREDSOL_DATA.GROUPS[22][2] := [
 [4, 35],
 ];
 
-
-############################################################################
-##
-#V  IRREDSOL_DATA.GAL_PERM
-##
 IRREDSOL_DATA.GAL_PERM[22][2] := ();

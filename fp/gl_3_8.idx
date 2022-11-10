@@ -5,7 +5,4 @@
 ##  Copyright © Burkhard Höfling (burkhard@hoefling.name)
 ##
 
-
-############################################################################
-##
 IRREDSOL_DATA.FP_INDEX[3][8] := [ [ 147 ], [ 1 ] ];
