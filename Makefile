@@ -116,13 +116,16 @@ tar: update_in
 	for file in irredsol/htm/*.htm; \
 		do tar -r $(taropts) $(tarfile) $$file; \
 	done; \
-	for file in irredsol/data/*.grp; \
+	gzip -9 -f -k irredsol/data/*.grp; \
+	for file in irredsol/data/*.grp.gz; \
 		do tar -r $(taropts) $(tarfile) $$file; \
 	done; \
-	for file in irredsol/fp/*.idx; \
+	gzip -9 -f -k irredsol/fp/*.idx; \
+	for file in irredsol/fp/*.idx.gz; \
 		do tar -r $(taropts) $(tarfile) $$file; \
 	done; \
-	for file in irredsol/fp/*.fp; \
+	gzip -9 -f -k irredsol/fp/*.fp; \
+	for file in irredsol/fp/*.fp.gz; \
 		do tar -r $(taropts) $(tarfile) $$file; \
 	done; \
 	tar -r $(taropts) $(tarfile) irredsol/README.txt; \
