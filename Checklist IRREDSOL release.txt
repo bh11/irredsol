@@ -2,7 +2,7 @@
 # pull git repo
 # push changes to git repo
 
-make tar VERSION= …
+make dist VERSION= …
 
 open https://github.com/bh11/irredsol/releases
 
