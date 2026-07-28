@@ -71,11 +71,14 @@ DECLARE_IRREDSOL_SYNONYMS_ATTR("DegreeOfMatrixGroup");
 ##
 ##  see IRREDSOL documentation
 ##  
-##  MinimalBlockDImension(<G>) is an attribute declared in the primgrps library
+##  MinimalBlockDimension(<G>) is an attribute declared in the primgrp package
+##  but since we don't depend it, we simply also declare it here; GAP is fine
+##  with that as long as both declarations are identical
 ##
 DeclareAttribute("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup);
 KeyDependentOperation("MinimalBlockDimensionOfMatrixGroup", IsMatrixGroup, IsField, ReturnTrue);
 DECLARE_IRREDSOL_SYNONYMS_ATTR("MinimalBlockDimensionOfMatrixGroup");
+DeclareAttribute("MinimalBlockDimension", IsMatrixGroup);
 DeclareOperation("MinimalBlockDimension", [IsMatrixGroup, IsField]);
 
 
