@@ -134,7 +134,7 @@ tar: update_in
 	done; \
 	tar -r $(taropts) $(tarfile) irredsol/README.txt; \
 	tar -r $(taropts) $(tarfile) irredsol/LICENSE.txt; \
-	bzip2 $(tarfile); \
+	gzip -9 $(tarfile); \
 	for file in $(update_files); \
 	do \
 		outfile=$${file%.in*}$${file#*.in}; \

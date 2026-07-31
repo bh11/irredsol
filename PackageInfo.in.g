@@ -63,7 +63,7 @@ irreducible soluble subgroups of <i>GL(n,q)</i>, up to conjugacy, \
 for <i>q<sup>n</sup></i> up to 2^24-1, \
 and a library of the primitive soluble groups of degree up to 2^24-1.",
 
-PackageWWWHome := "ttps://github.com/bh11/irredsol/",
+PackageWWWHome := "https://github.com/bh11/irredsol/",
                   
 PackageDoc := rec(
   BookName := "irredsol",

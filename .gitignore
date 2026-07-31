@@ -21,6 +21,7 @@ PackageInfo.g
 index.html
 README
 *.bz2
+*.gz
 doc/manual.in.aux
 doc/manual.in.example-2.tst
 doc/manual.in.example-3.tst
