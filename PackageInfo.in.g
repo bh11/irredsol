@@ -45,7 +45,6 @@ Persons := [
   FirstNames := "Burkhard",
   IsAuthor := true,
   IsMaintainer := true,
-  WWWHome := "http://www.icm.tu-bs.de/~bhoeflin",
   Email := "b.hoefling@tu-bs.de"
   )
 ],
@@ -64,7 +63,7 @@ irreducible soluble subgroups of <i>GL(n,q)</i>, up to conjugacy, \
 for <i>q<sup>n</sup></i> up to 2^24-1, \
 and a library of the primitive soluble groups of degree up to 2^24-1.",
 
-PackageWWWHome := "http://www.icm.tu-bs.de/~bhoeflin/irredsol/index.html",
+PackageWWWHome := "ttps://github.com/bh11/irredsol/",
                   
 PackageDoc := rec(
   BookName := "irredsol",
