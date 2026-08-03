@@ -35,7 +35,7 @@ BannerString := "\
 ##  (and probably somehow contain the package name and version).
 ArchiveURL := "https://github.com/bh11/irredsol/releases/download/IRREDSOL-IRREDSOL_VERSION/irredsol-IRREDSOL_VERSION",
 
-ArchiveFormats := ".tar.bz2", # the others are generated automatically
+ArchiveFormats := ".tar.gz",
 
 TextBinaryFilesPatterns := [ "B*.pdf", "T*" ],
 
