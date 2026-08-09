@@ -1,6 +1,7 @@
 # check for staged changes
 # pull git repo
 # push changes to git repo
+# add symlinks to gap doc, etc and pkg/primgrp directories
 
 make dist VERSION= …
 
