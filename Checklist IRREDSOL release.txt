@@ -10,8 +10,10 @@ create new release + new tag
 
 # upload tar.gz
 # upload LICENSE.txt
-# upload packageinfo.g
+# upload PackageInfo.g
 # upload README.txt
+
+# check 
 
 
 
