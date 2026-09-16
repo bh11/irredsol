@@ -260,7 +260,7 @@ InstallMethod(IsPrimitiveMatrixGroupOp, "for matrix group over finite field, use
         fi;
         iso := NiceMonomorphism (G);
         inv := GroupHomomorphismByFunction(NiceObject (G), G, 
-            h -> PreImagesRepresentative(iso, h),
+            h -> PreImagesRepresentativeNC(iso, h),
             g -> ImageElm(iso, g));
         SetIsBijective (inv, true);
         return SmallBlockDimensionOfRepresentation (NiceObject (G), inv, F, DegreeOfMatrixGroup(G)) = DegreeOfMatrixGroup(G);        
@@ -452,7 +452,7 @@ InstallMethod(MinimalBlockDimensionOfMatrixGroupOp, "for matrix group over finit
         fi;
         iso := NiceMonomorphism (G);
         inv := GroupHomomorphismByFunction(NiceObject (G), G, 
-            h -> PreImagesRepresentative(iso, h),
+            h -> PreImagesRepresentativeNC(iso, h),
             g -> ImageElm(iso, g));
         SetIsBijective (inv, true);
         return SmallBlockDimensionOfRepresentation (NiceObject (G), inv, F, 2);        
@@ -525,7 +525,7 @@ InstallMethod(RepresentationIsomorphism, "for mat group handled by nice mono.", 
         fi;
         
         return GroupHomomorphismByFunction(H, G, 
-            x -> PreImagesRepresentative(nice, x),
+            x -> PreImagesRepresentativeNC(nice, x),
             x -> ImageElm(nice, x));
     end);
     
@@ -544,7 +544,7 @@ InstallMethod(RepresentationIsomorphism, "soluble group: inverse of IsomorphismP
         
         nice := IsomorphismPcGroup(G);
         return GroupHomomorphismByFunction(Range(nice), G, 
-            x -> PreImagesRepresentative(nice, x),
+            x -> PreImagesRepresentativeNC(nice, x),
             x -> ImageElm(nice, x));
     end);
     

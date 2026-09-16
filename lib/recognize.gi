@@ -487,7 +487,7 @@ InstallGlobalFunction(ConjugatingMatIrreducibleRepOrFail,
                     fi;
                 else
                     hom := GroupGeneralMappingByImagesNC(G, H,
-                        List(gens, g -> PreImagesRepresentative(homG, g)), imgs);
+                        List(gens, g -> PreImagesRepresentativeNC(homG, g)), imgs);
                     if not IsGroupHomomorphism(hom) or not IsBijective(hom) then
                         Error("hom is not an isomophism");
                     fi;
@@ -577,7 +577,7 @@ InstallGlobalFunction(ConjugatingMatImprimitiveOrFail, function(G, H, d, F)
                 ImagesSet(hom, G), ImagesSet(hom, H));
         if r <> fail then
             Info(InfoIrredsol, 1, " conjugating matrix found");
-            return rec( mat := PreImagesRepresentative(hom, r));
+            return rec( mat := PreImagesRepresentativeNC(hom, r));
         else
             Info(InfoIrredsol, 1, "groups are not conjugate");
             return fail;
@@ -751,7 +751,7 @@ InstallGlobalFunction(RecognitionAISMatrixGroup,
                 rep := RepresentationIsomorphism(G);
                 SetRepresentationIsomorphism(H,
                         GroupHomomorphismByFunction(Source(rep), H,
-                            g -> tinv * ImageElm(rep, g)*t, h -> PreImagesRepresentative(rep, t*h*tinv)));
+                            g -> tinv * ImageElm(rep, g)*t, h -> PreImagesRepresentativeNC(rep, t*h*tinv)));
                 G := H;
                 
                 # we need the imprimitivity systems of G later anyway, so we can rule out groups
