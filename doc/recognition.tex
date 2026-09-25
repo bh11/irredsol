@@ -151,19 +151,19 @@ Note that the ids returned by the functions for absolutely irreducible groups wa
 \index{compatibility!with other data libraries}
 
 A library of irreducible soluble subgroups of $GL(n, p)$, where $p$ is a 
-prime and $p^n \leq 255$ already exists in {\GAP}, see {\PrimGrp} reference manual "primgrp:Irreducible Solvable Matrix Groups". The following functions
+prime and $p^n \leq 255$ existed in {\GAP} until version 4.1.6. The following functions
 allow one to translate between between that library and the {\IRREDSOL} library. 
-
 
 \>IdIrreducibleSolubleMatrixGroupIndexMS(<n>, <p>, <k>) F
 
-This function returns the id (see "IdIrreducibleSolubleMatrixGroup") of <G>, 
-where <G> is `IrreducibleSolubleGroupMS'(<n>, <p>, <k>) (see {\PrimGrp} reference manual "primgrp:IrreducibleSolvableGroupMS") .
+This function returns the {\IRREDSOL} id (see "IdIrreducibleSolubleMatrixGroup") of <G>, 
+where <G> is the group created by `IrreducibleSolubleGroupMS'(<n>, <p>, <k>) in {\GAP}, available in GAP until GAP 4.16.
 
+\testexamplefalse
 \beginexample
 gap> IdIrreducibleSolubleMatrixGroupIndexMS(6, 2, 5);
 [ 6, 2, 2, 4 ]
-gap> G := IrreducibleSolubleGroupMS(6,2,5);
+gap> G := IrreducibleSolubleGroupMS(6,2,5); # only available until GAP 4.16
 <matrix group of size 27 with 2 generators>
 gap> H := IrreducibleSolubleMatrixGroup(6, 2, 2, 4);
 <matrix group of size 27 with 3 generators>
@@ -178,13 +178,14 @@ true
 \>IndexMSIdIrreducibleSolubleMatrixGroup(<n>, <q>, <d>, <k>) F
 
 This function returns a triple [<n>, <p>, <l>] such that
-`IrreducibleSolubleGroupMS'(<n>, <p>, <l>) (see {\PrimGrp} reference manual "primgrp:IrreducibleSolvableGroupMS") is conjugate to
+`IrreducibleSolubleGroupMS'(<n>, <p>, <l>), available in GAP until GAP 4.16,  is conjugate to
 `IrreducibleSolubleMatrixGroup'(<n>, <q>, <d>, <k>) (see "IrreducibleSolubleMatrixGroup").
 
+\testexamplefalse
 \beginexample
 gap> IndexMSIdIrreducibleSolubleMatrixGroup(6, 2, 2, 7);
 [ 6, 2, 13 ]
-gap> G := IrreducibleSolubleGroupMS(6,2,13);
+gap> G := IrreducibleSolubleGroupMS(6,2,13); # only available until GAP 4.16
 <matrix group of size 63 with 3 generators>
 gap> H := IrreducibleSolubleMatrixGroup(6, 2, 2, 7);
 <matrix group of size 63 with 3 generators>
